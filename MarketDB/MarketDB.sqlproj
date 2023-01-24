@@ -77,10 +77,10 @@
     <Build Include="dbo\Stored Procedures\CreateNewManager.sql" />
     <Build Include="dbo\Stored Procedures\DeleteManager.sql" />
     <Build Include="dbo\Stored Procedures\AddProduct.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteProduct.sql" />
     <Build Include="dbo\Stored Procedures\GetAllProducts.sql" />
     <Build Include="dbo\Stored Procedures\GetAllProductsByGroupId.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateProductCount.sql" />
     <Build Include="dbo\Stored Procedures\UpdateProductName.sql" />
-    <Build Include="dbo\Stored Procedures\UpdateCountName.sql" />
-    <Build Include="dbo\Stored Procedures\DeleteProduct.sql" />
   </ItemGroup>
 </Project>

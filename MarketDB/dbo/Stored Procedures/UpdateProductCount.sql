@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE UpdateCountName
+﻿CREATE PROCEDURE UpdateProductCount
 @id int,
 @count int
 AS
