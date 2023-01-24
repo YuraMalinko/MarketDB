@@ -80,5 +80,6 @@
     <Build Include="dbo\Stored Procedures\GetAllProducts.sql" />
     <Build Include="dbo\Stored Procedures\GetAllProductsByGroupId.sql" />
     <Build Include="dbo\Stored Procedures\UpdateProductName.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateCountName.sql" />
   </ItemGroup>
 </Project>
