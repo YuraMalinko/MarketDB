@@ -1,7 +1,7 @@
 ﻿CREATE PROCEDURE GetAllProducts
 AS
 SELECT
-[Name], [Count], [Group_Id]
+[Id], [Name], [Count], [Group_Id]
 FROM
 [dbo].[Product]
 WHERE
