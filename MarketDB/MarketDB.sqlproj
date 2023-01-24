@@ -76,5 +76,10 @@
     <Build Include="dbo\Tables\Group.sql" />
     <Build Include="dbo\Stored Procedures\CreateNewManager.sql" />
     <Build Include="dbo\Stored Procedures\DeleteManager.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllIsDeleteManager.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllIsNotDeleteManager.sql" />
+    <Build Include="dbo\Stored Procedures\GetSpecificManager.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateNameManager.sql" />
+    <Build Include="dbo\Stored Procedures\UpdatePasswordManager.sql" />
   </ItemGroup>
 </Project>
