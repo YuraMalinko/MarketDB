@@ -76,5 +76,6 @@
     <Build Include="dbo\Tables\Group.sql" />
     <Build Include="dbo\Stored Procedures\CreateNewManager.sql" />
     <Build Include="dbo\Stored Procedures\DeleteManager.sql" />
+    <Build Include="dbo\Stored Procedures\AddProduct.sql" />
   </ItemGroup>
 </Project>
