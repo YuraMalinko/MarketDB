@@ -79,7 +79,7 @@
     <Build Include="dbo\Stored Procedures\GetAllIsDeleteManager.sql" />
     <Build Include="dbo\Stored Procedures\GetAllIsNotDeleteManager.sql" />
     <Build Include="dbo\Stored Procedures\GetManagerByIdAndPassword.sql" />
-    <Build Include="dbo\Stored Procedures\UpdateNameManager.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateLoginManager.sql" />
     <Build Include="dbo\Stored Procedures\UpdatePasswordManager.sql" />
     <Build Include="dbo\Tables\Stocks.sql" />
     <Build Include="dbo\Tables\ProductsReviews.sql" />

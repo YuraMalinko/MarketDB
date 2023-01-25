@@ -1,4 +1,4 @@
-﻿create Procedure dbo.UpdateNameManager
+﻿create Procedure dbo.UpdateLoginManager
 	@IdManager int,
 	@NewLogin nvarchar(100)
 as
