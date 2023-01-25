@@ -95,5 +95,6 @@
     <Build Include="dbo\Stored Procedures\GetAllScoresAndCommentsForAllProducts.sql" />
     <Build Include="dbo\Stored Procedures\GetAllCommentsForAllProducts.sql" />
     <Build Include="dbo\Stored Procedures\GetAllScoresForAllProducts.sql" />
+    <Build Include="dbo\Stored Procedures\AddAmountToStocks.sql" />
   </ItemGroup>
 </Project>
