@@ -98,5 +98,6 @@
     <Build Include="dbo\Stored Procedures\AddAmountToStocks.sql" />
     <Build Include="dbo\Stored Procedures\GetAmountByProductId.sql" />
     <Build Include="dbo\Stored Procedures\GetAmountsOfAllProducts.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateAmountOfStocks.sql" />
   </ItemGroup>
 </Project>
