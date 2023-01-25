@@ -92,5 +92,6 @@
     <Build Include="dbo\Stored Procedures\GetScoresAndCommentsForAllProductsByClientId.sql" />
     <Build Include="dbo\Stored Procedures\GetScoresAndCommentsForProductByProductIDAndClientId.sql" />
     <Build Include="dbo\Stored Procedures\GetScoresAndCommentsForProductByProductID.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllScoresAndCommentsForAllProducts.sql" />
   </ItemGroup>
 </Project>
