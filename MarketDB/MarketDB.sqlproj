@@ -79,5 +79,6 @@
     <Build Include="dbo\Tables\Stocks.sql" />
     <Build Include="dbo\Tables\ProductsReviews.sql" />
     <Build Include="dbo\Stored Procedures\AddProduct.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllProducts.sql" />
   </ItemGroup>
 </Project>
