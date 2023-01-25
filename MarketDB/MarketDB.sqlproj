@@ -63,17 +63,17 @@
     <Folder Include="dbo\Stored Procedures\" />
   </ItemGroup>
   <ItemGroup>
-    <Build Include="dbo\Tables\Manager.sql" />
-    <Build Include="dbo\Tables\Order.sql" />
-    <Build Include="dbo\Tables\Client.sql" />
-    <Build Include="dbo\Tables\Comment_For_Client.sql" />
-    <Build Include="dbo\Tables\Order_Product.sql" />
-    <Build Include="dbo\Tables\Product.sql" />
-    <Build Include="dbo\Tables\Tag.sql" />
-    <Build Include="dbo\Tables\Comment_For_Order.sql" />
-    <Build Include="dbo\Tables\Tag_Product.sql" />
-    <Build Include="dbo\Tables\Client_Wishes.sql" />
-    <Build Include="dbo\Tables\Group.sql" />
+    <Build Include="dbo\Tables\Managers.sql" />
+    <Build Include="dbo\Tables\Orders.sql" />
+    <Build Include="dbo\Tables\Clients.sql" />
+    <Build Include="dbo\Tables\CommentsForClients.sql" />
+    <Build Include="dbo\Tables\OrdersProducts.sql" />
+    <Build Include="dbo\Tables\Products.sql" />
+    <Build Include="dbo\Tables\Tags.sql" />
+    <Build Include="dbo\Tables\CommentsForOrders.sql" />
+    <Build Include="dbo\Tables\TagsProducts.sql" />
+    <Build Include="dbo\Tables\ClientsWishes.sql" />
+    <Build Include="dbo\Tables\Groups.sql" />
     <Build Include="dbo\Stored Procedures\CreateNewManager.sql" />
     <Build Include="dbo\Stored Procedures\DeleteManager.sql" />
     <Build Include="dbo\Stored Procedures\GetAllIsDeleteManager.sql" />
@@ -81,5 +81,7 @@
     <Build Include="dbo\Stored Procedures\GetSpecificManager.sql" />
     <Build Include="dbo\Stored Procedures\UpdateNameManager.sql" />
     <Build Include="dbo\Stored Procedures\UpdatePasswordManager.sql" />
+    <Build Include="dbo\Tables\Stocks.sql" />
+    <Build Include="dbo\Tables\ProductsReviews.sql" />
   </ItemGroup>
 </Project>
