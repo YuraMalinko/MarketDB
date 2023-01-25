@@ -82,5 +82,6 @@
     <Build Include="dbo\Stored Procedures\GetAllProducts.sql" />
     <Build Include="dbo\Stored Procedures\GetAllDeletedProducts.sql" />
     <Build Include="dbo\Stored Procedures\GetAllProductsByGroupId.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateProductsName.sql" />
   </ItemGroup>
 </Project>
