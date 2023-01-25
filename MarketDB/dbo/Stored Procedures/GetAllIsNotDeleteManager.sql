@@ -1,4 +1,4 @@
 ﻿create procedure dbo.GetAllManagerIsNotDelete
 as
-	select [Id],[Login] from Manager
-	where [Is_Delete] = 0
+	select [Id],[Login] from Managers
+	where [IsDeleted] = 0
