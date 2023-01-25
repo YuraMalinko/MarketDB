@@ -80,5 +80,6 @@
     <Build Include="dbo\Tables\ProductsReviews.sql" />
     <Build Include="dbo\Stored Procedures\AddProduct.sql" />
     <Build Include="dbo\Stored Procedures\GetAllProducts.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllDeletedProducts.sql" />
   </ItemGroup>
 </Project>
