@@ -89,5 +89,6 @@
     <Build Include="dbo\Stored Procedures\UpdateScoreAndCommentOfProductsReviews.sql" />
     <Build Include="dbo\Stored Procedures\UpdateCommentOfProductsReviews.sql" />
     <Build Include="dbo\Stored Procedures\UpdateScoreOfProductsReviews.sql" />
+    <Build Include="dbo\Stored Procedures\GetScoresAndCommentsForAllProductsByClientId.sql" />
   </ItemGroup>
 </Project>
