@@ -89,5 +89,21 @@
     <Build Include="dbo\Stored Procedures\GetAllProductsByGroupId.sql" />
     <Build Include="dbo\Stored Procedures\UpdateProductsName.sql" />
     <Build Include="dbo\Stored Procedures\DeleteProduct.sql" />
+    <Build Include="dbo\Stored Procedures\AddScoreToProductReview.sql" />
+    <Build Include="dbo\Stored Procedures\AddCommentToProductReview.sql" />
+    <Build Include="dbo\Stored Procedures\AddScoreAndCommentToProductReview.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateScoreAndCommentOfProductsReviews.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateCommentOfProductsReviews.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateScoreOfProductsReviews.sql" />
+    <Build Include="dbo\Stored Procedures\GetScoresAndCommentsForAllProductsByClientId.sql" />
+    <Build Include="dbo\Stored Procedures\GetScoresAndCommentsForProductByProductIDAndClientId.sql" />
+    <Build Include="dbo\Stored Procedures\GetScoresAndCommentsForProductByProductID.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllScoresAndCommentsForProducts.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllCommentsForProducts.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllScoresForProducts.sql" />
+    <Build Include="dbo\Stored Procedures\AddAmountToStocks.sql" />
+    <Build Include="dbo\Stored Procedures\GetAmountByProductId.sql" />
+    <Build Include="dbo\Stored Procedures\GetAmountsOfAllProducts.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateAmountOfStocks.sql" />
   </ItemGroup>
 </Project>
