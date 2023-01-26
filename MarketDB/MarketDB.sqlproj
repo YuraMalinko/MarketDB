@@ -92,9 +92,9 @@
     <Build Include="dbo\Stored Procedures\GetScoresAndCommentsForAllProductsByClientId.sql" />
     <Build Include="dbo\Stored Procedures\GetScoresAndCommentsForProductByProductIDAndClientId.sql" />
     <Build Include="dbo\Stored Procedures\GetScoresAndCommentsForProductByProductID.sql" />
-    <Build Include="dbo\Stored Procedures\GetAllScoresAndCommentsForAllProducts.sql" />
-    <Build Include="dbo\Stored Procedures\GetAllCommentsForAllProducts.sql" />
-    <Build Include="dbo\Stored Procedures\GetAllScoresForAllProducts.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllScoresAndCommentsForProducts.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllCommentsForProducts.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllScoresForProducts.sql" />
     <Build Include="dbo\Stored Procedures\AddAmountToStocks.sql" />
     <Build Include="dbo\Stored Procedures\GetAmountByProductId.sql" />
     <Build Include="dbo\Stored Procedures\GetAmountsOfAllProducts.sql" />

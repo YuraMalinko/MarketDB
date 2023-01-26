@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE GetAllScoresForAllProducts
+﻿CREATE PROCEDURE GetAllScoresForProducts
 AS
 SELECT PR.ProductId, P.Name, PR.Score, PR.ClientId
 FROM [dbo].[ProductsReviews] AS PR
