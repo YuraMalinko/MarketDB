@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE GetAllIsNotDeletedProductsByGroupId
+﻿CREATE PROCEDURE GetAllProductsByGroupId
 @groupId int
 AS
 SELECT

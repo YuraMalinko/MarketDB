@@ -79,9 +79,9 @@
     <Build Include="dbo\Tables\Stocks.sql" />
     <Build Include="dbo\Tables\ProductsReviews.sql" />
     <Build Include="dbo\Stored Procedures\AddProduct.sql" />
-    <Build Include="dbo\Stored Procedures\GetAllIsNotDeletedProducts.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllProducts.sql" />
     <Build Include="dbo\Stored Procedures\GetAllDeletedProducts.sql" />
-    <Build Include="dbo\Stored Procedures\GetAllIsNotDeletedProductsByGroupId.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllProductsByGroupId.sql" />
     <Build Include="dbo\Stored Procedures\UpdateProductsName.sql" />
     <Build Include="dbo\Stored Procedures\DeleteProduct.sql" />
   </ItemGroup>
