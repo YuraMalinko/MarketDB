@@ -8,8 +8,8 @@ product.Name = "green tea";
 product.GroupId = 1;
 
 //var addProduct = pr.AddProduct(product);
-
-var getProduct = pr.GetAllProducts();
+//var getProduct = pr.GetAllProducts();
+var getPrById = pr.GetAllProductsByGroupId(1);
 
 Console.WriteLine();
 

@@ -29,5 +29,17 @@ namespace OfferAggregator.Dal
                     commandType: CommandType.StoredProcedure).ToList();
             }
         }
+
+        public List<ProductsDto> GetAllProductsByGroupId(int groupId)
+        {
+            using (var sqlCncth = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCncth.Open();
+                return sqlCncth.Query<ProductsDto>(
+                    StoredProcedures.GetAllProductsByGroupId,
+                    new { groupId },
+                    commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
     }
 }
