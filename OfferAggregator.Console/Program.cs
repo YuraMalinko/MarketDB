@@ -10,7 +10,8 @@ product.Id = 29;
 //var addProduct = pr.AddProduct(product);
 //var getProduct = pr.GetAllProducts();
 //var getPrById = pr.GetAllProductsByGroupId(1);
-var updPrName = pr.UpdateProductsName(product);
+//var updPrName = pr.UpdateProductsName(product);
+var delProduct = pr.DeleteProduct(29);
 
 Console.WriteLine();
 

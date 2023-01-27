@@ -6,6 +6,7 @@
         public const string GetAllProducts = "GetAllProducts";
         public const string GetAllProductsByGroupId = "GetAllProductsByGroupId";
         public const string UpdateProductsName = "UpdateProductsName";
+        public const string DeleteProduct = "DeleteProduct";
     }
 }
 

@@ -53,5 +53,17 @@ namespace OfferAggregator.Dal
                     commandType: CommandType.StoredProcedure);
             }
         }
+
+        public int DeleteProduct(int id)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                return sqlCnctn.Execute(
+                    StoredProcedures.DeleteProduct,
+                    new { id},
+                    commandType: CommandType.StoredProcedure);
+            }
+        }
     }
 }
