@@ -7,7 +7,9 @@ ProductsDto product = new ProductsDto();
 product.Name = "green tea";
 product.GroupId = 1;
 
-var addProduct = pr.AddProduct(product);
+//var addProduct = pr.AddProduct(product);
+
+var getProduct = pr.GetAllProducts();
 
 Console.WriteLine();
 

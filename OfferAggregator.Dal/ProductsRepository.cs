@@ -18,5 +18,16 @@ namespace OfferAggregator.Dal
                     commandType: CommandType.StoredProcedure);
             }
         }
+
+        public List<ProductsDto> GetAllProducts()
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                return sqlCnctn.Query<ProductsDto>(
+                    StoredProcedures.GetAllProducts,
+                    commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
     }
 }
