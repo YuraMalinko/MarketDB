@@ -41,5 +41,17 @@ namespace OfferAggregator.Dal
                     commandType: CommandType.StoredProcedure).ToList();
             }
         }
+
+        public int UpdateProductsName(ProductsDto product)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                return sqlCnctn.Execute(
+                    StoredProcedures.UpdateProductsName,
+                    new { product.Id, product.Name },
+                    commandType: CommandType.StoredProcedure);
+            }
+        }
     }
 }
