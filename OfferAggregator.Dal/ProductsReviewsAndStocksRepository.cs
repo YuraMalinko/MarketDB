@@ -18,5 +18,17 @@ namespace OfferAggregator.Dal
                                     commandType: CommandType.StoredProcedure);
             }
         }
+
+        public int AddScoreAndCommentToProductReview(ProductReviewsDto prReview)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            { 
+            sqlCnctn.Open();
+                return sqlCnctn.Execute(
+                    StoredProcedures.AddScoreAndCommentToProductReview,
+                    new { prReview.ProductId, prReview.ClientId, prReview.Score, prReview.Comment},
+                    commandType: CommandType.StoredProcedure);
+            }
+        }
     }
 }

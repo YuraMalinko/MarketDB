@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace OfferAggregator.Dal.Models
 {
-    public class ProductdReviewsDto
+    public class ProductReviewsDto
     {
         public int? Score { get; set; }
 
