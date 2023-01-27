@@ -12,8 +12,8 @@ namespace OfferAggregator.Dal.Models
 
         public string Comment { get; set; }
 
-        public int? ClientId { get; set; }
+        public int ClientId { get; set; }
 
-        public int? ProductId { get; set; }
+        public int ProductId { get; set; }
     }
 }

@@ -15,7 +15,8 @@ productReview.Comment = "my score is 5";
 productReview.ClientId = 1;
 productReview.ProductId= 30;
 
-var addStock = prReviewAndStocks.AddScoreAndCommentToProductReview(productReview);
+//var addStock = prReviewAndStocks.AddScoreAndCommentToProductReview(productReview);
 
+prReviewAndStocks.GetAllScoresAndCommentsForProducts();
 
 Console.WriteLine();

@@ -11,5 +11,7 @@ namespace OfferAggregator.Dal
         public const string AddAmountToStocks = "AddAmountToStocks";
 
         public const string AddScoreAndCommentToProductReview = "AddScoreAndCommentToProductReview";
+
+        public const string GetAllScoresAndCommentsForProducts = "GetAllScoresAndCommentsForProducts";
     }
 }
