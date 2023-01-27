@@ -7,9 +7,16 @@ namespace OfferAggregator.Dal
 {
     public class ProductsRepository
     {
-        public int AddProduct(string name)
+        public int AddProduct(ProductsDto product)
         {
-            using (var sqlCnctn = new SqlConnection(Options.))
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                return sqlCnctn.Execute(
+                    StoredProcedures.AddProduct,
+                    new { product.Name, product.GroupId },
+                    commandType: CommandType.StoredProcedure);
+            }
         }
     }
 }
