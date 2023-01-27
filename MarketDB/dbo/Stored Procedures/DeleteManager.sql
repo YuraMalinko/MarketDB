@@ -1,4 +1,4 @@
-﻿create Procedure [dbo].[DeleteManagerById]
+﻿create Procedure [dbo].[DeleteManager]
 	@IdManager int
 as
 	update Managers

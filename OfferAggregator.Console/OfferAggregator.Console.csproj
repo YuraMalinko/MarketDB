@@ -7,4 +7,9 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MarketDB\MarketDB.sqlproj" />
+    <ProjectReference Include="..\OfferAggregator.Dal\OfferAggregator.Dal.csproj" />
+  </ItemGroup>
+
 </Project>
