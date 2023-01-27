@@ -5,3 +5,4 @@ AS
 INSERT INTO [dbo].[Products] ([Name],[GroupId])
 VALUES
 (@name, @groupId)
+SELECT SCOPE_IDENTITY();

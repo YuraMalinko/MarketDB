@@ -12,7 +12,7 @@ namespace OfferAggregator.Dal
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
             {
                 sqlCnctn.Open();
-                return sqlCnctn.Execute(
+                return sqlCnctn.QuerySingle<int>(
                     StoredProcedures.AddProduct,
                     new { product.Name, product.GroupId },
                     commandType: CommandType.StoredProcedure);
