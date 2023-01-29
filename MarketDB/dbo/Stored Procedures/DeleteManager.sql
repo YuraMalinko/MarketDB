@@ -1,6 +1,6 @@
 ﻿create Procedure [dbo].[DeleteManager]
-	@IdManager int
+	@Id int
 as
 	update Managers
 	set [IsDeleted] = 1
-	where [Id]=@IdManager and [IsDeleted] != 1
+	where [Id]=@Id and [IsDeleted] != 1
