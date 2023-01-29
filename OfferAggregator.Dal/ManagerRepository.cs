@@ -31,48 +31,48 @@ namespace OfferAggregator.Dal
             }
         }
 
-        public int AddManager(ManagerDto manager)
+        public void AddManager(ManagerDto manager)
         {
             using (var sqlConnect = new SqlConnection(ConnectOptions.ConnectString))
             {
                 sqlConnect.Open();
-                return sqlConnect.Execute(
+                sqlConnect.QuerySingle(
                     StoredProcedures.AddManager,
                     new { manager.Login, manager.Password },
                     commandType: CommandType.StoredProcedure);
             }
         }
 
-        public int AddManagerDifferently(string login, string password)
+        public void AddManagerDifferently(string login, string password)
         {
             using (var sqlConnect = new SqlConnection(ConnectOptions.ConnectString))
             {
                 sqlConnect.Open();
-                return sqlConnect.Execute(
+                sqlConnect.QuerySingle(
                     StoredProcedures.AddManager,
                     new { login, password },
                     commandType: CommandType.StoredProcedure);
             }
         }
 
-        public int UpdateManager(ManagerDto manager)
+        public void UpdateManager(ManagerDto manager)
         {
             using (var sqlConnect = new SqlConnection(ConnectOptions.ConnectString))
             {
                 sqlConnect.Open();
-                return sqlConnect.Execute(
+                sqlConnect.QuerySingle(
                     StoredProcedures.UpdateManager,
                     new { manager.Id, manager.Login, manager.Password },
                     commandType: CommandType.StoredProcedure);
             }
         }
 
-        public int DeleteManager(int id)
+        public void DeleteManager(int id)
         {
             using (var sqlConnect = new SqlConnection(ConnectOptions.ConnectString))
             {
                 sqlConnect.Open();
-                return sqlConnect.Execute(
+                sqlConnect.QuerySingle(
                     StoredProcedures.DeleteManager,
                     new { id },
                     commandType: CommandType.StoredProcedure);
