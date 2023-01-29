@@ -7,7 +7,7 @@ namespace OfferAggregator.Dal
 {
     public class ProductsReviewsAndStocksRepository
     {
-        public int AddAmountToStocks(StocksDto stock)
+        public int AddAmountToStocks(StocksDtoWithProductName stock)
         {
             using (var sqlCnct = new SqlConnection(Options.ConnectionString))
             {
@@ -70,6 +70,17 @@ namespace OfferAggregator.Dal
                     );
 
                 return result;
+            }
+        }
+
+        public StocksDtoWithProductName GetAmountByProductId(int id)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                return sqlCnctn.Query<StocksDtoWithProductName>(StoredProcedures.GetAmountByProductId,
+                    new { id },
+                    commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
         }
     }

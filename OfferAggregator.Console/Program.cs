@@ -3,7 +3,7 @@ using OfferAggregator.Dal;
 
 var prReviewAndStocks = new ProductsReviewsAndStocksRepository();
 
-StocksDto stock = new StocksDto();
+StocksDtoWithProductName stock = new StocksDtoWithProductName();
 stock.Amount = 100;
 stock.ProductId = 30;
 
