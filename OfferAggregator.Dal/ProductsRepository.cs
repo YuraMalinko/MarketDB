@@ -42,14 +42,14 @@ namespace OfferAggregator.Dal
             }
         }
 
-        public int UpdateProductsName(ProductsDto product)
+        public int UpdateProduct(ProductsDto product)
         {
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
             {
                 sqlCnctn.Open();
                 return sqlCnctn.Execute(
                     StoredProcedures.UpdateProductsName,
-                    new { product.Id, product.Name },
+                    new { product.Id, product.Name, product.GroupId },
                     commandType: CommandType.StoredProcedure);
             }
         }
