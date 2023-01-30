@@ -30,12 +30,20 @@ productReview2.ClientId = 2;
 productReview2.ProductId = 30;
 
 ProductReviewsDto productReview3 = new ProductReviewsDto();
-productReview3.Score = 4;
-productReview3.Comment = "super";
+productReview3.Score = 5;
+productReview3.Comment = "super tea";
 productReview3.ClientId = 2;
 productReview3.ProductId = 12;
 
-var updScoresAndCom = prReviewAndStocks.UpdateScoreAndCommentOfProductsReviews(30, 2, 1, "very bad, dislike");
+ProductReviewsDto productReview4 = new ProductReviewsDto();
+productReview4.Score = 5;
+productReview4.Comment = "i like aHmad tea";
+productReview4.ClientId = 1;
+productReview4.ProductId = 47;
+
+//var updScoresAndComment = prReviewAndStocks.AddScoreAndCommentToProductReview(productReview4);
+
+var updScoresAndCom = prReviewAndStocks.UpdateScoreAndCommentOfProductsReviews(productReview3);
 
 //var addStock = prReviewAndStocks.AddScoreAndCommentToProductReview(productReview);
 
@@ -47,6 +55,6 @@ var updScoresAndCom = prReviewAndStocks.UpdateScoreAndCommentOfProductsReviews(3
 
 //var scoresAndCommentsByProductId = prReviewAndStocks.GetAllScoresAndCommentsForProductByProductId(30);
 
-//var scoresAndCommentsByPrIdAndClId = prReviewAndStocks.GetAllScoresAndCommentsForProductByProductIDAndClientId(2, 12);
+//var scoresAndCommentsByPrIdAndClId = prReviewAndStocks.GetAllScoresAndCommentsForProductByProductIDAndClientId(12,2);
 
 Console.WriteLine();

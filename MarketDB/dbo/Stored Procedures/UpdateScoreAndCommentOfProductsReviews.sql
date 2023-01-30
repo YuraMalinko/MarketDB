@@ -1,13 +1,13 @@
 ﻿CREATE PROCEDURE UpdateScoreAndCommentOfProductsReviews
 @productId int,
 @clientId int,
-@changeScore int,
-@changeComment nvarchar(1000)
+@score int,
+@comment nvarchar(1000)
 AS
 UPDATE [dbo].[ProductsReviews]
 SET 
-[Comment]=@changeComment,
-[Score] = @changeScore
+[Comment]=@comment,
+[Score] = @score
 WHERE
 [ProductId] = @productId AND
 [ClientId] = @clientId

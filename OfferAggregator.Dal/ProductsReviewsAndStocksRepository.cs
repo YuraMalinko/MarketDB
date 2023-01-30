@@ -26,7 +26,8 @@ namespace OfferAggregator.Dal
                 sqlCnctn.Open();
                 return sqlCnctn.Execute(
                     StoredProcedures.AddScoreAndCommentToProductReview,
-                    new { prReview.ProductId, prReview.ClientId, prReview.Score, prReview.Comment },
+                    //new { prReview.ProductId, prReview.ClientId, prReview.Score, prReview.Comment },
+                    prReview,
                     commandType: CommandType.StoredProcedure);
             }
         }
@@ -55,9 +56,6 @@ namespace OfferAggregator.Dal
                         {
                             crnt = prScoreAndComment;
                             result.Add(crnt);
-                        }
-                        if (crnt.ProductReviews is null)
-                        {
                             crnt.ProductReviews = new List<ProductReviewsDto>();
                         }
                         crnt.ProductReviews.Add(prReview);
@@ -118,9 +116,6 @@ namespace OfferAggregator.Dal
                         {
                             crnt = scoresAndComments;
                             result.Add(crnt);
-                        }
-                        if (crnt.ProductReviews is null)
-                        {
                             crnt.ProductReviews = new List<ProductReviewsDto>();
                         }
                         crnt.ProductReviews.Add(reviews);
@@ -159,9 +154,6 @@ namespace OfferAggregator.Dal
                         {
                             crnt = scoresAndComments;
                             result.Add(crnt);
-                        }
-                        if (crnt.ProductReviews is null)
-                        {
                             crnt.ProductReviews = new List<ProductReviewsDto>();
                         }
                         crnt.ProductReviews.Add(reviews);
@@ -200,16 +192,13 @@ namespace OfferAggregator.Dal
                         {
                             crnt = scoresAndComments;
                             result.Add(crnt);
-                        }
-                        if (crnt.ProductReviews is null)
-                        {
                             crnt.ProductReviews = new List<ProductReviewsDto>();
                         }
                         crnt.ProductReviews.Add(reviews);
 
                         return scoresAndComments;
                     },
-                    new { productId, clientId },
+                    new { clientId, productId },
                     splitOn: "Score",
                     commandType: CommandType.StoredProcedure
                     );
@@ -231,14 +220,14 @@ namespace OfferAggregator.Dal
             }
         }
 
-        public bool UpdateScoreAndCommentOfProductsReviews(int productId, int clientId, int changeScore, string changeComment)
+        public bool UpdateScoreAndCommentOfProductsReviews(ProductReviewsDto productReviews)
         {
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
-            { 
-            sqlCnctn.Open();
+            {
+                sqlCnctn.Open();
                 int result = sqlCnctn.Execute(
                     StoredProcedures.UpdateScoreAndCommentOfProductsReviews,
-                    new { productId, clientId, changeScore, changeComment },
+                    new { productReviews.ProductId, productReviews.ClientId, productReviews.Score, productReviews.Comment },
                     commandType: CommandType.StoredProcedure);
                 return result > 0;
             }
