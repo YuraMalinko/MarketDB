@@ -31,12 +31,12 @@ namespace OfferAggregator.Dal
             }
         }
 
-        public void AddManager(ManagerDto manager)
+        public int AddManager(ManagerDto manager)
         {
             using (var sqlConnect = new SqlConnection(ConnectOptions.ConnectString))
             {
                 sqlConnect.Open();
-                sqlConnect.QuerySingle(
+                return sqlConnect.QuerySingle<int>(
                     StoredProcedures.AddManager,
                     new { manager.Login, manager.Password },
                     commandType: CommandType.StoredProcedure);
