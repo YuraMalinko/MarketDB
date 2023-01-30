@@ -94,5 +94,46 @@ namespace OfferAggregator.Dal
                     commandType: CommandType.StoredProcedure).ToList();
             }
         }
+
+        public List<ProductWithScoresAndCommentsDto> GetAllScoresAndCommentsForProductsByClientId(int clientId)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                List<ProductWithScoresAndCommentsDto> result = new List<ProductWithScoresAndCommentsDto>();
+                sqlCnctn.Open();
+                sqlCnctn.Query<ProductWithScoresAndCommentsDto, ProductReviewsDto, ProductWithScoresAndCommentsDto>(
+                    StoredProcedures.GetAllScoresAndCommentsForProductsByClientId,
+                    (scoresAndComments, reviews) =>
+                    {
+                        reviews.ProductId = scoresAndComments.ProductId;
+                        ProductWithScoresAndCommentsDto crnt = null;
+                        foreach (var product in result)
+                        {
+                            if (product.ProductId == scoresAndComments.ProductId)
+                            {
+                                crnt = product;
+                            }
+                        }
+                        if (crnt is null)
+                        {
+                            crnt = scoresAndComments;
+                            result.Add(crnt);
+                        }
+                        if (crnt.ProductReviews is null)
+                        {
+                            crnt.ProductReviews = new List<ProductReviewsDto>();
+                        }
+                        crnt.ProductReviews.Add(reviews);
+
+                        return scoresAndComments;
+                    },
+                    new { clientId },
+                    splitOn: "Score",
+                    commandType: CommandType.StoredProcedure
+                                       );
+
+                return result;
+            }
+        }
     }
 }

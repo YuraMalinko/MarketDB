@@ -19,10 +19,24 @@ productReview.Comment = "my score is 5";
 productReview.ClientId = 1;
 productReview.ProductId= 30;
 
+ProductReviewsDto productReview2 = new ProductReviewsDto();
+productReview2.Score = 3;
+productReview2.Comment = "dont like it";
+productReview2.ClientId = 2;
+productReview2.ProductId = 30;
+
+ProductReviewsDto productReview3 = new ProductReviewsDto();
+productReview3.Score = 4;
+productReview3.Comment = "super";
+productReview3.ClientId = 2;
+productReview3.ProductId = 12;
+
 //var addStock = prReviewAndStocks.AddScoreAndCommentToProductReview(productReview);
 
 //prReviewAndStocks.GetAllScoresAndCommentsForProducts();
 
-var allAmounts = prReviewAndStocks.GetAmountsOfAllProducts();
+//var allAmounts = prReviewAndStocks.GetAmountsOfAllProducts();
+
+var scoresAndCommentsByClientId = prReviewAndStocks.GetAllScoresAndCommentsForProductsByClientId(2);
 
 Console.WriteLine();
