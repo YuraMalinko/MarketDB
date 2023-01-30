@@ -48,7 +48,7 @@ namespace OfferAggregator.Dal
             {
                 sqlCnctn.Open();
                 return sqlCnctn.Execute(
-                    StoredProcedures.UpdateProductsName,
+                    StoredProcedures.UpdateProduct,
                     new { product.Id, product.Name, product.GroupId },
                     commandType: CommandType.StoredProcedure);
             }
