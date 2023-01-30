@@ -23,5 +23,9 @@ namespace OfferAggregator.Dal
         public const string GetAllScoresAndCommentsForProductByProductId = "GetAllScoresAndCommentsForProductByProductId";
 
         public const string GetAllScoresAndCommentsForProductByProductIDAndClientId = "GetAllScoresAndCommentsForProductByProductIDAndClientId";
+
+        public const string UpdateAmountOfStocks = "UpdateAmountOfStocks";
+
+        public const string UpdateScoreAndCommentOfProductsReviews = "UpdateScoreAndCommentOfProductsReviews";
     }
 }

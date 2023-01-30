@@ -217,5 +217,18 @@ namespace OfferAggregator.Dal
                 return result;
             }
         }
+
+        public bool UpdateAmountOfStocks(int productId, int changeAmount)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                int result = sqlCnctn.Execute(
+                     StoredProcedures.UpdateAmountOfStocks,
+                     new { productId, changeAmount },
+                     commandType: CommandType.StoredProcedure);
+                return result > 0;
+            }
+        }
     }
 }

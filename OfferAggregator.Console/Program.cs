@@ -11,6 +11,10 @@ StocksDtoWithProductName stock2 = new StocksDtoWithProductName();
 stock2.Amount = 13;
 stock2.ProductId = 34;
 
+//prReviewAndStocks.AddAmountToStocks(stock2);
+
+var updAmount = prReviewAndStocks.UpdateAmountOfStocks(34, 88);
+
 //var addAmount = prReviewAndStocks.AddAmountToStocks(stock);
 
 ProductReviewsDto productReview= new ProductReviewsDto();
@@ -41,6 +45,6 @@ productReview3.ProductId = 12;
 
 //var scoresAndCommentsByProductId = prReviewAndStocks.GetAllScoresAndCommentsForProductByProductId(30);
 
-var scoresAndCommentsByPrIdAndClId = prReviewAndStocks.GetAllScoresAndCommentsForProductByProductIDAndClientId(2, 12);
+//var scoresAndCommentsByPrIdAndClId = prReviewAndStocks.GetAllScoresAndCommentsForProductByProductIDAndClientId(2, 12);
 
 Console.WriteLine();

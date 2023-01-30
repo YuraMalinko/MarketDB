@@ -5,7 +5,9 @@
 @changeComment nvarchar(1000)
 AS
 UPDATE [dbo].[ProductsReviews]
-SET [Comment]=@changeComment,
+SET 
+[Comment]=@changeComment,
 [Score] = @changeScore
 WHERE
-[ProductId] = @productId AND [ClientId] = @clientId
+[ProductId] = @productId AND
+[ClientId] = @clientId
