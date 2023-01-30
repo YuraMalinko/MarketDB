@@ -7,5 +7,6 @@
         public const string GetSingleManager = "GetSingleManager";
         public const string DeleteManager = "DeleteManager";
         public const string UpdateManager = "UpdateManager";
+        public const string AddOrder = "AddOrder";
     }
 }
