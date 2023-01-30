@@ -130,10 +130,51 @@ namespace OfferAggregator.Dal
                     new { clientId },
                     splitOn: "Score",
                     commandType: CommandType.StoredProcedure
-                                       );
+                    );
 
                 return result;
             }
         }
-    }
+
+        public List<ProductWithScoresAndCommentsDto> GetAllScoresAndCommentsForProductByProductId (int productId)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                List<ProductWithScoresAndCommentsDto> result = new List<ProductWithScoresAndCommentsDto>();
+                sqlCnctn.Open();
+                sqlCnctn.Query<ProductWithScoresAndCommentsDto, ProductReviewsDto, ProductWithScoresAndCommentsDto>(
+                    StoredProcedures.GetAllScoresAndCommentsForProductByProductId,
+                    (scoresAndComments, reviews) =>
+                    {
+                        reviews.ProductId = scoresAndComments.ProductId;
+                        ProductWithScoresAndCommentsDto crnt = null;
+                        foreach (var product in result)
+                        {
+                            if (product.ProductId == scoresAndComments.ProductId)
+                            {
+                                crnt = product;
+                            }
+                        }
+                        if (crnt is null)
+                        {
+                            crnt = scoresAndComments;
+                            result.Add(crnt);
+                        }
+                        if (crnt.ProductReviews is null)
+                        {
+                            crnt.ProductReviews = new List<ProductReviewsDto>();
+                        }
+                        crnt.ProductReviews.Add(reviews);
+
+                        return scoresAndComments;
+                    },
+                    new { productId },
+                    splitOn: "Score",
+                    commandType: CommandType.StoredProcedure
+                    );
+
+                return result;
+            }
+        }
+        }
 }

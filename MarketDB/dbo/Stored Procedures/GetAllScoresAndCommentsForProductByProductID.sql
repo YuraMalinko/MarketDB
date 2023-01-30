@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE GetScoresAndCommentsForProductByProductID
+﻿CREATE PROCEDURE GetAllScoresAndCommentsForProductByProductId
 @productId int
 AS
 SELECT PR.ProductId, P.Name, PR.Score, PR.Comment, PR.ClientId

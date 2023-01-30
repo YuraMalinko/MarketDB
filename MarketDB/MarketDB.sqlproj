@@ -91,9 +91,9 @@
     <Build Include="dbo\Stored Procedures\DeleteProduct.sql" />
     <Build Include="dbo\Stored Procedures\AddScoreAndCommentToProductReview.sql" />
     <Build Include="dbo\Stored Procedures\UpdateScoreAndCommentOfProductsReviews.sql" />
-    <Build Include="dbo\Stored Procedures\GetScoresAndCommentsForProductsByClientId.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllScoresAndCommentsForProductsByClientId.sql" />
     <Build Include="dbo\Stored Procedures\GetScoresAndCommentsForProductByProductIDAndClientId.sql" />
-    <Build Include="dbo\Stored Procedures\GetScoresAndCommentsForProductByProductID.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllScoresAndCommentsForProductByProductID.sql" />
     <Build Include="dbo\Stored Procedures\GetAllScoresAndCommentsForProducts.sql" />
     <Build Include="dbo\Stored Procedures\AddAmountToStocks.sql" />
     <Build Include="dbo\Stored Procedures\GetAmountByProductId.sql" />

@@ -37,6 +37,8 @@ productReview3.ProductId = 12;
 
 //var allAmounts = prReviewAndStocks.GetAmountsOfAllProducts();
 
-var scoresAndCommentsByClientId = prReviewAndStocks.GetAllScoresAndCommentsForProductsByClientId(2);
+//var scoresAndCommentsByClientId = prReviewAndStocks.GetAllScoresAndCommentsForProductsByClientId(2);
+
+var scoresAndCommentsByProductId = prReviewAndStocks.GetAllScoresAndCommentsForProductByProductId(30);
 
 Console.WriteLine();
