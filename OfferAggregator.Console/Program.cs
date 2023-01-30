@@ -13,7 +13,7 @@ stock2.ProductId = 34;
 
 //prReviewAndStocks.AddAmountToStocks(stock2);
 
-var updAmount = prReviewAndStocks.UpdateAmountOfStocks(34, 88);
+//var updAmount = prReviewAndStocks.UpdateAmountOfStocks(34, 88);
 
 //var addAmount = prReviewAndStocks.AddAmountToStocks(stock);
 
@@ -34,6 +34,8 @@ productReview3.Score = 4;
 productReview3.Comment = "super";
 productReview3.ClientId = 2;
 productReview3.ProductId = 12;
+
+var updScoresAndCom = prReviewAndStocks.UpdateScoreAndCommentOfProductsReviews(30, 2, 1, "very bad, dislike");
 
 //var addStock = prReviewAndStocks.AddScoreAndCommentToProductReview(productReview);
 

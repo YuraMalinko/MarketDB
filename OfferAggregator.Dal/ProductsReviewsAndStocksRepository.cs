@@ -230,5 +230,19 @@ namespace OfferAggregator.Dal
                 return result > 0;
             }
         }
+
+        public bool UpdateScoreAndCommentOfProductsReviews(int productId, int clientId, int changeScore, string changeComment)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            { 
+            sqlCnctn.Open();
+                int result = sqlCnctn.Execute(
+                    StoredProcedures.UpdateScoreAndCommentOfProductsReviews,
+                    new { productId, clientId, changeScore, changeComment },
+                    commandType: CommandType.StoredProcedure);
+                return result > 0;
+            }
+        }
     }
 }
+
