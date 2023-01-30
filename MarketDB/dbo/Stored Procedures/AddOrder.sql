@@ -8,3 +8,4 @@ as
 	([DateCreate],[ComplitionDate],[IsDeleted],[ManagerId],[ClientId])
 	values
 	(@DateCreate,@ComplitionDate,0,@ManagerId,@ClientId)
+SELECT @@IDENTITY;
