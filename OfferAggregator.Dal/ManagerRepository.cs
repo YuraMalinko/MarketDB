@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
 using OfferAggregator.Dal.Models;
-using OfferAggregator.Dal.Options;
 using System.Data;
 
 namespace OfferAggregator.Dal
