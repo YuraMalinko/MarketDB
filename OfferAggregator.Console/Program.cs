@@ -17,33 +17,33 @@ stock2.ProductId = 34;
 
 //var addAmount = prReviewAndStocks.AddAmountToStocks(stock);
 
-ProductReviewsDto productReview= new ProductReviewsDto();
-productReview.Score = 5;
-productReview.Comment = "my score is 5";
-productReview.ClientId = 1;
-productReview.ProductId= 30;
+//ProductReviewsDto productReview= new ProductReviewsDto();
+//productReview.Score = 5;
+//productReview.Comment = "my score is 5";
+//productReview.ClientId = 1;
+//productReview.ProductId= 30;
 
-ProductReviewsDto productReview2 = new ProductReviewsDto();
-productReview2.Score = 3;
-productReview2.Comment = "dont like it";
-productReview2.ClientId = 2;
-productReview2.ProductId = 30;
+//ProductReviewsDto productReview2 = new ProductReviewsDto();
+//productReview2.Score = 3;
+//productReview2.Comment = "dont like it";
+//productReview2.ClientId = 2;
+//productReview2.ProductId = 30;
 
-ProductReviewsDto productReview3 = new ProductReviewsDto();
-productReview3.Score = 5;
-productReview3.Comment = "super tea";
-productReview3.ClientId = 2;
-productReview3.ProductId = 12;
+//ProductReviewsDto productReview3 = new ProductReviewsDto();
+//productReview3.Score = 5;
+//productReview3.Comment = "super tea";
+//productReview3.ClientId = 2;
+//productReview3.ProductId = 12;
 
-ProductReviewsDto productReview4 = new ProductReviewsDto();
-productReview4.Score = 5;
-productReview4.Comment = "i like aHmad tea";
-productReview4.ClientId = 1;
-productReview4.ProductId = 47;
+//ProductReviewsDto productReview4 = new ProductReviewsDto();
+//productReview4.Score = 5;
+//productReview4.Comment = "i like aHmad tea";
+//productReview4.ClientId = 1;
+//productReview4.ProductId = 47;
 
-//var updScoresAndComment = prReviewAndStocks.AddScoreAndCommentToProductReview(productReview4);
+////var updScoresAndComment = prReviewAndStocks.AddScoreAndCommentToProductReview(productReview4);
 
-var updScoresAndCom = prReviewAndStocks.UpdateScoreAndCommentOfProductsReviews(productReview3);
+//var updScoresAndCom = prReviewAndStocks.UpdateScoreAndCommentOfProductsReviews(productReview3);
 
 //var addStock = prReviewAndStocks.AddScoreAndCommentToProductReview(productReview);
 
