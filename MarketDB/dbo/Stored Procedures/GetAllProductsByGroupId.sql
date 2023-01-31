@@ -2,7 +2,7 @@
 @groupId int
 AS
 SELECT
-[Name], [GroupId]
+[Id],[Name], [GroupId]
 FROM
 [dbo].[Products]
 WHERE
