@@ -3,4 +3,4 @@
 as
 	update Managers
 	set [IsDeleted] = 1
-	where [Id]=@Id and [IsDeleted] != 1
+	where [Id]=@Id

@@ -12,6 +12,7 @@ namespace OfferAggregator.Dal
             using (var sqlConnect = new SqlConnection(ConnectOptions.ConnectString))
             {
                 sqlConnect.Open();
+
                 return sqlConnect.Query<ManagerDto>(
                     StoredProcedures.GetAllManagers,
                     commandType: CommandType.StoredProcedure).ToList();
@@ -23,10 +24,11 @@ namespace OfferAggregator.Dal
             using (var sqlConnect = new SqlConnection(ConnectOptions.ConnectString))
             {
                 sqlConnect.Open();
-                return sqlConnect.QuerySingle<ManagerDto>(
+
+                return sqlConnect.Query<ManagerDto>(
                     StoredProcedures.GetSingleManager,
                     new { login, password },
-                    commandType: CommandType.StoredProcedure);
+                    commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
         }
 
@@ -35,21 +37,10 @@ namespace OfferAggregator.Dal
             using (var sqlConnect = new SqlConnection(ConnectOptions.ConnectString))
             {
                 sqlConnect.Open();
+
                 return sqlConnect.QuerySingle<int>(
                     StoredProcedures.AddManager,
                     new { manager.Login, manager.Password },
-                    commandType: CommandType.StoredProcedure);
-            }
-        }
-
-        public void AddManagerDifferently(string login, string password)
-        {
-            using (var sqlConnect = new SqlConnection(ConnectOptions.ConnectString))
-            {
-                sqlConnect.Open();
-                sqlConnect.QuerySingle(
-                    StoredProcedures.AddManager,
-                    new { login, password },
                     commandType: CommandType.StoredProcedure);
             }
         }
@@ -59,7 +50,7 @@ namespace OfferAggregator.Dal
             using (var sqlConnect = new SqlConnection(ConnectOptions.ConnectString))
             {
                 sqlConnect.Open();
-                sqlConnect.QuerySingle(
+                sqlConnect.Execute(
                     StoredProcedures.UpdateManager,
                     new { manager.Id, manager.Login, manager.Password },
                     commandType: CommandType.StoredProcedure);
@@ -71,7 +62,7 @@ namespace OfferAggregator.Dal
             using (var sqlConnect = new SqlConnection(ConnectOptions.ConnectString))
             {
                 sqlConnect.Open();
-                sqlConnect.QuerySingle(
+                sqlConnect.Execute(
                     StoredProcedures.DeleteManager,
                     new { id },
                     commandType: CommandType.StoredProcedure);

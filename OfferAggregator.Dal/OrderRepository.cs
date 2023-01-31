@@ -12,6 +12,7 @@ namespace OfferAggregator.Dal
             using (var SqlConnect = new SqlConnection(ConnectOptions.ConnectString))
             {
                 SqlConnect.Open();
+
                 return SqlConnect.QuerySingle<int>(StoredProcedures.AddOrder,
                     new
                     {
@@ -24,12 +25,13 @@ namespace OfferAggregator.Dal
             }
         }
 
-        public void UpdateOrder(OrderDto order)
+        public int UpdateOrder(OrderDto order)
         {
             using (var SqlConnect = new SqlConnection(ConnectOptions.ConnectString))
             {
                 SqlConnect.Open();
-                SqlConnect.QuerySingle(
+
+                return SqlConnect.Execute(
                     StoredProcedures.UpdateOrder,
                     new
                     {
@@ -43,12 +45,13 @@ namespace OfferAggregator.Dal
             }
         }
 
-        public void DeleteOrder(int id)
+        public int DeleteOrder(int id)
         {
             using (var sqlConnect = new SqlConnection(ConnectOptions.ConnectString))
             {
                 sqlConnect.Open();
-                sqlConnect.Query(
+
+                return sqlConnect.Execute(
                     StoredProcedures.DeleteOrder,
                     new { id },
                     commandType: CommandType.StoredProcedure);
@@ -87,7 +90,7 @@ namespace OfferAggregator.Dal
                     },
                     new { managerId },
                     splitOn: "Id",
-                    commandType: CommandType.StoredProcedure) ;
+                    commandType: CommandType.StoredProcedure).ToList();
 
                 return result;
             }
@@ -125,7 +128,7 @@ namespace OfferAggregator.Dal
                     },
                     new { ClientId },
                     splitOn: "Id",
-                    commandType: CommandType.StoredProcedure);
+                    commandType: CommandType.StoredProcedure).ToList();
 
                 return result;
             }
@@ -163,11 +166,10 @@ namespace OfferAggregator.Dal
                         return order;
                     },
                     splitOn: "Id",
-                    commandType: CommandType.StoredProcedure);
+                    commandType: CommandType.StoredProcedure).ToList();
 
                 return result;
             }
         }
-
     }
 }
