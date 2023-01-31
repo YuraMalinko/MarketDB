@@ -3,9 +3,9 @@ using Microsoft.Data.SqlClient;
 using OfferAggregator.Dal.Models;
 using System.Data;
 
-namespace OfferAggregator.Dal
+namespace OfferAggregator.Dal.Repositories
 {
-    public class ProductsReviewsAndStocksRepository
+    public class ProductsReviewsAndStocksRepository : IProductsReviewsAndStocksRepository
     {
         public int AddAmountToStocks(StocksDtoWithProductName stock)
         {

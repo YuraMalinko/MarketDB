@@ -3,9 +3,9 @@ using Dapper;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
-namespace OfferAggregator.Dal
+namespace OfferAggregator.Dal.Repositories
 {
-    public class ProductsRepository
+    public class ProductsRepository : IProductsRepository
     {
         public int AddProduct(ProductsDto product)
         {
@@ -61,7 +61,7 @@ namespace OfferAggregator.Dal
                 sqlCnctn.Open();
                 return sqlCnctn.Execute(
                     StoredProcedures.DeleteProduct,
-                    new { id},
+                    new { id },
                     commandType: CommandType.StoredProcedure);
             }
         }

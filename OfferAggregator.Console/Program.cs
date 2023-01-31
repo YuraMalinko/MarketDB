@@ -1,6 +1,7 @@
 ﻿using OfferAggregator;
 using OfferAggregator.Dal;
 using OfferAggregator.Dal.Models;
+using OfferAggregator.Dal.Repositories;
 using System.Security;
 
 //ManagerRepository MR = new ManagerRepository();
