@@ -104,5 +104,8 @@
     <Build Include="dbo\Stored Procedures\GetAmountsOfAllProducts.sql" />
     <Build Include="dbo\Stored Procedures\UpdateAmountOfStocks.sql" />
     <Build Include="dbo\Stored Procedures\AddOrder.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteOrder.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateOrder.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllOrdersByIdManager.sql" />
   </ItemGroup>
 </Project>

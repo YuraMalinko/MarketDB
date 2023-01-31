@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Security.Cryptography.X509Certificates;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OfferAggregator.Dal.Options
+﻿namespace OfferAggregator.Dal
 {
     public class ConnectOptions
     {
@@ -16,6 +8,5 @@ namespace OfferAggregator.Dal.Options
                             TrustServerCertificate=True;
                             User ID = student;
                             Password=qwe!23;";
-
     }
 }
