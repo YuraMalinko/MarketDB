@@ -102,6 +102,6 @@
     <Build Include="dbo\Stored Procedures\UpdateOrder.sql" />
     <Build Include="dbo\Stored Procedures\GetAllOrdersByIdManager.sql" />
     <Build Include="dbo\Stored Procedures\GetAllOrdersByClientId.sql" />
-    <Build Include="GetAllOrders.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllOrders.sql" />
   </ItemGroup>
 </Project>

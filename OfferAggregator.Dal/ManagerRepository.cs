@@ -9,7 +9,7 @@ namespace OfferAggregator.Dal
     {
         public List<ManagerDto> GetAllManagers()
         {
-            using (var sqlConnect = new SqlConnection(ConnectOptions.ConnectString))
+            using (var sqlConnect = new SqlConnection(Options.ConnectionString))
             {
                 sqlConnect.Open();
 
@@ -21,7 +21,7 @@ namespace OfferAggregator.Dal
 
         public ManagerDto GetSingleManager(string login, string password)
         {
-            using (var sqlConnect = new SqlConnection(ConnectOptions.ConnectString))
+            using (var sqlConnect = new SqlConnection(Options.ConnectionString))
             {
                 sqlConnect.Open();
 
@@ -34,7 +34,7 @@ namespace OfferAggregator.Dal
 
         public int AddManager(ManagerDto manager)
         {
-            using (var sqlConnect = new SqlConnection(ConnectOptions.ConnectString))
+            using (var sqlConnect = new SqlConnection(Options.ConnectionString))
             {
                 sqlConnect.Open();
 
@@ -47,7 +47,7 @@ namespace OfferAggregator.Dal
 
         public void UpdateManager(ManagerDto manager)
         {
-            using (var sqlConnect = new SqlConnection(ConnectOptions.ConnectString))
+            using (var sqlConnect = new SqlConnection(Options.ConnectionString))
             {
                 sqlConnect.Open();
                 sqlConnect.Execute(
@@ -59,7 +59,7 @@ namespace OfferAggregator.Dal
 
         public void DeleteManager(int id)
         {
-            using (var sqlConnect = new SqlConnection(ConnectOptions.ConnectString))
+            using (var sqlConnect = new SqlConnection(Options.ConnectionString))
             {
                 sqlConnect.Open();
                 sqlConnect.Execute(

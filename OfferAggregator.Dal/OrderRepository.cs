@@ -9,7 +9,7 @@ namespace OfferAggregator.Dal
     {
         public int AddOrder(OrderDto order)
         {
-            using (var SqlConnect = new SqlConnection(ConnectOptions.ConnectString))
+            using (var SqlConnect = new SqlConnection(Options.ConnectionString))
             {
                 SqlConnect.Open();
 
@@ -27,7 +27,7 @@ namespace OfferAggregator.Dal
 
         public int UpdateOrder(OrderDto order)
         {
-            using (var SqlConnect = new SqlConnection(ConnectOptions.ConnectString))
+            using (var SqlConnect = new SqlConnection(Options.ConnectionString))
             {
                 SqlConnect.Open();
 
@@ -47,7 +47,7 @@ namespace OfferAggregator.Dal
 
         public int DeleteOrder(int id)
         {
-            using (var sqlConnect = new SqlConnection(ConnectOptions.ConnectString))
+            using (var sqlConnect = new SqlConnection(Options.ConnectionString))
             {
                 sqlConnect.Open();
 
@@ -60,7 +60,7 @@ namespace OfferAggregator.Dal
 
         public List<OrderDto> GetAllOrdersByIdManager(int managerId)
         {
-            using (var SqlConnect = new SqlConnection(ConnectOptions.ConnectString))
+            using (var SqlConnect = new SqlConnection(Options.ConnectionString))
             {
                 var result = new List<OrderDto>();
                 SqlConnect.Open();
@@ -98,7 +98,7 @@ namespace OfferAggregator.Dal
 
         public List<OrderDto> GetAllOrdersByClientId(int ClientId)
         {
-            using (var SqlConnect = new SqlConnection(ConnectOptions.ConnectString))
+            using (var SqlConnect = new SqlConnection(Options.ConnectionString))
             {
                 var result = new List<OrderDto>();
                 SqlConnect.Open();
@@ -136,7 +136,7 @@ namespace OfferAggregator.Dal
 
         public List<OrderDto> GetAllOrders()
         {
-            using (var SqlConnect = new SqlConnection(ConnectOptions.ConnectString))
+            using (var SqlConnect = new SqlConnection(Options.ConnectionString))
             {
                 var result = new List<OrderDto>();
                 SqlConnect.Open();
