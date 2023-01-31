@@ -74,13 +74,11 @@
     <Build Include="dbo\Tables\TagsProducts.sql" />
     <Build Include="dbo\Tables\ClientsWishes.sql" />
     <Build Include="dbo\Tables\Groups.sql" />
-    <Build Include="dbo\Stored Procedures\CreateNewManager.sql" />
-    <Build Include="dbo\Stored Procedures\DeleteManagerById.sql" />
-    <Build Include="dbo\Stored Procedures\GetAllIsDeleteManager.sql" />
-    <Build Include="dbo\Stored Procedures\GetAllIsNotDeleteManager.sql" />
-    <Build Include="dbo\Stored Procedures\GetManagerByIdAndPassword.sql" />
-    <Build Include="dbo\Stored Procedures\UpdateLoginManager.sql" />
-    <Build Include="dbo\Stored Procedures\UpdatePasswordManager.sql" />
+    <Build Include="dbo\Stored Procedures\AddManager.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteManager.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllManagers.sql" />
+    <Build Include="dbo\Stored Procedures\GetSingleManager.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateManager.sql" />
     <Build Include="dbo\Tables\Stocks.sql" />
     <Build Include="dbo\Tables\ProductsReviews.sql" />
     <Build Include="dbo\Stored Procedures\AddProduct.sql" />
@@ -99,5 +97,11 @@
     <Build Include="dbo\Stored Procedures\GetAmountByProductId.sql" />
     <Build Include="dbo\Stored Procedures\GetAmountsOfAllProducts.sql" />
     <Build Include="dbo\Stored Procedures\UpdateAmountOfStocks.sql" />
+    <Build Include="dbo\Stored Procedures\AddOrder.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteOrder.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateOrder.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllOrdersByIdManager.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllOrdersByClientId.sql" />
+    <Build Include="GetAllOrders.sql" />
   </ItemGroup>
 </Project>

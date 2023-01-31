@@ -7,7 +7,12 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <Optimize>False</Optimize>
+  </PropertyGroup>
+
   <ItemGroup>
+    <ProjectReference Include="..\MarketDB\MarketDB.sqlproj" />
     <ProjectReference Include="..\OfferAggregator.Dal\OfferAggregator.Dal.csproj" />
   </ItemGroup>
 
