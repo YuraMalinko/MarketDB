@@ -1,13 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace OfferAggregator.Dal
+﻿namespace OfferAggregator.Dal
 {
     public class StoredProcedures
     {
+        public const string AddProduct = "AddProduct";
+        public const string GetAllProducts = "GetAllProducts";
+        public const string GetAllProductsByGroupId = "GetAllProductsByGroupId";
+        public const string UpdateProduct = "UpdateProduct";
+        public const string DeleteProduct = "DeleteProduct";
         public const string AddAmountToStocks = "AddAmountToStocks";
 
         public const string AddScoreAndCommentToProductReview = "AddScoreAndCommentToProductReview";
