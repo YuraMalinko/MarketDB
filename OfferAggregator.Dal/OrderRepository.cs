@@ -1,7 +1,6 @@
 ﻿using Dapper;
 using Microsoft.Data.SqlClient;
 using OfferAggregator.Dal.Models;
-using OfferAggregator.Dal.Options;
 using System.Data;
 
 namespace OfferAggregator.Dal
@@ -21,7 +20,47 @@ namespace OfferAggregator.Dal
                         order.ManagerId,
                         order.ClientId
                     },
-                    commandType:CommandType.StoredProcedure);
+                    commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        public List<OrderDto> GetAllOrdersByIdManager(int managerId)
+        {
+            using (var SqlConnect = new SqlConnection(ConnectOptions.ConnectString))
+            {
+                var result = new List<OrderDto>();
+
+                SqlConnect.Open();
+                SqlConnect.Query<OrderDto, ClientsDto, OrderDto>(
+                    StoredProcedures.GetAllOrdersByIdManager,
+                    (order, client) =>
+                    {
+                        OrderDto crnt = null;
+
+                        foreach (var o in result)
+                        {
+                            if (o.Id == order.Id)
+                            {
+                                crnt = o;
+                            }
+                        }
+
+                        if (crnt is null)
+                        {
+                            crnt = order;
+                            result.Add(crnt);
+                        }
+
+
+                        crnt.Client = client;
+
+                        return order;
+                    },
+                    new { managerId },
+                    splitOn: "Name",
+                    commandType: CommandType.StoredProcedure) ;
+
+                return result;
             }
         }
     }
