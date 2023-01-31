@@ -107,5 +107,7 @@
     <Build Include="dbo\Stored Procedures\DeleteOrder.sql" />
     <Build Include="dbo\Stored Procedures\UpdateOrder.sql" />
     <Build Include="dbo\Stored Procedures\GetAllOrdersByIdManager.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllOrdersByClientId.sql" />
+    <Build Include="GetAllOrders.sql" />
   </ItemGroup>
 </Project>
