@@ -24,44 +24,150 @@ namespace OfferAggregator.Dal
             }
         }
 
+        public void UpdateOrder(OrderDto order)
+        {
+            using (var SqlConnect = new SqlConnection(ConnectOptions.ConnectString))
+            {
+                SqlConnect.Open();
+                SqlConnect.QuerySingle(
+                    StoredProcedures.UpdateOrder,
+                    new
+                    {
+                        order.Id,
+                        order.DateCreate,
+                        order.ComplitionDate,
+                        order.ManagerId,
+                        order.ClientId
+                    },
+                    commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        public void DeleteOrder(int id)
+        {
+            using (var sqlConnect = new SqlConnection(ConnectOptions.ConnectString))
+            {
+                sqlConnect.Open();
+                sqlConnect.Query(
+                    StoredProcedures.DeleteOrder,
+                    new { id },
+                    commandType: CommandType.StoredProcedure);
+            }
+        }
+
         public List<OrderDto> GetAllOrdersByIdManager(int managerId)
         {
             using (var SqlConnect = new SqlConnection(ConnectOptions.ConnectString))
             {
                 var result = new List<OrderDto>();
-
                 SqlConnect.Open();
                 SqlConnect.Query<OrderDto, ClientsDto, OrderDto>(
                     StoredProcedures.GetAllOrdersByIdManager,
                     (order, client) =>
                     {
-                        OrderDto crnt = null;
+                        OrderDto tmp = null;
 
                         foreach (var o in result)
                         {
                             if (o.Id == order.Id)
                             {
-                                crnt = o;
+                                tmp = o;
                             }
                         }
 
-                        if (crnt is null)
+                        if (tmp is null)
                         {
-                            crnt = order;
-                            result.Add(crnt);
+                            tmp = order;
+                            result.Add(tmp);
                         }
 
-
-                        crnt.Client = client;
+                        tmp.Client = client;
 
                         return order;
                     },
                     new { managerId },
-                    splitOn: "Name",
+                    splitOn: "Id",
                     commandType: CommandType.StoredProcedure) ;
 
                 return result;
             }
         }
+
+        public List<OrderDto> GetAllOrdersByClientId(int ClientId)
+        {
+            using (var SqlConnect = new SqlConnection(ConnectOptions.ConnectString))
+            {
+                var result = new List<OrderDto>();
+                SqlConnect.Open();
+                SqlConnect.Query<OrderDto, ManagerDto, OrderDto>(
+                    StoredProcedures.GetAllOrdersByClientId,
+                    (order, manager) =>
+                    {
+                        OrderDto tmp = null;
+
+                        foreach (var o in result)
+                        {
+                            if (o.Id == order.Id)
+                            {
+                                tmp = o;
+                            }
+                        }
+
+                        if (tmp is null)
+                        {
+                            tmp = order;
+                            result.Add(tmp);
+                        }
+
+                        tmp.Manager = manager;
+
+                        return order;
+                    },
+                    new { ClientId },
+                    splitOn: "Id",
+                    commandType: CommandType.StoredProcedure);
+
+                return result;
+            }
+        }
+
+        public List<OrderDto> GetAllOrders()
+        {
+            using (var SqlConnect = new SqlConnection(ConnectOptions.ConnectString))
+            {
+                var result = new List<OrderDto>();
+                SqlConnect.Open();
+                SqlConnect.Query<OrderDto, ClientsDto,ManagerDto, OrderDto>(
+                    StoredProcedures.GetAllOrders,
+                    (order, client,manager) =>
+                    {
+                        OrderDto tmp = null;
+
+                        foreach (var o in result)
+                        {
+                            if (o.Id == order.Id)
+                            {
+                                tmp = o;
+                            }
+                        }
+
+                        if (tmp is null)
+                        {
+                            tmp = order;
+                            result.Add(tmp);
+                        }
+
+                        tmp.Client = client;
+                        tmp.Manager = manager;
+
+                        return order;
+                    },
+                    splitOn: "Id",
+                    commandType: CommandType.StoredProcedure);
+
+                return result;
+            }
+        }
+
     }
 }
