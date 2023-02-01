@@ -5,7 +5,7 @@ using System.Data;
 
 namespace OfferAggregator.Dal.Repositories
 {
-    public class OrdersProductsRepository
+    public class OrdersProductsRepository : IOrdersProductsRepository
     {
         public bool AddOrdersProductsToOrdersProducts(OrdersProductsDto orderProduct)
         {
