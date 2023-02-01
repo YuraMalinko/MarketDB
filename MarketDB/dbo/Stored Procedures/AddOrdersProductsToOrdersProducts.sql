@@ -5,3 +5,4 @@
 AS
 INSERT INTO [dbo].[OrdersProducts] ([OrderId],[ProductId],[CountProduct])
 VALUES (@orderId, @productId, @countProduct)
+

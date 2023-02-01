@@ -31,6 +31,7 @@
         public const string UpdateAmountOfStocks = "UpdateAmountOfStocks";
 
         public const string UpdateScoreAndCommentOfProductsReviews = "UpdateScoreAndCommentOfProductsReviews";
+
         public const string GetAllManagers = "GetAllManagers";
 
         public const string AddManager = "AddManager";
@@ -52,5 +53,7 @@
         public const string GetAllOrdersByClientId = "GetAllOrdersByClientId";
 
         public const string GetAllOrders = "GetAllOrders";
+
+        public const string AddOrdersProductsToOrdersProducts = "AddOrdersProductsToOrdersProducts";
     }
 }
