@@ -12,6 +12,11 @@ OrdersProductsDto or = new OrdersProductsDto
 
 //orPr.AddOrdersProductsToOrdersProducts(or);
 
-var o = orPr.AddOrdersProductsToOrdersProducts(or);
+//var o = orPr.AddOrdersProductsToOrdersProducts(or);
+
+FullOrderDto order = new FullOrderDto();
+order.OrderId = 17;
+
+var orderResult = orPr.GetAllProductsInOrderByOrderId(17);
 
 Console.WriteLine();
