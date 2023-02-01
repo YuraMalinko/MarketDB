@@ -50,12 +50,19 @@ namespace OfferAggregator.Dal.Repositories
             }
         }
 
-        //public bool UpdateCountProductInOrdersProducts(OrdersProductsDto ordersProducts)
-        //{
-        //    using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
-        //    {
+        public bool UpdateCountProductInOrdersProducts(OrdersProductsDto ordersProducts)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                int result = sqlCnctn.Execute(
+                    StoredProcedures.UpdateCountProductInOrdersProducts,
+                    ordersProducts,
+                    commandType: CommandType.StoredProcedure
+                    );
 
-        //    }
-        //}
+                return result > 0;
+            }
+        }
     }
 }

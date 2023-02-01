@@ -3,11 +3,11 @@ using OfferAggregator.Dal.Repositories;
 
 OrdersProductsRepository orPr = new OrdersProductsRepository();
 
-OrdersProductsDto or = new OrdersProductsDto
+OrdersProductsDto orProd = new OrdersProductsDto
 {
-    OrderId = 15,
-    ProductId = 47,
-    CountProduct = 5
+    OrderId = 10,
+    ProductId = 34,
+    CountProduct = 10
 };
 
 //orPr.AddOrdersProductsToOrdersProducts(or);
@@ -17,6 +17,8 @@ OrdersProductsDto or = new OrdersProductsDto
 FullOrderDto order = new FullOrderDto();
 order.OrderId = 17;
 
-var orderResult = orPr.GetAllProductsInOrderByOrderId(17);
+//var orderResult = orPr.GetAllProductsInOrderByOrderId(17);
+
+var updCount = orPr.UpdateCountProductInOrdersProducts(orProd);
 
 Console.WriteLine();
