@@ -21,43 +21,41 @@ namespace OfferAggregator.Dal.Repositories
             }
         }
 
-        public List<FullOrderDto> GetAllProductsInOrderByOrderId(int orderId)
+        public FullOrderDto GetAllProductsInOrderByOrderId(int orderId)
         {
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
             {
-                List<FullOrderDto> result = new List<FullOrderDto>();
+                FullOrderDto result = null;
                 sqlCnctn.Open();
-                sqlCnctn.Query<FullOrderDto, ProductWithCountDto, FullOrderDto>(
+                sqlCnctn.Query<FullOrderDto, ManagerDto, ClientsDto, ProductWithCountDto, FullOrderDto>(
                     StoredProcedures.GetAllProductsInOrderByOrderId,
-                    (fullOrder, productIdWithCount) =>
+                    (fullOrder, manager, client, productIdWithCount) =>
                     {
-                        FullOrderDto crnt = null;
-
-                        foreach (var o in result)
+                        if (result is null)
                         {
-                            if (o.OrderId == fullOrder.OrderId)
-                            {
-                                crnt = o;
-                            }
+                            result = fullOrder;
+                            result.Manager = manager;
+                            result.Client = client;
+                            result.ProductWithCount = new List<ProductWithCountDto>();
                         }
-
-                        if (crnt is null)
-                        {
-                            crnt = fullOrder;
-                            result.Add(crnt);
-                            crnt.ProductWithCount = new List<ProductWithCountDto>();
-                        }
-
-                        crnt.ProductWithCount.Add(productIdWithCount);
+                        result.ProductWithCount.Add(productIdWithCount);
 
                         return fullOrder;
                     },
-                    new { orderId},
-                    splitOn: "ProductId",
+                    new { orderId },
+                    splitOn: "Id, ProductId",
                     commandType: CommandType.StoredProcedure);
 
                 return result;
             }
         }
+
+        //public bool UpdateCountProductInOrdersProducts(OrdersProductsDto ordersProducts)
+        //{
+        //    using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+        //    {
+
+        //    }
+        //}
     }
 }

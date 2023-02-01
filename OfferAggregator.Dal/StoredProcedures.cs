@@ -57,5 +57,7 @@
         public const string AddOrdersProductsToOrdersProducts = "AddOrdersProductsToOrdersProducts";
 
         public const string GetAllProductsInOrderByOrderId = "GetAllProductsInOrderByOrderId";
+
+        public const string UpdateCountProductInOrdersProducts = "UpdateCountProductInOrdersProducts";
     }
 }
