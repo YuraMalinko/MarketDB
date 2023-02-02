@@ -5,7 +5,7 @@ using System.Data;
 
 namespace OfferAggregator.Dal.Repositories
 {
-    public class TagsRepository
+    public class TagsRepository : ITagsRepository
     {
         public int AddTag(string name)
         {
@@ -51,7 +51,7 @@ namespace OfferAggregator.Dal.Repositories
                 sqlCnctn.Open();
                 return sqlCnctn.Query<TagDto>(
                     StoredProcedures.GetAllTagsByProductId,
-                    new { productId},
+                    new { productId },
                     commandType: CommandType.StoredProcedure).ToList();
             }
         }
@@ -77,7 +77,7 @@ namespace OfferAggregator.Dal.Repositories
                 sqlCnctn.Open();
                 int result = sqlCnctn.Execute(
                     StoredProcedures.DeleteTag,
-                    new { id},
+                    new { id },
                     commandType: CommandType.StoredProcedure);
 
                 return result > 0;
