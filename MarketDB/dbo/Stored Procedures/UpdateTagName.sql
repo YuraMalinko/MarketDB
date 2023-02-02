@@ -6,4 +6,5 @@
   SET
   [Name] = @name
   WHERE
+  [IsDeleted] = 0 AND
   [Id] = @id

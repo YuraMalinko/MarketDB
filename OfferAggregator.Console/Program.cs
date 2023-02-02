@@ -32,6 +32,8 @@ var newTag = new TagDto
     Name = "pork"
 };
 
-var nTag = tR.UpdateTagName(newTag);
+//var nTag = tR.UpdateTagName(newTag);
+
+var deleteTag = tR.DeleteTag(11);
 
 Console.WriteLine("O");
