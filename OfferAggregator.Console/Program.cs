@@ -14,4 +14,12 @@ TagsRepository tR = new TagsRepository();
 
 //var tag = tR.AddTag("black");
 
+TagProductDto beefTenderloin = new TagProductDto
+{
+    TagId = 3,
+    ProductId = 49
+};
+
+var bF = tR.AddTagProduct(beefTenderloin);
+
 Console.WriteLine("O");

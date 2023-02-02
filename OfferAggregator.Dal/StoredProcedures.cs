@@ -55,5 +55,7 @@
         public const string GetAllOrders = "GetAllOrders";
 
         public const string AddTag = "AddTag";
+
+        public const string AddTagProduct = "AddTagProduct";
     }
 }
