@@ -14,8 +14,8 @@ namespace OfferAggregator.Dal.Repositories
                 sqlCnctn.Open();
                 return sqlCnctn.QuerySingle<int>(
                     StoredProcedures.AddTag,
-                    new { name},
-                    commandType:CommandType.StoredProcedure);
+                    new { name },
+                    commandType: CommandType.StoredProcedure);
             }
         }
 
@@ -26,10 +26,21 @@ namespace OfferAggregator.Dal.Repositories
                 sqlCnctn.Open();
                 int result = sqlCnctn.Execute(
                     StoredProcedures.AddTagProduct,
-                    new { tagProduct .TagId, tagProduct.ProductId },
+                    new { tagProduct.TagId, tagProduct.ProductId },
                     commandType: CommandType.StoredProcedure);
 
                 return result > 0;
+            }
+        }
+
+        public List<TagDto> GetAllTags()
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                return sqlCnctn.Query<TagDto>(
+                    StoredProcedures.GetAllTags,
+                    commandType: CommandType.StoredProcedure).ToList();
             }
         }
     }

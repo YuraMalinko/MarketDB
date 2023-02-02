@@ -105,5 +105,6 @@
     <Build Include="dbo\Stored Procedures\GetAllOrders.sql" />
     <Build Include="dbo\Stored Procedures\AddTag.sql" />
     <Build Include="dbo\Stored Procedures\AddTagProduct.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllTags.sql" />
   </ItemGroup>
 </Project>

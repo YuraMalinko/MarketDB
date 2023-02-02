@@ -20,6 +20,8 @@ TagProductDto beefTenderloin = new TagProductDto
     ProductId = 49
 };
 
-var bF = tR.AddTagProduct(beefTenderloin);
+//var bF = tR.AddTagProduct(beefTenderloin);
+
+var allTags = tR.GetAllTags();
 
 Console.WriteLine("O");
