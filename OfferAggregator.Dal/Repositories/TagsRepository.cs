@@ -43,5 +43,17 @@ namespace OfferAggregator.Dal.Repositories
                     commandType: CommandType.StoredProcedure).ToList();
             }
         }
+
+        public List<TagDto> GetAllTagsByProductId(int productId)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                return sqlCnctn.Query<TagDto>(
+                    StoredProcedures.GetAllTagsByProductId,
+                    new { productId},
+                    commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
     }
 }

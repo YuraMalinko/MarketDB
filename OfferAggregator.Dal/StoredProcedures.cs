@@ -59,5 +59,7 @@
         public const string AddTagProduct = "AddTagProduct";
 
         public const string GetAllTags = "GetAllTags";
+
+        public const string GetAllTagsByProductId = "GetAllTagsByProductId";
     }
 }
