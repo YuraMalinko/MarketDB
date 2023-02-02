@@ -34,6 +34,14 @@ var newTag = new TagDto
 
 //var nTag = tR.UpdateTagName(newTag);
 
-var deleteTag = tR.DeleteTag(11);
+//var deleteTag = tR.DeleteTag(11);
+
+ProductReviewsDto prRw = new ProductReviewsDto();
+prRw.ProductId = 12;
+prRw.ClientId = 2;
+
+var prRevSt = new ProductsReviewsAndStocksRepository();
+
+var delPrRew = prRevSt.DeleteProductsReviews(prRw);
 
 Console.WriteLine("O");

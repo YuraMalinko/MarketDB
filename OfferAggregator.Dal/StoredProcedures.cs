@@ -65,5 +65,7 @@
         public const string UpdateTagName = "UpdateTagName";
 
         public const string DeleteTag = "DeleteTag";
+
+        public const string DeleteProductsReviews = "DeleteProductsReviews";
     }
 }
