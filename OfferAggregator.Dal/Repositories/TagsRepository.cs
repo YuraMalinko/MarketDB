@@ -55,5 +55,19 @@ namespace OfferAggregator.Dal.Repositories
                     commandType: CommandType.StoredProcedure).ToList();
             }
         }
+
+        public bool UpdateTagName(TagDto tag)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                int result = sqlCnctn.Execute(
+                    StoredProcedures.UpdateTagName,
+                    tag,
+                    commandType: CommandType.StoredProcedure);
+
+                return result > 0;
+            }
+        }
     }
 }

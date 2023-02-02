@@ -61,5 +61,7 @@
         public const string GetAllTags = "GetAllTags";
 
         public const string GetAllTagsByProductId = "GetAllTagsByProductId";
+
+        public const string UpdateTagName = "UpdateTagName";
     }
 }

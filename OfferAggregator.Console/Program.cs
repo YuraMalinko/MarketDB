@@ -24,6 +24,14 @@ TagProductDto beefTenderloin = new TagProductDto
 
 //var allTags = tR.GetAllTags();
 
-var alltags30 = tR.GetAllTagsByProductId(30);
+//var alltags30 = tR.GetAllTagsByProductId(30);
+
+var newTag = new TagDto
+{
+    Id = 4,
+    Name = "pork"
+};
+
+var nTag = tR.UpdateTagName(newTag);
 
 Console.WriteLine("O");
