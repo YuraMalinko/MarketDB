@@ -9,9 +9,12 @@ ProductModel product = new ProductModel();
 product.Name = "Baltika";
 product.GroupId = 9;
 
-ProductService pM = new ProductService();
+IProductsRepository productsRepository = new ProductsRepository();
+ProductService pM = new ProductService(productsRepository);
 
-var addProduct = pM.AddProduct(product);
+//var addProduct = pM.AddProduct(product);
+
+var getAllProd = pM.GetAllProducts();
 
 Console.WriteLine();
 

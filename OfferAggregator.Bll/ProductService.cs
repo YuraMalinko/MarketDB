@@ -6,6 +6,7 @@ using OfferAggregator.Dal.Models;
 using OfferAggregator.Dal;
 using System.Data;
 using OfferAggregator.Dal.Repositories;
+using Dapper;
 
 namespace OfferAggregator.Bll
 {
@@ -15,7 +16,7 @@ namespace OfferAggregator.Bll
 
         private IProductsRepository _productsRepository;
 
-        public ProductService(IProductsRepository productsRepository) 
+        public ProductService(IProductsRepository productsRepository)
         {
             _productsRepository = productsRepository;
         }
@@ -28,13 +29,30 @@ namespace OfferAggregator.Bll
                 var addProduct = _instanceMapper.MapProductModelToProductsDto(product);
                 result = _productsRepository.AddProduct(addProduct);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 return result;
             }
             return result;
-
         }
 
+        public List<ProductModel> GetAllProducts()
+        {
+            List<ProductsDto> allProducts = _productsRepository.GetAllProducts();
+            var result = _instanceMapper.MapProductsDtosToProductModels(allProducts);
+
+            return result;
+        }
     }
 }
+
+//public List<ProductsDto> GetAllProducts()
+//{
+//    using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+//    {
+//        sqlCnctn.Open();
+//        return sqlCnctn.Query<ProductsDto>(
+//            StoredProcedures.GetAllProducts,
+//            commandType: CommandType.StoredProcedure).ToList();
+//    }
+//}
