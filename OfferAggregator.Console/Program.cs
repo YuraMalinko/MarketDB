@@ -48,6 +48,14 @@ StocksDtoWithProductName stock = new StocksDtoWithProductName();
 stock.ProductId = 8;
 stock.Amount = 6;
 
-var delStock = prRevSt.DeleteStock(stock);
+//var delStock = prRevSt.DeleteStock(stock);
+
+TagProductDto tagProduct = new TagProductDto
+{ 
+TagId = 7,
+ProductId = 4,
+};
+
+var delTagPr = tR.DeleteTagProduct(tagProduct);
 
 Console.WriteLine("O");

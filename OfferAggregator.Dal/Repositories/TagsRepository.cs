@@ -83,5 +83,19 @@ namespace OfferAggregator.Dal.Repositories
                 return result > 0;
             }
         }
+
+        public bool DeleteTagProduct(TagProductDto tagProduct)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            { 
+            sqlCnctn.Open();
+                int result = sqlCnctn.Execute(
+                    StoredProcedures.DeleteTagProduct,
+                    tagProduct,
+                    commandType: CommandType.StoredProcedure);
+
+                return result > 0;
+            }
+        }
     }
 }
