@@ -14,7 +14,9 @@ ProductService pM = new ProductService(productsRepository);
 
 //var addProduct = pM.AddProduct(product);
 
-var getAllProd = pM.GetAllProducts();
+//var getAllProd = pM.GetAllProducts();
+
+var getAllProdByGroupId = pM.GetAllProductsByGroupId(101010);
 
 Console.WriteLine();
 

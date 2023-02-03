@@ -43,16 +43,25 @@ namespace OfferAggregator.Bll
 
             return result;
         }
+
+        public List<ProductModel> GetAllProductsByGroupId(int groupId)
+        {
+            List<ProductsDto> allProducts = _productsRepository.GetAllProductsByGroupId(groupId);
+            var result = _instanceMapper.MapProductsDtosToProductModels(allProducts);
+
+            return result;
+        }
     }
 }
 
-//public List<ProductsDto> GetAllProducts()
+//public List<ProductsDto> GetAllProductsByGroupId(int groupId)
 //{
-//    using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+//    using (var sqlCncth = new SqlConnection(Options.ConnectionString))
 //    {
-//        sqlCnctn.Open();
-//        return sqlCnctn.Query<ProductsDto>(
-//            StoredProcedures.GetAllProducts,
+//        sqlCncth.Open();
+//        return sqlCncth.Query<ProductsDto>(
+//            StoredProcedures.GetAllProductsByGroupId,
+//            new { groupId },
 //            commandType: CommandType.StoredProcedure).ToList();
 //    }
 //}
