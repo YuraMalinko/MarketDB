@@ -26,6 +26,7 @@ namespace OfferAggregator.Bll
             int result = -1;
             try
             {
+                //Добавить проверку по ГроупАйди
                 var addProduct = _instanceMapper.MapProductModelToProductsDto(product);
                 result = _productsRepository.AddProduct(addProduct);
             }
@@ -51,17 +52,33 @@ namespace OfferAggregator.Bll
 
             return result;
         }
+
+        public bool UpdateProduct(ProductModel product)
+        {
+            bool result;
+            try
+            {
+                var productModel = _instanceMapper.MapProductModelToProductsDto(product);
+                result = _productsRepository.UpdateProduct(productModel);
+            }
+            catch (Exception ex) 
+            {
+                return false;
+            }
+
+            return result;
+        }
     }
 }
 
-//public List<ProductsDto> GetAllProductsByGroupId(int groupId)
+//public int UpdateProduct(ProductsDto product)
 //{
-//    using (var sqlCncth = new SqlConnection(Options.ConnectionString))
+//    using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
 //    {
-//        sqlCncth.Open();
-//        return sqlCncth.Query<ProductsDto>(
-//            StoredProcedures.GetAllProductsByGroupId,
-//            new { groupId },
-//            commandType: CommandType.StoredProcedure).ToList();
+//        sqlCnctn.Open();
+//        return sqlCnctn.Execute(
+//            StoredProcedures.UpdateProduct,
+//            new { product.Id, product.Name, product.GroupId },
+//            commandType: CommandType.StoredProcedure);
 //    }
 //}

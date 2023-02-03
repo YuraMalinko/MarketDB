@@ -16,7 +16,14 @@ ProductService pM = new ProductService(productsRepository);
 
 //var getAllProd = pM.GetAllProducts();
 
-var getAllProdByGroupId = pM.GetAllProductsByGroupId(101010);
+//var getAllProdByGroupId = pM.GetAllProductsByGroupId(101010);
+
+ProductModel ovca = new ProductModel();
+ovca.Name = "Sheep";
+ovca.GroupId = 0;
+ovca.Id = 2;
+
+var updPr = pM.UpdateProduct(ovca);
 
 Console.WriteLine();
 

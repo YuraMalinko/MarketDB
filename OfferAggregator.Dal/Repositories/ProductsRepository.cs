@@ -42,27 +42,31 @@ namespace OfferAggregator.Dal.Repositories
             }
         }
 
-        public int UpdateProduct(ProductsDto product)
+        public bool UpdateProduct(ProductsDto product)
         {
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
             {
                 sqlCnctn.Open();
-                return sqlCnctn.Execute(
-                    StoredProcedures.UpdateProduct,
-                    new { product.Id, product.Name, product.GroupId },
-                    commandType: CommandType.StoredProcedure);
+                int result = sqlCnctn.Execute(
+                     StoredProcedures.UpdateProduct,
+                     new { product.Id, product.Name, product.GroupId },
+                     commandType: CommandType.StoredProcedure);
+
+                return result > 0;
             }
         }
 
-        public int DeleteProduct(int id)
+        public bool DeleteProduct(int id)
         {
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
             {
                 sqlCnctn.Open();
-                return sqlCnctn.Execute(
+                int result = sqlCnctn.Execute(
                     StoredProcedures.DeleteProduct,
                     new { id },
                     commandType: CommandType.StoredProcedure);
+
+                return result > 0;
             }
         }
     }
