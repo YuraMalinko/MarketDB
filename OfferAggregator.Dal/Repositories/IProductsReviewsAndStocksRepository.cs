@@ -14,5 +14,7 @@ namespace OfferAggregator.Dal.Repositories
         List<StocksDtoWithProductName> GetAmountsOfAllProducts();
         bool UpdateAmountOfStocks(int productId, int changeAmount);
         bool UpdateScoreAndCommentOfProductsReviews(ProductReviewsDto productReviews);
+        bool DeleteProductsReviews(ProductReviewsDto productReview);
+        bool DeleteStock(StocksDtoWithProductName stock);
     }
 }

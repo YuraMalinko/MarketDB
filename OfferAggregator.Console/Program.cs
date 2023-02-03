@@ -42,6 +42,12 @@ prRw.ClientId = 2;
 
 var prRevSt = new ProductsReviewsAndStocksRepository();
 
-var delPrRew = prRevSt.DeleteProductsReviews(prRw);
+//var delPrRew = prRevSt.DeleteProductsReviews(prRw);
+
+StocksDtoWithProductName stock = new StocksDtoWithProductName();
+stock.ProductId = 8;
+stock.Amount = 6;
+
+var delStock = prRevSt.DeleteStock(stock);
 
 Console.WriteLine("O");
