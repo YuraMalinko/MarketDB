@@ -1,7 +1,6 @@
 ﻿using OfferAggregator.Bll.Models;
 using OfferAggregator.Dal.Models;
 using System.Collections;
-using System.Globalization;
 
 namespace OfferAggregator.Bll.Tests.TestCaseSource
 {
@@ -65,4 +64,3 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
         }
     }
 }
-//(ProductModel baseProductModel, ProductsDto expectedProductsDto)

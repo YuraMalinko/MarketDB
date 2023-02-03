@@ -9,7 +9,7 @@ ProductModel product = new ProductModel();
 product.Name = "Baltika";
 product.GroupId = 9;
 
-ProductMapper pM = new ProductMapper();
+ProductService pM = new ProductService();
 
 var addProduct = pM.AddProduct(product);
 
