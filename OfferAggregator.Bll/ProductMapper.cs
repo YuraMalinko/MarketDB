@@ -16,7 +16,7 @@ namespace OfferAggregator.Bll
         public int AddProduct(ProductModel product)
         {
             ProductsRepository productsRepository = new ProductsRepository();
-            var addProduct = _instanceMapper.MapProductsDtoToProductModel(product);
+            var addProduct = _instanceMapper.MapProductModelToProductsDto(product);
             int result = productsRepository.AddProduct(addProduct);
 
             return result;

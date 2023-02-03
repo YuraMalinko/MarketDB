@@ -13,6 +13,5 @@ ProductMapper pM = new ProductMapper();
 
 var addProduct = pM.AddProduct(product);
 
-
 Console.WriteLine();
 

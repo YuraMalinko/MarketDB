@@ -33,12 +33,12 @@ namespace OfferAggregator.Bll
             return _instanceMapper;
         }
 
-        public List<ProductModel> MapProductsDtoToProductModel(List<ProductsDto> products)
+        public List<ProductModel> MapProductsDtosToProductModels(List<ProductsDto> products)
         {
             return _mapper.Map<List<ProductModel>>(products);
         }
 
-        public ProductsDto MapProductsDtoToProductModel(ProductModel product)
+        public ProductsDto MapProductModelToProductsDto(ProductModel product)
         {
             return _mapper.Map<ProductsDto>(product);
         }
