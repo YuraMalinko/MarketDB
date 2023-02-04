@@ -10,7 +10,7 @@ product.Name = "Baltika";
 product.GroupId = 9;
 
 IProductsRepository productsRepository = new ProductsRepository();
-ProductService pM = new ProductService(productsRepository);
+
 
 //var addProduct = pM.AddProduct(product);
 
@@ -23,7 +23,21 @@ ovca.Name = "Sheep";
 ovca.GroupId = 0;
 ovca.Id = 2;
 
-var updPr = pM.UpdateProduct(ovca);
+//var updPr = pM.UpdateProduct(ovca);
+
+//var delProd = pM.DeleteProduct(505);
+
+ProductsReviewsAndStocksRepository prRev = new ProductsReviewsAndStocksRepository();
+
+//var dlete1 = prRev.DeleteProductReviewByProductId(1);
+
+TagsRepository tR = new TagsRepository();
+
+ProductService pM = new ProductService(productsRepository, prRev, tR);
+
+//var delTag = tR.DeleteTagProductByProductId(1);
+
+var deleteProduct = pM.DeleteProduct(1);
 
 Console.WriteLine();
 

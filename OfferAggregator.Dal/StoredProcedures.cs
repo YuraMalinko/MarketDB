@@ -52,5 +52,9 @@
         public const string GetAllOrdersByClientId = "GetAllOrdersByClientId";
 
         public const string GetAllOrders = "GetAllOrders";
+
+        public const string DeleteProductReviewByProductId = "DeleteProductReviewByProductId";
+
+        public const string DeleteTagProductByProductId = "DeleteTagProductByProductId";
     }
 }

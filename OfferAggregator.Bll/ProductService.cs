@@ -14,11 +14,20 @@ namespace OfferAggregator.Bll
     {
         private Mapper _instanceMapper = Mapper.GetInstance();
 
+
         private IProductsRepository _productsRepository;
 
-        public ProductService(IProductsRepository productsRepository)
+
+        private IProductsReviewsAndStocksRepository _productsReviewsAndStocksRepository;
+
+
+        private ITagsRepository _tagsRepository;
+
+        public ProductService(IProductsRepository productsRepository, IProductsReviewsAndStocksRepository productsReviewsAndStocksRepository, ITagsRepository tagsRepository)
         {
             _productsRepository = productsRepository;
+            _productsReviewsAndStocksRepository = productsReviewsAndStocksRepository;
+            _tagsRepository = tagsRepository;
         }
 
         public int AddProduct(ProductModel product)
@@ -61,9 +70,22 @@ namespace OfferAggregator.Bll
                 var productModel = _instanceMapper.MapProductModelToProductsDto(product);
                 result = _productsRepository.UpdateProduct(productModel);
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 return false;
+            }
+
+            return result;
+        }
+
+        public bool DeleteProduct(int productId)
+        {
+            var result = _productsRepository.DeleteProduct(productId);
+
+            if (result)
+            {
+                _productsReviewsAndStocksRepository.DeleteProductReviewByProductId(productId);
+                _tagsRepository.DeleteTagProductByProductId(productId);
             }
 
             return result;
@@ -71,14 +93,3 @@ namespace OfferAggregator.Bll
     }
 }
 
-//public int UpdateProduct(ProductsDto product)
-//{
-//    using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
-//    {
-//        sqlCnctn.Open();
-//        return sqlCnctn.Execute(
-//            StoredProcedures.UpdateProduct,
-//            new { product.Id, product.Name, product.GroupId },
-//            commandType: CommandType.StoredProcedure);
-//    }
-//}
