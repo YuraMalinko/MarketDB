@@ -21,14 +21,14 @@ namespace OfferAggregator.Dal.Repositories
             }
         }
 
-        public FullOrderDto GetAllProductsInOrderByOrderId(int orderId)
+        public FullOrderDto GetAllInfoInOrderById(int orderId)
         {
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
             {
                 FullOrderDto result = null;
                 sqlCnctn.Open();
                 sqlCnctn.Query<FullOrderDto, ManagerDto, ClientsDto, ProductWithCountDto, FullOrderDto>(
-                    StoredProcedures.GetAllProductsInOrderByOrderId,
+                    StoredProcedures.GetAllInfoInOrderById,
                     (fullOrder, manager, client, productIdWithCount) =>
                     {
                         if (result is null)

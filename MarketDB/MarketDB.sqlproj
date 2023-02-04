@@ -104,7 +104,7 @@
     <Build Include="dbo\Stored Procedures\GetAllOrdersByClientId.sql" />
     <Build Include="dbo\Stored Procedures\GetAllOrders.sql" />
     <Build Include="dbo\Stored Procedures\AddOrdersProductsToOrdersProducts.sql" />
-    <Build Include="dbo\Stored Procedures\GetAllProductsInOrderByOrderId.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllInfoInOrderById.sql" />
     <Build Include="dbo\Stored Procedures\UpdateCountProductInOrdersProducts.sql" />
   </ItemGroup>
 </Project>

@@ -1,4 +1,4 @@
-﻿  CREATE PROCEDURE [dbo].[GetAllProductsInOrderByOrderId]
+﻿  CREATE PROCEDURE [dbo].[GetAllInfoInOrderById]
   @orderId int
   AS
   SELECT

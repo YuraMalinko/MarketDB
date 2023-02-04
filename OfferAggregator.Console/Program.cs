@@ -17,8 +17,8 @@ OrdersProductsDto orProd = new OrdersProductsDto
 FullOrderDto order = new FullOrderDto();
 order.OrderId = 17;
 
-//var orderResult = orPr.GetAllProductsInOrderByOrderId(17);
+var orderResult = orPr.GetAllInfoInOrderById(17);
 
-var updCount = orPr.UpdateCountProductInOrdersProducts(orProd);
+//var updCount = orPr.UpdateCountProductInOrdersProducts(orProd);
 
 Console.WriteLine();

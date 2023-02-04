@@ -56,7 +56,7 @@
 
         public const string AddOrdersProductsToOrdersProducts = "AddOrdersProductsToOrdersProducts";
 
-        public const string GetAllProductsInOrderByOrderId = "GetAllProductsInOrderByOrderId";
+        public const string GetAllInfoInOrderById = "GetAllInfoInOrderById";
 
         public const string UpdateCountProductInOrdersProducts = "UpdateCountProductInOrdersProducts";
     }
