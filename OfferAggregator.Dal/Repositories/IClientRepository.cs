@@ -1,0 +1,17 @@
+﻿using OfferAggregator.Dal.Models;
+
+namespace OfferAggregator.Dal.Repositories
+{
+    public interface IClientRepository
+    {
+        public int AddClient(ClientsDto client);
+
+        public bool UpdateClient(ClientsDto client);
+
+        public bool DeleteClient(int id);
+
+        public List<ClientsDto> GetAllClients();
+
+        public List<ProductsDto> GetAllPurchasedProductsByClientId(int id);
+    }
+}
