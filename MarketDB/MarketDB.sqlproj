@@ -103,5 +103,10 @@
     <Build Include="dbo\Stored Procedures\GetAllOrdersByIdManager.sql" />
     <Build Include="dbo\Stored Procedures\GetAllOrdersByClientId.sql" />
     <Build Include="dbo\Stored Procedures\GetAllOrders.sql" />
+    <Build Include="dbo\Stored Procedures\AddClient.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteClient.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateClient.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllClients.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllPurchasedProductsByClientId.sql" />
   </ItemGroup>
 </Project>
