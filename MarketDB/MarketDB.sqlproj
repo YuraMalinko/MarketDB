@@ -108,5 +108,8 @@
     <Build Include="dbo\Stored Procedures\UpdateClient.sql" />
     <Build Include="dbo\Stored Procedures\GetAllClients.sql" />
     <Build Include="dbo\Stored Procedures\GetAllPurchasedProductsByClientId.sql" />
+    <Build Include="dbo\Stored Procedures\AddCommentForClient.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateCommentForClient.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteCommentForClient.sql" />
   </ItemGroup>
 </Project>
