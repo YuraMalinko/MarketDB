@@ -58,7 +58,7 @@ namespace OfferAggregator.Dal.Repositories
             {
                 List<ClientsDto> result = new List<ClientsDto>();
                 sqlConnection.Open();
-                sqlConnection.Query<ClientsDto, CommetForClientDto, ClientsDto>(
+                sqlConnection.Query<ClientsDto, CommentForClientDto, ClientsDto>(
                     StoredProcedures.GetAllClients,
                     (client, comment) =>
                     {
@@ -76,7 +76,7 @@ namespace OfferAggregator.Dal.Repositories
 
                         if (tmp.CommetsForClient is null)
                         {
-                            tmp.CommetsForClient = new List<CommetForClientDto>();
+                            tmp.CommetsForClient = new List<CommentForClientDto>();
                         }
 
                         if (comment is not null)
