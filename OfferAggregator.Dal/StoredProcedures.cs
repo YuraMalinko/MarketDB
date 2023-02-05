@@ -63,5 +63,11 @@
         public const string GetAllClients = "GetAllClients";
 
         public const string GetAllPurchasedProductsByClientId = "GetAllPurchasedProductsByClientId";
+
+        public const string AddCommentForClient = "AddCommentForClient";
+
+        public const string UpdateCommentForClient = "UpdateCommentForClient";
+
+        public const string DeleteCommentForClient = "DeleteCommentForClient";
     }
 }

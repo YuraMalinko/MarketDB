@@ -31,10 +31,28 @@ using System.Security;
 //var result = OR.UpdateOrder(O);
 //var t = OR.GetAllOrders();
 
-var cr = new ClientRepository();
-var clients = cr.GetAllClients();
-var products4clients = cr.GetAllPurchasedProductsByClientId(9);
+var markI = new CommentForClientRepository();
+
+var comment = new CommentForClientDto()
+{
+    Text="wwww",
+    ClientId=9
+};
+
+comment.Id=markI.AddComment(comment);
+
+comment.Text = "tolkocherezdvenedely";
+
+bool u = markI.UpdateComment(comment);
+
+bool d = markI.DeleteComment(comment.Id);
+
+bool u2 = markI.UpdateComment(comment);
 Console.WriteLine();
+//var cr = new ClientRepository();
+//var clients = cr.GetAllClients();
+//var products4clients = cr.GetAllPurchasedProductsByClientId(9);
+//Console.WriteLine();
 ////var client = new ClientsDto() { Name = "Melman", PhoneNumber = "555" };
 ////client.Id = cr.AddClient(client);
 ////client.Name = "Putin";
