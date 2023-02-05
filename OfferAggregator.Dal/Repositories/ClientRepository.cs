@@ -93,7 +93,7 @@ namespace OfferAggregator.Dal.Repositories
             }
         }
 
-        public List<ProductsDto> GetAllPurchasedProductsByClientId(int id)
+        public List<PurchasedProductDto> GetAllPurchasedProductsByClientId(int id)
         {
             var result = new List<PurchasedProductDto>();
 
