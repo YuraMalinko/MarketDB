@@ -6,4 +6,4 @@ AS
 UPDATE [Clients] 
 SET [Name] = @Name,
 [PhoneNumber] = @PhoneNumber
-WHERE [Id]=@Id
+WHERE [Id]=@Id AND [IsDeleted]=0

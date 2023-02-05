@@ -1,8 +1,7 @@
-﻿using OfferAggregator.Dal.Models;
-using Dapper;
+﻿using Dapper;
 using Microsoft.Data.SqlClient;
+using OfferAggregator.Dal.Models;
 using System.Data;
-using Microsoft.Identity.Client;
 
 namespace OfferAggregator.Dal.Repositories
 {
@@ -13,10 +12,11 @@ namespace OfferAggregator.Dal.Repositories
             using (SqlConnection sqlConnection = new SqlConnection(Options.ConnectionString))
             {
                 sqlConnection.Open();
+
                 return sqlConnection.QuerySingle<int>(
                     StoredProcedures.AddClient,
                     new
-                    { client.Name,client.PhoneNumber},
+                    { client.Name, client.PhoneNumber },
                     commandType: CommandType.StoredProcedure);
             }
         }
@@ -26,6 +26,7 @@ namespace OfferAggregator.Dal.Repositories
             using (SqlConnection sqlConnection = new SqlConnection(Options.ConnectionString))
             {
                 sqlConnection.Open();
+
                 return sqlConnection.Execute(
                     StoredProcedures.UpdateClient,
                     new
@@ -34,7 +35,7 @@ namespace OfferAggregator.Dal.Repositories
                         client.Name,
                         client.PhoneNumber,
                     },
-                    commandType: CommandType.StoredProcedure)>0;
+                    commandType: CommandType.StoredProcedure) > 0;
             }
         }
 
@@ -43,6 +44,7 @@ namespace OfferAggregator.Dal.Repositories
             using (SqlConnection sqlConnection = new SqlConnection(Options.ConnectionString))
             {
                 sqlConnection.Open();
+
                 return sqlConnection.Execute(
                     StoredProcedures.DeleteClient,
                     new { id },
@@ -85,7 +87,7 @@ namespace OfferAggregator.Dal.Repositories
                         return client;
                     },
                     splitOn: "Id",
-                    commandType:CommandType.StoredProcedure).ToList();
+                    commandType: CommandType.StoredProcedure).ToList();
 
                 return result;
             }
@@ -93,16 +95,16 @@ namespace OfferAggregator.Dal.Repositories
 
         public List<ProductsDto> GetAllPurchasedProductsByClientId(int id)
         {
-            var result = new List<ProductsDto>();
+            var result = new List<PurchasedProductDto>();
 
             using (var sqlConnection = new SqlConnection(Options.ConnectionString))
             {
                 sqlConnection.Open();
-                sqlConnection.Query<ProductsDto, GroupDto, TagDto, ProductsDto>(
+                sqlConnection.Query<PurchasedProductDto, GroupDto, TagDto, PurchasedProductDto>(
                     StoredProcedures.GetAllPurchasedProductsByClientId,
                     (product, group, tag) =>
                     {
-                        ProductsDto tmp = null;
+                        PurchasedProductDto tmp = null;
 
                         if (result.Exists(p => p.Id == product.Id))
                         {

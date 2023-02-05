@@ -12,6 +12,6 @@ namespace OfferAggregator.Dal.Repositories
 
         public List<ClientsDto> GetAllClients();
 
-        public List<ProductsDto> GetAllPurchasedProductsByClientId(int id);
+        public List<PurchasedProductDto> GetAllPurchasedProductsByClientId(int id);
     }
 }
