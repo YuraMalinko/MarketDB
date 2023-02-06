@@ -20,5 +20,17 @@ namespace OfferAggregator.Dal.Repositories
                 return result > 0;
             }
         }
+
+        public List<ClientWishesDto> GetClientWishesByClientId(ClientWishesDto clientWishes)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                return sqlCnctn.Query<ClientWishesDto>(
+                    StoredProcedures.GetClientWishesByClientId,
+                    new { clientWishes.ClientId},
+                    commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
     }
 }

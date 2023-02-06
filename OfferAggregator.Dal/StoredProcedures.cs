@@ -66,5 +66,8 @@
 
 
         public const string AddClientWishes = "AddClientWishes";
+
+
+        public const string GetClientWishesByClientId = "GetClientWishesByClientId";
     }
 }
