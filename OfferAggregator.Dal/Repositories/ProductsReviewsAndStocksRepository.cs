@@ -248,5 +248,33 @@ namespace OfferAggregator.Dal.Repositories
                 return result > 0;
             }
         }
+
+        public bool DeleteProductsReviews(ProductReviewsDto productReview)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                int result = sqlCnctn.Execute(
+                    StoredProcedures.DeleteProductsReviews,
+                    new { productReview.ProductId, productReview.ClientId},
+                    commandType: CommandType.StoredProcedure);
+
+                return result > 0;
+            }
+        }
+
+        public bool DeleteStock(StocksDtoWithProductName stock)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            { 
+            sqlCnctn.Open();
+                int result = sqlCnctn.Execute(
+                    StoredProcedures.DeleteStock,
+                    new { stock.Amount, stock.ProductId },
+                    commandType: CommandType.StoredProcedure);
+
+                return result > 0;
+            }
+        }
     }
 }

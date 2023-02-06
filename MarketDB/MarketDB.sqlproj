@@ -103,8 +103,25 @@
     <Build Include="dbo\Stored Procedures\GetAllOrdersByIdManager.sql" />
     <Build Include="dbo\Stored Procedures\GetAllOrdersByClientId.sql" />
     <Build Include="dbo\Stored Procedures\GetAllOrders.sql" />
+    <Build Include="dbo\Stored Procedures\AddClient.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteClient.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateClient.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllClients.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllPurchasedProductsByClientId.sql" />
+    <Build Include="dbo\Stored Procedures\AddTag.sql" />
+    <Build Include="dbo\Stored Procedures\AddTagProduct.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllTags.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllTagsByProductId.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateTag.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteTag.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteProductsReviews.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteStock.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteTagProduct.sql" />
     <Build Include="dbo\Stored Procedures\AddProductToOrders.sql" />
     <Build Include="dbo\Stored Procedures\GetAllInfoInOrderById.sql" />
     <Build Include="dbo\Stored Procedures\UpdateCountInOrdersProducts.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="MarketDB.refactorlog" />
   </ItemGroup>
 </Project>
