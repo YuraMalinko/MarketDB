@@ -4,14 +4,14 @@ namespace OfferAggregator.Dal.Repositories
 {
     public interface IManagerRepository
     {
-        int AddManager(ManagerDto manager);
+        public int AddManager(ManagerDto manager);
 
-        void DeleteManager(int id);
+        public void DeleteManager(int id);
 
-        List<ManagerDto> GetAllManagers();
+        public List<ManagerDto> GetAllManagers();
 
-        ManagerDto GetSingleManager(string login, string password);
+        public ManagerDto GetSingleManager(string login, string password);
 
-        void UpdateManager(ManagerDto manager);
+        public void UpdateManager(ManagerDto manager);
     }
 }

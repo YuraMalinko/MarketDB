@@ -8,5 +8,6 @@
 
         public string? PhoneNumber { get; set; }
 
+        public List<CommentForClientDto>? CommentsForClient { get; set; }
     }
 }

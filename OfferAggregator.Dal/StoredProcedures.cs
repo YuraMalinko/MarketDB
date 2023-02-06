@@ -45,8 +45,6 @@
 
 
         public const string UpdateScoreAndCommentOfProductsReviews = "UpdateScoreAndCommentOfProductsReviews";
-
-
         public const string GetAllManagers = "GetAllManagers";
 
 
@@ -105,5 +103,20 @@
 
 
         public const string DeleteTagProduct = "DeleteTagProduct";
-    }
+
+
+        public const string AddClient = "AddClient";
+
+
+        public const string DeleteClient = "DeleteClient";
+
+
+        public const string UpdateClient = "UpdateClient";
+
+
+        public const string GetAllClients = "GetAllClients";
+
+
+        public const string GetAllPurchasedProductsByClientId = "GetAllPurchasedProductsByClientId";
+      }
 }

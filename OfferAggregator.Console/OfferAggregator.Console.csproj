@@ -12,7 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\MarketDB\MarketDB.sqlproj" />
+    <ProjectReference Include="..\OfferAggregator.Bll\OfferAggregator.Bll.csproj" />
     <ProjectReference Include="..\OfferAggregator.Dal\OfferAggregator.Dal.csproj" />
   </ItemGroup>
 

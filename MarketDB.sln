@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OfferAggregator.Dal", "Offe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OfferAggregator.Console", "OfferAggregator.Console\OfferAggregator.Console.csproj", "{A7971E56-55D7-4A06-8B7A-46E2FAA5EB38}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfferAggregator.Bll", "OfferAggregator.Bll\OfferAggregator.Bll.csproj", "{8958F590-144F-483E-B487-D0F4D150D3DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -28,6 +30,10 @@ Global
 		{A7971E56-55D7-4A06-8B7A-46E2FAA5EB38}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A7971E56-55D7-4A06-8B7A-46E2FAA5EB38}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A7971E56-55D7-4A06-8B7A-46E2FAA5EB38}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8958F590-144F-483E-B487-D0F4D150D3DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8958F590-144F-483E-B487-D0F4D150D3DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8958F590-144F-483E-B487-D0F4D150D3DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8958F590-144F-483E-B487-D0F4D150D3DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

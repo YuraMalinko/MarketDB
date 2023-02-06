@@ -4,16 +4,16 @@ namespace OfferAggregator.Dal.Repositories
 {
     public interface IOrderRepository
     {
-        int AddOrder(OrderDto order);
+        public int AddOrder(OrderDto order);
 
-        int DeleteOrder(int id);
+        public int DeleteOrder(int id);
 
-        List<OrderDto> GetAllOrders();
+        public List<OrderDto> GetAllOrders();
 
-        List<OrderDto> GetAllOrdersByClientId(int ClientId);
+        public List<OrderDto> GetAllOrdersByClientId(int ClientId);
 
-        List<OrderDto> GetAllOrdersByIdManager(int managerId);
+        public List<OrderDto> GetAllOrdersByIdManager(int managerId);
 
-        int UpdateOrder(OrderDto order);
+        public int UpdateOrder(OrderDto order);
     }
 }
