@@ -46,6 +46,7 @@
 
         public const string UpdateScoreAndCommentOfProductsReviews = "UpdateScoreAndCommentOfProductsReviews";
 
+
         public const string GetAllManagers = "GetAllManagers";
 
 
@@ -120,9 +121,12 @@
         
         public const string GetAllPurchasedProductsByClientId = "GetAllPurchasedProductsByClientId";
 
+
         public const string AddProductToOrders = "AddProductToOrders";
 
+
         public const string GetAllInfoInOrderById = "GetAllInfoInOrderById";
+
 
         public const string UpdateCountInOrdersProducts = "UpdateCountInOrdersProducts";
     }
