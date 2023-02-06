@@ -1,58 +1,7 @@
-﻿using OfferAggregator;
-using OfferAggregator.Dal;
-using OfferAggregator.Dal.Models;
+﻿using OfferAggregator.Dal.Models;
 using OfferAggregator.Dal.Repositories;
-using System.Security;
 
-//ManagerRepository MR = new ManagerRepository();
-
-//var m = MR.GetSingleManager("ttt", "qqq");
-
-//OrderRepository OR = new OrderRepository();
-
-
-//for (int i = 5; i < 8; i++)
-//{
-//    OrderDto O = new OrderDto()
-//    {
-//        DateCreate = DateTime.Now,
-//        ComplitionDate = new DateTime(2023, 2, i, 13, 30, 00),
-//        ManagerId = 8,
-//        ClientId = 9,
-//    };
-
-//    OR.AddOrder(O);
-//}
-
-//OR.AddOrder(O);
-//O.Id = 123;
-//O.ManagerId = 6;
-//O.ManagerId = 1;
-//var result = OR.UpdateOrder(O);
-//var t = OR.GetAllOrders();
-
-var markI = new CommentForClientRepository();
-
-var comment = new CommentForClientDto()
-{
-    Text="wwww",
-    ClientId=9
-};
-
-comment.Id=markI.AddComment(comment);
-
-comment.Text = "tolkocherezdvenedely";
-
-bool u = markI.UpdateComment(comment);
-
-bool d = markI.DeleteComment(comment.Id);
-
-bool u2 = markI.UpdateComment(comment);
 Console.WriteLine();
-//var cr = new ClientRepository();
-//var clients = cr.GetAllClients();
-//var products4clients = cr.GetAllPurchasedProductsByClientId(9);
-//Console.WriteLine();
 ////var client = new ClientsDto() { Name = "Melman", PhoneNumber = "555" };
 ////client.Id = cr.AddClient(client);
 ////client.Name = "Putin";

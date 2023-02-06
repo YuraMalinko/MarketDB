@@ -74,14 +74,14 @@ namespace OfferAggregator.Dal.Repositories
                             result.Add(tmp);
                         }
 
-                        if (tmp.CommetsForClient is null)
+                        if (tmp.CommentsForClient is null)
                         {
-                            tmp.CommetsForClient = new List<CommentForClientDto>();
+                            tmp.CommentsForClient = new List<CommentForClientDto>();
                         }
 
                         if (comment is not null)
                         {
-                            tmp.CommetsForClient.Add(comment);
+                            tmp.CommentsForClient.Add(comment);
                         }
 
                         return client;
