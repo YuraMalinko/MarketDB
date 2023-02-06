@@ -45,6 +45,8 @@
 
 
         public const string UpdateScoreAndCommentOfProductsReviews = "UpdateScoreAndCommentOfProductsReviews";
+
+
         public const string GetAllManagers = "GetAllManagers";
 
 
@@ -90,7 +92,7 @@
         public const string GetAllTagsByProductId = "GetAllTagsByProductId";
 
 
-        public const string UpdateTagName = "UpdateTagName";
+        public const string UpdateTag = "UpdateTag";
 
 
         public const string DeleteTag = "DeleteTag";

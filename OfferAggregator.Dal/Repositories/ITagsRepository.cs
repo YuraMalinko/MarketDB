@@ -4,18 +4,18 @@ namespace OfferAggregator.Dal.Repositories
 {
     public interface ITagsRepository
     {
-        int AddTag(string name);
+        public int AddTag(TagDto tag);
 
-        bool AddTagProduct(TagProductDto tagProduct);
+        public bool AddTagProduct(TagProductDto tagProduct);
 
-        bool DeleteTag(int id);
+        public bool DeleteTag(int id);
 
-        List<TagDto> GetAllTags();
+        public List<TagDto> GetAllTags();
 
-        List<TagDto> GetAllTagsByProductId(int productId);
+        public List<TagDto> GetAllTagsByProductId(int productId);
 
-        bool UpdateTagName(TagDto tag);
+        public bool UpdateTag(TagDto tag);
 
-        bool DeleteTagProduct(TagProductDto tagProduct);
+        public bool DeleteTagProduct(TagProductDto tagProduct);
     }
 }

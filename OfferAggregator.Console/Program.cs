@@ -36,10 +36,10 @@ TagsRepository tR = new TagsRepository();
 //var t = OR.GetAllOrders();
 //var tag = tR.AddTag("black");
 
-var cr = new ClientRepository();
-var clients = cr.GetAllClients();
-var products4clients = cr.GetAllPurchasedProductsByClientId(9);
-Console.WriteLine();
+//var cr = new ClientRepository();
+//var clients = cr.GetAllClients();
+//var products4clients = cr.GetAllPurchasedProductsByClientId(9);
+//Console.WriteLine();
 ////var client = new ClientsDto() { Name = "Melman", PhoneNumber = "555" };
 ////client.Id = cr.AddClient(client);
 ////client.Name = "Putin";
@@ -68,6 +68,13 @@ var newTag = new TagDto
     Id = 4,
     Name = "pork"
 };
+
+var addTag = new TagDto();
+addTag.Name = "salt";
+
+var addTagSalt = tR.AddTag(addTag);
+
+Console.WriteLine();
 
 //var nTag = tR.UpdateTagName(newTag);
 
@@ -166,6 +173,6 @@ TagId = 7,
 ProductId = 4,
 };
 
-var delTagPr = tR.DeleteTagProduct(tagProduct);
+//var delTagPr = tR.DeleteTagProduct(tagProduct);
 
 Console.WriteLine("O");

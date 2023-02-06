@@ -7,14 +7,14 @@ namespace OfferAggregator.Dal.Repositories
 {
     public class TagsRepository : ITagsRepository
     {
-        public int AddTag(string name)
+        public int AddTag(TagDto tag)
         {
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
             {
                 sqlCnctn.Open();
                 return sqlCnctn.QuerySingle<int>(
                     StoredProcedures.AddTag,
-                    new { name },
+                    new { tag.Name },
                     commandType: CommandType.StoredProcedure);
             }
         }
@@ -56,13 +56,13 @@ namespace OfferAggregator.Dal.Repositories
             }
         }
 
-        public bool UpdateTagName(TagDto tag)
+        public bool UpdateTag(TagDto tag)
         {
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
             {
                 sqlCnctn.Open();
                 int result = sqlCnctn.Execute(
-                    StoredProcedures.UpdateTagName,
+                    StoredProcedures.UpdateTag,
                     tag,
                     commandType: CommandType.StoredProcedure);
 

@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].UpdateTagName
+﻿CREATE PROCEDURE [dbo].UpdateTag
   @id int,
   @name nvarchar(100)
   AS
