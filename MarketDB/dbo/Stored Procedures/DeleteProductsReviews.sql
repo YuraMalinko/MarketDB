@@ -2,6 +2,6 @@
   @clientId int,
   @productId int
   AS
-  delete ProductsReviews
-  Where ClientId = @clientId AND
+  DELETE ProductsReviews
+  WHERE ClientId = @clientId AND
   ProductId = @productId

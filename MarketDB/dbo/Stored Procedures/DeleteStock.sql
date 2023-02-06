@@ -2,6 +2,6 @@
   @amount int,
   @productId int
   AS
-  delete [dbo].[Stocks]
-  Where [Amount] = @amount AND
+  DELETE [dbo].[Stocks]
+  WHERE [Amount] = @amount AND
   [ProductId] = @productId
