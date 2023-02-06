@@ -63,5 +63,8 @@
         public const string GetAllClients = "GetAllClients";
 
         public const string GetAllPurchasedProductsByClientId = "GetAllPurchasedProductsByClientId";
+
+
+        public const string AddClientWishes = "AddClientWishes";
     }
 }

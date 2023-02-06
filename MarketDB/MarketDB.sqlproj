@@ -108,5 +108,6 @@
     <Build Include="dbo\Stored Procedures\UpdateClient.sql" />
     <Build Include="dbo\Stored Procedures\GetAllClients.sql" />
     <Build Include="dbo\Stored Procedures\GetAllPurchasedProductsByClientId.sql" />
+    <Build Include="dbo\Stored Procedures\AddClientWishes.sql" />
   </ItemGroup>
 </Project>
