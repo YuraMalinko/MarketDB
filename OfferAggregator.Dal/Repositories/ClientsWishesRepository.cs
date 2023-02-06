@@ -7,17 +7,15 @@ namespace OfferAggregator.Dal.Repositories
 {
     public class ClientsWishesRepository : IClientsWishesRepository
     {
-        public bool AddClientWishes(ClientWishesDto clientWishes)
+        public int AddClientWishes(ClientWishesDto clientWishes)
         {
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
             {
                 sqlCnctn.Open();
-                int result = sqlCnctn.Execute(
+                return sqlCnctn.Query<int>(
                     StoredProcedures.AddClientWishes,
                     clientWishes,
-                    commandType: CommandType.StoredProcedure);
-
-                return result > 0;
+                    commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
         }
 
@@ -33,28 +31,28 @@ namespace OfferAggregator.Dal.Repositories
             }
         }
 
-        public bool UpdateClientWishes(ClientWishesDto clientWishes)
+        public bool UpdateClientWishesById(ClientWishesDto clientWishes)
         {
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
             {
                 sqlCnctn.Open();
                 int result = sqlCnctn.Execute(
-                    StoredProcedures.UpdateClientWishes,
-                    clientWishes,
+                    StoredProcedures.UpdateClientWishesById,
+                    new { clientWishes.Id, clientWishes.GroupId, clientWishes.TagId, clientWishes.IsLiked },
                     commandType: CommandType.StoredProcedure);
 
                 return result > 0;
             }
         }
 
-        public bool DeleteClientWishes(ClientWishesDto clientWishes)
+        public bool DeleteClientWishesById(ClientWishesDto clientWishes)
         {
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
             {
                 sqlCnctn.Open();
                 int result = sqlCnctn.Execute(
-                    StoredProcedures.DeleteClientWishes,
-                    new { clientWishes.ClientId, clientWishes.GroupId, clientWishes.TagId },
+                    StoredProcedures.DeleteClientWishesById,
+                    new { clientWishes.Id},
                     commandType: CommandType.StoredProcedure
                     );
 

@@ -8,3 +8,5 @@
   ([ClientId],[GroupId],[TagId],[IsLiked])
   VALUES
   (@clientId, @groupId, @tagId,  @isLiked)
+  SELECT
+  SCOPE_IDENTITY()

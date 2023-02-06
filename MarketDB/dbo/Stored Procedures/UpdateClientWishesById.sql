@@ -1,5 +1,5 @@
-﻿CREATE PROCEDURE [dbo].UpdateClientWishes
-  @clientId int,
+﻿CREATE PROCEDURE [dbo].UpdateClientWishesById
+  @id int,
   @groupId int,
   @tagId int,
   @isLiked bit
@@ -10,4 +10,4 @@
   [TagId]=@tagId,
   [IsLiked]=@isLiked
   WHERE
-  [ClientId] = @clientId
+  [Id] = @id

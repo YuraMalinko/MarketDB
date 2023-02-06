@@ -4,12 +4,12 @@ namespace OfferAggregator.Dal.Repositories
 {
     public interface IClientsWishesRepository
     {
-        public bool AddClientWishes(ClientWishesDto clientWishes);
+        public int AddClientWishes(ClientWishesDto clientWishes);
 
-        public bool DeleteClientWishes(ClientWishesDto clientWishes);
+        public bool DeleteClientWishesById(ClientWishesDto clientWishes);
 
         public List<ClientWishesDto> GetClientWishesByClientId(ClientWishesDto clientWishes);
 
-        public bool UpdateClientWishes(ClientWishesDto clientWishes);
+        public bool UpdateClientWishesById(ClientWishesDto clientWishes);
     }
 }

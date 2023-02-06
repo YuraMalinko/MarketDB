@@ -8,7 +8,7 @@ ClientsWishesRepository clientsWishesRepository= new ClientsWishesRepository();
 
 ClientWishesDto clW = new ClientWishesDto
 { 
-ClientId=1,
+ClientId=9,
 GroupId = 3,
 TagId = 8,
 IsLiked = true
@@ -18,15 +18,16 @@ IsLiked = true
 
 ClientWishesDto clWishe = new ClientWishesDto
 {
-    ClientId = 9,
-    GroupId = 5,
-    TagId = 23,
+    Id = 11,
+    ClientId = 1,
+    GroupId = 3,
+    TagId = 7,
     IsLiked = true
 };
 
 //var getClW = clientsWishesRepository.GetClientWishesByClientId(clWishe);
 
-//var updClW = clientsWishesRepository.UpdateClientWishes(clWishe);
+//var updClW = clientsWishesRepository.UpdateClientWishesById(clWishe);
 
 ClientWishesDto clWishes = new ClientWishesDto
 {
@@ -35,7 +36,7 @@ ClientWishesDto clWishes = new ClientWishesDto
     TagId = 7
 };
 
-var delClW = clientsWishesRepository.DeleteClientWishes(clWishes);
+var delClW = clientsWishesRepository.DeleteClientWishesById(clWishe);
 
 Console.WriteLine();
 

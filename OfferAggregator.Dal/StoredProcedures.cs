@@ -71,9 +71,9 @@
         public const string GetClientWishesByClientId = "GetClientWishesByClientId";
 
 
-        public const string UpdateClientWishes = "UpdateClientWishes";
+        public const string UpdateClientWishesById = "UpdateClientWishesById";
 
 
-        public const string DeleteClientWishes = "DeleteClientWishes";
+        public const string DeleteClientWishesById = "DeleteClientWishesById";
     }
 }

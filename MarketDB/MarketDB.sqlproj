@@ -110,7 +110,7 @@
     <Build Include="dbo\Stored Procedures\GetAllPurchasedProductsByClientId.sql" />
     <Build Include="dbo\Stored Procedures\AddClientWishes.sql" />
     <Build Include="dbo\Stored Procedures\GetClientWishesByClientId.sql" />
-    <Build Include="dbo\Stored Procedures\UpdateClientWishes.sql" />
-    <Build Include="dbo\Stored Procedures\DeleteClientWishes.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateClientWishesById.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteClientWishesById.sql" />
   </ItemGroup>
 </Project>
