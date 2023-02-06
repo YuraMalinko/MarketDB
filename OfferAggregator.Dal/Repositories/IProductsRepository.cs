@@ -4,10 +4,14 @@ namespace OfferAggregator.Dal.Repositories
 {
     public interface IProductsRepository
     {
-        int AddProduct(ProductsDto product);
-        int DeleteProduct(int id);
-        List<ProductsDto> GetAllProducts();
-        List<ProductsDto> GetAllProductsByGroupId(int groupId);
-        int UpdateProduct(ProductsDto product);
+        public int AddProduct(ProductsDto product);
+
+        public int DeleteProduct(int id);
+
+        public List<ProductsDto> GetAllProducts();
+
+        public List<ProductsDto> GetAllProductsByGroupId(int groupId);
+
+        public int UpdateProduct(ProductsDto product);
     }
 }
