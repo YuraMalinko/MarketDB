@@ -72,5 +72,8 @@
 
 
         public const string UpdateClientWishes = "UpdateClientWishes";
+
+
+        public const string DeleteClientWishes = "DeleteClientWishes";
     }
 }

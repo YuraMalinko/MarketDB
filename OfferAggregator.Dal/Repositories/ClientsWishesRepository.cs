@@ -46,5 +46,20 @@ namespace OfferAggregator.Dal.Repositories
                 return result > 0;
             }
         }
+
+        public bool DeleteClientWishes(ClientWishesDto clientWishes)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                int result = sqlCnctn.Execute(
+                    StoredProcedures.DeleteClientWishes,
+                    new { clientWishes.ClientId, clientWishes.GroupId, clientWishes.TagId },
+                    commandType: CommandType.StoredProcedure
+                    );
+
+                return result > 0;
+            }
+        }
     }
 }

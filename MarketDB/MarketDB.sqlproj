@@ -111,5 +111,6 @@
     <Build Include="dbo\Stored Procedures\AddClientWishes.sql" />
     <Build Include="dbo\Stored Procedures\GetClientWishesByClientId.sql" />
     <Build Include="dbo\Stored Procedures\UpdateClientWishes.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteClientWishes.sql" />
   </ItemGroup>
 </Project>

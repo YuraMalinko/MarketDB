@@ -26,7 +26,16 @@ ClientWishesDto clWishe = new ClientWishesDto
 
 //var getClW = clientsWishesRepository.GetClientWishesByClientId(clWishe);
 
-var updClW = clientsWishesRepository.UpdateClientWishes(clWishe);
+//var updClW = clientsWishesRepository.UpdateClientWishes(clWishe);
+
+ClientWishesDto clWishes = new ClientWishesDto
+{
+    ClientId = 1,
+    GroupId = 3,
+    TagId = 7
+};
+
+var delClW = clientsWishesRepository.DeleteClientWishes(clWishes);
 
 Console.WriteLine();
 
