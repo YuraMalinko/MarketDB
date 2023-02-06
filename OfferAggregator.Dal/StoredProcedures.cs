@@ -54,10 +54,10 @@
 
         public const string GetAllOrders = "GetAllOrders";
 
-        public const string AddOrdersProductsToOrdersProducts = "AddOrdersProductsToOrdersProducts";
+        public const string AddProductToOrders = "AddProductToOrders";
 
         public const string GetAllInfoInOrderById = "GetAllInfoInOrderById";
 
-        public const string UpdateCountProductInOrdersProducts = "UpdateCountProductInOrdersProducts";
+        public const string UpdateCountInOrdersProducts = "UpdateCountInOrdersProducts";
     }
 }

@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[UpdateCountProductInOrdersProducts]
+﻿CREATE PROCEDURE [dbo].[UpdateCountInOrdersProducts]
   @orderId int,
   @productId int,
   @countProduct int

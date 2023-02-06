@@ -12,6 +12,8 @@
 
         public string Comment { get; set; }
 
+        public int CommentId { get; set; }
+
         public ClientsDto Client { get; set; }
 
         public List<ProductWithCountDto> ProductWithCount { get; set; }

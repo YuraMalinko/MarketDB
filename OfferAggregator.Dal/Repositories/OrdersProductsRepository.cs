@@ -7,13 +7,13 @@ namespace OfferAggregator.Dal.Repositories
 {
     public class OrdersProductsRepository : IOrdersProductsRepository
     {
-        public bool AddOrdersProductsToOrdersProducts(OrdersProductsDto orderProduct)
+        public bool AddProductToOrders(OrdersProductsDto orderProduct)
         {
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
             {
                 sqlCnctn.Open();
                 int result = sqlCnctn.Execute(
-                    StoredProcedures.AddOrdersProductsToOrdersProducts,
+                    StoredProcedures.AddProductToOrders,
                     new { orderProduct.OrderId, orderProduct.ProductId, orderProduct.CountProduct },
                     commandType: CommandType.StoredProcedure);
 
@@ -50,13 +50,13 @@ namespace OfferAggregator.Dal.Repositories
             }
         }
 
-        public bool UpdateCountProductInOrdersProducts(OrdersProductsDto ordersProducts)
+        public bool UpdateCountInOrdersProducts(OrdersProductsDto ordersProducts)
         {
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
             {
                 sqlCnctn.Open();
                 int result = sqlCnctn.Execute(
-                    StoredProcedures.UpdateCountProductInOrdersProducts,
+                    StoredProcedures.UpdateCountInOrdersProducts,
                     ordersProducts,
                     commandType: CommandType.StoredProcedure
                     );

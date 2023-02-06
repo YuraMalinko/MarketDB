@@ -2,7 +2,7 @@
   @orderId int
   AS
   SELECT
-  O.[Id] AS OrderId, O.[DateCreate], O.[ComplitionDate], CMN.[Text] AS Comment, M.[Id], M.[Login], 
+  O.[Id] AS OrderId, O.[DateCreate], O.[ComplitionDate], CMN.[Id] AS CommentId, CMN.[Text] AS Comment, M.[Id], M.[Login], 
   C.[Id], C.[Name],  C.[PhoneNumber], P.[Id] AS ProductId, P.[Name]  AS ProductName, OP.[CountProduct]
   FROM [dbo].[Orders] AS O
   LEFT JOIN [dbo].[OrdersProducts] AS OP ON

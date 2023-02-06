@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[AddOrdersProductsToOrdersProducts]
+﻿CREATE PROCEDURE [dbo].[AddProductToOrders]
 @orderId int,
 @productId int,
 @countProduct int

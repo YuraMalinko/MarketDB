@@ -4,8 +4,10 @@ namespace OfferAggregator.Dal.Repositories
 {
     public interface IOrdersProductsRepository
     {
-        bool AddOrdersProductsToOrdersProducts(OrdersProductsDto orderProduct);
-        FullOrderDto GetAllInfoInOrderById(int orderId);
-        bool UpdateCountProductInOrdersProducts(OrdersProductsDto ordersProducts);
+        public bool AddProductToOrders(OrdersProductsDto orderProduct);
+
+        public FullOrderDto GetAllInfoInOrderById(int orderId);
+
+        public bool UpdateCountInOrdersProducts(OrdersProductsDto ordersProducts);
     }
 }
