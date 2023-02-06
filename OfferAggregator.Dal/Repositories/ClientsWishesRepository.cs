@@ -5,7 +5,7 @@ using System.Data;
 
 namespace OfferAggregator.Dal.Repositories
 {
-    public class ClientsWishesRepository
+    public class ClientsWishesRepository : IClientsWishesRepository
     {
         public bool AddClientWishes(ClientWishesDto clientWishes)
         {
