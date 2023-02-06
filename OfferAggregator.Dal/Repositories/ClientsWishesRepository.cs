@@ -28,8 +28,22 @@ namespace OfferAggregator.Dal.Repositories
                 sqlCnctn.Open();
                 return sqlCnctn.Query<ClientWishesDto>(
                     StoredProcedures.GetClientWishesByClientId,
-                    new { clientWishes.ClientId},
+                    new { clientWishes.ClientId },
                     commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
+
+        public bool UpdateClientWishes(ClientWishesDto clientWishes)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                int result = sqlCnctn.Execute(
+                    StoredProcedures.UpdateClientWishes,
+                    clientWishes,
+                    commandType: CommandType.StoredProcedure);
+
+                return result > 0;
             }
         }
     }

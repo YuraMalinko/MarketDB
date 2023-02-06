@@ -69,5 +69,8 @@
 
 
         public const string GetClientWishesByClientId = "GetClientWishesByClientId";
+
+
+        public const string UpdateClientWishes = "UpdateClientWishes";
     }
 }

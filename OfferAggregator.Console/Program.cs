@@ -18,10 +18,15 @@ IsLiked = true
 
 ClientWishesDto clWishe = new ClientWishesDto
 {
-    ClientId = 100
+    ClientId = 9,
+    GroupId = 5,
+    TagId = 23,
+    IsLiked = true
 };
 
-var getClW = clientsWishesRepository.GetClientWishesByClientId(clWishe);
+//var getClW = clientsWishesRepository.GetClientWishesByClientId(clWishe);
+
+var updClW = clientsWishesRepository.UpdateClientWishes(clWishe);
 
 Console.WriteLine();
 
