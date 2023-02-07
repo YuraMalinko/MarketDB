@@ -20,6 +20,7 @@ namespace OfferAggregator.Bll
                     cfg.CreateMap<ProductsDto, ProductModel>();
                     cfg.CreateMap<ProductModel, ProductsDto>();
                     cfg.CreateMap<StocksWithProductModel, StocksDtoWithProductName>();
+                    cfg.CreateMap<StocksDtoWithProductName, StocksWithProductModel>();
                 });
 
             _mapper = _configuration.CreateMapper();
@@ -47,6 +48,11 @@ namespace OfferAggregator.Bll
         public StocksDtoWithProductName MapStocksWithProductModelToStocksDtoWithProductName(StocksWithProductModel stockProductModel)
         {
             return _mapper.Map<StocksDtoWithProductName>(stockProductModel);
+        }
+
+        public StocksWithProductModel MapStocksDtoWithProductNameToStocksWithProductModel(StocksDtoWithProductName stockProductDto)
+        {
+            return _mapper.Map<StocksWithProductModel>(stockProductDto);
         }
     }
 }

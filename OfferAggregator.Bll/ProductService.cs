@@ -103,8 +103,18 @@ namespace OfferAggregator.Bll
             }
             else
             {
+                var sumAmount = getAmountByProductId.Amount + stockProductDto.Amount;
+                stockProductDto.Amount = sumAmount;
                 result = _productsReviewsAndStocksRepository.UpdateAmountOfStocks(stockProductDto);
             }
+
+            return result;
+        }
+
+        public StocksWithProductModel GetAmountByProductId(int productId)
+        {
+            var amountDto = _productsReviewsAndStocksRepository.GetAmountByProductId(productId);
+            var result = _instanceMapper.MapStocksDtoWithProductNameToStocksWithProductModel(amountDto);
 
             return result;
         }
