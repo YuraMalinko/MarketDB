@@ -37,7 +37,13 @@ ProductService pM = new ProductService(productsRepository, prRev, tR);
 
 //var delTag = tR.DeleteTagProductByProductId(1);
 
-var deleteProduct = pM.DeleteProduct(1);
+//var deleteProduct = pM.DeleteProduct(1);
+
+StocksWithProductModel stPrModel = new StocksWithProductModel();
+stPrModel.ProductId = 8;
+stPrModel.Amount = 8;
+
+var regUpd = pM.RegistrateProductInStock(stPrModel);
 
 Console.WriteLine();
 

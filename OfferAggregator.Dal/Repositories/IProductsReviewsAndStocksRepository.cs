@@ -4,15 +4,15 @@ namespace OfferAggregator.Dal.Repositories
 {
     public interface IProductsReviewsAndStocksRepository
     {
-        int AddAmountToStocks(StocksDtoWithProductName stock);
+        bool AddAmountToStocks(StocksDtoWithProductName stock);
         int AddScoreAndCommentToProductReview(ProductReviewsDto prReview);
         List<ProductWithScoresAndCommentsDto> GetAllScoresAndCommentsForProductByProductId(int productId);
         List<ProductWithScoresAndCommentsDto> GetAllScoresAndCommentsForProductByProductIDAndClientId(int productId, int clientId);
         List<ProductWithScoresAndCommentsDto> GetAllScoresAndCommentsForProducts();
         List<ProductWithScoresAndCommentsDto> GetAllScoresAndCommentsForProductsByClientId(int clientId);
-        StocksDtoWithProductName GetAmountByProductId(int id);
+        StocksDtoWithProductName GetAmountByProductId(int productId);
         List<StocksDtoWithProductName> GetAmountsOfAllProducts();
-        bool UpdateAmountOfStocks(int productId, int changeAmount);
+        bool UpdateAmountOfStocks(StocksDtoWithProductName stock);
         bool UpdateScoreAndCommentOfProductsReviews(ProductReviewsDto productReviews);
         bool DeleteProductReviewByProductId(int productId);
     }

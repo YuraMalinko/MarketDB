@@ -67,8 +67,8 @@ namespace OfferAggregator.Bll
             bool result;
             try
             {
-                var productModel = _instanceMapper.MapProductModelToProductsDto(product);
-                result = _productsRepository.UpdateProduct(productModel);
+                var productDto = _instanceMapper.MapProductModelToProductsDto(product);
+                result = _productsRepository.UpdateProduct(productDto);
             }
             catch (Exception ex)
             {
@@ -86,6 +86,24 @@ namespace OfferAggregator.Bll
             {
                 _productsReviewsAndStocksRepository.DeleteProductReviewByProductId(productId);
                 _tagsRepository.DeleteTagProductByProductId(productId);
+            }
+
+            return result;
+        }
+
+        public bool RegistrateProductInStock(StocksWithProductModel stockProduct)
+        {
+            var stockProductDto = _instanceMapper.MapStocksWithProductModelToStocksDtoWithProductName(stockProduct);
+            var getAmountByProductId = _productsReviewsAndStocksRepository.GetAmountByProductId(stockProductDto.ProductId);
+            bool result;
+
+            if (getAmountByProductId is null)
+            {
+                result = _productsReviewsAndStocksRepository.AddAmountToStocks(stockProductDto);
+            }
+            else
+            {
+                result = _productsReviewsAndStocksRepository.UpdateAmountOfStocks(stockProductDto);
             }
 
             return result;
