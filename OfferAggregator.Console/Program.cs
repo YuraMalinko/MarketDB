@@ -1,6 +1,4 @@
-﻿using OfferAggregator;
-using OfferAggregator.Dal;
-using OfferAggregator.Dal.Models;
+﻿using OfferAggregator.Dal.Models;
 using OfferAggregator.Dal.Repositories;
 using System.Security;
 
