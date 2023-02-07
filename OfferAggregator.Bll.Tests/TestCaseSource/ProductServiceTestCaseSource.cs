@@ -6,9 +6,9 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 {
     public class ProductServiceTestCaseSource
     {
-        public static IEnumerable AddProductTestCaseSource()
-        { 
+        //public static IEnumerable AddProductTestCaseSource()
+        //{ 
         
-        }
+        //}
     }
 }

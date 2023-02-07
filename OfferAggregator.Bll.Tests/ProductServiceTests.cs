@@ -7,11 +7,11 @@ namespace OfferAggregator.Bll.Tests
 {
     public class ProductServiceTests
     {
-        [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.AddProductTestCaseSource))]
+        //[TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.AddProductTestCaseSource))]
 
-        public void AddProductTest() 
-        {
+        //public void AddProductTest() 
+        //{
         
-        }
+        //}
     }
 }
