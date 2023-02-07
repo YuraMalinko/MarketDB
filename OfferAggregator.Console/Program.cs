@@ -25,7 +25,7 @@ ClientWishesDto clWishe = new ClientWishesDto
     IsLiked = true
 };
 
-//var getClW = clientsWishesRepository.GetClientWishesByClientId(clWishe);
+//var getClW = clientsWishesRepository.GetClientWishesByClientId(1);
 
 //var updClW = clientsWishesRepository.UpdateClientWishesById(clWishe);
 
@@ -36,7 +36,7 @@ ClientWishesDto clWishes = new ClientWishesDto
     TagId = 7
 };
 
-var delClW = clientsWishesRepository.DeleteClientWishesById(clWishe);
+var delClW = clientsWishesRepository.DeleteClientWishesById(40);
 
 Console.WriteLine();
 

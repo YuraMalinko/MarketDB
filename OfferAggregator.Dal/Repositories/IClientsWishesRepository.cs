@@ -6,9 +6,9 @@ namespace OfferAggregator.Dal.Repositories
     {
         public int AddClientWishes(ClientWishesDto clientWishes);
 
-        public bool DeleteClientWishesById(ClientWishesDto clientWishes);
+        public bool DeleteClientWishesById(int id);
 
-        public List<ClientWishesDto> GetClientWishesByClientId(ClientWishesDto clientWishes);
+        public List<ClientWishesDto> GetClientWishesByClientId(int clientId);
 
         public bool UpdateClientWishesById(ClientWishesDto clientWishes);
     }

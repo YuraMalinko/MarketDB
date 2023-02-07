@@ -19,14 +19,14 @@ namespace OfferAggregator.Dal.Repositories
             }
         }
 
-        public List<ClientWishesDto> GetClientWishesByClientId(ClientWishesDto clientWishes)
+        public List<ClientWishesDto> GetClientWishesByClientId(int clientId)
         {
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
             {
                 sqlCnctn.Open();
                 return sqlCnctn.Query<ClientWishesDto>(
                     StoredProcedures.GetClientWishesByClientId,
-                    new { clientWishes.ClientId },
+                    new { clientId },
                     commandType: CommandType.StoredProcedure).ToList();
             }
         }
@@ -45,14 +45,14 @@ namespace OfferAggregator.Dal.Repositories
             }
         }
 
-        public bool DeleteClientWishesById(ClientWishesDto clientWishes)
+        public bool DeleteClientWishesById(int id)
         {
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
             {
                 sqlCnctn.Open();
                 int result = sqlCnctn.Execute(
                     StoredProcedures.DeleteClientWishesById,
-                    new { clientWishes.Id},
+                    new { id },
                     commandType: CommandType.StoredProcedure
                     );
 
