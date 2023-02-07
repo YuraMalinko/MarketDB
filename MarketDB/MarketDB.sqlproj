@@ -127,6 +127,9 @@
     <Build Include="dbo\Stored Procedures\GetClientWishesByClientId.sql" />
     <Build Include="dbo\Stored Procedures\UpdateClientWishesById.sql" />
     <Build Include="dbo\Stored Procedures\DeleteClientWishesById.sql" />
+    <Build Include="dbo\Stored Procedures\AddCommentForOrder.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteCommentForOrder.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateCommentForOrder.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="MarketDB.refactorlog" />

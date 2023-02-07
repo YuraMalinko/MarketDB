@@ -150,5 +150,11 @@
 
 
         public const string DeleteCommentForClient = "DeleteCommentForClient";
+
+        public const string AddCommentForOrder = "AddCommentForOrder";
+
+        public const string UpdateCommentForOrder = "UpdateCommentForOrder";
+
+        public const string DeleteCommentForOrder = "DeleteCommentForOrder";
     }
 }
