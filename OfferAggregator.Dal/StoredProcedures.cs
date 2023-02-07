@@ -121,6 +121,7 @@
         
         public const string GetAllPurchasedProductsByClientId = "GetAllPurchasedProductsByClientId";
 
+        public const string AddProductToOrders = "AddProductToOrders";
 
         public const string AddClientWishes = "AddClientWishes";
 
@@ -135,11 +136,16 @@
 
 
         public const string AddProductToOrders = "AddProductToOrders";
-
-
         public const string GetAllInfoInOrderById = "GetAllInfoInOrderById";
 
-
         public const string UpdateCountInOrdersProducts = "UpdateCountInOrdersProducts";
+
+        public const string GetAllPurchasedProductsByClientId = "GetAllPurchasedProductsByClientId";
+
+        public const string AddCommentForClient = "AddCommentForClient";
+
+        public const string UpdateCommentForClient = "UpdateCommentForClient";
+
+        public const string DeleteCommentForClient = "DeleteCommentForClient";
     }
 }

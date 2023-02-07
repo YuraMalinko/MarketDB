@@ -120,6 +120,9 @@
     <Build Include="dbo\Stored Procedures\AddProductToOrders.sql" />
     <Build Include="dbo\Stored Procedures\GetAllInfoInOrderById.sql" />
     <Build Include="dbo\Stored Procedures\UpdateCountInOrdersProducts.sql" />
+    <Build Include="dbo\Stored Procedures\AddCommentForClient.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateCommentForClient.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteCommentForClient.sql" />
     <Build Include="dbo\Stored Procedures\AddClientWishes.sql" />
     <Build Include="dbo\Stored Procedures\GetClientWishesByClientId.sql" />
     <Build Include="dbo\Stored Procedures\UpdateClientWishesById.sql" />
