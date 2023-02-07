@@ -56,5 +56,9 @@
         public const string DeleteProductReviewByProductId = "DeleteProductReviewByProductId";
 
         public const string DeleteTagProductByProductId = "DeleteTagProductByProductId";
+
+
+        public const string GetProductById = "GetProductById";
+
     }
 }

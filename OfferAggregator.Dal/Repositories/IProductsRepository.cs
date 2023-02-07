@@ -9,5 +9,7 @@ namespace OfferAggregator.Dal.Repositories
         List<ProductsDto> GetAllProducts();
         List<ProductsDto> GetAllProductsByGroupId(int groupId);
         bool UpdateProduct(ProductsDto product);
+
+        public ProductsDto GetProductById(int id);
     }
 }

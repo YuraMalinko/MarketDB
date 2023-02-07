@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OfferAggregator.Console", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OfferAggregator.Bll", "OfferAggregator.Bll\OfferAggregator.Bll.csproj", "{8958F590-144F-483E-B487-D0F4D150D3DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfferAggregator.Bll.Tests", "OfferAggregator.Bll.Tests\OfferAggregator.Bll.Tests.csproj", "{329F1E82-E2F7-4916-B054-E3957AB077DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OfferAggregator.Bll.Tests", "OfferAggregator.Bll.Tests\OfferAggregator.Bll.Tests.csproj", "{329F1E82-E2F7-4916-B054-E3957AB077DF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,6 +20,7 @@ Global
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{87512F89-10DD-4C28-870C-118513819F6E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{87512F89-10DD-4C28-870C-118513819F6E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87512F89-10DD-4C28-870C-118513819F6E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
 		{87512F89-10DD-4C28-870C-118513819F6E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87512F89-10DD-4C28-870C-118513819F6E}.Release|Any CPU.Build.0 = Release|Any CPU

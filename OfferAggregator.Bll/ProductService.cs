@@ -68,6 +68,7 @@ namespace OfferAggregator.Bll
             try
             {
                 var productDto = _instanceMapper.MapProductModelToProductsDto(product);
+
                 result = _productsRepository.UpdateProduct(productDto);
             }
             catch (Exception ex)
