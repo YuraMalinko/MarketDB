@@ -118,6 +118,14 @@ namespace OfferAggregator.Bll
 
             return result;
         }
+
+        public List<StocksWithProductModel> GetAmountsOfAllProducts()
+        {
+            var amountDto = _productsReviewsAndStocksRepository.GetAmountsOfAllProducts();
+            var result = _instanceMapper.MapProductsDtosToProductModels(amountDto);
+
+            return result;
+        }
     }
 }
 

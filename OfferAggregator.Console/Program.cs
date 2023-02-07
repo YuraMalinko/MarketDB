@@ -51,7 +51,9 @@ stPrDto.Amount = 4;
 
 //var addSt = prRev.AddAmountToStocks(stPrDto);
 
-var getAm = pM.GetAmountByProductId(1);
+//var getAm = pM.GetAmountByProductId(1);
+
+var getAllAmounts = pM.GetAmountsOfAllProducts();
 
 Console.WriteLine();
 
