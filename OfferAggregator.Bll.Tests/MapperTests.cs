@@ -38,6 +38,14 @@ namespace OfferAggregator.Bll.Tests
 
             actualStockDto.Should().BeEquivalentTo(exepectedStockDto);
         }
+
+        [TestCaseSource(typeof(MapperTestCaseSource), nameof(MapperTestCaseSource.MapStocksDtoWithProductNameToStocksWithProductModelTestCaseSource))]
+
+        public void MapStocksDtoWithProductNameToStocksWithProductModelTest(StocksDtoWithProductName baseStockDto, StocksWithProductModel exepectedStockModel)
+        {
+            StocksWithProductModel actualStockModel = _mapper.MapStocksDtoWithProductNameToStocksWithProductModel(baseStockDto);
+
+            actualStockModel.Should().BeEquivalentTo(exepectedStockModel);
+        }
     }
 }
-

@@ -81,5 +81,24 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 
             yield return new object[] { baseStockModel, exepectedStockDto };
         }
+
+        public static IEnumerable MapStocksDtoWithProductNameToStocksWithProductModelTestCaseSource()
+        {
+            StocksDtoWithProductName baseStockDto = new StocksDtoWithProductName
+            {
+                Amount = 100,
+                ProductId = 10,
+                Name = "oneProduct"
+            };
+
+            StocksWithProductModel exepectedStockModel = new StocksWithProductModel
+            {
+                Amount = 100,
+                ProductId = 10,
+                Name = "oneProduct"
+            };
+
+            yield return new object[] { baseStockDto, exepectedStockModel };
+        }
     }
 }
