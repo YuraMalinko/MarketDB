@@ -126,6 +126,14 @@ namespace OfferAggregator.Bll
 
             return result;
         }
+
+        public bool UpdateAmountOfStocks(StocksWithProductModel stockModel)
+        {
+            var stockDto = _instanceMapper.MapStocksWithProductModelToStocksDtoWithProductName(stockModel);
+            var result = _productsReviewsAndStocksRepository.UpdateAmountOfStocks(stockDto);
+
+            return result;
+        }
     }
 }
 

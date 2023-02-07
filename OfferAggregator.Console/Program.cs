@@ -40,8 +40,8 @@ ProductService pM = new ProductService(productsRepository, prRev, tR);
 //var deleteProduct = pM.DeleteProduct(1);
 
 StocksWithProductModel stPrModel = new StocksWithProductModel();
-stPrModel.ProductId = 2;
-stPrModel.Amount = -15;
+stPrModel.ProductId = 5;
+stPrModel.Amount = 5;
 
 //var regUpd = pM.RegistrateProductInStock(stPrModel);
 
@@ -53,7 +53,9 @@ stPrDto.Amount = 4;
 
 //var getAm = pM.GetAmountByProductId(1);
 
-var getAllAmounts = pM.GetAmountsOfAllProducts();
+//var getAllAmounts = pM.GetAmountsOfAllProducts();
+
+var updSt = pM.UpdateAmountOfStocks(stPrModel);
 
 Console.WriteLine();
 

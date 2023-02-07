@@ -21,7 +21,6 @@ namespace OfferAggregator.Bll
                     cfg.CreateMap<ProductModel, ProductsDto>();
                     cfg.CreateMap<StocksWithProductModel, StocksDtoWithProductName>();
                     cfg.CreateMap<StocksDtoWithProductName, StocksWithProductModel>();
-                    cfg.CreateMap<StocksDtoWithProductName, StocksWithProductModel>();
                 });
 
             _mapper = _configuration.CreateMapper();
