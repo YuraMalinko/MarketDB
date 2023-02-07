@@ -122,7 +122,7 @@ namespace OfferAggregator.Bll
         public List<StocksWithProductModel> GetAmountsOfAllProducts()
         {
             var amountDto = _productsReviewsAndStocksRepository.GetAmountsOfAllProducts();
-            var result = _instanceMapper.MapProductsDtosToProductModels(amountDto);
+            var result = _instanceMapper.MapStocksDtosWithProducrNameToStocksWithProductModels(amountDto);
 
             return result;
         }

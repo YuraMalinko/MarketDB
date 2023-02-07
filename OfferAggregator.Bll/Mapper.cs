@@ -56,7 +56,7 @@ namespace OfferAggregator.Bll
             return _mapper.Map<StocksWithProductModel>(stockProductDto);
         }
 
-        public List<StocksWithProductModel> MapProductsDtosToProductModels(List<StocksDtoWithProductName> stocksDto)
+        public List<StocksWithProductModel> MapStocksDtosWithProducrNameToStocksWithProductModels(List<StocksDtoWithProductName> stocksDto)
         {
             return _mapper.Map<List<StocksWithProductModel>>(stocksDto);
         }
