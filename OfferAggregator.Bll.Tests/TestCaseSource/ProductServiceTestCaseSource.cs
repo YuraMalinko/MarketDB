@@ -323,6 +323,55 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 
             yield return new object[] { getGroup, getProductDto, productDto, product, expected };
         }
+
+        public static IEnumerable DeleteProductTestCaseSource()
+        {
+            int productId = 69;
+            bool boolProduct = true;
+            bool boolReviewAndStock = true;
+            bool boolTag = true;
+
+            bool expected = true;
+
+            yield return new object[] { productId, boolProduct, boolReviewAndStock, boolTag, expected };
+
+            productId = 22;
+            boolProduct = true;
+            boolReviewAndStock = false;
+            boolTag = true;
+
+            expected = true;
+
+            yield return new object[] { productId, boolProduct, boolReviewAndStock, boolTag, expected };
+
+            productId = 39;
+            boolProduct = true;
+            boolReviewAndStock = true;
+            boolTag = false;
+
+            expected = true;
+
+            yield return new object[] { productId, boolProduct, boolReviewAndStock, boolTag, expected };
+
+            productId = 47;
+            boolProduct = true;
+            boolReviewAndStock = false;
+            boolTag = false;
+
+            expected = true;
+
+            yield return new object[] { productId, boolProduct, boolReviewAndStock, boolTag, expected };
+        }
+
+        public static IEnumerable DeleteProductTest_WhenProductIdIsNotExistTestCaseSource()
+        {
+            int productId = 666;
+            bool boolProduct = false;
+
+            bool expected = false;
+
+            yield return new object[] { productId, boolProduct, expected };
+        }
     }
 }
 

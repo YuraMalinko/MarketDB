@@ -213,32 +213,37 @@ namespace OfferAggregator.Bll.Tests
         
             Assert.AreEqual(expected, actual);
         }
+
+        [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.DeleteProductTestCaseSource))]
+        public void DeleteProductTest(int productId, bool boolProduct, bool boolReviewAndStock, bool boolTag, bool expected)
+        {
+            _mockProductRepo.Setup(p => p.DeleteProduct(productId)).Returns(boolProduct).Verifiable();
+            _mockProductReviewsAndStocksRepo.Setup(rs => rs.DeleteProductReviewByProductId(productId)).Returns(boolReviewAndStock).Verifiable();
+            _mockTagRepo.Setup(t => t.DeleteTagProductByProductId(productId)).Returns(boolTag).Verifiable();
+
+            bool actual = _productService.DeleteProduct(productId);
+
+            _mockProductRepo.VerifyAll();
+            _mockProductReviewsAndStocksRepo.VerifyAll();
+            _mockTagRepo.VerifyAll();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.DeleteProductTest_WhenProductIdIsNotExistTestCaseSource))]
+        public void DeleteProductTest_WhenProductIdIsNotExist(int productId, bool boolProduct, bool expected)
+        {
+            _mockProductRepo.Setup(p => p.DeleteProduct(productId)).Returns(boolProduct).Verifiable();
+
+            bool actual = _productService.DeleteProduct(productId);
+
+            _mockProductRepo.VerifyAll();
+            _mockProductReviewsAndStocksRepo.Verify(rs => rs.DeleteProductReviewByProductId(productId), Times.Never);
+            _mockTagRepo.Verify(t => t.DeleteTagProductByProductId(productId), Times.Never);
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
 
 
-//public bool UpdateProduct(ProductModel product)
-//{
-//    bool result;
-//    try
-//    {
-//        var productDto = _instanceMapper.MapProductModelToProductsDto(product);
-//        var getGroup = _groupRepository.GetGroupById(productDto.GroupId);
-//        var getProductDto = _productsRepository.GetProductById(productDto.Id);
-//        if (getProductDto != null && getProductDto.IsDeleted == false && getGroup != null)
-//        {
-//            result = _productsRepository.UpdateProduct(productDto);
-//        }
-//        else
-//        {
-//            return false;
-//        }
-
-//    }
-//    catch (Exception ex)
-//    {
-//        return false;
-//    }
-
-//    return result;
-//}
