@@ -9,5 +9,14 @@
         public bool IsDeleted { get; set; }
 
         public int GroupId { get; set; }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is ProductsDto dto &&
+                   Id == dto.Id &&
+                   Name == dto.Name &&
+                   IsDeleted == dto.IsDeleted &&
+                   GroupId == dto.GroupId;
+        }
     }
 }

@@ -45,14 +45,13 @@ ProductService pM = new ProductService(productsRepository, prRev, tR, groupRepo)
 
 //var getGr = groupRepo.GetGroupById(19);
 
-ProductModel hugardan = new ProductModel();
-hugardan.GroupId = 9; ;
-hugardan.Name = "beer hugardan";
-hugardan.Id = 51;
+ProductModel prostokvashino = new ProductModel();
+prostokvashino.GroupId = 5; ;
+prostokvashino.Name = "prostokvashino";
 
-//var addProd = pM.AddProduct(beerka);
+var addProd = pM.AddProduct(prostokvashino);
 
-var updHugardan = pM.UpdateProduct(hugardan);
+//var updHugardan = pM.UpdateProduct(milkUlun);
 
 Console.WriteLine();
 

@@ -78,7 +78,7 @@ namespace OfferAggregator.Bll
                 var productDto = _instanceMapper.MapProductModelToProductsDto(product);
                 var getGroup = _groupRepository.GetGroupById(productDto.GroupId);
                 var getProductDto = _productsRepository.GetProductById(productDto.Id);
-                if (getProductDto != null && getGroup != null)
+                if (getProductDto != null && getProductDto.IsDeleted == false && getGroup != null)
                 {
                     result = _productsRepository.UpdateProduct(productDto);
                 }
@@ -86,6 +86,7 @@ namespace OfferAggregator.Bll
                 {
                     return false;
                 }
+
             }
             catch (Exception ex)
             {

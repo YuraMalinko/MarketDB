@@ -30,9 +30,3 @@ namespace OfferAggregator.Bll.Tests
     }
 }
 
-
-
-//public ProductsDto MapProductsDtoToProductModel(ProductModel product)
-//{
-//    return _mapper.Map<ProductsDto>(product);
-//}

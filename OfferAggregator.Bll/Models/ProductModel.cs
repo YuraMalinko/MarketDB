@@ -8,6 +8,6 @@
 
         public bool IsDeleted { get; set; }
 
-        public int? GroupId { get; set; }
+        public int GroupId { get; set; }
     }
 }
