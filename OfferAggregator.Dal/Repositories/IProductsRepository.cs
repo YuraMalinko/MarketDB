@@ -8,6 +8,9 @@ namespace OfferAggregator.Dal.Repositories
         bool DeleteProduct(int id);
         List<ProductsDto> GetAllProducts();
         List<ProductsDto> GetAllProductsByGroupId(int groupId);
+
+        public ProductsDto GetProductById(int id);
+
         bool UpdateProduct(ProductsDto product);
     }
 }

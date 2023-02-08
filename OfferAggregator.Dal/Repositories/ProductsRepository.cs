@@ -42,6 +42,18 @@ namespace OfferAggregator.Dal.Repositories
             }
         }
 
+        public ProductsDto GetProductById(int id)
+        {
+            using (var sqlCncth = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCncth.Open();
+                return sqlCncth.Query<ProductsDto>(
+                    StoredProcedures.GetProductById,
+                    new { id },
+                    commandType: CommandType.StoredProcedure).FirstOrDefault();
+            }
+        }
+
         public bool UpdateProduct(ProductsDto product)
         {
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))

@@ -4,11 +4,11 @@ using System.Collections;
 
 namespace OfferAggregator.Bll.Tests.TestCaseSource
 {
-    public class ProductServiceTestCaseSource
-    {
-        public static IEnumerable AddProductTestCaseSource()
-        { 
+    //public class ProductServiceTestCaseSource
+    //{
+    //    public static IEnumerable AddProductTestCaseSource()
+    //    { 
         
-        }
-    }
+    //    }
+    //}
 }

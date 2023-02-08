@@ -67,8 +67,17 @@ namespace OfferAggregator.Bll
             bool result;
             try
             {
-                var productModel = _instanceMapper.MapProductModelToProductsDto(product);
-                result = _productsRepository.UpdateProduct(productModel);
+                //Добавить проверку по ГроупАйди
+                var productDto = _instanceMapper.MapProductModelToProductsDto(product);
+                var getProductDto = _productsRepository.GetProductById(productDto.Id);
+                if (getProductDto != null)
+                {
+                    result = _productsRepository.UpdateProduct(productDto);
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception ex)
             {
