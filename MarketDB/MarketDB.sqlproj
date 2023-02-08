@@ -103,7 +103,7 @@
     <Build Include="dbo\Stored Procedures\GetAllOrdersByIdManager.sql" />
     <Build Include="dbo\Stored Procedures\GetAllOrdersByClientId.sql" />
     <Build Include="dbo\Stored Procedures\GetAllOrders.sql" />
-    <Build Include="dbo\Stored Procedures\DeleteProductReviewByProductId.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteProductReviewsByProductId.sql" />
     <Build Include="dbo\Stored Procedures\DeleteTagProductByProductId.sql" />
     <Build Include="dbo\Stored Procedures\GetProductById.sql" />
     <Build Include="dbo\Stored Procedures\GetGroupById.sql" />

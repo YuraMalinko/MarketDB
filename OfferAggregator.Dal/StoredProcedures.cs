@@ -31,6 +31,7 @@
         public const string UpdateAmountOfStocks = "UpdateAmountOfStocks";
 
         public const string UpdateScoreAndCommentOfProductsReviews = "UpdateScoreAndCommentOfProductsReviews";
+
         public const string GetAllManagers = "GetAllManagers";
 
         public const string AddManager = "AddManager";
@@ -53,7 +54,7 @@
 
         public const string GetAllOrders = "GetAllOrders";
 
-        public const string DeleteProductReviewByProductId = "DeleteProductReviewByProductId";
+        public const string DeleteProductReviewsByProductId = "DeleteProductReviewByProductId";
 
         public const string DeleteTagProductByProductId = "DeleteTagProductByProductId";
 

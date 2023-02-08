@@ -102,7 +102,7 @@ namespace OfferAggregator.Bll
 
             if (result)
             {
-                _productsReviewsAndStocksRepository.DeleteProductReviewByProductId(productId);
+                _productsReviewsAndStocksRepository.DeleteProductReviewsByProductId(productId);
                 _tagsRepository.DeleteTagProductByProductId(productId);
             }
 

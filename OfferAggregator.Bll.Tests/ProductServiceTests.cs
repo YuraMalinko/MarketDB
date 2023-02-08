@@ -217,7 +217,7 @@ namespace OfferAggregator.Bll.Tests
         public void DeleteProductTest(int productId, bool boolProduct, bool boolReviewAndStock, bool boolTag, bool expected)
         {
             _mockProductRepo.Setup(p => p.DeleteProduct(productId)).Returns(boolProduct).Verifiable();
-            _mockProductReviewsAndStocksRepo.Setup(rs => rs.DeleteProductReviewByProductId(productId)).Returns(boolReviewAndStock).Verifiable();
+            _mockProductReviewsAndStocksRepo.Setup(rs => rs.DeleteProductReviewsByProductId(productId)).Returns(boolReviewAndStock).Verifiable();
             _mockTagRepo.Setup(t => t.DeleteTagProductByProductId(productId)).Returns(boolTag).Verifiable();
 
             bool actual = _productService.DeleteProduct(productId);
@@ -237,7 +237,7 @@ namespace OfferAggregator.Bll.Tests
             bool actual = _productService.DeleteProduct(productId);
 
             _mockProductRepo.VerifyAll();
-            _mockProductReviewsAndStocksRepo.Verify(rs => rs.DeleteProductReviewByProductId(productId), Times.Never);
+            _mockProductReviewsAndStocksRepo.Verify(rs => rs.DeleteProductReviewsByProductId(productId), Times.Never);
             _mockTagRepo.Verify(t => t.DeleteTagProductByProductId(productId), Times.Never);
 
             Assert.AreEqual(expected, actual);

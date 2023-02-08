@@ -1,4 +1,4 @@
-﻿ CREATE PROCEDURE [dbo].[DeleteProductReviewByProductId]
+﻿ CREATE PROCEDURE [dbo].[DeleteProductReviewsByProductId]
   @productId int
   AS
   delete ProductsReviews
