@@ -1,4 +1,5 @@
-﻿CREATE TABLE [dbo].[ClientsWishes] (
+    [ClientId] INT NOT NULL, 
+CREATE TABLE [dbo].[ClientsWishes] (
     [Id] INT NOT NULL IDENTITY (1, 1),
     [ClientId] INT NOT NULL,
     [GroupId]  INT NULL,

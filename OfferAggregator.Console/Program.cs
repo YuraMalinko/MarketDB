@@ -1,106 +1,74 @@
-﻿using OfferAggregator.Dal.Models;
+using OfferAggregator.Dal.Models;
 using OfferAggregator.Dal.Repositories;
-using System.Security;
+using OfferAggregator.Bll;
+using OfferAggregator.Bll.Models;
 
-ClientsWishesRepository clientsWishesRepository= new ClientsWishesRepository();
+//ManagerRepository MR = new ManagerRepository();
 
-ClientWishesDto clW = new ClientWishesDto
-{ 
-ClientId=9,
-GroupId = 3,
-TagId = 8,
-IsLiked = true
-};
+//var m = MR.GetSingleManager("ttt", "qqq");
 
-//var addClW = clientsWishesRepository.AddClientWishes(clW);
+OrderRepository OR = new OrderRepository();
+//OrderDto O = new OrderDto()
+//{
+//    DateCreate = new DateTime(2030, 2, 13, 13,00,00),
+//    ComplitionDate = new DateTime(2031, 2, 13, 13, 30,00),
+//    ManagerId = 5,
+//    ClientId = 2,
+//};
 
-ClientWishesDto clWishe = new ClientWishesDto
-{
-    Id = 11,
-    ClientId = 1,
-    GroupId = 3,
-    TagId = 7,
-    IsLiked = true
-};
-
-//var getClW = clientsWishesRepository.GetClientWishesByClientId(1);
-
-//var updClW = clientsWishesRepository.UpdateClientWishesById(clWishe);
-
-ClientWishesDto clWishes = new ClientWishesDto
-{
-    ClientId = 1,
-    GroupId = 3,
-    TagId = 7
-};
-
-var delClW = clientsWishesRepository.DeleteClientWishesById(40);
-
-Console.WriteLine();
-////var client = new ClientsDto() { Name = "Melman", PhoneNumber = "555" };
-////client.Id = cr.AddClient(client);
-////client.Name = "Putin";
-////cr.UpdateClient(client);
-//var or = new OrderRepository();
-//Console.WriteLine();
-
+//OR.AddOrder(O);
+//O.Id = 123;
+//O.ManagerId = 6;
+//O.ManagerId = 1;
+//var result = OR.UpdateOrder(O);
+var t = OR.GetAllOrders();
 
 ////O.Id=OR.AddOrder(O);
 ////O.ManagerId = 6;
 ////OR.UpdateOrder(O);
 
-////var orders = OR.GetAllOrders();
+//var getAllProdByGroupId = pM.GetAllProductsByGroupId(101010);
 
-////var blabla = OR.GetAllOrdersByClientId(2);
+ProductModel ovca = new ProductModel();
+ovca.Name = "Sheep";
+ovca.GroupId = 0;
+ovca.Id = 2;
+
+//var updPr = pM.UpdateProduct(ovca);
+
+//var delProd = pM.DeleteProduct(505);
+
+ProductsReviewsAndStocksRepository prRev = new ProductsReviewsAndStocksRepository();
+
+Console.ReadLine();
+var prReviewAndStocks = new ProductsReviewsAndStocksRepository();
+
+StocksDtoWithProductName stock = new StocksDtoWithProductName();
+stock.Amount = 100;
+stock.ProductId = 30;
+
+StocksDtoWithProductName stock2 = new StocksDtoWithProductName();
+stock2.Amount = 13;
+stock2.ProductId = 34;
+
+GroupRepository groupRepo = new GroupRepository();
+
+ProductService pM = new ProductService(productsRepository, prRev, tR, groupRepo);
+
+//var delTag = tR.DeleteTagProductByProductId(1);
+
+//var deleteProduct = pM.DeleteProduct(1);
 
 
+//var getGr = groupRepo.GetGroupById(19);
 
-//OR.DeleteOrder(21);
+ProductModel prostokvashino = new ProductModel();
+prostokvashino.GroupId = 5; ;
+prostokvashino.Name = "prostokvashino";
 
-//Console.ReadLine();
-//var prReviewAndStocks = new ProductsReviewsAndStocksRepository();
+var addProd = pM.AddProduct(prostokvashino);
 
-//StocksDtoWithProductName stock = new StocksDtoWithProductName();
-//stock.Amount = 100;
-//stock.ProductId = 30;
-
-//StocksDtoWithProductName stock2 = new StocksDtoWithProductName();
-//stock2.Amount = 13;
-//stock2.ProductId = 34;
-
-//prReviewAndStocks.AddAmountToStocks(stock2);
-
-//var updAmount = prReviewAndStocks.UpdateAmountOfStocks(34, 88);
-
-//var addAmount = prReviewAndStocks.AddAmountToStocks(stock);
-
-//ProductReviewsDto productReview= new ProductReviewsDto();
-//productReview.Score = 5;
-//productReview.Comment = "my score is 5";
-//productReview.ClientId = 1;
-//productReview.ProductId= 30;
-
-//ProductReviewsDto productReview2 = new ProductReviewsDto();
-//productReview2.Score = 3;
-//productReview2.Comment = "dont like it";
-//productReview2.ClientId = 2;
-//productReview2.ProductId = 30;
-
-//ProductReviewsDto productReview3 = new ProductReviewsDto();
-//productReview3.Score = 5;
-//productReview3.Comment = "super tea";
-//productReview3.ClientId = 2;
-//productReview3.ProductId = 12;
-
-//ProductReviewsDto productReview4 = new ProductReviewsDto();
-//productReview4.Score = 5;
-//productReview4.Comment = "i like aHmad tea";
-//productReview4.ClientId = 1;
-//productReview4.ProductId = 47;
-
-////var updScoresAndComment = prReviewAndStocks.AddScoreAndCommentToProductReview(productReview4);
-
-//var updScoresAndCom = prReviewAndStocks.UpdateScoreAndCommentOfProductsReviews(productReview3);
+//var updHugardan = pM.UpdateProduct(milkUlun);
 
 //var addStock = prReviewAndStocks.AddScoreAndCommentToProductReview(productReview);
 
@@ -114,23 +82,23 @@ Console.WriteLine();
 
 //var scoresAndCommentsByPrIdAndClId = prReviewAndStocks.GetAllScoresAndCommentsForProductByProductIDAndClientId(12,2);
 
-//Console.WriteLine();
+Console.WriteLine();
 
-//var pr = new ProductsRepository();
+var pr = new ProductsRepository();
 
-//ProductsDto product = new ProductsDto();
-//product.Name = "tea milk ulun";
-//product.Id = 29;
-//product.GroupId = 1;
+ProductsDto product = new ProductsDto();
+product.Name = "tea milk ulun";
+product.Id = 29;
+product.GroupId = 1;
 
-//ProductsDto earlGrey = new ProductsDto();
-//earlGrey.Name = "earlGrey";
-//earlGrey.GroupId = 1;
+ProductsDto earlGrey = new ProductsDto();
+earlGrey.Name = "earlGrey";
+earlGrey.GroupId = 1;
 
-//ProductsDto lipton = new ProductsDto();
-//lipton.Name = "tea lipton";
-//lipton.GroupId = 1;
-//lipton.Id = 34;
+ProductsDto lipton = new ProductsDto();
+lipton.Name = "tea lipton";
+lipton.GroupId = 1;
+lipton.Id = 34;
 
 //var addProduct = pr.AddProduct(product);
 //var getProduct = pr.GetAllProducts();
@@ -138,7 +106,7 @@ Console.WriteLine();
 //var updPrName = pr.UpdateProductsName(product);
 //var delProduct = pr.DeleteProduct(29);
 //var earlGreyId = pr.AddProduct(earlGrey);
-//var prMilkYlyn = pr.UpdateProduct(lipton);
+var prMilkYlyn = pr.UpdateProduct(lipton);
 
 Console.WriteLine();
 

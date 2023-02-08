@@ -1,4 +1,4 @@
-﻿namespace OfferAggregator.Dal
+namespace OfferAggregator.Dal
 {
     public class StoredProcedures
     {
@@ -45,8 +45,6 @@
 
 
         public const string UpdateScoreAndCommentOfProductsReviews = "UpdateScoreAndCommentOfProductsReviews";
-
-
         public const string GetAllManagers = "GetAllManagers";
 
 
@@ -150,5 +148,15 @@
 
 
         public const string DeleteCommentForClient = "DeleteCommentForClient";
+
+        public const string DeleteProductReviewsByProductId = "DeleteProductReviewByProductId";
+
+        public const string DeleteTagProductByProductId = "DeleteTagProductByProductId";
+
+
+        public const string GetProductById = "GetProductById";
+
+
+        public const string GetGroupById = "GetGroupById";
     }
 }

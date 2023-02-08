@@ -1,4 +1,4 @@
-﻿using OfferAggregator.Dal.Models;
+using OfferAggregator.Dal.Models;
 
 namespace OfferAggregator.Dal.Repositories
 {
@@ -17,5 +17,6 @@ namespace OfferAggregator.Dal.Repositories
         public bool UpdateTag(TagDto tag);
 
         public bool DeleteTagProduct(TagProductDto tagProduct);
+        bool DeleteTagProductByProductId(int productId);
     }
 }
