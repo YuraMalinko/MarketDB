@@ -19,9 +19,10 @@ IProductsRepository productsRepository = new ProductsRepository();
 //var getAllProdByGroupId = pM.GetAllProductsByGroupId(101010);
 
 ProductModel ovca = new ProductModel();
-ovca.Name = "Sheep";
-ovca.GroupId = 0;
-ovca.Id = 2;
+
+ovca.GroupId = 6;
+ovca.Id = 9;
+ovca.Name = "cheese gauda";
 
 //var updPr = pM.UpdateProduct(ovca);
 
@@ -40,8 +41,10 @@ ProductService pM = new ProductService(productsRepository, prRev, tR);
 //var deleteProduct = pM.DeleteProduct(1);
 
 StocksWithProductModel stPrModel = new StocksWithProductModel();
-stPrModel.ProductId = 3;
-stPrModel.Amount = 7;
+stPrModel.ProductId = 100;
+stPrModel.Amount = 100;
+
+var upd = pM.UpdateProduct(ovca);
 
 //var regUpd = pM.RegistrateProductInStock(stPrModel);
 
@@ -57,7 +60,8 @@ stPrDto.Amount = 7;
 
 //var updSt = pM.UpdateAmountOfStocks(stPrModel);
 
-var getPrById = productsRepository.GetProductById(1);
+//var getPrById = productsRepository.GetProductById(1);
+
 
 Console.WriteLine();
 
