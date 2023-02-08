@@ -70,8 +70,7 @@ namespace OfferAggregator.Bll.Tests
             int expectedProductId = -1;
 
             _mockGroupRepo.Setup(g => g.GetGroupById(11)).Returns(getGroup).Verifiable();
-            //_mockProductRepo.Setup(p => p.AddProduct(It.Is<ProductsDto>(pr => pr.Equals(addProduct)))).Throws<Exception>();
-
+            
             int actualProductId = _productService.AddProduct(product);
 
             _mockGroupRepo.VerifyAll();

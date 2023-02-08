@@ -64,6 +64,42 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 List<ProductModel> expectedProductModels = new List<ProductModel> { productsModel1, productsModel2 };
 
                 yield return new object[] { allProducts, expectedProductModels };
+
+                productsDto1 = new ProductsDto();
+                productsDto2 = new ProductsDto
+                {
+                    Id = 2002,
+                    Name = "2002",
+                    GroupId = 222
+                };
+                allProducts = new List<ProductsDto> { productsDto1, productsDto2 };
+
+                productsModel1 = new ProductModel();
+                productsModel2 = new ProductModel
+                {
+                    Id = 2002,
+                    Name = "2002",
+                    GroupId = 222
+                };
+                expectedProductModels = new List<ProductModel> { productsModel1, productsModel2 };
+
+                yield return new object[] { allProducts, expectedProductModels };
+
+                productsDto1 = new ProductsDto();
+                productsDto2 = new ProductsDto();
+                allProducts = new List<ProductsDto> { productsDto1, productsDto2 };
+
+                productsModel1 = new ProductModel();
+                productsModel2 = new ProductModel();
+                expectedProductModels = new List<ProductModel> { productsModel1, productsModel2 };
+
+                yield return new object[] { allProducts, expectedProductModels };
+
+                allProducts = new List<ProductsDto>();
+
+                expectedProductModels = new List<ProductModel> ();
+
+                yield return new object[] { allProducts, expectedProductModels };
             }
         }
 
@@ -95,8 +131,35 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Name = "12",
                 GroupId = 10
             };
-            int groupId = 12;
+            int groupId = 10;
             List<ProductModel> expectedProductModels = new List<ProductModel> { productsModel1, productsModel2 };
+
+            yield return new object[] { allProducts, expectedProductModels, groupId };
+
+            productsDto1 = new ProductsDto
+            {
+                Id = 112,
+                Name = "112",
+                GroupId = 102
+            };
+            productsDto2 = new ProductsDto();
+            allProducts = new List<ProductsDto> { productsDto1, productsDto2 };
+
+            productsModel1 = new ProductModel
+            {
+                Id = 112,
+                Name = "112",
+                GroupId = 102
+            };
+            productsModel2 = new ProductModel();
+            groupId = 102;
+            expectedProductModels = new List<ProductModel> { productsModel1, productsModel2 };
+
+            yield return new object[] { allProducts, expectedProductModels, groupId };
+
+            allProducts = new List<ProductsDto>();
+            groupId = 1023;
+            expectedProductModels = new List<ProductModel>();
 
             yield return new object[] { allProducts, expectedProductModels, groupId };
         }
