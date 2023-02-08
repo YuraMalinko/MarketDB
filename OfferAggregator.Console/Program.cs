@@ -33,11 +33,26 @@ ProductsReviewsAndStocksRepository prRev = new ProductsReviewsAndStocksRepositor
 
 TagsRepository tR = new TagsRepository();
 
-ProductService pM = new ProductService(productsRepository, prRev, tR);
+
+GroupRepository groupRepo = new GroupRepository();
+
+ProductService pM = new ProductService(productsRepository, prRev, tR, groupRepo);
 
 //var delTag = tR.DeleteTagProductByProductId(1);
 
-var deleteProduct = pM.DeleteProduct(1);
+//var deleteProduct = pM.DeleteProduct(1);
+
+
+//var getGr = groupRepo.GetGroupById(19);
+
+ProductModel hugardan = new ProductModel();
+hugardan.GroupId = 9; ;
+hugardan.Name = "beer hugardan";
+hugardan.Id = 51;
+
+//var addProd = pM.AddProduct(beerka);
+
+var updHugardan = pM.UpdateProduct(hugardan);
 
 Console.WriteLine();
 

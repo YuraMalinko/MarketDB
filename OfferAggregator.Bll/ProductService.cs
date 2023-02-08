@@ -23,11 +23,15 @@ namespace OfferAggregator.Bll
 
         private ITagsRepository _tagsRepository;
 
-        public ProductService(IProductsRepository productsRepository, IProductsReviewsAndStocksRepository productsReviewsAndStocksRepository, ITagsRepository tagsRepository)
+
+        private IGroupRepository _groupRepository;
+
+        public ProductService(IProductsRepository productsRepository, IProductsReviewsAndStocksRepository productsReviewsAndStocksRepository, ITagsRepository tagsRepository, IGroupRepository groupRepository)
         {
             _productsRepository = productsRepository;
             _productsReviewsAndStocksRepository = productsReviewsAndStocksRepository;
             _tagsRepository = tagsRepository;
+            _groupRepository = groupRepository;
         }
 
         public int AddProduct(ProductModel product)
@@ -35,9 +39,13 @@ namespace OfferAggregator.Bll
             int result = -1;
             try
             {
-                //Добавить проверку по ГроупАйди
                 var addProduct = _instanceMapper.MapProductModelToProductsDto(product);
-                result = _productsRepository.AddProduct(addProduct);
+                var groupId = addProduct.GroupId;
+                var getGroup = _groupRepository.GetGroupById(groupId);
+                if (getGroup != null)
+                {
+                    result = _productsRepository.AddProduct(addProduct);
+                }
             }
             catch (Exception ex)
             {
@@ -67,10 +75,10 @@ namespace OfferAggregator.Bll
             bool result;
             try
             {
-                //Добавить проверку по ГроупАйди
                 var productDto = _instanceMapper.MapProductModelToProductsDto(product);
+                var getGroup = _groupRepository.GetGroupById(productDto.GroupId);
                 var getProductDto = _productsRepository.GetProductById(productDto.Id);
-                if (getProductDto != null)
+                if (getProductDto != null && getGroup != null)
                 {
                     result = _productsRepository.UpdateProduct(productDto);
                 }

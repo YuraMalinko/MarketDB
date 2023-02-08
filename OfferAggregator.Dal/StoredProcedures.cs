@@ -59,5 +59,8 @@
 
 
         public const string GetProductById = "GetProductById";
+
+
+        public const string GetGroupById = "GetGroupById";
     }
 }
