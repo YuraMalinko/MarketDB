@@ -70,7 +70,7 @@ namespace OfferAggregator.Bll.Tests
             int expectedProductId = -1;
 
             _mockGroupRepo.Setup(g => g.GetGroupById(11)).Returns(getGroup).Verifiable();
-            
+
             int actualProductId = _productService.AddProduct(product);
 
             _mockGroupRepo.VerifyAll();
@@ -135,6 +135,110 @@ namespace OfferAggregator.Bll.Tests
 
             actualProductModels.Should().BeEquivalentTo(expectedProductModels);
         }
+
+
+        [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.UpdateProductTestCaseSource))]
+
+        public void UpdateProductTest(GroupDto getGroup, ProductsDto getProductDto, ProductsDto productDto, ProductModel product, bool expected, bool result)
+        {
+            _mockGroupRepo.Setup(g => g.GetGroupById(productDto.GroupId)).Returns(getGroup).Verifiable();
+            _mockProductRepo.Setup(p => p.GetProductById(productDto.Id)).Returns(getProductDto).Verifiable();
+            _mockProductRepo.Setup(p => p.UpdateProduct(It.Is<ProductsDto>(pr => pr.Equals(productDto)))).Returns(result).Verifiable();
+
+            bool actual = _productService.UpdateProduct(product);
+
+            _mockGroupRepo.VerifyAll();
+            _mockProductRepo.VerifyAll();
+            _mockProductRepo.VerifyAll();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.UpdateProductTest_WhenProductIsNotExistTestCaseSource))]
+        public void UpdateProductTest_WhenProductIsNotExist(GroupDto getGroup, ProductsDto getProductDto, ProductsDto productDto, ProductModel product, bool expected)
+        {
+            _mockGroupRepo.Setup(g => g.GetGroupById(productDto.GroupId)).Returns(getGroup).Verifiable();
+            _mockProductRepo.Setup(p => p.GetProductById(productDto.Id)).Returns(getProductDto).Verifiable();
+
+            bool actual = _productService.UpdateProduct(product);
+
+            _mockGroupRepo.VerifyAll();
+            _mockProductRepo.VerifyAll();
+            _mockProductRepo.Verify(p => p.UpdateProduct(It.IsAny<ProductsDto>()), Times.Never);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.UpdateProductTest_WhenProductIsDeletedTestCaseSource))]
+        public void UpdateProductTest_WhenProductIsDeleted(GroupDto getGroup, ProductsDto getProductDto, ProductsDto productDto, ProductModel product, bool expected)
+        {
+            _mockGroupRepo.Setup(g => g.GetGroupById(productDto.GroupId)).Returns(getGroup).Verifiable();
+            _mockProductRepo.Setup(p => p.GetProductById(productDto.Id)).Returns(getProductDto).Verifiable();
+
+            bool actual = _productService.UpdateProduct(product);
+
+            _mockGroupRepo.VerifyAll();
+            _mockProductRepo.VerifyAll();
+            _mockProductRepo.Verify(p => p.UpdateProduct(It.IsAny<ProductsDto>()), Times.Never);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.UpdateProductTest_WhenGroupIsNotExistTestCaseSource))]
+        public void UpdateProductTest_WhenGroupIsNotExist(GroupDto getGroup, ProductsDto getProductDto, ProductsDto productDto, ProductModel product, bool expected)
+        {
+            _mockGroupRepo.Setup(g => g.GetGroupById(productDto.GroupId)).Returns(getGroup).Verifiable();
+            _mockProductRepo.Setup(p => p.GetProductById(productDto.Id)).Returns(getProductDto).Verifiable();
+
+            bool actual = _productService.UpdateProduct(product);
+
+            _mockGroupRepo.VerifyAll();
+            _mockProductRepo.VerifyAll();
+            _mockProductRepo.Verify(p => p.UpdateProduct(It.IsAny<ProductsDto>()), Times.Never);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.UpdateProductTest_WhenNameNotUnigue_ShouldExceptionTestCaseSource))]
+        public void UpdateProductTest_WhenNameNotUnigue_ShouldException(GroupDto getGroup, ProductsDto getProductDto, ProductsDto productDto, ProductModel product, bool expected)
+        {
+            _mockGroupRepo.Setup(g => g.GetGroupById(productDto.GroupId)).Returns(getGroup).Verifiable();
+            _mockProductRepo.Setup(p => p.GetProductById(productDto.Id)).Returns(getProductDto).Verifiable();
+            _mockProductRepo.Setup(p => p.UpdateProduct(It.Is<ProductsDto>(pr => pr.Name == productDto.Name))).Throws<Exception>();
+
+            bool actual = _productService.UpdateProduct(product);
+
+            _mockGroupRepo.VerifyAll();
+            _mockProductRepo.VerifyAll();
+        
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
 
+
+//public bool UpdateProduct(ProductModel product)
+//{
+//    bool result;
+//    try
+//    {
+//        var productDto = _instanceMapper.MapProductModelToProductsDto(product);
+//        var getGroup = _groupRepository.GetGroupById(productDto.GroupId);
+//        var getProductDto = _productsRepository.GetProductById(productDto.Id);
+//        if (getProductDto != null && getProductDto.IsDeleted == false && getGroup != null)
+//        {
+//            result = _productsRepository.UpdateProduct(productDto);
+//        }
+//        else
+//        {
+//            return false;
+//        }
+
+//    }
+//    catch (Exception ex)
+//    {
+//        return false;
+//    }
+
+//    return result;
+//}

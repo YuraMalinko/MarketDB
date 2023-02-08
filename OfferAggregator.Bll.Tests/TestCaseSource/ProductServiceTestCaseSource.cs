@@ -97,7 +97,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 
                 allProducts = new List<ProductsDto>();
 
-                expectedProductModels = new List<ProductModel> ();
+                expectedProductModels = new List<ProductModel>();
 
                 yield return new object[] { allProducts, expectedProductModels };
             }
@@ -163,5 +163,166 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 
             yield return new object[] { allProducts, expectedProductModels, groupId };
         }
+
+        public static IEnumerable UpdateProductTestCaseSource()
+        {
+            ProductModel product = new ProductModel
+            {
+                Id = 111,
+                Name = "111",
+                GroupId = 1,
+                IsDeleted = false
+            };
+            ProductsDto productDto = new ProductsDto
+            {
+                Id = 111,
+                Name = "111",
+                GroupId = 1,
+                IsDeleted = false
+            };
+            GroupDto getGroup = new GroupDto
+            {
+                Id = 1,
+                Name = "group1"
+            };
+            ProductsDto getProductDto = new ProductsDto
+            {
+                Id = 111,
+                Name = "111",
+                GroupId = 1,
+                IsDeleted = false
+            };
+            bool result = true;
+            bool expected = true;
+
+            yield return new object[] { getGroup, getProductDto, productDto, product, expected, result };
+        }
+
+        public static IEnumerable UpdateProductTest_WhenProductIsNotExistTestCaseSource()
+        {
+            ProductModel product = new ProductModel
+            {
+                Id = 1112,
+                Name = "1112",
+                GroupId = 12,
+                IsDeleted = false
+            };
+            ProductsDto productDto = new ProductsDto
+            {
+                Id = 1112,
+                Name = "1112",
+                GroupId = 12,
+                IsDeleted = false
+            };
+            GroupDto getGroup = new GroupDto
+            {
+                Id = 12,
+                Name = "group12"
+            };
+            ProductsDto getProductDto = null;
+
+            bool expected = false;
+
+            yield return new object[] { getGroup, getProductDto, productDto, product, expected };
+        }
+
+        public static IEnumerable UpdateProductTest_WhenProductIsDeletedTestCaseSource()
+        {
+            ProductModel product = new ProductModel
+            {
+                Id = 11123,
+                Name = "11123",
+                GroupId = 123,
+                IsDeleted = true
+            };
+            ProductsDto productDto = new ProductsDto
+            {
+                Id = 11123,
+                Name = "11123",
+                GroupId = 123,
+                IsDeleted = true
+            };
+            GroupDto getGroup = new GroupDto
+            {
+                Id = 123,
+                Name = "group123"
+            };
+            ProductsDto getProductDto = new ProductsDto
+            {
+                Id = 11123,
+                Name = "11123",
+                GroupId = 123,
+                IsDeleted = true
+            };
+
+            bool expected = false;
+
+            yield return new object[] { getGroup, getProductDto, productDto, product, expected };
+        }
+
+        public static IEnumerable UpdateProductTest_WhenGroupIsNotExistTestCaseSource()
+        {
+            ProductModel product = new ProductModel
+            {
+                Id = 111234,
+                Name = "111234",
+                GroupId = 1234,
+                IsDeleted = false
+            };
+            ProductsDto productDto = new ProductsDto
+            {
+                Id = 111234,
+                Name = "111234",
+                GroupId = 1234,
+                IsDeleted = false
+            };
+            GroupDto getGroup = null;
+            ProductsDto getProductDto = new ProductsDto
+            {
+                Id = 111234,
+                Name = "111234",
+                GroupId = 1234,
+                IsDeleted = false
+            };
+
+            bool expected = false;
+
+            yield return new object[] { getGroup, getProductDto, productDto, product, expected };
+        }
+
+        public static IEnumerable UpdateProductTest_WhenNameNotUnigue_ShouldExceptionTestCaseSource()
+        {
+            ProductModel product = new ProductModel
+            {
+                Id = 1112345,
+                Name = "1112345",
+                GroupId = 12345,
+                IsDeleted = false
+            };
+            ProductsDto productDto = new ProductsDto
+            {
+                Id = 1112345,
+                Name = "1112345",
+                GroupId = 12345,
+                IsDeleted = false
+            };
+            GroupDto getGroup = new GroupDto
+            {
+                Id = 12345,
+                Name = "group12345"
+            };
+            ProductsDto getProductDto = new ProductsDto
+            {
+                Id = 1112345,
+                Name = "1112345",
+                GroupId = 12345,
+                IsDeleted = false
+            };
+
+            bool expected = false;
+
+            yield return new object[] { getGroup, getProductDto, productDto, product, expected };
+        }
     }
 }
+
