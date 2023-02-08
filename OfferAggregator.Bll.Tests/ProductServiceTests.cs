@@ -149,7 +149,6 @@ namespace OfferAggregator.Bll.Tests
 
             _mockGroupRepo.VerifyAll();
             _mockProductRepo.VerifyAll();
-            _mockProductRepo.VerifyAll();
 
             Assert.AreEqual(expected, actual);
         }

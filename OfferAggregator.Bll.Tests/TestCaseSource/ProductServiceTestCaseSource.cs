@@ -281,7 +281,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             {
                 Id = 111234,
                 Name = "111234",
-                GroupId = 1234,
+                GroupId = 8,
                 IsDeleted = false
             };
 
