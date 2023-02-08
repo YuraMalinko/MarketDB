@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -103,9 +103,36 @@
     <Build Include="dbo\Stored Procedures\GetAllOrdersByIdManager.sql" />
     <Build Include="dbo\Stored Procedures\GetAllOrdersByClientId.sql" />
     <Build Include="dbo\Stored Procedures\GetAllOrders.sql" />
+    <Build Include="dbo\Stored Procedures\AddClient.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteClient.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateClient.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllClients.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllPurchasedProductsByClientId.sql" />
+    <Build Include="dbo\Stored Procedures\AddTag.sql" />
+    <Build Include="dbo\Stored Procedures\AddTagProduct.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllTags.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllTagsByProductId.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateTag.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteTag.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteProductsReviews.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteStock.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteTagProduct.sql" />
+    <Build Include="dbo\Stored Procedures\AddProductToOrders.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllInfoInOrderById.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateCountInOrdersProducts.sql" />
+    <Build Include="dbo\Stored Procedures\AddCommentForClient.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateCommentForClient.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteCommentForClient.sql" />
+    <Build Include="dbo\Stored Procedures\AddClientWishes.sql" />
+    <Build Include="dbo\Stored Procedures\GetClientWishesByClientId.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateClientWishesById.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteClientWishesById.sql" />
     <Build Include="dbo\Stored Procedures\DeleteProductReviewsByProductId.sql" />
     <Build Include="dbo\Stored Procedures\DeleteTagProductByProductId.sql" />
     <Build Include="dbo\Stored Procedures\GetProductById.sql" />
     <Build Include="dbo\Stored Procedures\GetGroupById.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="MarketDB.refactorlog" />
   </ItemGroup>
 </Project>

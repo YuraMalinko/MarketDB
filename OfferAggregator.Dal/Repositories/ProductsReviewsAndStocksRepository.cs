@@ -1,4 +1,4 @@
-﻿using Dapper;
+using Dapper;
 using Microsoft.Data.SqlClient;
 using OfferAggregator.Dal.Models;
 using System.Data;
@@ -243,6 +243,34 @@ namespace OfferAggregator.Dal.Repositories
                 int result = sqlCnctn.Execute(
                     StoredProcedures.UpdateScoreAndCommentOfProductsReviews,
                     new { productReviews.ProductId, productReviews.ClientId, productReviews.Score, productReviews.Comment },
+                    commandType: CommandType.StoredProcedure);
+
+                return result > 0;
+            }
+        }
+
+        public bool DeleteProductsReviews(ProductReviewsDto productReview)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                int result = sqlCnctn.Execute(
+                    StoredProcedures.DeleteProductsReviews,
+                    new { productReview.ProductId, productReview.ClientId},
+                    commandType: CommandType.StoredProcedure);
+
+                return result > 0;
+            }
+        }
+
+        public bool DeleteStock(StocksDtoWithProductName stock)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            { 
+            sqlCnctn.Open();
+                int result = sqlCnctn.Execute(
+                    StoredProcedures.DeleteStock,
+                    new { stock.Amount, stock.ProductId },
                     commandType: CommandType.StoredProcedure);
 
                 return result > 0;

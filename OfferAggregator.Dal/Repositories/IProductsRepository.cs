@@ -1,16 +1,19 @@
-﻿using OfferAggregator.Dal.Models;
+using OfferAggregator.Dal.Models;
 
 namespace OfferAggregator.Dal.Repositories
 {
     public interface IProductsRepository
     {
-        int AddProduct(ProductsDto product);
-        bool DeleteProduct(int id);
-        List<ProductsDto> GetAllProducts();
-        List<ProductsDto> GetAllProductsByGroupId(int groupId);
+        public int AddProduct(ProductsDto product);
+
+        public int DeleteProduct(int id);
+
+        public List<ProductsDto> GetAllProducts();
+
+        public List<ProductsDto> GetAllProductsByGroupId(int groupId);
+
+        public int UpdateProduct(ProductsDto product);
 
         public ProductsDto GetProductById(int id);
-
-        bool UpdateProduct(ProductsDto product);
     }
 }

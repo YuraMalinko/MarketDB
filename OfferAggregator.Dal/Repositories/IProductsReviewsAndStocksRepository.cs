@@ -1,19 +1,28 @@
-﻿using OfferAggregator.Dal.Models;
+using OfferAggregator.Dal.Models;
 
 namespace OfferAggregator.Dal.Repositories
 {
     public interface IProductsReviewsAndStocksRepository
     {
-        int AddAmountToStocks(StocksDtoWithProductName stock);
-        int AddScoreAndCommentToProductReview(ProductReviewsDto prReview);
-        List<ProductWithScoresAndCommentsDto> GetAllScoresAndCommentsForProductByProductId(int productId);
-        List<ProductWithScoresAndCommentsDto> GetAllScoresAndCommentsForProductByProductIDAndClientId(int productId, int clientId);
-        List<ProductWithScoresAndCommentsDto> GetAllScoresAndCommentsForProducts();
-        List<ProductWithScoresAndCommentsDto> GetAllScoresAndCommentsForProductsByClientId(int clientId);
-        StocksDtoWithProductName GetAmountByProductId(int id);
-        List<StocksDtoWithProductName> GetAmountsOfAllProducts();
-        bool UpdateAmountOfStocks(int productId, int changeAmount);
-        bool UpdateScoreAndCommentOfProductsReviews(ProductReviewsDto productReviews);
+        public int AddAmountToStocks(StocksDtoWithProductName stock);
+
+        public int AddScoreAndCommentToProductReview(ProductReviewsDto prReview);
+
+        public List<ProductWithScoresAndCommentsDto> GetAllScoresAndCommentsForProductByProductId(int productId);
+
+        public List<ProductWithScoresAndCommentsDto> GetAllScoresAndCommentsForProductByProductIDAndClientId(int productId, int clientId);
+
+        public List<ProductWithScoresAndCommentsDto> GetAllScoresAndCommentsForProducts();
+
+        public List<ProductWithScoresAndCommentsDto> GetAllScoresAndCommentsForProductsByClientId(int clientId);
+
+        public StocksDtoWithProductName GetAmountByProductId(int id);
+
+        public List<StocksDtoWithProductName> GetAmountsOfAllProducts();
+
+        public bool UpdateAmountOfStocks(int productId, int changeAmount);
+
+        public bool UpdateScoreAndCommentOfProductsReviews(ProductReviewsDto productReviews);
         bool DeleteProductReviewsByProductId(int productId);
     }
 }
