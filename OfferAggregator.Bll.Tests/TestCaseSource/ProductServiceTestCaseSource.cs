@@ -47,7 +47,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                     Name = "200",
                     GroupId = 22
                 };
-                List<ProductsDto> allProducts = new List<ProductsDto> { productsDto1 , productsDto2};
+                List<ProductsDto> allProducts = new List<ProductsDto> { productsDto1, productsDto2 };
 
                 ProductModel productsModel1 = new ProductModel
                 {
@@ -65,6 +65,40 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 
                 yield return new object[] { allProducts, expectedProductModels };
             }
+        }
+
+        public static IEnumerable GetAllProductsByGroupIdTestCaseSource()
+        {
+            ProductsDto productsDto1 = new ProductsDto
+            {
+                Id = 11,
+                Name = "11",
+                GroupId = 10
+            };
+            ProductsDto productsDto2 = new ProductsDto
+            {
+                Id = 12,
+                Name = "12",
+                GroupId = 10
+            };
+            List<ProductsDto> allProducts = new List<ProductsDto> { productsDto1, productsDto2 };
+
+            ProductModel productsModel1 = new ProductModel
+            {
+                Id = 11,
+                Name = "11",
+                GroupId = 10
+            };
+            ProductModel productsModel2 = new ProductModel
+            {
+                Id = 12,
+                Name = "12",
+                GroupId = 10
+            };
+            int groupId = 12;
+            List<ProductModel> expectedProductModels = new List<ProductModel> { productsModel1, productsModel2 };
+
+            yield return new object[] { allProducts, expectedProductModels, groupId };
         }
     }
 }
