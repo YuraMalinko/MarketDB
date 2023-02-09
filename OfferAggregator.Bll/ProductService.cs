@@ -14,19 +14,16 @@ namespace OfferAggregator.Bll
     {
         private Mapper _instanceMapper = Mapper.GetInstance();
 
-
         private IProductsRepository _productsRepository;
-
 
         private IProductsReviewsAndStocksRepository _productsReviewsAndStocksRepository;
 
-
         private ITagsRepository _tagsRepository;
-
 
         private IGroupRepository _groupRepository;
 
-        public ProductService(IProductsRepository productsRepository, IProductsReviewsAndStocksRepository productsReviewsAndStocksRepository, ITagsRepository tagsRepository, IGroupRepository groupRepository)
+        public ProductService(IProductsRepository productsRepository, IProductsReviewsAndStocksRepository productsReviewsAndStocksRepository, 
+                              ITagsRepository tagsRepository, IGroupRepository groupRepository)
         {
             _productsRepository = productsRepository;
             _productsReviewsAndStocksRepository = productsReviewsAndStocksRepository;
