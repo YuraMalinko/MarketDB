@@ -108,8 +108,6 @@ namespace OfferAggregator.Dal
 
         public const string GetProductById = "GetProductById";
 
-        public const string DeleteCommentForClient = "DeleteCommentForClient";
-
         public const string AddCommentForOrder = "AddCommentForOrder";
 
         public const string UpdateCommentForOrder = "UpdateCommentForOrder";
