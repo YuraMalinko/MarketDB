@@ -306,8 +306,11 @@ namespace OfferAggregator.Bll.Tests
         }
 
         [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.RegistrateProductInStockTest_WhenProductIsDeletedTestCaseSource))]
-        public void RegistrateProductInStockTest_WhenProductIsDeleted(StocksDtoWithProductName stockProductDto, ProductsDto getProductDto,
-                                                                       StocksWithProductModel stockProductModel, bool expected)
+        public void RegistrateProductInStockTest_WhenProductIsDeleted(
+            StocksDtoWithProductName stockProductDto,
+            ProductsDto getProductDto,
+            StocksWithProductModel stockProductModel,
+            bool expected)
         {
             _mockProductRepo.Setup(p => p.GetProductById(stockProductDto.ProductId)).Returns(getProductDto).Verifiable();
 
