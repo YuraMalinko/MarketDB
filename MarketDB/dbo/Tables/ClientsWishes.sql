@@ -1,4 +1,4 @@
-﻿CREATE TABLE [dbo].[ClientsWishes] (
+CREATE TABLE [dbo].[ClientsWishes] (
     [Id] INT NOT NULL IDENTITY (1, 1),
     [ClientId] INT NOT NULL,
     [GroupId]  INT NULL,

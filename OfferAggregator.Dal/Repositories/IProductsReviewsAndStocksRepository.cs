@@ -1,4 +1,4 @@
-﻿using OfferAggregator.Dal.Models;
+using OfferAggregator.Dal.Models;
 
 namespace OfferAggregator.Dal.Repositories
 {
@@ -23,5 +23,6 @@ namespace OfferAggregator.Dal.Repositories
         public bool UpdateAmountOfStocks(int productId, int changeAmount);
 
         public bool UpdateScoreAndCommentOfProductsReviews(ProductReviewsDto productReviews);
+        bool DeleteProductReviewsByProductId(int productId);
     }
 }
