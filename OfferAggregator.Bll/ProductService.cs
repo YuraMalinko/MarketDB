@@ -108,6 +108,29 @@ namespace OfferAggregator.Bll
 
             return result;
         }
+
+        public bool RegistrateProductInStock(StocksWithProductModel stockProduct)
+        {
+            var stockProductDto = _instanceMapper.MapStocksWithProductModelToStocksWithProductModel(stockProduct);
+            var getProductDto = _productsRepository.GetProductById(stockProductDto.ProductId);
+            bool result = false;
+            if (getProductDto != null && stockProductDto.Amount>0 && !getProductDto.IsDeleted )
+            {
+                var getAmountByProductId = _productsReviewsAndStocksRepository.GetAmountByProductId(stockProductDto.ProductId);
+
+                if (getAmountByProductId is null)
+                {
+                    result = _productsReviewsAndStocksRepository.AddAmountToStocks(stockProductDto);
+                }
+                else
+                {
+                    var sumAmount = getAmountByProductId.Amount + stockProductDto.Amount;
+                    stockProductDto.Amount = sumAmount;
+                    result = _productsReviewsAndStocksRepository.UpdateAmountOfStocks(stockProductDto);
+                }
+            }
+            return result;
+        }
     }
 }
 

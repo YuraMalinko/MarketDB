@@ -7,16 +7,18 @@ namespace OfferAggregator.Dal.Repositories
 {
     public class ProductsReviewsAndStocksRepository : IProductsReviewsAndStocksRepository
     {
-        public int AddAmountToStocks(StocksDtoWithProductName stock)
+        public bool AddAmountToStocks(StocksDtoWithProductName stock)
         {
             using (var sqlCnct = new SqlConnection(Options.ConnectionString))
             {
                 sqlCnct.Open();
 
-                return sqlCnct.Execute(
+               int result = sqlCnct.Execute(
                     StoredProcedures.AddAmountToStocks,
                     new { stock.Amount, stock.ProductId },
                                     commandType: CommandType.StoredProcedure);
+
+                return result > 0;
             }
         }
 
@@ -221,14 +223,14 @@ namespace OfferAggregator.Dal.Repositories
             }
         }
 
-        public bool UpdateAmountOfStocks(int productId, int changeAmount)
+        public bool UpdateAmountOfStocks(StocksDtoWithProductName stockProduct)
         {
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
             {
                 sqlCnctn.Open();
                 int result = sqlCnctn.Execute(
                      StoredProcedures.UpdateAmountOfStocks,
-                     new { productId, changeAmount },
+                     new { stockProduct.ProductId, stockProduct.Amount },
                      commandType: CommandType.StoredProcedure);
 
                 return result > 0;
