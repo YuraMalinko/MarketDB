@@ -19,7 +19,7 @@ namespace OfferAggregator.Dal.Repositories
             }
         }
 
-        public ManagerDto GetSingleManager(string login, string password)
+        public ManagerDto GetSingleManager(ManagerDto manager)
         {
             using (var sqlConnect = new SqlConnection(Options.ConnectionString))
             {
@@ -27,7 +27,7 @@ namespace OfferAggregator.Dal.Repositories
 
                 return sqlConnect.Query<ManagerDto>(
                     StoredProcedures.GetSingleManager,
-                    new { login, password },
+                    new { manager.Login, manager.Password },
                     commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
         }
@@ -45,27 +45,27 @@ namespace OfferAggregator.Dal.Repositories
             }
         }
 
-        public void UpdateManager(ManagerDto manager)
+        public bool UpdateManager(ManagerDto manager)
         {
             using (var sqlConnect = new SqlConnection(Options.ConnectionString))
             {
                 sqlConnect.Open();
-                sqlConnect.Execute(
+                return sqlConnect.Execute(
                     StoredProcedures.UpdateManager,
                     new { manager.Id, manager.Login, manager.Password },
-                    commandType: CommandType.StoredProcedure);
+                    commandType: CommandType.StoredProcedure)>0;
             }
         }
 
-        public void DeleteManager(int id)
+        public bool DeleteManager(int id)
         {
             using (var sqlConnect = new SqlConnection(Options.ConnectionString))
             {
                 sqlConnect.Open();
-                sqlConnect.Execute(
+                return sqlConnect.Execute(
                     StoredProcedures.DeleteManager,
                     new { id },
-                    commandType: CommandType.StoredProcedure);
+                    commandType: CommandType.StoredProcedure)>0;
             }
         }
     }
