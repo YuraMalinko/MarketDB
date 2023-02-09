@@ -76,14 +76,14 @@ namespace OfferAggregator.Dal.Repositories
             }
         }
 
-        public StocksDtoWithProductName GetAmountByProductId(int id)
+        public StocksDtoWithProductName GetAmountByProductId(int productId)
         {
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
             {
                 sqlCnctn.Open();
 
                 return sqlCnctn.Query<StocksDtoWithProductName>(StoredProcedures.GetAmountByProductId,
-                    new { id },
+                    new { productId },
                     commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
         }

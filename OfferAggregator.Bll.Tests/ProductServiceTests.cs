@@ -209,7 +209,7 @@ namespace OfferAggregator.Bll.Tests
 
             _mockGroupRepo.VerifyAll();
             _mockProductRepo.VerifyAll();
-        
+
             Assert.AreEqual(expected, actual);
         }
 
@@ -237,10 +237,86 @@ namespace OfferAggregator.Bll.Tests
             bool actual = _productService.DeleteProduct(productId);
 
             _mockProductRepo.VerifyAll();
-            _mockProductReviewsAndStocksRepo.Verify(rs => rs.DeleteProductReviewsByProductId(productId), Times.Never);
-            _mockTagRepo.Verify(t => t.DeleteTagProductByProductId(productId), Times.Never);
+            _mockProductReviewsAndStocksRepo.Verify(rs => rs.DeleteProductReviewsByProductId(It.IsAny<int>()), Times.Never);
+            _mockTagRepo.Verify(t => t.DeleteTagProductByProductId(It.IsAny<int>()), Times.Never);
 
             Assert.AreEqual(expected, actual);
+        }
+
+        [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.RegistrateProductInStockTest_WhenAddNewProductTestCaseSource))]
+        public void RegistrateProductInStockTest_WhenAddNewProduct(StocksDtoWithProductName stockProductDto, ProductsDto getProductDto, StocksDtoWithProductName getAmountByProductId,
+                                                  bool resultOfAdd, bool expected, StocksWithProductModel stockProductModel)
+        {
+            _mockProductRepo.Setup(p => p.GetProductById(stockProductDto.ProductId)).Returns(getProductDto).Verifiable();
+            _mockProductReviewsAndStocksRepo.Setup(rs => rs.GetAmountByProductId(stockProductDto.ProductId)).Returns(getAmountByProductId).Verifiable();
+            _mockProductReviewsAndStocksRepo.Setup(rs => rs.AddAmountToStocks(
+                                                   It.Is<StocksDtoWithProductName>(sp => sp.Equals(stockProductDto))))
+                                                   .Returns(resultOfAdd).Verifiable();
+            bool actual = _productService.RegistrateProductInStock(stockProductModel);
+
+            _mockProductRepo.VerifyAll();
+            _mockProductReviewsAndStocksRepo.VerifyAll();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.RegistrateProductInStockTest_WhenUpdateExistProductTestCaseSource))]
+        public void RegistrateProductInStockTest_WhenUpdateExistProduct(StocksDtoWithProductName stockProductDto, ProductsDto getProductDto, StocksDtoWithProductName getAmountByProductId,
+                                                  bool resultUpdate, bool expected, StocksWithProductModel stockProductModel, StocksDtoWithProductName stockUpdateProductDto)
+        {
+            _mockProductRepo.Setup(p => p.GetProductById(stockProductDto.ProductId)).Returns(getProductDto).Verifiable();
+            _mockProductReviewsAndStocksRepo.Setup(rs => rs.GetAmountByProductId(stockProductDto.ProductId)).Returns(getAmountByProductId).Verifiable();
+            _mockProductReviewsAndStocksRepo.Setup(rs => rs.UpdateAmountOfStocks(
+                                                    It.Is<StocksDtoWithProductName>(sp => sp.Equals(stockUpdateProductDto))))
+                                                   .Returns(resultUpdate).Verifiable();
+            bool actual = _productService.RegistrateProductInStock(stockProductModel);
+
+            _mockProductRepo.VerifyAll();
+            _mockProductReviewsAndStocksRepo.VerifyAll();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.RegistrateProductInStockTest_WhenProductIsNotExistTestCaseSource))]
+        public void RegistrateProductInStockTest_WhenProductIsNotExist(StocksDtoWithProductName stockProductDto, ProductsDto getProductDto, 
+                                                                       StocksWithProductModel stockProductModel, bool expected)
+        {
+            _mockProductRepo.Setup(p => p.GetProductById(stockProductDto.ProductId)).Returns(getProductDto).Verifiable();
+
+            bool actual = _productService.RegistrateProductInStock(stockProductModel);
+
+            _mockProductRepo.VerifyAll();
+            _mockProductReviewsAndStocksRepo.Verify(rs => rs.GetAmountByProductId(It.IsAny<int>()), Times.Never);
+            _mockProductReviewsAndStocksRepo.Verify(rs => rs.AddAmountToStocks(It.IsAny<StocksDtoWithProductName>()), Times.Never);
+            _mockProductReviewsAndStocksRepo.Verify(rs => rs.UpdateAmountOfStocks(It.IsAny<StocksDtoWithProductName>()), Times.Never);
+        }
+
+        [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.RegistrateProductInStockTest_WhenAmountLessZeroTestCaseSource))]
+        public void RegistrateProductInStockTest_WhenAmountLessZero(StocksDtoWithProductName stockProductDto, ProductsDto getProductDto,
+                                                                       StocksWithProductModel stockProductModel, bool expected)
+        {
+            _mockProductRepo.Setup(p => p.GetProductById(stockProductDto.ProductId)).Returns(getProductDto).Verifiable();
+
+            bool actual = _productService.RegistrateProductInStock(stockProductModel);
+
+            _mockProductRepo.VerifyAll();
+            _mockProductReviewsAndStocksRepo.Verify(rs => rs.GetAmountByProductId(It.IsAny<int>()), Times.Never);
+            _mockProductReviewsAndStocksRepo.Verify(rs => rs.AddAmountToStocks(It.IsAny<StocksDtoWithProductName>()), Times.Never);
+            _mockProductReviewsAndStocksRepo.Verify(rs => rs.UpdateAmountOfStocks(It.IsAny<StocksDtoWithProductName>()), Times.Never);
+        }
+
+        [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.RegistrateProductInStockTest_WhenProductIsDeletedTestCaseSource))]
+        public void RegistrateProductInStockTest_WhenProductIsDeleted(StocksDtoWithProductName stockProductDto, ProductsDto getProductDto,
+                                                                       StocksWithProductModel stockProductModel, bool expected)
+        {
+            _mockProductRepo.Setup(p => p.GetProductById(stockProductDto.ProductId)).Returns(getProductDto).Verifiable();
+
+            bool actual = _productService.RegistrateProductInStock(stockProductModel);
+
+            _mockProductRepo.VerifyAll();
+            _mockProductReviewsAndStocksRepo.Verify(rs => rs.GetAmountByProductId(It.IsAny<int>()), Times.Never);
+            _mockProductReviewsAndStocksRepo.Verify(rs => rs.AddAmountToStocks(It.IsAny<StocksDtoWithProductName>()), Times.Never);
+            _mockProductReviewsAndStocksRepo.Verify(rs => rs.UpdateAmountOfStocks(It.IsAny<StocksDtoWithProductName>()), Times.Never);
         }
     }
 }

@@ -16,7 +16,7 @@ namespace OfferAggregator.Dal.Repositories
 
         public List<ProductWithScoresAndCommentsDto> GetAllScoresAndCommentsForProductsByClientId(int clientId);
 
-        public StocksDtoWithProductName GetAmountByProductId(int id);
+        public StocksDtoWithProductName GetAmountByProductId(int productId);
 
         public List<StocksDtoWithProductName> GetAmountsOfAllProducts();
 

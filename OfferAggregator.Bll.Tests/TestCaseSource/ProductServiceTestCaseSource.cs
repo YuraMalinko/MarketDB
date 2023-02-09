@@ -372,6 +372,145 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 
             yield return new object[] { productId, boolProduct, expected };
         }
+
+        public static IEnumerable RegistrateProductInStockTest_WhenAddNewProductTestCaseSource()
+        {
+            StocksWithProductModel stockProductModel = new StocksWithProductModel
+            {
+                Name = "one",
+                ProductId = 1,
+                Amount = 101
+            };
+            StocksDtoWithProductName stockProductDto = new StocksDtoWithProductName
+            {
+                Name = "one",
+                ProductId = 1,
+                Amount = 101
+            };
+            ProductsDto getProductDto = new ProductsDto
+            {
+                Id = 1,
+                Name = "one",
+                GroupId = 10,
+                IsDeleted = false
+            };
+            StocksDtoWithProductName getAmountByProductId = null;
+            bool resultOfAdd = true;
+            bool expected = true;
+
+            yield return new object[] { stockProductDto, getProductDto, getAmountByProductId, resultOfAdd, expected, stockProductModel };
+        }
+
+        public static IEnumerable RegistrateProductInStockTest_WhenUpdateExistProductTestCaseSource()
+        {
+            StocksWithProductModel stockProductModel = new StocksWithProductModel
+            {
+                Name = "two",
+                ProductId = 2,
+                Amount = 200
+            };
+            StocksDtoWithProductName stockProductDto = new StocksDtoWithProductName
+            {
+                Name = "two",
+                ProductId = 2,
+                Amount = 200
+            };
+            ProductsDto getProductDto = new ProductsDto
+            {
+                Id = 2,
+                Name = "two",
+                GroupId = 20,
+                IsDeleted = false
+            };
+            StocksDtoWithProductName getAmountByProductId = new StocksDtoWithProductName
+            {
+                Name = "two",
+                ProductId = 2,
+                Amount = 10
+            };
+            StocksDtoWithProductName stockUpdateProductDto = new StocksDtoWithProductName
+            {
+                Name = "two",
+                ProductId = 2,
+                Amount = 210
+            };
+            bool resultUpdate = true;
+            bool expected = true;
+
+            yield return new object[] { stockProductDto, getProductDto, getAmountByProductId, resultUpdate, expected, stockProductModel, stockUpdateProductDto };
+        }
+
+        public static IEnumerable RegistrateProductInStockTest_WhenProductIsNotExistTestCaseSource()
+        {
+            StocksWithProductModel stockProductModel = new StocksWithProductModel
+            {
+                Name = "one3",
+                ProductId = 13,
+                Amount = 1013
+            };
+            StocksDtoWithProductName stockProductDto = new StocksDtoWithProductName
+            {
+                Name = "one3",
+                ProductId = 13,
+                Amount = 1013
+            };
+            ProductsDto getProductDto = null;
+            bool expected = false;
+
+            yield return new object[] { stockProductDto, getProductDto, stockProductModel, expected };
+        }
+
+        public static IEnumerable RegistrateProductInStockTest_WhenAmountLessZeroTestCaseSource()
+        {
+            StocksWithProductModel stockProductModel = new StocksWithProductModel
+            {
+                Name = "one34",
+                ProductId = 134,
+                Amount = -9
+            };
+            StocksDtoWithProductName stockProductDto = new StocksDtoWithProductName
+            {
+                Name = "one34",
+                ProductId = 134,
+                Amount = -9
+            };
+            ProductsDto getProductDto = new ProductsDto
+            {
+                Id = 134,
+                Name = "one34",
+                GroupId = 13,
+                IsDeleted = false,
+            };
+            bool expected = false;
+
+            yield return new object[] { stockProductDto, getProductDto, stockProductModel, expected };
+        }
+
+        public static IEnumerable RegistrateProductInStockTest_WhenProductIsDeletedTestCaseSource()
+        {
+            StocksWithProductModel stockProductModel = new StocksWithProductModel
+            {
+                Name = "one345",
+                ProductId = 1345,
+                Amount = 5
+            };
+            StocksDtoWithProductName stockProductDto = new StocksDtoWithProductName
+            {
+                Name = "one345",
+                ProductId = 1345,
+                Amount = 5
+            };
+            ProductsDto getProductDto = new ProductsDto
+            {
+                Id = 1345,
+                Name = "one345",
+                GroupId = 135,
+                IsDeleted = true,
+            };
+            bool expected = false;
+
+            yield return new object[] { stockProductDto, getProductDto, stockProductModel, expected };
+        }
     }
 }
 
