@@ -1,6 +1,6 @@
-﻿namespace OfferAggregator.Dal.Models
+﻿namespace OfferAggregator.Bll.Models
 {
-    public class ManagerDto
+    public class ManagerInput
     {
         public int Id { get; set; }
 
