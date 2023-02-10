@@ -6,52 +6,53 @@ namespace OfferAggregator.Bll
 {
     public class Mapper
     {
-        private MapperConfiguration _config;
+        private MapperConfiguration _configuration;
 
-        private static Mapper _instance;
+        private static Mapper _instanceMapper;
 
         private Mapper()
         {
-            _config = new MapperConfiguration(
+            _configuration = new MapperConfiguration(
                 cfg =>
                 {
                     cfg.CreateMap<ManagerAuthInput, ManagerDto>();
 
-                    cfg.CreateMap<ManagerInput, ManagerDto>();
+                    cfg.CreateMap<CurrentManager, ManagerDto>();
 
-                    cfg.CreateMap<ManagerDto, ManagerOutput>();
+                    cfg.CreateMap<ManagerDto, CurrentManager>();
+
 
                 });
         }
 
         public static Mapper GetInstance()
         {
-            if (_instance is null)
+            if (_instanceMapper is null)
             {
-                _instance = new Mapper();
+                _instanceMapper = new Mapper();
             }
 
-            return _instance;
+            return _instanceMapper;
         }
 
         public ManagerDto MapManagerAuthInputToManagerDto(ManagerAuthInput manager)
         {
-            return _config.CreateMapper().Map<ManagerDto>(manager);
+            return _configuration.CreateMapper().Map<ManagerDto>(manager);
         }
 
-        public ManagerAuthOutput MapManagerDtoToManagerAuthOutput(ManagerDto manager)
+        public CurrentManager MapManagerDtoToCurrentManager(ManagerDto manager)
         {
-            return _config.CreateMapper().Map<ManagerAuthOutput>(manager);
+            return _configuration.CreateMapper().Map<CurrentManager>(manager);
         }
 
-        public List<ManagerOutput> MapManagerDtoToManagerOutput(List<ManagerDto> manager)
+        public List<OutsideManager> MapManagersDtoToOutsideManagers(List<ManagerDto> manager)
         {
-            return _config.CreateMapper().Map<List<ManagerOutput>>(manager);
+            return _configuration.CreateMapper().Map<List<OutsideManager>>(manager);
         }
 
-        public ManagerDto MapManagerInputToManagerDto(ManagerInput manager)
+        public ManagerDto MapCurrentManagerToManagerDto(CurrentManager manager)
         {
-            return _config.CreateMapper().Map<ManagerDto>(manager);
+            return _configuration.CreateMapper().Map<ManagerDto>(manager);
         }
 
 

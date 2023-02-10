@@ -148,7 +148,8 @@
 
         public const string UpdateCommentForClient = "UpdateCommentForClient";
 
-
         public const string DeleteCommentForClient = "DeleteCommentForClient";
+
+        public const string GetManagerByLogin = "GetManagerByLogin";
     }
 }
