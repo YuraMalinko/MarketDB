@@ -15,7 +15,6 @@ LEFT JOIN [dbo].[ProductsReviews] AS PR ON
 PR.ProductId = P.[Id]
 WHERE
 P.[Id] = @id AND
-P.[IsDeleted] = 0 AND
-T.[IsDeleted] = 0
+P.[IsDeleted] = 0 
 GROUP BY
 P.[Id],P.[Name], P.[GroupId], S.[Amount],T.[Id],T.[Name]

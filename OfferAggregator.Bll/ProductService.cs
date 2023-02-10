@@ -113,6 +113,14 @@ namespace OfferAggregator.Bll
 
             return fullProductModel;
         }
+
+        public List<FullProductModel> GetFullProducts()
+        {
+            var fullProductDtos = _productsRepository.GetFullProducts();
+            var fullProductModels = _instanceMapper.MapFullProductDtosToFullProductModels(fullProductDtos);
+
+            return fullProductModels;
+        }
     }
 }
 

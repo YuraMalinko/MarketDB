@@ -14,9 +14,11 @@ GroupRepository groupRepository = new GroupRepository();
 
 ProductService serv = new ProductService(pr, prS, tagsRepository, groupRepository);
 
-var get = serv.GetFullProductById(10);
+//var get = serv.GetFullProductById(10);
 
 //var getAll = pr.GetFullProducts();
+
+var getAllServ = serv.GetFullProducts();
 
 Console.WriteLine();
 
