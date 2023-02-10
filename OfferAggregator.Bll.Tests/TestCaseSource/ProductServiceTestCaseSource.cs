@@ -372,6 +372,71 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 
             yield return new object[] { productId, boolProduct, expected };
         }
+
+        public static IEnumerable GetFullProductByIdTestCaseSource()
+        {
+            FullProductDto fullProductDto = new FullProductDto
+            {
+                Id = 11,
+                Name = "11",
+                GroupId = 110,
+                Amount = 100,
+                Tags = new List<TagDto>
+            {
+            new TagDto{ Id = 1, Name = "1"},
+            new TagDto{ Id = 2, Name = "2"}
+            },
+                AverageScore = 4.9f
+            };
+
+            FullProductModel expectedFullProductModel = new FullProductModel
+            {
+                Id = 11,
+                Name = "11",
+                GroupId = 110,
+                Amount = 100,
+                Tags = new List<TagModel>
+            {
+            new TagModel{ Id = 1, Name = "1"},
+            new TagModel{ Id = 2, Name = "2"}
+            },
+                AverageScore = 4.9f
+            };
+            int productId = 11;
+
+            yield return new object[] { productId, fullProductDto, expectedFullProductModel };
+
+
+            fullProductDto = new FullProductDto();
+            expectedFullProductModel = new FullProductModel() { Tags = new() };
+            productId = 2;
+
+            yield return new object[] { productId, fullProductDto, expectedFullProductModel };
+
+
+            fullProductDto = new FullProductDto
+            {
+                Id = 113,
+                Name = "113",
+                GroupId = 1103,
+                Amount = 1003,
+                Tags = new List<TagDto>(),
+                AverageScore = 1.9f
+            };
+
+            expectedFullProductModel = new FullProductModel
+            {
+                Id = 113,
+                Name = "113",
+                GroupId = 1103,
+                Amount = 1003,
+                Tags = new List<TagModel>(),
+                AverageScore = 1.9f
+            };
+            productId = 113;
+
+            yield return new object[] { productId, fullProductDto, expectedFullProductModel };
+        }
     }
 }
 

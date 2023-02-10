@@ -11,7 +11,6 @@ namespace OfferAggregator.Bll.Tests
 
 
         [TestCaseSource(typeof(MapperTestCaseSource), nameof(MapperTestCaseSource.MapProductsDtosToProductModelsTestCaseSource))]
-
         public void MapProductsDtosToProductModelsTest(List<ProductsDto> baseProductsDto, List<ProductModel> expectedProductModel)
         {
             List<ProductModel> actualProductModel = _mapper.MapProductsDtosToProductModels(baseProductsDto);
@@ -20,7 +19,6 @@ namespace OfferAggregator.Bll.Tests
         }
 
         [TestCaseSource(typeof(MapperTestCaseSource), nameof(MapperTestCaseSource.MapProductModelToProductsDtoTestCaseSource))]
-
         public void MapProductModelToProductsDtoTest(ProductModel baseProductModel, ProductsDto expectedProductsDto)
         {
             ProductsDto actualProductsDto = _mapper.MapProductModelToProductsDto(baseProductModel);
@@ -29,10 +27,17 @@ namespace OfferAggregator.Bll.Tests
         }
 
         [TestCaseSource(typeof(MapperTestCaseSource), nameof(MapperTestCaseSource.MapFullProductDtosToFullProductModelsTestCaseSource))]
-
-        public void MapFullProductDtosToFullProductModelsTest(List<FullProductDto> fullProductDtos, List<FullProductModel> expectedFullProductModel)
+        public void MapFullProductDtosToFullProductModelsTest(List<FullProductDto> fullProductDtos, List<FullProductModel> expectedFullProductModels)
         {
-            List<FullProductModel> actualFullProductModel = _mapper.MapFullProductDtosToFullProductModels(fullProductDtos);
+            List<FullProductModel> actualFullProductModels = _mapper.MapFullProductDtosToFullProductModels(fullProductDtos);
+
+            actualFullProductModels.Should().BeEquivalentTo(expectedFullProductModels);
+        }
+
+        [TestCaseSource(typeof(MapperTestCaseSource), nameof(MapperTestCaseSource.MapFullProductDtoToFullProductModelTestTestCaseSource))]
+        public void MapFullProductDtoToFullProductModelTest(FullProductDto fullProductDto, FullProductModel expectedFullProductModel)
+        {
+            FullProductModel actualFullProductModel = _mapper.MapFullProductDtoToFullProductModel(fullProductDto);
 
             actualFullProductModel.Should().BeEquivalentTo(expectedFullProductModel);
         }

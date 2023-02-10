@@ -37,7 +37,6 @@ namespace OfferAggregator.Bll.Tests
         }
 
         [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.AddProductTestCaseSource))]
-
         public void AddProductTest(int groupId, GroupDto getGroup, ProductsDto addProduct, int result, ProductModel product, int expectedProductId)
         {
             _mockGroupRepo.Setup(g => g.GetGroupById(groupId)).Returns(getGroup).Verifiable();
@@ -138,7 +137,6 @@ namespace OfferAggregator.Bll.Tests
 
 
         [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.UpdateProductTestCaseSource))]
-
         public void UpdateProductTest(GroupDto getGroup, ProductsDto getProductDto, ProductsDto productDto, ProductModel product, bool expected, bool result)
         {
             _mockGroupRepo.Setup(g => g.GetGroupById(productDto.GroupId)).Returns(getGroup).Verifiable();
@@ -209,7 +207,7 @@ namespace OfferAggregator.Bll.Tests
 
             _mockGroupRepo.VerifyAll();
             _mockProductRepo.VerifyAll();
-        
+
             Assert.AreEqual(expected, actual);
         }
 
@@ -241,6 +239,18 @@ namespace OfferAggregator.Bll.Tests
             _mockTagRepo.Verify(t => t.DeleteTagProductByProductId(productId), Times.Never);
 
             Assert.AreEqual(expected, actual);
+        }
+
+        [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.GetFullProductByIdTestCaseSource))]
+        public void GetFullProductByIdTest(int productId, FullProductDto fullProductDto, FullProductModel expectedFullProductModel)
+        {
+            _mockProductRepo.Setup(p => p.GetFullProductById(productId)).Returns(fullProductDto).Verifiable();
+
+            FullProductModel actualFullProductModel = _productService.GetFullProductById(productId);
+
+            _mockProductRepo.VerifyAll();
+
+            actualFullProductModel.Should().BeEquivalentTo(expectedFullProductModel);
         }
     }
 }
