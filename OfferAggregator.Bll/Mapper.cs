@@ -63,5 +63,10 @@ namespace OfferAggregator.Bll
         {
             return _mapper.Map<List<FullProductModel>>(fullProduct);
         }
+
+        public FullProductModel MapFullProductDtoToFullProductModel(FullProductDto fullProduct)
+        {
+            return _mapper.Map<FullProductModel>(fullProduct);
+        }
     }
 }

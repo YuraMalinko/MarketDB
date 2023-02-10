@@ -82,15 +82,30 @@ namespace OfferAggregator.Dal.Repositories
             }
         }
 
-        public List<FullProductDto> GetFullProductById(int id)
+        public FullProductDto GetFullProductById(int id)
         {
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
             {
                 sqlCnctn.Open();
-                return sqlCnctn.Query<FullProductDto>(
+                FullProductDto result = null;
+                sqlCnctn.Query<FullProductDto, TagDto, FullProductDto>(
                     StoredProcedures.GetFullProductById,
-                    new { id},
-                    commandType: CommandType.StoredProcedure).ToList();
+                    (fullProduct, tag) =>
+                    {
+                        if (result is null)
+                        {
+                            result = fullProduct;
+                            result.Tags = new List<TagDto>();
+                        }
+                        result.Tags.Add(tag);
+
+                        return fullProduct;
+                    },
+                    new { id },
+                    splitOn: "Id",
+                    commandType: CommandType.StoredProcedure);
+
+                return result;
             }
         }
     }

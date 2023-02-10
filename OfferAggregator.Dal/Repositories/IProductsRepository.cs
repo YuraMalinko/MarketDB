@@ -16,6 +16,6 @@ namespace OfferAggregator.Dal.Repositories
 
         public ProductsDto GetProductById(int id);
 
-        public List<FullProductDto> GetFullProductById(int id);
+        public FullProductDto GetFullProductById(int id);
     }
 }

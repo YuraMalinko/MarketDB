@@ -12,8 +12,8 @@ namespace OfferAggregator.Bll.Models
 
         public int Amount { get; set; }
 
-        public List<TagModel> Tags { get; set; }
-
         public float AverageScore { get; set; }
+
+        public List<TagModel> Tags { get; set; }
     }
 }

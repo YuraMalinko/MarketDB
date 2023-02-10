@@ -22,7 +22,7 @@ namespace OfferAggregator.Bll
 
         private IGroupRepository _groupRepository;
 
-        public ProductService(IProductsRepository productsRepository, IProductsReviewsAndStocksRepository productsReviewsAndStocksRepository, 
+        public ProductService(IProductsRepository productsRepository, IProductsReviewsAndStocksRepository productsReviewsAndStocksRepository,
                               ITagsRepository tagsRepository, IGroupRepository groupRepository)
         {
             _productsRepository = productsRepository;
@@ -104,6 +104,14 @@ namespace OfferAggregator.Bll
             }
 
             return result;
+        }
+
+        public FullProductModel GetFullProductById(int productId)
+        {
+            var fullProductDto = _productsRepository.GetFullProductById(productId);
+            var fullProductModel = _instanceMapper.MapFullProductDtoToFullProductModel(fullProductDto);
+
+            return fullProductModel;
         }
     }
 }

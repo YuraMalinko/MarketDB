@@ -2,8 +2,8 @@
 @id int
 AS
 SELECT 
-P.[Name], P.[GroupId], S.[Amount],T.[Id],T.[Name],
-AVG(CAST(PR.[Score] AS float)) AS AverageScore
+P.[Id],P.[Name], P.[GroupId], S.[Amount],
+AVG(CAST(PR.[Score] AS float)) AS AverageScore, T.[Id],T.[Name]
 FROM [dbo].[Products] AS P
 LEFT JOIN [dbo].[TagsProducts] AS TP ON
 TP.[ProductId] = P.[Id]
@@ -17,4 +17,4 @@ WHERE
 P.[IsDeleted] = 0 AND
 T.[IsDeleted] = 0
 GROUP BY
-P.[Name], P.[GroupId], S.[Amount],T.[Id],T.[Name]
+P.[Id],P.[Name], P.[GroupId], S.[Amount],T.[Id],T.[Name]
