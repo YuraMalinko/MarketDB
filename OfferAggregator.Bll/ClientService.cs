@@ -9,11 +9,22 @@ namespace OfferAggregator.Bll
     {
         private Mapper _instanceMapper = Mapper.GetInstance();
 
-        private IClientRepository _clientRepository = new ClientRepository();
+        private ClientRepository _clientRepository;
+        private ClientsWishesRepository _clientsWishesRepository;
+        private CommentForClientRepository _commentForClientRepository;
+        private OrderRepository _orderRepository;
+
+        public ClientService(ClientRepository clientRepository, ClientsWishesRepository clientsWishesRepository, 
+            CommentForClientRepository commentForClientRepository, OrderRepository orderRepository) 
+        {
+            _clientRepository = clientRepository;
+            _clientsWishesRepository = clientsWishesRepository;
+            _commentForClientRepository = commentForClientRepository;
+            _orderRepository = orderRepository;
+        }
 
         public List<InfoAllClientsOutputModel> GetAllClientsWithoutComment()
         {
-
             List<ClientsDto> clientsAll = _clientRepository.GetAllClients();
             var result = _instanceMapper.MapClientsDtoToClientsOutputModel(clientsAll);
 
