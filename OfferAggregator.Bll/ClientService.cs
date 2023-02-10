@@ -26,7 +26,7 @@ namespace OfferAggregator.Bll
         public List<InfoAllClientsOutputModel> GetAllClientsWithoutComment()
         {
             List<ClientsDto> clientsAll = _clientRepository.GetAllClients();
-            var result = _instanceMapper.MapClientsDtoToClientsOutputModel(clientsAll);
+            var result = _instanceMapper.MapClientsDtosToClientsOutputModels(clientsAll);
 
             return result;
         }
