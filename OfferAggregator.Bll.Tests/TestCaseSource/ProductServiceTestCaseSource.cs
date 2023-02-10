@@ -408,7 +408,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 
 
             fullProductDto = new FullProductDto();
-            expectedFullProductModel = new FullProductModel() { Tags = new() };
+            expectedFullProductModel = new FullProductModel { Tags = new ()} ;
             productId = 9;
 
             yield return new object[] { productId, fullProductDto, expectedFullProductModel };
@@ -434,6 +434,27 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 AverageScore = 3
             };
             productId = 1138;
+
+            yield return new object[] { productId, fullProductDto, expectedFullProductModel };
+
+            fullProductDto = new FullProductDto
+            {
+                Id = 11386,
+                Name = "11386",
+                GroupId = 110386,
+                Amount = 100386,
+                Tags = new List<TagDto>()
+            };
+
+            expectedFullProductModel = new FullProductModel
+            {
+                Id = 11386,
+                Name = "11386",
+                GroupId = 110386,
+                Amount = 100386,
+                Tags = new List<TagModel>()
+            };
+            productId = 11386;
 
             yield return new object[] { productId, fullProductDto, expectedFullProductModel };
         }
@@ -519,8 +540,38 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 
             yield return new object[] { fullProductDtos, expectedFullProductModels };
 
+            fullProduct1 = new FullProductDto
+            {
+                Id = 154,
+                Name = "154",
+                GroupId = 1054,
+                Amount = 10054,
+                Tags = new List<TagDto>
+                {
+                new TagDto{ Id = 154, Name = "tag154"},
+                new TagDto{ Id = 254, Name = "tag254"}
+                }
+            };
+            fullProduct2 = new FullProductDto();
+            fullProductDtos = new List<FullProductDto> { fullProduct1, fullProduct2 };
+
+            fullProductModel1 = new FullProductModel
+            {
+                Id = 154,
+                Name = "154",
+                GroupId = 1054,
+                Amount = 10054,
+                Tags = new List<TagModel>
+                {
+                new TagModel{ Id = 154, Name = "tag154"},
+                new TagModel{ Id = 254, Name = "tag254"}
+                }
+            };
+            fullProductModel2 = new FullProductModel { Tags = new() };
+            expectedFullProductModels = new List<FullProductModel> { fullProductModel1, fullProductModel2 };
+
+            yield return new object[] { fullProductDtos, expectedFullProductModels };
         }
     }
 }
 
-// (List<FullProductDto> fullProductDtos, List<FullProductModel> expectedFullProductModels)
