@@ -252,6 +252,18 @@ namespace OfferAggregator.Bll.Tests
 
             actualFullProductModel.Should().BeEquivalentTo(expectedFullProductModel);
         }
+
+        [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.GetFullProducsTestCaseSource))]
+        public void GetFullProducsTest(List<FullProductDto> fullProductDtos, List<FullProductModel> expectedFullProductModels)
+        {
+            _mockProductRepo.Setup(p => p.GetFullProducts()).Returns(fullProductDtos).Verifiable();
+
+            List<FullProductModel> actualFullProductModels = _productService.GetFullProducts();
+
+            _mockProductRepo.VerifyAll();
+
+            actualFullProductModels.Should().BeEquivalentTo(expectedFullProductModels);
+        }
     }
 }
 
