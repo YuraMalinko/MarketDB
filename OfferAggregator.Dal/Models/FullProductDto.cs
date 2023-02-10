@@ -12,6 +12,6 @@
 
         public List<TagDto> Tags { get; set; }
 
-        public float AverageScore { get; set; }
+        public float? AverageScore { get; set; }
     }
 }

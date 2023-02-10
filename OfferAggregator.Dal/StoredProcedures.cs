@@ -119,5 +119,7 @@ namespace OfferAggregator.Dal
         public const string GetGroupById = "GetGroupById";
 
         public const string GetFullProductById = "GetFullProductById";
+
+        public const string GetFullProducts = "GetFullProducts";
     }
 }
