@@ -18,5 +18,9 @@ StocksWithProductModel stock = new StocksWithProductModel
 
 //var reg = service.RegistrateProductInStock(stock);
 
+ClientService clt = new ClientService();
+
+var ccc = clt.GetAllClientsWithoutComment();
+
 Console.WriteLine();
 
