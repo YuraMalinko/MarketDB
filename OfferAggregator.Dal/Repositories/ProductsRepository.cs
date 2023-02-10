@@ -81,5 +81,17 @@ namespace OfferAggregator.Dal.Repositories
                 return result > 0;
             }
         }
+
+        public List<FullProductDto> GetFullProductById(int id)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                return sqlCnctn.Query<FullProductDto>(
+                    StoredProcedures.GetFullProductById,
+                    new { id},
+                    commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
     }
 }

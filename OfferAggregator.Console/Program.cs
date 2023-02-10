@@ -3,10 +3,15 @@ using OfferAggregator.Dal.Repositories;
 using OfferAggregator.Bll;
 using OfferAggregator.Bll.Models;
 
+//Mapper map = Mapper.GetInstance();
 
-ClientService clt = new ClientService();
+//FullProductDto fullPr = new FullProductDto
+//{ 
+//    Id = 1,
+//Name = "1",
+//GroupId
+//};
 
-var ccc = clt.GetAllClientsWithoutComment();
 
 Console.WriteLine();
 

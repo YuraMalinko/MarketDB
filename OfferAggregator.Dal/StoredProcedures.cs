@@ -1,3 +1,5 @@
+using OfferAggregator.Dal.Models;
+
 namespace OfferAggregator.Dal
 {
     public class StoredProcedures
@@ -115,5 +117,7 @@ namespace OfferAggregator.Dal
         public const string DeleteCommentForOrder = "DeleteCommentForOrder";
 
         public const string GetGroupById = "GetGroupById";
+
+        public const string GetFullProductById = "GetFullProductById";
     }
 }

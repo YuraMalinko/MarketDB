@@ -27,6 +27,15 @@ namespace OfferAggregator.Bll.Tests
 
             actualProductsDto.Should().BeEquivalentTo(expectedProductsDto);
         }
+
+        [TestCaseSource(typeof(MapperTestCaseSource), nameof(MapperTestCaseSource.MapFullProductDtosToFullProductModelsTestCaseSource))]
+
+        public void MapFullProductDtosToFullProductModelsTest(List<FullProductDto> fullProductDtos, List<FullProductModel> expectedFullProductModel)
+        {
+            List<FullProductModel> actualFullProductModel = _mapper.MapFullProductDtosToFullProductModels(fullProductDtos);
+
+            actualFullProductModel.Should().BeEquivalentTo(expectedFullProductModel);
+        }
     }
 }
 
