@@ -372,6 +372,11 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 
             yield return new object[] { productId, boolProduct, expected };
         }
+
+        public static IEnumerable GetProductsStatisticTestCaseSource()
+        {
+
+        }
     }
 }
 

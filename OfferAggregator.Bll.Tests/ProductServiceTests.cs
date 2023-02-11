@@ -242,7 +242,19 @@ namespace OfferAggregator.Bll.Tests
 
             Assert.AreEqual(expected, actual);
         }
+
+        [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.GetProductsStatisticTestCaseSource))]
+        public void GetProductsStatisticTest()
+        { 
+        }
     }
 }
 
 
+//public List<ProductsStatisticModel> GetProductsStatistic()
+//{
+//    var getProductsStatisticDtos = _productsRepository.GetProductsStatistic();
+//    var getProductsStatisticModels = _instanceMapper.MapProductsStatisticDtosToProductsStatisticModels(getProductsStatisticDtos);
+
+//    return getProductsStatisticModels;
+//}
