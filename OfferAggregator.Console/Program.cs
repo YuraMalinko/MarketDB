@@ -4,9 +4,20 @@ using OfferAggregator.Bll;
 using OfferAggregator.Bll.Models;
 
 
-ClientService clt = new ClientService();
+ProductsRepository pr = new ProductsRepository();
 
-var ccc = clt.GetAllClientsWithoutComment();
+ProductsReviewsAndStocksRepository productsReviewsAndStocksRepository = new ProductsReviewsAndStocksRepository();
+
+TagsRepository tagsRepository = new TagsRepository();
+
+GroupRepository groupRepository = new GroupRepository();
+
+ProductService productService = new ProductService(pr, productsReviewsAndStocksRepository, tagsRepository, groupRepository);
+
+//var get = pr.GetProductsStatistic();
+
+var getSer = productService.GetProductsStatistic(); 
+
 
 Console.WriteLine();
 

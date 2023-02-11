@@ -1,7 +1,7 @@
 ﻿CREATE PROCEDURE [dbo].GetProductsStatistic
 AS
-SELECT t1.[Id], t1.[Name], t1.[SumOfCountofProduct], t1.[CountOfOrders],
-t1.[CountOfClients], AVG(CAST(PR.[Score] AS float)) AS AverageScore
+SELECT t1.[Id], t1.[Name], ISNULL (t1.[SumOfCountofProduct], 0) AS SumOfCountofProduct, 
+t1.[CountOfOrders], t1.[CountOfClients], AVG(CAST(PR.[Score] AS float)) AS AverageScore
 FROM
 (SELECT P.[Id], P.[Name], SUM(OP.[CountProduct]) AS SumOfCountofProduct,
 COUNT(OP.[OrderId]) AS CountOfOrders, COUNT(DISTINCT O.[ClientId]) AS CountOfClients

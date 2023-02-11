@@ -15,5 +15,7 @@ namespace OfferAggregator.Dal.Repositories
         public bool UpdateProduct(ProductsDto product);
 
         public ProductsDto GetProductById(int id);
+
+        public List<ProductsStatisticDto> GetProductsStatistic();
     }
 }
