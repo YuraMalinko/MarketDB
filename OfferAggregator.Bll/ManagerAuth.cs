@@ -8,7 +8,7 @@ namespace OfferAggregator.Bll
     {
         private Mapper _instanceMapper = Mapper.GetInstance();
 
-        public IManagerRepository ManagerRep = new ManagerRepository();
+        public IManagerRepository ManagerRep { get; set; } = new ManagerRepository();
 
         public ManagerAuth(IManagerRepository managerRep=null)
         {
@@ -19,7 +19,7 @@ namespace OfferAggregator.Bll
         {
             ManagerDto tmp = ManagerRep.GetManagerByLogin(manager.Login!);
 
-            if (tmp != null)
+            if (tmp == null)
             {
                 return ManagerRep.AddManager(
                     _instanceMapper.MapManagerAuthInputToManagerDto(manager));
@@ -40,7 +40,8 @@ namespace OfferAggregator.Bll
 
         public bool UpdateManager(CurrentManager manager)
         {
-            return ManagerRep.UpdateManager(_instanceMapper.MapCurrentManagerToManagerDto(manager));
+            return ManagerRep.UpdateManager(
+                _instanceMapper.MapCurrentManagerToManagerDto(manager));
         }
 
         public bool DeleteManager(int id)

@@ -13,5 +13,7 @@ namespace OfferAggregator.Dal.Repositories
         public ManagerDto GetSingleManager(ManagerDto manager);
 
         public bool UpdateManager(ManagerDto manager);
+
+        public ManagerDto GetManagerByLogin(string login)
     }
 }
