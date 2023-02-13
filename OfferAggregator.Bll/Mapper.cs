@@ -54,7 +54,5 @@ namespace OfferAggregator.Bll
         {
             return _configuration.CreateMapper().Map<ManagerDto>(manager);
         }
-
-
     }
 }

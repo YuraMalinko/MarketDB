@@ -1,4 +1,6 @@
-﻿namespace OfferAggregator.Bll.Models
+﻿using OfferAggregator.Dal.Models;
+
+namespace OfferAggregator.Bll.Models
 {
     public class CurrentManager
     {
@@ -13,6 +15,19 @@
             Id = id;
             Login = login;
             Password = password;
+        }
+
+        public override string ToString()
+        {
+            return $"{Id} {Login} {Password}";
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is CurrentManager cm &&
+                Id == cm.Id &&
+                Login == cm.Login &&
+                Password == cm.Password;
         }
     }
 }

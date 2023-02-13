@@ -10,9 +10,12 @@ namespace OfferAggregator.Bll
 
         public IManagerRepository ManagerRep { get; set; } = new ManagerRepository();
 
-        public ManagerAuth(IManagerRepository managerRep=null)
+        public IOrderRepository OrderRepository { get; set; } = new OrderRepository();
+
+        public ManagerAuth(IManagerRepository managerRep=null,IOrderRepository orderRepository=null)
         {
-                ManagerRep = managerRep;
+            ManagerRep = managerRep;
+            OrderRepository = orderRepository;
         }
 
         public int AddManager(ManagerAuthInput manager)

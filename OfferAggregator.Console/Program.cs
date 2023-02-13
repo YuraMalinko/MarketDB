@@ -1,19 +1,18 @@
-﻿using OfferAggregator.Dal.Models;
+﻿using OfferAggregator.Bll;
+using OfferAggregator.Bll.Models;
+using OfferAggregator.Dal.Models;
 using OfferAggregator.Dal.Repositories;
 using System.Security;
 
-ManagerRepository mr=new ManagerRepository();
+IManagerRepository manRepo = new ManagerRepository();
 
-ManagerDto man = new ManagerDto()
-{
-    Login="Leha",
-    Password="qqq"
-};
+ManagerAuth managerAuth = new ManagerAuth(manRepo);
 
-man.Id = mr.AddManager(man);
+ManagerAuthInput manager = new ManagerAuthInput("LehaNew", "");
 
-Console.ReadLine();
+CurrentManager current = managerAuth.GetSingleManager(manager);
 
+Console.WriteLine();
 
 
 //ClientsWishesRepository clientsWishesRepository= new ClientsWishesRepository();

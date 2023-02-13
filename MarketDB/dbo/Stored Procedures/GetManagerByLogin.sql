@@ -2,4 +2,4 @@
 @Login nvarchar (100)
 AS
 SELECT [Id],[Login] FROM [Managers]
-WHERE [Login]=@Login
+WHERE [Login]=@Login AND [IsDeleted]=0

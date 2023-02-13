@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[CommentsForOrders] (
     [Id]        INT             IDENTITY (1, 1) NOT NULL,
-    [Text]      NVARCHAR (1000) NULL,
+    [Text]      NVARCHAR (1000) NOT NULL,
     [IsDeleted] BIT             DEFAULT ('0') NOT NULL,
     [OrderId]  INT             NOT NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC),

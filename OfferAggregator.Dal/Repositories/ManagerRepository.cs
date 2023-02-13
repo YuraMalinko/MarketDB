@@ -2,7 +2,6 @@
 using Microsoft.Data.SqlClient;
 using OfferAggregator.Dal.Models;
 using System.Data;
-using System.Linq;
 
 namespace OfferAggregator.Dal.Repositories
 {
@@ -54,7 +53,7 @@ namespace OfferAggregator.Dal.Repositories
                 return sqlConnect.Execute(
                     StoredProcedures.UpdateManager,
                     new { manager.Id, manager.Login, manager.Password },
-                    commandType: CommandType.StoredProcedure)>0;
+                    commandType: CommandType.StoredProcedure) > 0;
             }
         }
 
@@ -66,7 +65,7 @@ namespace OfferAggregator.Dal.Repositories
                 return sqlConnect.Execute(
                     StoredProcedures.DeleteManager,
                     new { id },
-                    commandType: CommandType.StoredProcedure)>0;
+                    commandType: CommandType.StoredProcedure) > 0;
             }
         }
 
