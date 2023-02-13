@@ -8,9 +8,35 @@ IManagerRepository manRepo = new ManagerRepository();
 
 ManagerAuth managerAuth = new ManagerAuth(manRepo);
 
-ManagerAuthInput manager = new ManagerAuthInput("LehaNew", "");
+ManagerAuthInput manager = new ManagerAuthInput("2223345", "");
 
-CurrentManager current = managerAuth.GetSingleManager(manager);
+CurrentManager current = managerAuth.ManagerAuthentication(manager);
+
+int i = managerAuth.AddManager(manager);
+
+Console.WriteLine();
+
+//ManagerRepository www = new ManagerRepository();
+
+
+//ManagerDto pp = new ManagerDto()
+//{
+//    Login = "",
+//    Password = "eee"
+//};
+
+//int b = www.AddManager(pp);
+
+//ManagerDto p = new ManagerDto()
+//{
+//    Password = "www"
+//};
+
+//int c = www.AddManager(p);
+
+//ManagerDto d = new ManagerDto();
+
+//int e = www.AddManager(d);
 
 Console.WriteLine();
 

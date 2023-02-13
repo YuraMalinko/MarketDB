@@ -19,19 +19,39 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             int expected = 100;
 
             yield return new object[] { managerAuthInput, managerDtoInput, requestManagerByLogin, result, expected };
+        }
 
-            requestManagerByLogin = new ManagerDto()
+        public static IEnumerable AddManagerNegativeTestCaseSource()
+        {
+            ManagerAuthInput managerAuthInput = new ManagerAuthInput("Gera", "xxx");
+            ManagerDto managerDtoInput = new ManagerDto()
             {
                 Login = "Gera",
                 Password = "xxx"
             };
-            result = 0;
-            expected = -1;
+            ManagerDto requestManagerByLogin = new ManagerDto()
+            {
+                Id = 100,
+                Login = "Gera",
+                Password = "xxx"
+            };
+            int expected = -1;
 
-            yield return new object[] { managerAuthInput, managerDtoInput, requestManagerByLogin, result, expected };
+            yield return new object[] { managerAuthInput, managerDtoInput, requestManagerByLogin, expected };
+
+            managerAuthInput.Password = null;
+            managerDtoInput.Password = null;
+            requestManagerByLogin = null;
+
+            yield return new object[] { managerAuthInput, managerDtoInput, requestManagerByLogin, expected };
+
+            managerAuthInput.Login = null;
+            managerDtoInput.Login = null;
+
+            yield return new object[] { managerAuthInput, managerDtoInput, requestManagerByLogin, expected };
         }
 
-        public static IEnumerable GetSIngleManagerTestCaseSourse()
+        public static IEnumerable ManagerAuthenticationTestCaseSourse()
         {
             ManagerAuthInput managerAuthInput = new ManagerAuthInput("Gera", "xxx");
             ManagerDto managerDtoInput = new ManagerDto()
@@ -45,7 +65,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Login = "Gera",
                 Password = "xxx"
             };
-            CurrentManager expected = new CurrentManager(1,"Gera", "xxx");
+            CurrentManager expected = new CurrentManager(1, "Gera", "xxx");
 
             yield return new object[] { managerAuthInput, managerDtoInput, managerDtoOutput, expected };
 
@@ -73,7 +93,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 
             yield return new object[] { managerAuthInput, managerDtoInput, managerDtoOutput, expected };
 
-            managerAuthInput = new ManagerAuthInput("Gera","");
+            managerAuthInput = new ManagerAuthInput("Gera", "");
             managerDtoInput = new ManagerDto()
             {
                 Login = "Gera",
@@ -85,7 +105,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Login = "Gera",
                 Password = ""
             };
-            expected = new CurrentManager(1,"Gera","");
+            expected = new CurrentManager(1, "Gera", "");
 
             yield return new object[] { managerAuthInput, managerDtoInput, managerDtoOutput, expected };
         }

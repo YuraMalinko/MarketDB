@@ -1,17 +1,8 @@
 ﻿using Moq;
-using OfferAggregator.Dal.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using OfferAggregator.Bll.Models;
-using OfferAggregator.Dal.Models;
 using OfferAggregator.Bll.Tests.TestCaseSource;
-using Moq;
+using OfferAggregator.Dal.Models;
 using OfferAggregator.Dal.Repositories;
-using System.Text.RegularExpressions;
-using Microsoft.Identity.Client;
 
 namespace OfferAggregator.Bll.Tests
 {
@@ -29,23 +20,35 @@ namespace OfferAggregator.Bll.Tests
             _managerAuth = new ManagerAuth(_mockManagerRepo.Object);
         }
 
-        [TestCaseSource(typeof(ManagerAuthTestCaseSource),nameof(ManagerAuthTestCaseSource.AddManagerTestCaseSource))]
-        public void AddManagerTest(ManagerAuthInput managerAuthInput ,ManagerDto managerDtoInput, ManagerDto requestManagerByLogin, int result,int expected)
+        [TestCaseSource(typeof(ManagerAuthTestCaseSource), nameof(ManagerAuthTestCaseSource.AddManagerTestCaseSource))]
+        public void AddManagerTest(ManagerAuthInput managerAuthInput, ManagerDto managerDtoInput, ManagerDto requestManagerByLogin, int result, int expected)
         {
             _mockManagerRepo.Setup(m => m.GetManagerByLogin(managerDtoInput.Login)).Returns(requestManagerByLogin).Verifiable();
-            _mockManagerRepo.Setup(r => r.AddManager(It.Is<ManagerDto>(g=>g.Equals(managerDtoInput)))).Returns(expected).Verifiable();
+            _mockManagerRepo.Setup(r => r.AddManager(It.Is<ManagerDto>(g => g.Equals(managerDtoInput)))).Returns(result).Verifiable();
             int actual = _managerAuth.AddManager(managerAuthInput);
-            _mockManagerRepo.Verify(q => q.GetManagerByLogin(managerDtoInput.Login), Times.AtMost(2));
-            _mockManagerRepo.Verify(p => p.AddManager(It.IsAny<ManagerDto>()), Times.AtMostOnce);
+            _mockManagerRepo.VerifyAll();
 
             Assert.AreEqual(expected, actual);
         }
 
-        [TestCaseSource(typeof(ManagerAuthTestCaseSource), nameof(ManagerAuthTestCaseSource.GetSIngleManagerTestCaseSourse))]
-        public void GetSingleManagerTest(ManagerAuthInput managerAuthInput,ManagerDto managerDtoInput,ManagerDto managerDtoOutput,CurrentManager expected)
+        [TestCaseSource(typeof(ManagerAuthTestCaseSource), nameof(ManagerAuthTestCaseSource.AddManagerNegativeTestCaseSource))]
+        public void AddManagerNegativeTest(ManagerAuthInput managerAuthInput, ManagerDto managerDtoInput, ManagerDto requestManagerByLogin, int expected)
         {
-            _mockManagerRepo.Setup(m => m.GetSingleManager(It.Is <ManagerDto>(g=>g.Equals(managerDtoInput)))).Returns(managerDtoOutput).Verifiable();
-            CurrentManager actual = _managerAuth.GetSingleManager(managerAuthInput);
+            _mockManagerRepo.Setup(m => m.GetManagerByLogin(managerDtoInput.Login)).Returns(requestManagerByLogin).Verifiable();
+            _mockManagerRepo.Setup(n => n.AddManager(It.Is<ManagerDto>(md => md.Equals(managerDtoInput)))).Throws<Exception>();
+            int actual = _managerAuth.AddManager(managerAuthInput);
+            _mockManagerRepo.Verify(q => q.GetManagerByLogin(managerDtoInput.Login), Times.Once);
+            _mockManagerRepo.Verify(p => p.AddManager(It.IsAny<ManagerDto>()), Times.AtMost(2));
+
+            Assert.AreEqual(expected, actual);
+
+        }
+
+        [TestCaseSource(typeof(ManagerAuthTestCaseSource), nameof(ManagerAuthTestCaseSource.ManagerAuthenticationTestCaseSourse))]
+        public void ManagerAuthenticationTest(ManagerAuthInput managerAuthInput, ManagerDto managerDtoInput, ManagerDto managerDtoOutput, CurrentManager expected)
+        {
+            _mockManagerRepo.Setup(m => m.GetSingleManager(It.Is<ManagerDto>(g => g.Equals(managerDtoInput)))).Returns(managerDtoOutput).Verifiable();
+            CurrentManager actual = _managerAuth.ManagerAuthentication(managerAuthInput);
             _mockManagerRepo.VerifyAll();
 
             Assert.AreEqual(expected, actual);

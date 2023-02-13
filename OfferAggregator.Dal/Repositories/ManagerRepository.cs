@@ -38,10 +38,10 @@ namespace OfferAggregator.Dal.Repositories
             {
                 sqlConnect.Open();
 
-                return sqlConnect.QuerySingle<int>(
+                return sqlConnect.Query<int>(
                     StoredProcedures.AddManager,
                     new { manager.Login, manager.Password },
-                    commandType: CommandType.StoredProcedure);
+                    commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
         }
 

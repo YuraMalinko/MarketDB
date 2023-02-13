@@ -20,20 +20,27 @@ namespace OfferAggregator.Bll
 
         public int AddManager(ManagerAuthInput manager)
         {
-            ManagerDto tmp = ManagerRep.GetManagerByLogin(manager.Login!);
+            int result = -1;
 
-            if (tmp == null)
+            try
             {
-                return ManagerRep.AddManager(
-                    _instanceMapper.MapManagerAuthInputToManagerDto(manager));
+                ManagerDto tmp = ManagerRep.GetManagerByLogin(manager.Login!);
+
+                if (tmp == null)
+                {
+                    result = ManagerRep.AddManager(
+                        _instanceMapper.MapManagerAuthInputToManagerDto(manager));
+                }
             }
-            else
+            catch (Exception ex)
             {
-                return -1;
+                return result;
             }
+
+            return result;
         }
 
-        public CurrentManager GetSingleManager(ManagerAuthInput manager)
+        public CurrentManager ManagerAuthentication(ManagerAuthInput manager)
         {
             ManagerDto result = ManagerRep.GetSingleManager(
                 _instanceMapper.MapManagerAuthInputToManagerDto(manager));
