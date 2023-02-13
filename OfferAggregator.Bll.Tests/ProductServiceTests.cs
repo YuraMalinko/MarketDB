@@ -244,17 +244,15 @@ namespace OfferAggregator.Bll.Tests
         }
 
         [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.GetProductsStatisticTestCaseSource))]
-        public void GetProductsStatisticTest()
-        { 
+        public void GetProductsStatisticTest(List<ProductsStatisticDto> productsStatisticDtos, List<ProductsStatisticModel> expectedProductsStaticModels)
+        {
+            _mockProductRepo.Setup(p => p.GetProductsStatistic()).Returns(productsStatisticDtos).Verifiable();
+
+            List<ProductsStatisticModel> actualProductsStaticModels = _productService.GetProductsStatistic();
+
+            _mockProductRepo.VerifyAll();
+
+            actualProductsStaticModels.Should().BeEquivalentTo(expectedProductsStaticModels);
         }
     }
 }
-
-
-//public List<ProductsStatisticModel> GetProductsStatistic()
-//{
-//    var getProductsStatisticDtos = _productsRepository.GetProductsStatistic();
-//    var getProductsStatisticModels = _instanceMapper.MapProductsStatisticDtosToProductsStatisticModels(getProductsStatisticDtos);
-
-//    return getProductsStatisticModels;
-//}
