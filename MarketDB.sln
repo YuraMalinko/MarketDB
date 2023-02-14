@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32825.248
@@ -10,6 +10,8 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OfferAggregator.Console", "OfferAggregator.Console\OfferAggregator.Console.csproj", "{A7971E56-55D7-4A06-8B7A-46E2FAA5EB38}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OfferAggregator.Bll", "OfferAggregator.Bll\OfferAggregator.Bll.csproj", "{8958F590-144F-483E-B487-D0F4D150D3DD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfferAggregator.Bll.Tests", "OfferAggregator.Bll.Tests\OfferAggregator.Bll.Tests.csproj", "{329F1E82-E2F7-4916-B054-E3957AB077DF}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfferAggregator.Bll.Tests", "OfferAAggregator.Bll.Tests\OfferAggregator.Bll.Tests.csproj", "{4D9CE65E-4FE2-43F5-BA3C-DDEF856959FC}"
 EndProject
@@ -36,6 +38,10 @@ Global
 		{8958F590-144F-483E-B487-D0F4D150D3DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8958F590-144F-483E-B487-D0F4D150D3DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8958F590-144F-483E-B487-D0F4D150D3DD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{329F1E82-E2F7-4916-B054-E3957AB077DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{329F1E82-E2F7-4916-B054-E3957AB077DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{329F1E82-E2F7-4916-B054-E3957AB077DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{329F1E82-E2F7-4916-B054-E3957AB077DF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{4D9CE65E-4FE2-43F5-BA3C-DDEF856959FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4D9CE65E-4FE2-43F5-BA3C-DDEF856959FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D9CE65E-4FE2-43F5-BA3C-DDEF856959FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
