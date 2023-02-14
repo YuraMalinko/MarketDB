@@ -144,7 +144,11 @@ CommentForClientRepository _commentForClientRepository = new CommentForClientRep
 OrderService orderService = new OrderService(_managerRepository, clRepo, orRepo, _ordersProductsRepository, _productsRepository, _commentForOrderRepository, _commentForClientRepository);
 
 
-var createOrder = orderService.CreateNewOrder(creatingOrderModel);
+//var createOrder = orderService.CreateNewOrder(creatingOrderModel);
+
+OrderDto o1 = new OrderDto { Client = new ClientsDto() };
+OrderDto o2 = new OrderDto { Client = new ClientsDto() };
+o1.Equals(o2);
 
 Console.WriteLine();
 

@@ -8,5 +8,12 @@
 
         public string? Password { get; set; }
 
+        public override bool Equals(object? obj)
+        {
+            return obj is ManagerDto dto &&
+                   Id == dto.Id &&
+                   Login == dto.Login &&
+                   Password == dto.Password;
+        }
     }
 }
