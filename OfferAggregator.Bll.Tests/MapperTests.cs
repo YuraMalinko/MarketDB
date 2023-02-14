@@ -27,6 +27,15 @@ namespace OfferAggregator.Bll.Tests
 
             actualProductsDto.Should().BeEquivalentTo(expectedProductsDto);
         }
+
+
+        [TestCaseSource(typeof(MapperTestCaseSource), nameof(MapperTestCaseSource.MapCreatingOrderModelToCreatingOrderDtoTestCaseSource))]
+        public void MapCreatingOrderModelToCreatingOrderDtoTest(CreatingOrderModel creatingOrderModel, CreatingOrderDto expectedCreatingOrderDto)
+        {
+            CreatingOrderDto actualCreatingOrderDto = _mapper.MapCreatingOrderModelToCreatingOrderDto(creatingOrderModel);
+
+            actualCreatingOrderDto.Should().BeEquivalentTo(expectedCreatingOrderDto);
+        }
     }
 }
 
