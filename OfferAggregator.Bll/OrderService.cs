@@ -29,9 +29,9 @@ namespace OfferAggregator.Bll
 
         ICommentForClientRepository _commentForClientRepository;
 
-        public OrderService(ManagerRepository managerRepository, ClientRepository clientRepository, OrderRepository orderRepository,
-                            OrdersProductsRepository ordersProductsRepository, ProductsRepository productsRepository, CommentForOrderRepository commentForOrderRepository,
-                            CommentForClientRepository commentForClientRepository)
+        public OrderService(IManagerRepository managerRepository, IClientRepository clientRepository, IOrderRepository orderRepository,
+                            IOrdersProductsRepository ordersProductsRepository, IProductsRepository productsRepository, ICommentForOrderRepository commentForOrderRepository,
+                            ICommentForClientRepository commentForClientRepository)
         {
             _managerRepository = managerRepository;
             _clientRepository = clientRepository;
@@ -46,8 +46,7 @@ namespace OfferAggregator.Bll
         {
             try
             {
-                //обойтись без Пасворда?
-                ManagerDto getManager = _managerRepository.GetSingleManager(creatingOrderModel.Order.Manager.Login, creatingOrderModel.Order.Manager.Password);
+                ManagerDto getManager = _instanceMapper.MapCurrentManagerToManagerDto(creatingOrderModel.Order.Manager);
                 ClientsDto getClient = _clientRepository.GetClientById(creatingOrderModel.Order.ClientId);
                 OrderDto getOrder = _orderRepository.GetOrderById(creatingOrderModel.Order.Id);
                 if (getManager != null && getClient != null && getOrder != null)
@@ -55,28 +54,37 @@ namespace OfferAggregator.Bll
                     CreatingOrderDto creatingOrderDto = _instanceMapper.MapCreatingOrderModelToCreatingOrderDto(creatingOrderModel);
                     int addOrder = _orderRepository.AddOrder(creatingOrderDto.Order);
 
-                    if (creatingOrderDto.CommentsForOrder != null && creatingOrderDto.CommentsForClient != null)
+                    if (creatingOrderDto.CommentsForOrder != null)
                     {
                         foreach (var crnt in creatingOrderDto.CommentsForOrder)
                         {
                             int addCommentForOrder = _commentForOrderRepository.AddCommentOrder(crnt);
                         }
+                    }
 
+                    if (creatingOrderDto.CommentsForClient != null)
+                    {
                         foreach (var crnt in creatingOrderDto.CommentsForClient)
                         {
                             int addCommentForClient = _commentForClientRepository.AddComment(crnt);
                         }
                     }
 
-                    List<OrdersProductsDto> getOrderProducts = creatingOrderDto.OrdersProducts.ToList();
-                    if (getOrderProducts != null)
+                    List<ProductCountModel> getProducts = creatingOrderModel.Products;
+                    if (getProducts != null)
                     {
-                        foreach (var crnt in getOrderProducts)
+                        foreach (var crnt in getProducts)
                         {
-                            var getProductById = _productsRepository.GetProductById(crnt.ProductId);
+                            var getProductById = _productsRepository.GetProductById(crnt.Id);
                             if (getProductById != null)
                             {
-                                bool addProductToOrder = _ordersProductsRepository.AddProductToOrders(crnt);
+                                OrdersProductsDto ordersProductsDto = new OrdersProductsDto
+                                {
+                                    OrderId = creatingOrderModel.Order.Id,
+                                    ProductId = crnt.Id,
+                                    CountProduct = crnt.Count
+                                };
+                                bool addProductToOrder = _ordersProductsRepository.AddProductToOrders(ordersProductsDto);
                             }
                         }
                     }

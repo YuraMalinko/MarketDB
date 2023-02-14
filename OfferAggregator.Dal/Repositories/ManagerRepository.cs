@@ -19,7 +19,7 @@ namespace OfferAggregator.Dal.Repositories
             }
         }
 
-        public ManagerDto GetSingleManager(string login, string password)
+        public ManagerDto GetSingleManager(ManagerDto manager)
         {
             using (var sqlConnect = new SqlConnection(Options.ConnectionString))
             {
@@ -27,7 +27,7 @@ namespace OfferAggregator.Dal.Repositories
 
                 return sqlConnect.Query<ManagerDto>(
                     StoredProcedures.GetSingleManager,
-                    new { login, password },
+                    new { manager.Login, manager.Password },
                     commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
         }

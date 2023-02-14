@@ -104,12 +104,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 ClientId = 1,
                 DateCreate = date1,
                 ComplitionDate = complitionDate,
-                Manager = new ManagerModel
-                {
-                    Id = 6,
-                    Login = "Andrew",
-                    Password = "qqq"
-                },
+                Manager = new CurrentManager(6, "Andrew", "qqq"),
                 Client = new ClientModel
                 {
                     Id = 1,
@@ -117,50 +112,28 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                     PhoneNumber = "8800"
                 }
             };
-            ProductModel pr1 = new ProductModel
+            ProductCountModel pr1 = new ProductCountModel
             {
                 Id = 1,
                 Name = "Kurica 1",
-                IsDeleted = true,
-                GroupId = 2
+                Count = 10
             };
-            ProductModel pr2 = new ProductModel
+            ProductCountModel pr2 = new ProductCountModel
             {
                 Id = 2,
                 Name = "Sheep",
-                IsDeleted = false,
-                GroupId = 2
+                Count = 20
             };
-            ProductModel pr3 = new ProductModel
+            ProductCountModel pr3 = new ProductCountModel
             {
                 Id = 3,
                 Name = "Okuny 1",
-                IsDeleted = false,
-                GroupId = 3
+                Count = 30
             };
-            List<ProductModel> products = new List<ProductModel>
+            List<ProductCountModel> products = new List<ProductCountModel>
 {
 pr1, pr2, pr3
 };
-            OrdersProductModel op1 = new OrdersProductModel
-            {
-                OrderId = 4,
-                ProductId = 1,
-                CountProduct = 2
-            };
-            OrdersProductModel op2 = new OrdersProductModel
-            {
-                OrderId = 4,
-                ProductId = 2,
-                CountProduct = 4
-            };
-            OrdersProductModel op3 = new OrdersProductModel
-            {
-                OrderId = 4,
-                ProductId = 3,
-                CountProduct = 5
-            };
-            List<OrdersProductModel> opList = new List<OrdersProductModel> { op1, op2, op3 };
             CommentForClientModel com1Cl = new CommentForClientModel
             {
                 Id = 1,
@@ -186,13 +159,8 @@ pr1, pr2, pr3
                 Order = orderModel,
                 Products = products,
                 CommentsForOrder = comOrList,
-                CommentsForClient = comClList,
-                OrdersProducts = opList
+                CommentsForClient = comClList
             };
-
-
-
-
 
             OrderDto orderDto = new OrderDto
             {
@@ -214,50 +182,28 @@ pr1, pr2, pr3
                     PhoneNumber = "8800"
                 }
             };
-            ProductsDto pr1Dto = new ProductsDto
+            ProductCountDto pr1Dto = new ProductCountDto
             {
                 Id = 1,
                 Name = "Kurica 1",
-                IsDeleted = true,
-                GroupId = 2
+                Count = 10
             };
-            ProductsDto pr2Dto = new ProductsDto
+            ProductCountDto pr2Dto = new ProductCountDto
             {
                 Id = 2,
                 Name = "Sheep",
-                IsDeleted = false,
-                GroupId = 2
+                Count = 20
             };
-            ProductsDto pr3Dto = new ProductsDto
+            ProductCountDto pr3Dto = new ProductCountDto
             {
                 Id = 3,
                 Name = "Okuny 1",
-                IsDeleted = false,
-                GroupId = 3
+                Count = 30
             };
-            List<ProductsDto> productsDto = new List<ProductsDto>
+            List<ProductCountDto> productsDto = new List<ProductCountDto>
 {
 pr1Dto, pr2Dto, pr3Dto
 };
-            OrdersProductsDto op1Dto = new OrdersProductsDto
-            {
-                OrderId = 4,
-                ProductId = 1,
-                CountProduct = 2
-            };
-            OrdersProductsDto op2Dto = new OrdersProductsDto
-            {
-                OrderId = 4,
-                ProductId = 2,
-                CountProduct = 4
-            };
-            OrdersProductsDto op3Dto = new OrdersProductsDto
-            {
-                OrderId = 4,
-                ProductId = 3,
-                CountProduct = 5
-            };
-            List<OrdersProductsDto> opListDto = new List<OrdersProductsDto> { op1Dto, op2Dto, op3Dto };
             CommentForClientDto com1ClDto = new CommentForClientDto
             {
                 Id = 1,
@@ -283,8 +229,7 @@ pr1Dto, pr2Dto, pr3Dto
                 Order = orderDto,
                 Products = productsDto,
                 CommentsForOrder = comOrListDto,
-                CommentsForClient = comClListDto,
-                OrdersProducts = opListDto
+                CommentsForClient = comClListDto
             };
 
             yield return new object[] { creatingOrderModel, expectedCreatingOrderDto };

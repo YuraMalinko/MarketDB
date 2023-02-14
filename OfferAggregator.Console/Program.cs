@@ -22,12 +22,7 @@ OrderModel orderModel = new OrderModel
     ClientId = 1,
     DateCreate = date1,
     ComplitionDate = complitionDate,
-    Manager = new ManagerModel
-    {
-        Id = 6,
-        Login = "Andrew",
-        Password = "qqq"
-    },
+    Manager = new CurrentManager(6, "Andrew", "qqq"),
     Client = new ClientModel
     { 
         Id = 1,
@@ -36,57 +31,54 @@ OrderModel orderModel = new OrderModel
     }
 };
 
-ProductModel pr1 = new ProductModel
+ProductCountModel pr1 = new ProductCountModel
 {
     Id = 1,
     Name ="Kurica 1",
-    IsDeleted= true,
-    GroupId = 2
+    Count=2
 };
 
-ProductModel pr2 = new ProductModel
+ProductCountModel pr2 = new ProductCountModel
 {
     Id = 2,
     Name = "Sheep",
-    IsDeleted = false,
-    GroupId = 2
+    Count = 4
 };
 
-ProductModel pr3 = new ProductModel
+ProductCountModel pr3 = new ProductCountModel
 {
     Id = 3,
     Name = "Okuny 1",
-    IsDeleted = false,
-    GroupId = 3
+    Count = 5
 };
 
-List<ProductModel> products = new List<ProductModel>
+List<ProductCountModel> products = new List<ProductCountModel>
 {
 pr1, pr2, pr3
 };
 
-OrdersProductModel op1 = new OrdersProductModel
-{ 
-OrderId = 4,
-ProductId = 1,
-CountProduct = 2
-};
+//OrdersProductModel op1 = new OrdersProductModel
+//{ 
+//OrderId = 4,
+//ProductId = 1,
+//CountProduct = 2
+//};
 
-OrdersProductModel op2 = new OrdersProductModel
-{
-    OrderId = 4,
-    ProductId = 2,
-    CountProduct = 4
-};
+//OrdersProductModel op2 = new OrdersProductModel
+//{
+//    OrderId = 4,
+//    ProductId = 2,
+//    CountProduct = 4
+//};
 
-OrdersProductModel op3 = new OrdersProductModel
-{
-    OrderId = 4,
-    ProductId = 3,
-    CountProduct = 5
-};
+//OrdersProductModel op3 = new OrdersProductModel
+//{
+//    OrderId = 4,
+//    ProductId = 3,
+//    CountProduct = 5
+//};
 
-List <OrdersProductModel> opList= new List<OrdersProductModel> { op1 , op2 , op3 };
+//List <OrdersProductModel> opList= new List<OrdersProductModel> { op1 , op2 , op3 };
 
 //List<CommentForOrderModel> commentsForOrder = new List<CommentForOrderModel>();
 
@@ -122,8 +114,7 @@ CreatingOrderModel creatingOrderModel = new CreatingOrderModel
     Order =orderModel, 
     Products = products,
     CommentsForOrder = comOrList,
-    CommentsForClient= comClList,
-    OrdersProducts= opList
+    CommentsForClient= comClList
 };
 
 
