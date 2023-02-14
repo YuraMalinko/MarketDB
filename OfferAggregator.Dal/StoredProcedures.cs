@@ -120,8 +120,6 @@ namespace OfferAggregator.Dal
 
         public const string GetFullProductById = "GetFullProductById";
 
-        public const string DeleteCommentForClient = "DeleteCommentForClient";
-
         public const string GetFullProducts = "GetFullProducts";
 
         public const string GetManagerByLogin = "GetManagerByLogin";
