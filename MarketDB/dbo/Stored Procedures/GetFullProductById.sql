@@ -2,7 +2,7 @@
 @id int
 AS
 SELECT 
-P.[Id],P.[Name], P.[GroupId], G.[Name], S.[Amount],
+P.[Id],P.[Name], P.[GroupId], G.[Name] AS GroupName, S.[Amount],
 AVG(CAST(PR.[Score] AS float)) AS AverageScore, T.[Id],T.[Name]
 FROM [dbo].[Products] AS P
 LEFT JOIN [dbo].[TagsProducts] AS TP ON

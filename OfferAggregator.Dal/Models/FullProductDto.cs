@@ -8,6 +8,8 @@
 
         public int GroupId { get; set; }
 
+        public string GroupName { get; set; }
+
         public int Amount { get; set; }
 
         public List<TagDto> Tags { get; set; }
