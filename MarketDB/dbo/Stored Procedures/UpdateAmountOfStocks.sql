@@ -1,9 +1,9 @@
 ﻿CREATE PROCEDURE UpdateAmountOfStocks
 @productId int,
-@changeAmount int
+@amount int
 AS
 Update [dbo].[Stocks]
 SET
-[Amount] = @changeAmount
+[Amount] = @amount
 WHERE
 [ProductId] = @productId

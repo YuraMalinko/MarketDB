@@ -1,4 +1,4 @@
-﻿using OfferAggregator.Dal.Models;
+using OfferAggregator.Dal.Models;
 
 namespace OfferAggregator.Dal.Repositories
 {
@@ -6,12 +6,18 @@ namespace OfferAggregator.Dal.Repositories
     {
         public int AddProduct(ProductsDto product);
 
-        public int DeleteProduct(int id);
+        public bool DeleteProduct(int id);
 
         public List<ProductsDto> GetAllProducts();
 
         public List<ProductsDto> GetAllProductsByGroupId(int groupId);
 
-        public int UpdateProduct(ProductsDto product);
+        public bool UpdateProduct(ProductsDto product);
+
+        public ProductsDto GetProductById(int id);
+
+        public FullProductDto GetFullProductById(int id);
+
+        public List<FullProductDto> GetFullProducts();
     }
 }

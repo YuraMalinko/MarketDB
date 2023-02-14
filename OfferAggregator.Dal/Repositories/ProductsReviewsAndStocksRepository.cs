@@ -1,4 +1,4 @@
-﻿using Dapper;
+using Dapper;
 using Microsoft.Data.SqlClient;
 using OfferAggregator.Dal.Models;
 using System.Data;
@@ -7,16 +7,18 @@ namespace OfferAggregator.Dal.Repositories
 {
     public class ProductsReviewsAndStocksRepository : IProductsReviewsAndStocksRepository
     {
-        public int AddAmountToStocks(StocksDtoWithProductName stock)
+        public bool AddAmountToStocks(StocksDtoWithProductName stock)
         {
             using (var sqlCnct = new SqlConnection(Options.ConnectionString))
             {
                 sqlCnct.Open();
 
-                return sqlCnct.Execute(
+               int result = sqlCnct.Execute(
                     StoredProcedures.AddAmountToStocks,
                     new { stock.Amount, stock.ProductId },
                                     commandType: CommandType.StoredProcedure);
+
+                return result > 0;
             }
         }
 
@@ -74,14 +76,14 @@ namespace OfferAggregator.Dal.Repositories
             }
         }
 
-        public StocksDtoWithProductName GetAmountByProductId(int id)
+        public StocksDtoWithProductName GetAmountByProductId(int productId)
         {
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
             {
                 sqlCnctn.Open();
 
                 return sqlCnctn.Query<StocksDtoWithProductName>(StoredProcedures.GetAmountByProductId,
-                    new { id },
+                    new { productId },
                     commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
         }
@@ -221,14 +223,14 @@ namespace OfferAggregator.Dal.Repositories
             }
         }
 
-        public bool UpdateAmountOfStocks(int productId, int changeAmount)
+        public bool UpdateAmountOfStocks(StocksDtoWithProductName stockProduct)
         {
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
             {
                 sqlCnctn.Open();
                 int result = sqlCnctn.Execute(
                      StoredProcedures.UpdateAmountOfStocks,
-                     new { productId, changeAmount },
+                     new { stockProduct.ProductId, stockProduct.Amount },
                      commandType: CommandType.StoredProcedure);
 
                 return result > 0;
@@ -271,6 +273,20 @@ namespace OfferAggregator.Dal.Repositories
                 int result = sqlCnctn.Execute(
                     StoredProcedures.DeleteStock,
                     new { stock.Amount, stock.ProductId },
+                    commandType: CommandType.StoredProcedure);
+
+                return result > 0;
+            }
+        }
+
+        public bool DeleteProductReviewsByProductId(int productId)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                int result = sqlCnctn.Execute(
+                    StoredProcedures.DeleteProductReviewsByProductId,
+                    new { productId },
                     commandType: CommandType.StoredProcedure);
 
                 return result > 0;

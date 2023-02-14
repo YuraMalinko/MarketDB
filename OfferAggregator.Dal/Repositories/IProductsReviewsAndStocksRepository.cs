@@ -1,10 +1,10 @@
-﻿using OfferAggregator.Dal.Models;
+using OfferAggregator.Dal.Models;
 
 namespace OfferAggregator.Dal.Repositories
 {
     public interface IProductsReviewsAndStocksRepository
     {
-        public int AddAmountToStocks(StocksDtoWithProductName stock);
+        public bool AddAmountToStocks(StocksDtoWithProductName stock);
 
         public int AddScoreAndCommentToProductReview(ProductReviewsDto prReview);
 
@@ -16,12 +16,14 @@ namespace OfferAggregator.Dal.Repositories
 
         public List<ProductWithScoresAndCommentsDto> GetAllScoresAndCommentsForProductsByClientId(int clientId);
 
-        public StocksDtoWithProductName GetAmountByProductId(int id);
+        public StocksDtoWithProductName GetAmountByProductId(int productId);
 
         public List<StocksDtoWithProductName> GetAmountsOfAllProducts();
 
-        public bool UpdateAmountOfStocks(int productId, int changeAmount);
+        public bool UpdateAmountOfStocks(StocksDtoWithProductName stockProduct);
 
         public bool UpdateScoreAndCommentOfProductsReviews(ProductReviewsDto productReviews);
+
+        public bool DeleteProductReviewsByProductId(int productId);
     }
 }

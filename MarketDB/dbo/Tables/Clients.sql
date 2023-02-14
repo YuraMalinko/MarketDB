@@ -4,4 +4,5 @@
     [PhoneNumber] NVARCHAR (20)  NOT NULL UNIQUE,
     [IsDeleted]  BIT            DEFAULT ('0') NOT NULL,
     PRIMARY KEY CLUSTERED ([Id] ASC),
+     UNIQUE NONCLUSTERED ([PhoneNumber])
 );
