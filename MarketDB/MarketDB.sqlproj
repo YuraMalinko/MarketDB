@@ -134,6 +134,8 @@
     <Build Include="dbo\Stored Procedures\AddCommentForOrder.sql" />
     <Build Include="dbo\Stored Procedures\DeleteCommentForOrder.sql" />
     <Build Include="dbo\Stored Procedures\UpdateCommentForOrder.sql" />
+    <Build Include="dbo\Stored Procedures\GetClientById.sql" />
+    <Build Include="dbo\Stored Procedures\GetOrderById.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="MarketDB.refactorlog" />

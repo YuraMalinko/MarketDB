@@ -115,5 +115,9 @@ namespace OfferAggregator.Dal
         public const string DeleteCommentForOrder = "DeleteCommentForOrder";
 
         public const string GetGroupById = "GetGroupById";
+
+        public const string GetClientById = "GetClientById";
+
+        public const string GetOrderById = "GetOrderById";
     }
 }

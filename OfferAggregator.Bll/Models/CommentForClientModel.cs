@@ -1,6 +1,6 @@
-﻿namespace OfferAggregator.Dal.Models
+﻿namespace OfferAggregator.Bll.Models
 {
-    public class CommentForClientDto
+    public class CommentForClientModel
     {
         public int Id { get; set; }
 

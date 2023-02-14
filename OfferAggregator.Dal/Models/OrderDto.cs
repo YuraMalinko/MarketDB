@@ -2,15 +2,15 @@
 {
     public class OrderDto
     {
-        public int? Id { get; set; }
+        public int Id { get; set; }
 
         public DateTime? DateCreate { get; set; }
 
         public DateTime? ComplitionDate { get; set; }
 
-        public int? ManagerId { get; set; }
+        public int ManagerId { get; set; }
 
-        public int? ClientId { get; set; }
+        public int ClientId { get; set; }
 
         public ManagerDto? Manager { get; set; }
 
