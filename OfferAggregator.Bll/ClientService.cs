@@ -30,5 +30,20 @@ namespace OfferAggregator.Bll
 
             return result;
         }
+
+        public int AddClient (ClientsOutputModel client)
+        {
+            int result = -1;
+            
+            var newClient = _instanceMapper.MapClientsOutputModelToClientsDto(client);
+            var phoneNewClient = newClient.PhoneNumber;
+            var searchClietnt = _clientRepository.GetClientByPhoneNumber(phoneNewClient);
+            if (searchClietnt == null) 
+            {
+                result = _clientRepository.AddClient(client);
+            }
+
+            return result;
+        }
     }
 }
