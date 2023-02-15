@@ -80,5 +80,17 @@ namespace OfferAggregator.Dal.Repositories
                     commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
         }
+
+        public ManagerDto GetManagerById(int id)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                return sqlCnctn.Query<ManagerDto>(
+                    StoredProcedures.GetManagerById,
+                    new { id},
+                    commandType: CommandType.StoredProcedure).FirstOrDefault();
+            }
+        }
     }
 }

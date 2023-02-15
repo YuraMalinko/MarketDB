@@ -15,7 +15,7 @@ using System.Net.Http.Headers;
 //};
 
 DateTime date1 = new DateTime(2023, 02, 15, 12, 00, 00);
-DateTime complitionDate = new DateTime(2023, 02, 16, 21, 30, 00);
+DateTime complitionDate = new DateTime(2023, 02, 15, 12, 30, 00);
 
 OrderModel orderModel = new OrderModel
 {
@@ -36,14 +36,14 @@ ProductCountModel pr1 = new ProductCountModel
 {
     Id = 30,
     Name = "earlGrey",
-    Count = 33
+    Count = 1
 };
 
 ProductCountModel pr2 = new ProductCountModel
 {
     Id = 50,
     Name = "Baltika",
-    Count = 55
+    Count = 1
 };
 
 
@@ -83,7 +83,7 @@ pr1, pr2
 CommentForClientModel com1Cl = new CommentForClientModel
 {
     
-    Text = "client const",
+    Text = "love her",
     ClientId = 12
 };
 
@@ -92,7 +92,7 @@ List<CommentForClientModel> comClList = new List<CommentForClientModel> { com1Cl
 
 CommentForOrderModel comOr1 = new CommentForOrderModel
 {
-    Text = "orders are same"
+    Text = "cool"
 };
 
 List<CommentForOrderModel> comOrList = new List<CommentForOrderModel> { comOr1 };
