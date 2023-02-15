@@ -40,8 +40,17 @@ namespace OfferAggregator.Bll
             var searchClietnt = _clientRepository.GetClientByPhoneNumber(phoneNewClient);
             if (searchClietnt == null) 
             {
-                result = _clientRepository.AddClient(client);
+                result = _clientRepository.AddClient(newClient);
             }
+
+            return result;
+        }
+
+        public bool DeleteClient(ClientsOutputModel client)
+        {
+            var result = _clientRepository.DeleteClient(client.Id);
+            _clientsWishesRepository.DeleteClientWishesById(client.Id);
+            _commentForClientRepository.DeleteComment(client.Id);
 
             return result;
         }
