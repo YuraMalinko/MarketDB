@@ -593,5 +593,257 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                                        crntProductModel, getProductById, ordersProductsDto, addProductToOrder, expected, getManager };
         }
 
+        public static IEnumerable CreateNewOrderWithOneProduct_WhenCommentsForClientIsNullTestCaseSource()
+        {
+            DateTime dateCreate = new DateTime(2023, 11, 01, 19, 11, 11);
+            DateTime complitionDate = new DateTime(2023, 11, 27, 15, 17, 00);
+            OrderModel orderModel = new OrderModel
+            {
+                ManagerId = 1478,
+                ClientId = 2478,
+                DateCreate = dateCreate,
+                ComplitionDate = complitionDate,
+                Manager = new CurrentManager(1478, "OneMan478", "111478"),
+                Client = new ClientModel
+                {
+                    Id = 2478,
+                    Name = "OneClient478",
+                    PhoneNumber = "11111478"
+                }
+            };
+            ProductCountModel pr1 = new ProductCountModel
+            {
+                Id = 1478,
+                Name = "product1478",
+                Count = 10478
+            };
+            List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
+            List<CommentForClientModel> comClList = new List<CommentForClientModel>();
+            List<CommentForOrderModel> comOrList = new List<CommentForOrderModel>
+            {
+                new CommentForOrderModel
+                {
+                Text = "comment",
+                OrderId = 100478
+                }
+            };
+            CreatingOrderModel creatingOrderModel = new CreatingOrderModel
+            {
+                Order = orderModel,
+                Products = products,
+                CommentsForOrder = comOrList,
+                CommentsForClient = comClList
+            };
+
+            OrderDto orderDto = new OrderDto
+            {
+                ManagerId = 1478,
+                ClientId = 2478,
+                DateCreate = dateCreate,
+                ComplitionDate = complitionDate,
+                Manager = new ManagerDto
+                {
+                    Id = 1478,
+                    Login = "OneMan478",
+                    Password = "111478"
+                },
+                Client = new ClientsDto
+                {
+                    Id = 2478,
+                    Name = "OneClient478",
+                    PhoneNumber = "11111478"
+                }
+            };
+            ProductCountDto pr1Dto = new ProductCountDto
+            {
+                Id = 1478,
+                Name = "product1478",
+                Count = 10478
+            };
+            List<ProductCountDto> productsDto = new List<ProductCountDto> { pr1Dto };
+            List<CommentForClientDto> comClListDto = new List<CommentForClientDto>();
+            List<CommenForOrderDto> comOrListDto = new List<CommenForOrderDto>
+            {
+            new CommenForOrderDto
+                {
+                Text = "comment",
+                OrderId = 100478
+                }
+            };
+            CreatingOrderDto creatingOrderDto = new CreatingOrderDto
+            {
+                Order = orderDto,
+                Products = productsDto,
+                CommentsForOrder = comOrListDto,
+                CommentsForClient = comClListDto
+            };
+            int addOrder = 100478;
+            ClientsDto getClient = new ClientsDto
+            {
+                Id = 2478,
+                Name = "OneClient78",
+                PhoneNumber = "11111478"
+            };
+            int addCommentForOrder = 99478;
+            int addCommentForClient = 98478;
+            ProductCountModel crntProductModel = new ProductCountModel
+            {
+                Id = 1478,
+                Name = "product1478",
+                Count = 10478
+            };
+            ProductsDto getProductById = new ProductsDto
+            {
+                Id = 1478,
+                Name = "product1478",
+                GroupId = 1478,
+                IsDeleted = false
+            };
+            OrdersProductsDto ordersProductsDto = new OrdersProductsDto
+            {
+                OrderId = 100478,
+                ProductId = 1478,
+                CountProduct = 10478
+            };
+            ManagerDto getManager = new ManagerDto
+            {
+                Id = 1478,
+                Login = "OneMan478",
+                Password = "111478"
+            };
+            bool addProductToOrder = true;
+            int expected = 100478;
+
+            yield return new object[] { creatingOrderModel, getClient, creatingOrderDto, addOrder, addCommentForClient,
+                                       crntProductModel, getProductById, ordersProductsDto, addProductToOrder, expected, getManager };
+        }
+
+        public static IEnumerable CreateNewOrderWithOneProduct_WhenProductIsNotExistTestCaseSource()
+        {
+            DateTime dateCreate = new DateTime(2022, 11, 01, 00, 11, 11);
+            DateTime complitionDate = new DateTime(2023, 12, 27, 02, 17, 00);
+            OrderModel orderModel = new OrderModel
+            {
+                ManagerId = 14787,
+                ClientId = 24787,
+                DateCreate = dateCreate,
+                ComplitionDate = complitionDate,
+                Manager = new CurrentManager(14787, "OneMan4787", "11147877"),
+                Client = new ClientModel
+                {
+                    Id = 24787,
+                    Name = "OneClient4787",
+                    PhoneNumber = "111114787"
+                }
+            };
+            ProductCountModel pr1 = new ProductCountModel
+            {
+                Id = 14787,
+                Name = "product14787",
+                Count = 104787
+            };
+            List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
+            List<CommentForClientModel> comClList = new List<CommentForClientModel>
+                {
+                new CommentForClientModel
+                {
+                Text = "comment7",
+                ClientId = 24787
+                }
+            };
+            List<CommentForOrderModel> comOrList = new List<CommentForOrderModel>
+            {
+                new CommentForOrderModel
+                {
+                Text = "comment7",
+                OrderId = 1004787
+                }
+            };
+            CreatingOrderModel creatingOrderModel = new CreatingOrderModel
+            {
+                Order = orderModel,
+                Products = products,
+                CommentsForOrder = comOrList,
+                CommentsForClient = comClList
+            };
+
+            OrderDto orderDto = new OrderDto
+            {
+                ManagerId = 14787,
+                ClientId = 24787,
+                DateCreate = dateCreate,
+                ComplitionDate = complitionDate,
+                Manager = new ManagerDto
+                {
+                    Id = 14787,
+                    Login = "OneMan4787",
+                    Password = "11147877"
+                },
+                Client = new ClientsDto
+                {
+                    Id = 24787,
+                    Name = "OneClient4787",
+                    PhoneNumber = "111114787"
+                }
+            };
+            ProductCountDto pr1Dto = new ProductCountDto
+            {
+                Id = 14787,
+                Name = "product14787",
+                Count = 104787
+            };
+            List<ProductCountDto> productsDto = new List<ProductCountDto> { pr1Dto };
+            List<CommentForClientDto> comClListDto = new List<CommentForClientDto>
+                 {
+            new CommentForClientDto
+                {
+                Text = "comment7",
+                ClientId = 24787
+                }
+            };
+            List<CommenForOrderDto> comOrListDto = new List<CommenForOrderDto>
+            {
+            new CommenForOrderDto
+                {
+                Text = "comment7",
+                OrderId = 1004787
+                }
+            };
+            CreatingOrderDto creatingOrderDto = new CreatingOrderDto
+            {
+                Order = orderDto,
+                Products = productsDto,
+                CommentsForOrder = comOrListDto,
+                CommentsForClient = comClListDto
+            };
+            int addOrder = 1004787;
+            ClientsDto getClient = new ClientsDto
+            {
+                Id = 24787,
+                Name = "OneClient787",
+                PhoneNumber = "111114787"
+            };
+            int addCommentForOrder = 994787;
+            int addCommentForClient = 984787;
+            ProductCountModel crntProductModel = new ProductCountModel
+            {
+                Id = 14787,
+                Name = "product14787",
+                Count = 104787
+            };
+            ProductsDto getProductById = null;
+            ManagerDto getManager = new ManagerDto
+            {
+                Id = 14787,
+                Login = "OneMan4787",
+                Password = "11147877"
+            };
+            int expected = -1;
+
+            yield return new object[] { creatingOrderModel, getClient, creatingOrderDto,
+                                       addOrder, addCommentForClient, crntProductModel, addCommentForOrder,
+                                       getProductById, expected, getManager };
+        }
     }
 }
+

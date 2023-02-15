@@ -73,6 +73,7 @@ namespace OfferAggregator.Bll
                     }
 
                     List<ProductCountModel> getProducts = creatingOrderModel.Products;
+
                     if (getProducts != null)
                     {
                         foreach (var crnt in getProducts)
@@ -88,6 +89,10 @@ namespace OfferAggregator.Bll
                                 };
                                 bool addProductToOrder = _ordersProductsRepository.AddProductToOrders(ordersProductsDto);
                             }
+                            else
+                            {
+                                return -1;
+                            };
                         }
                     }
 

@@ -183,5 +183,55 @@ namespace OfferAggregator.Bll.Tests
 
             Assert.AreEqual(expected, actual);
         }
+
+        [TestCaseSource(typeof(OrderServiceTestCaseSource), nameof(OrderServiceTestCaseSource.CreateNewOrderWithOneProduct_WhenCommentsForClientIsNullTestCaseSource))]
+        public void CreateNewOrderWithOneProduct_WhenCommentsForClientIsNullTest(CreatingOrderModel creatingOrderModel, ClientsDto getClient, CreatingOrderDto creatingOrderDto,
+                                       int addOrder, int addCommentForOrder, ProductCountModel crntProductModel,
+                                       ProductsDto getProductById, OrdersProductsDto ordersProductsDto, bool addProductToOrder, int expected, ManagerDto getManager)
+        {
+            _mockClientRepo.Setup(c => c.GetClientById(creatingOrderModel.Order.ClientId)).Returns(getClient).Verifiable();
+            _mockManagerRepo.Setup(m => m.GetManagerById(creatingOrderModel.Order.ManagerId)).Returns(getManager).Verifiable();
+            _mockOrderRepo.Setup(o => o.AddOrder(It.Is<OrderDto>(co => co.Equals(creatingOrderDto.Order)))).Returns(addOrder).Verifiable();
+            _mockCommentForOrderRepo.Setup(comO => comO.AddCommentOrder(It.IsAny<CommenForOrderDto>())).Returns(addCommentForOrder).Verifiable();
+            _mockProductsRepo.Setup(p => p.GetProductById(crntProductModel.Id)).Returns(getProductById).Verifiable();
+            _mockOrdersProductsRepo.Setup(op => op.AddProductToOrders(It.Is<OrdersProductsDto>(op => op.Equals(ordersProductsDto)))).Returns(addProductToOrder).Verifiable();
+
+            int actual = _orderService.CreateNewOrder(creatingOrderModel);
+
+            _mockClientRepo.VerifyAll();
+            _mockManagerRepo.VerifyAll();
+            _mockOrderRepo.VerifyAll();
+            _mockCommentForOrderRepo.VerifyAll();
+            _mockCommentForClientRepo.Verify(comC => comC.AddComment(It.IsAny<CommentForClientDto>()), Times.Never);
+            _mockProductsRepo.VerifyAll();
+            _mockOrdersProductsRepo.VerifyAll();
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCaseSource(typeof(OrderServiceTestCaseSource), nameof(OrderServiceTestCaseSource.CreateNewOrderWithOneProduct_WhenProductIsNotExistTestCaseSource))]
+        public void CreateNewOrderWithOneProduct_WhenProductIsNotExistTest(CreatingOrderModel creatingOrderModel, ClientsDto getClient, CreatingOrderDto creatingOrderDto,
+                                       int addOrder, int addCommentForClient, ProductCountModel crntProductModel, int addCommentForOrder,
+                                       ProductsDto getProductById, int expected, ManagerDto getManager)
+        {
+            _mockClientRepo.Setup(c => c.GetClientById(creatingOrderModel.Order.ClientId)).Returns(getClient).Verifiable();
+            _mockManagerRepo.Setup(m => m.GetManagerById(creatingOrderModel.Order.ManagerId)).Returns(getManager).Verifiable();
+            _mockOrderRepo.Setup(o => o.AddOrder(It.Is<OrderDto>(co => co.Equals(creatingOrderDto.Order)))).Returns(addOrder).Verifiable();
+            _mockCommentForOrderRepo.Setup(comO => comO.AddCommentOrder(It.IsAny<CommenForOrderDto>())).Returns(addCommentForOrder).Verifiable();
+            _mockCommentForClientRepo.Setup(comO => comO.AddComment(It.IsAny<CommentForClientDto>())).Returns(addCommentForClient).Verifiable();
+            _mockProductsRepo.Setup(p => p.GetProductById(crntProductModel.Id)).Returns(getProductById).Verifiable();
+
+            int actual = _orderService.CreateNewOrder(creatingOrderModel);
+
+            _mockClientRepo.VerifyAll();
+            _mockManagerRepo.VerifyAll();
+            _mockOrderRepo.VerifyAll();
+            _mockCommentForOrderRepo.VerifyAll();
+            _mockCommentForClientRepo.VerifyAll();
+            _mockProductsRepo.VerifyAll();
+            _mockOrdersProductsRepo.Verify(op => op.AddProductToOrders(It.IsAny<OrdersProductsDto>()), Times.Never);
+
+            Assert.AreEqual(expected, actual);
+        }
     }
 }
