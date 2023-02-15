@@ -22,7 +22,7 @@ namespace OfferAggregator.Bll
 
         private IGroupRepository _groupRepository;
 
-        public ProductService(IProductsRepository productsRepository, IProductsReviewsAndStocksRepository productsReviewsAndStocksRepository, 
+        public ProductService(IProductsRepository productsRepository, IProductsReviewsAndStocksRepository productsReviewsAndStocksRepository,
                               ITagsRepository tagsRepository, IGroupRepository groupRepository)
         {
             _productsRepository = productsRepository;
@@ -104,6 +104,45 @@ namespace OfferAggregator.Bll
             }
 
             return result;
+        }
+
+        public bool RegistrateProductInStock(StocksWithProductModel stockProduct)
+        {
+            var stockProductDto = _instanceMapper.MapStocksWithProductModelToStocksWithProductModel(stockProduct);
+            var getProductDto = _productsRepository.GetProductById(stockProductDto.ProductId);
+            bool result = false;
+            if (getProductDto != null && stockProductDto.Amount>0 && !getProductDto.IsDeleted )
+            {
+                var getAmountByProductId = _productsReviewsAndStocksRepository.GetAmountByProductId(stockProductDto.ProductId);
+
+                if (getAmountByProductId is null)
+                {
+                    result = _productsReviewsAndStocksRepository.AddAmountToStocks(stockProductDto);
+                }
+                else
+                {
+                    var sumAmount = getAmountByProductId.Amount + stockProductDto.Amount;
+                    stockProductDto.Amount = sumAmount;
+                    result = _productsReviewsAndStocksRepository.UpdateAmountOfStocks(stockProductDto);
+                }
+            }
+            return result;
+        }
+
+        public FullProductModel GetFullProductById(int productId)
+        {
+            var fullProductDto = _productsRepository.GetFullProductById(productId);
+            var fullProductModel = _instanceMapper.MapFullProductDtoToFullProductModel(fullProductDto);
+
+            return fullProductModel;
+        }
+
+        public List<FullProductModel> GetFullProducts()
+        {
+            var fullProductDtos = _productsRepository.GetFullProducts();
+            var fullProductModels = _instanceMapper.MapFullProductDtosToFullProductModels(fullProductDtos);
+
+            return fullProductModels;
         }
     }
 }

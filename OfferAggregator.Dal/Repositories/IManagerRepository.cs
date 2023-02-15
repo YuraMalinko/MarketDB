@@ -6,12 +6,14 @@ namespace OfferAggregator.Dal.Repositories
     {
         public int AddManager(ManagerDto manager);
 
-        public void DeleteManager(int id);
+        public bool DeleteManager(int id);
 
         public List<ManagerDto> GetAllManagers();
 
         public ManagerDto GetSingleManager(ManagerDto manager);
 
-        public void UpdateManager(ManagerDto manager);
+        public bool UpdateManager(ManagerDto manager);
+
+        public ManagerDto GetManagerByLogin(string login);
     }
 }

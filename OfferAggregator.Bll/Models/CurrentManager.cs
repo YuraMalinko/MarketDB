@@ -1,4 +1,6 @@
-﻿namespace OfferAggregator.Bll.Models
+﻿using OfferAggregator.Dal.Models;
+
+namespace OfferAggregator.Bll.Models
 {
     public class CurrentManager
     {
