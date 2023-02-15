@@ -54,5 +54,13 @@ namespace OfferAggregator.Bll
 
             return result;
         }
+
+        public bool UpdateCLient(ClientsOutputModel client)
+        {
+            var clietnDto = _instanceMapper.MapClientsOutputModelToClientsDto(client);
+            var result = _clientRepository.UpdateClient(clietnDto);
+
+            return result;
+        }
     }
 }
