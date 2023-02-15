@@ -82,6 +82,68 @@ namespace OfferAggregator.Dal.Repositories
             }
         }
 
+        public FullProductDto GetFullProductById(int id)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                FullProductDto result = null;
+                sqlCnctn.Query<FullProductDto, TagDto, FullProductDto>(
+                    StoredProcedures.GetFullProductById,
+                    (fullProduct, tag) =>
+                    {
+                        if (result is null)
+                        {
+                            result = fullProduct;
+                            result.Tags = new List<TagDto>();
+                        }
+                        result.Tags.Add(tag);
+
+                        return fullProduct;
+                    },
+                    new { id },
+                    splitOn: "Id",
+                    commandType: CommandType.StoredProcedure);
+
+                return result;
+            }
+        }
+
+        public List<FullProductDto> GetFullProducts()
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                List<FullProductDto> fullProducts = new List<FullProductDto>();
+                FullProductDto result = null;
+                sqlCnctn.Query<FullProductDto, TagDto, FullProductDto>(
+                    StoredProcedures.GetFullProducts,
+                    (fullProductDto, tagDto) =>
+                    {
+                        if (result is null)
+                        {
+                            result = fullProductDto;
+                            result.Tags = new List<TagDto>();
+                            fullProducts.Add(result);
+                        }
+
+                        if (result.Id != fullProductDto.Id)
+                        {
+                            result = fullProductDto;
+                            result.Tags = new List<TagDto>();
+                            fullProducts.Add(result);
+                        }
+                        result.Tags.Add(tagDto);
+
+                        return fullProductDto;
+                    },
+                    splitOn: "Id",
+                    commandType: CommandType.StoredProcedure);
+
+                return fullProducts;
+            }
+        }
+
         public List<ProductsStatisticDto> GetProductsStatistic()
         {
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))

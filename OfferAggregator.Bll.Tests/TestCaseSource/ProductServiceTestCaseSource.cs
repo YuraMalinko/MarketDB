@@ -373,6 +373,345 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             yield return new object[] { productId, boolProduct, expected };
         }
 
+        public static IEnumerable RegistrateProductInStockTest_WhenAddNewProductTestCaseSource()
+        {
+            StocksWithProductModel stockProductModel = new StocksWithProductModel
+            {
+                Name = "one",
+                ProductId = 1,
+                Amount = 101
+            };
+            StocksDtoWithProductName stockProductDto = new StocksDtoWithProductName
+            {
+                Name = "one",
+                ProductId = 1,
+                Amount = 101
+            };
+            ProductsDto getProductDto = new ProductsDto
+            {
+                Id = 1,
+                Name = "one",
+                GroupId = 10,
+                IsDeleted = false
+            };
+            StocksDtoWithProductName getAmountByProductId = null;
+            bool resultOfAdd = true;
+            bool expected = true;
+
+            yield return new object[] { stockProductDto, getProductDto, getAmountByProductId, resultOfAdd, expected, stockProductModel };
+        }
+
+        public static IEnumerable RegistrateProductInStockTest_WhenUpdateExistProductTestCaseSource()
+        {
+            StocksWithProductModel stockProductModel = new StocksWithProductModel
+            {
+                Name = "two",
+                ProductId = 2,
+                Amount = 200
+            };
+            StocksDtoWithProductName stockProductDto = new StocksDtoWithProductName
+            {
+                Name = "two",
+                ProductId = 2,
+                Amount = 200
+            };
+            ProductsDto getProductDto = new ProductsDto
+            {
+                Id = 2,
+                Name = "two",
+                GroupId = 20,
+                IsDeleted = false
+            };
+            StocksDtoWithProductName getAmountByProductId = new StocksDtoWithProductName
+            {
+                Name = "two",
+                ProductId = 2,
+                Amount = 10
+            };
+            StocksDtoWithProductName stockUpdateProductDto = new StocksDtoWithProductName
+            {
+                Name = "two",
+                ProductId = 2,
+                Amount = 210
+            };
+            bool resultUpdate = true;
+            bool expected = true;
+
+            yield return new object[] { stockProductDto, getProductDto, getAmountByProductId, resultUpdate, expected, stockProductModel, stockUpdateProductDto };
+        }
+
+        public static IEnumerable RegistrateProductInStockTest_WhenProductIsNotExistTestCaseSource()
+        {
+            StocksWithProductModel stockProductModel = new StocksWithProductModel
+            {
+                Name = "one3",
+                ProductId = 13,
+                Amount = 1013
+            };
+            StocksDtoWithProductName stockProductDto = new StocksDtoWithProductName
+            {
+                Name = "one3",
+                ProductId = 13,
+                Amount = 1013
+            };
+            ProductsDto getProductDto = null;
+            bool expected = false;
+
+            yield return new object[] { stockProductDto, getProductDto, stockProductModel, expected };
+        }
+
+        public static IEnumerable RegistrateProductInStockTest_WhenAmountLessZeroTestCaseSource()
+        {
+            StocksWithProductModel stockProductModel = new StocksWithProductModel
+            {
+                Name = "one34",
+                ProductId = 134,
+                Amount = -9
+            };
+            StocksDtoWithProductName stockProductDto = new StocksDtoWithProductName
+            {
+                Name = "one34",
+                ProductId = 134,
+                Amount = -9
+            };
+            ProductsDto getProductDto = new ProductsDto
+            {
+                Id = 134,
+                Name = "one34",
+                GroupId = 13,
+                IsDeleted = false,
+            };
+            bool expected = false;
+
+            yield return new object[] { stockProductDto, getProductDto, stockProductModel, expected };
+        }
+
+        public static IEnumerable RegistrateProductInStockTest_WhenProductIsDeletedTestCaseSource()
+        {
+            StocksWithProductModel stockProductModel = new StocksWithProductModel
+            {
+                Name = "one345",
+                ProductId = 1345,
+                Amount = 5
+            };
+            StocksDtoWithProductName stockProductDto = new StocksDtoWithProductName
+            {
+                Name = "one345",
+                ProductId = 1345,
+                Amount = 5
+            };
+            ProductsDto getProductDto = new ProductsDto
+            {
+                Id = 1345,
+                Name = "one345",
+                GroupId = 135,
+                IsDeleted = true,
+            };
+            bool expected = false;
+
+            yield return new object[] { stockProductDto, getProductDto, stockProductModel, expected };
+        }
+
+        public static IEnumerable GetFullProductByIdTestCaseSource()
+        {
+            FullProductDto fullProductDto = new FullProductDto
+            {
+                Id = 117,
+                Name = "117",
+                GroupId = 1107,
+                Amount = 1007,
+                Tags = new List<TagDto>
+            {
+            new TagDto{ Id = 17, Name = "17"},
+            new TagDto{ Id = 27, Name = "27"}
+            },
+                AverageScore = 2.7f
+            };
+
+            FullProductModel expectedFullProductModel = new FullProductModel
+            {
+                Id = 117,
+                Name = "117",
+                GroupId = 1107,
+                Amount = 1007,
+                Tags = new List<TagModel>
+            {
+            new TagModel{ Id = 17, Name = "17"},
+            new TagModel{ Id = 27, Name = "27"}
+            },
+                AverageScore = 2.7f
+            };
+            int productId = 117;
+
+            yield return new object[] { productId, fullProductDto, expectedFullProductModel };
+
+
+            fullProductDto = new FullProductDto();
+            expectedFullProductModel = new FullProductModel { Tags = new ()} ;
+            productId = 9;
+
+            yield return new object[] { productId, fullProductDto, expectedFullProductModel };
+
+
+            fullProductDto = new FullProductDto
+            {
+                Id = 1138,
+                Name = "1138",
+                GroupId = 11038,
+                Amount = 10038,
+                Tags = new List<TagDto>(),
+                AverageScore = 3
+            };
+
+            expectedFullProductModel = new FullProductModel
+            {
+                Id = 1138,
+                Name = "1138",
+                GroupId = 11038,
+                Amount = 10038,
+                Tags = new List<TagModel>(),
+                AverageScore = 3
+            };
+            productId = 1138;
+
+            yield return new object[] { productId, fullProductDto, expectedFullProductModel };
+
+            fullProductDto = new FullProductDto
+            {
+                Id = 11386,
+                Name = "11386",
+                GroupId = 110386,
+                Amount = 100386,
+                Tags = new List<TagDto>()
+            };
+
+            expectedFullProductModel = new FullProductModel
+            {
+                Id = 11386,
+                Name = "11386",
+                GroupId = 110386,
+                Amount = 100386,
+                Tags = new List<TagModel>()
+            };
+            productId = 11386;
+
+            yield return new object[] { productId, fullProductDto, expectedFullProductModel };
+        }
+
+        public static IEnumerable GetFullProducsTestCaseSource()
+        {
+            FullProductDto fullProduct1 = new FullProductDto
+            {
+                Id = 15,
+                Name = "15",
+                GroupId = 105,
+                Amount = 1005,
+                AverageScore = 4.6f,
+                Tags = new List<TagDto>
+                {
+                new TagDto{ Id = 15, Name = "tag15"},
+                new TagDto{ Id = 25, Name = "tag25"}
+                }
+            };
+            List<FullProductDto> fullProductDtos = new List<FullProductDto> { fullProduct1 };
+
+            FullProductModel fullProductModel1 = new FullProductModel
+            {
+                Id = 15,
+                Name = "15",
+                GroupId = 105,
+                Amount = 1005,
+                AverageScore = 4.6f,
+                Tags = new List<TagModel>
+                {
+                new TagModel{ Id = 15, Name = "tag15"},
+                new TagModel{ Id = 25, Name = "tag25"}
+                }
+            };
+            List<FullProductModel> expectedFullProductModels = new List<FullProductModel> { fullProductModel1 };
+
+            yield return new object[] { fullProductDtos, expectedFullProductModels };
+
+            fullProductDtos = new List<FullProductDto>();
+            expectedFullProductModels = new List<FullProductModel>();
+
+            yield return new object[] { fullProductDtos, expectedFullProductModels };
+
+            TagDto tag1 = new TagDto
+            {
+                Id = 116,
+                Name = "116"
+            };
+            TagDto tag2 = new TagDto();
+            List<TagDto> tags = new List<TagDto> { tag1, tag2 };
+
+            fullProduct1 = new FullProductDto
+            {
+                Id = 116,
+                Name = "116",
+                GroupId = 1016,
+                Amount = 10016,
+                AverageScore = 3f,
+                Tags = tags
+            };
+            FullProductDto fullProduct2 = new FullProductDto();
+            fullProductDtos = new List<FullProductDto> { fullProduct1, fullProduct2 };
+
+            TagModel tagModel1 = new TagModel
+            {
+                Id = 116,
+                Name = "116"
+            };
+            TagModel tagModel2 = new TagModel();
+            List<TagModel> tagModels = new List<TagModel> { tagModel1, tagModel2 };
+
+            fullProductModel1 = new FullProductModel
+            {
+                Id = 116,
+                Name = "116",
+                GroupId = 1016,
+                Amount = 10016,
+                AverageScore = 3f,
+                Tags = tagModels
+            };
+            FullProductModel fullProductModel2 = new FullProductModel() { Tags = new() };
+            expectedFullProductModels = new List<FullProductModel> { fullProductModel1, fullProductModel2 };
+
+            yield return new object[] { fullProductDtos, expectedFullProductModels };
+
+            fullProduct1 = new FullProductDto
+            {
+                Id = 154,
+                Name = "154",
+                GroupId = 1054,
+                Amount = 10054,
+                Tags = new List<TagDto>
+                {
+                new TagDto{ Id = 154, Name = "tag154"},
+                new TagDto{ Id = 254, Name = "tag254"}
+                }
+            };
+            fullProduct2 = new FullProductDto();
+            fullProductDtos = new List<FullProductDto> { fullProduct1, fullProduct2 };
+
+            fullProductModel1 = new FullProductModel
+            {
+                Id = 154,
+                Name = "154",
+                GroupId = 1054,
+                Amount = 10054,
+                Tags = new List<TagModel>
+                {
+                new TagModel{ Id = 154, Name = "tag154"},
+                new TagModel{ Id = 254, Name = "tag254"}
+                }
+            };
+            fullProductModel2 = new FullProductModel { Tags = new() };
+            expectedFullProductModels = new List<FullProductModel> { fullProductModel1, fullProductModel2 };
+
+            yield return new object[] { fullProductDtos, expectedFullProductModels };
+        }
+
         public static IEnumerable GetProductsStatisticTestCaseSource()
         {
             ProductsStatisticDto productsStatistiDto1 = new ProductsStatisticDto

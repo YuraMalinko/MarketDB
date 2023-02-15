@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OfferAggregator.Console", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OfferAggregator.Bll", "OfferAggregator.Bll\OfferAggregator.Bll.csproj", "{8958F590-144F-483E-B487-D0F4D150D3DD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfferAggregator.Bll.Tests", "OfferAggregator.Bll.Tests\OfferAggregator.Bll.Tests.csproj", "{329F1E82-E2F7-4916-B054-E3957AB077DF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OfferAggregator.Bll.Tests", "OfferAggregator.Bll.Tests\OfferAggregator.Bll.Tests.csproj", "{D45D631F-91D7-4948-83C8-A98A520127B0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -36,10 +36,10 @@ Global
 		{8958F590-144F-483E-B487-D0F4D150D3DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8958F590-144F-483E-B487-D0F4D150D3DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8958F590-144F-483E-B487-D0F4D150D3DD}.Release|Any CPU.Build.0 = Release|Any CPU
-		{329F1E82-E2F7-4916-B054-E3957AB077DF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{329F1E82-E2F7-4916-B054-E3957AB077DF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{329F1E82-E2F7-4916-B054-E3957AB077DF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{329F1E82-E2F7-4916-B054-E3957AB077DF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D45D631F-91D7-4948-83C8-A98A520127B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D45D631F-91D7-4948-83C8-A98A520127B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D45D631F-91D7-4948-83C8-A98A520127B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D45D631F-91D7-4948-83C8-A98A520127B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
