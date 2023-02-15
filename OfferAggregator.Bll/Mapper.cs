@@ -107,11 +107,6 @@ namespace OfferAggregator.Bll
             return _mapper.Map<ManagerDto>(manager);
         }
 
-        public ManagerDto MapCurrentManagerToManagerDto(CurrentManager manager)
-        {
-            return _mapper.Map<ManagerDto>(manager);
-        }
-
         public CreatingOrderDto MapCreatingOrderModelToCreatingOrderDto(CreatingOrderModel creatingOrderModel)
         {
             return _mapper.Map<CreatingOrderDto>(creatingOrderModel);
