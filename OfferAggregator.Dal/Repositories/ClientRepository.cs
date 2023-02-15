@@ -137,5 +137,18 @@ namespace OfferAggregator.Dal.Repositories
                 return result;
             }
         }
+
+        public ClientsDto GetClientByPhoneNumber(string phoneNumber)
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(Options.ConnectionString))
+            {
+                sqlConnection.Open();
+
+                return sqlConnection.Query<ClientsDto>(
+                    StoredProcedures.GetClientByPhoneNumber,
+                    new { phoneNumber },
+                    commandType: CommandType.StoredProcedure).FirstOrDefault();
+            }
+        }
     }
 }
