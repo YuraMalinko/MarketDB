@@ -12,49 +12,43 @@ using System.Net.Http.Headers;
 //    Password = "qqq"
 //};
 
-DateTime date1 = new DateTime(2023, 01, 29, 10, 00, 00);
-DateTime complitionDate = new DateTime(2023, 01, 30, 10, 00, 00);
+DateTime date1 = new DateTime(2023, 02, 15, 12, 00, 00);
+DateTime complitionDate = new DateTime(2023, 02, 16, 21, 30, 00);
 
 OrderModel orderModel = new OrderModel
 {
-    Id = 4,
-    ManagerId = 6,
-    ClientId = 1,
+    ManagerId = 15,
+    ClientId = 12,
     DateCreate = date1,
     ComplitionDate = complitionDate,
-    Manager = new CurrentManager(6, "Andrew", "qqq"),
+    Manager = new CurrentManager(15, "Kristina", "qqq"),
     Client = new ClientModel
-    { 
-        Id = 1,
-        Name = "Medvedev",
-        PhoneNumber = "8800"
+    {
+        Id = 12,
+        Name = "client",
+        PhoneNumber = "999999"
     }
 };
 
 ProductCountModel pr1 = new ProductCountModel
 {
-    Id = 1,
-    Name ="Kurica 1",
-    Count=2
+    Id = 30,
+    Name = "earlGrey",
+    Count = 33
 };
 
 ProductCountModel pr2 = new ProductCountModel
 {
-    Id = 2,
-    Name = "Sheep",
-    Count = 4
+    Id = 50,
+    Name = "Baltika",
+    Count = 55
 };
 
-ProductCountModel pr3 = new ProductCountModel
-{
-    Id = 3,
-    Name = "Okuny 1",
-    Count = 5
-};
+
 
 List<ProductCountModel> products = new List<ProductCountModel>
 {
-pr1, pr2, pr3
+pr1, pr2
 };
 
 //OrdersProductModel op1 = new OrdersProductModel
@@ -86,35 +80,27 @@ pr1, pr2, pr3
 
 CommentForClientModel com1Cl = new CommentForClientModel
 {
-    Id = 1,
-    Text = "qqq",
-    ClientId = 1
+    
+    Text = "client const",
+    ClientId = 12
 };
 
-CommentForClientModel com2Cl = new CommentForClientModel
-{
-    Id = 2,
-    Text = "ppp",
-    ClientId = 1
-};
 
-List<CommentForClientModel> comClList = new List<CommentForClientModel> { com1Cl, com2Cl };
+List<CommentForClientModel> comClList = new List<CommentForClientModel> { com1Cl };
 
 CommentForOrderModel comOr1 = new CommentForOrderModel
-{ 
-Id = 1,
-Text = "Доставить в полночь",
-OrderId = 4
+{
+    Text = "orders are same"
 };
 
 List<CommentForOrderModel> comOrList = new List<CommentForOrderModel> { comOr1 };
 
 CreatingOrderModel creatingOrderModel = new CreatingOrderModel
 {
-    Order =orderModel, 
+    Order = orderModel,
     Products = products,
     CommentsForOrder = comOrList,
-    CommentsForClient= comClList
+    CommentsForClient = comClList
 };
 
 
@@ -144,11 +130,11 @@ CommentForClientRepository _commentForClientRepository = new CommentForClientRep
 OrderService orderService = new OrderService(_managerRepository, clRepo, orRepo, _ordersProductsRepository, _productsRepository, _commentForOrderRepository, _commentForClientRepository);
 
 
-//var createOrder = orderService.CreateNewOrder(creatingOrderModel);
+var createOrder = orderService.CreateNewOrder(creatingOrderModel);
 
-OrderDto o1 = new OrderDto { Client = new ClientsDto() };
-OrderDto o2 = new OrderDto { Client = new ClientsDto() };
-o1.Equals(o2);
+//OrderDto o1 = new OrderDto { Client = new ClientsDto() };
+//OrderDto o2 = new OrderDto { Client = new ClientsDto() };
+//o1.Equals(o2);
 
 Console.WriteLine();
 

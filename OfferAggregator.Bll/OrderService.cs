@@ -42,22 +42,24 @@ namespace OfferAggregator.Bll
             _commentForClientRepository = commentForClientRepository;
         }
 
-        public bool CreateNewOrder(CreatingOrderModel creatingOrderModel)
+        public int CreateNewOrder(CreatingOrderModel creatingOrderModel)
         {
             try
             {
                 ManagerDto getManager = _instanceMapper.MapCurrentManagerToManagerDto(creatingOrderModel.Order.Manager);
                 ClientsDto getClient = _clientRepository.GetClientById(creatingOrderModel.Order.ClientId);
-                OrderDto getOrder = _orderRepository.GetOrderById(creatingOrderModel.Order.Id);
-                if (getManager != null && getClient != null && getOrder != null)
+               // OrderDto getOrder = _orderRepository.GetOrderById(creatingOrderModel.Order.Id);
+                if (getManager != null && getClient != null)
                 {
                     CreatingOrderDto creatingOrderDto = _instanceMapper.MapCreatingOrderModelToCreatingOrderDto(creatingOrderModel);
                     int addOrder = _orderRepository.AddOrder(creatingOrderDto.Order);
-
+                    creatingOrderModel.Order.Id = addOrder;
+                    
                     if (creatingOrderDto.CommentsForOrder != null)
                     {
                         foreach (var crnt in creatingOrderDto.CommentsForOrder)
                         {
+                            crnt.OrderId = addOrder;
                             int addCommentForOrder = _commentForOrderRepository.AddCommentOrder(crnt);
                         }
                     }
@@ -89,16 +91,16 @@ namespace OfferAggregator.Bll
                         }
                     }
 
-                    return true;
+                    return addOrder;
                 }
                 else
                 {
-                    return false;
+                    return -1;
                 };
             }
             catch (Exception ex)
             {
-                return false;
+                return -1;
             }
         }
     }
