@@ -46,7 +46,6 @@ namespace OfferAggregator.Bll
         {
             try
             {
-                // ManagerDto getManager = _instanceMapper.MapCurrentManagerToManagerDto(creatingOrderModel.Order.Manager);
                 ManagerDto getManager = _managerRepository.GetManagerById(creatingOrderModel.Order.ManagerId);
                 ClientsDto getClient = _clientRepository.GetClientById(creatingOrderModel.Order.ClientId);
                 if (getManager != null && getClient != null && creatingOrderModel.Order.DateCreate < creatingOrderModel.Order.ComplitionDate)

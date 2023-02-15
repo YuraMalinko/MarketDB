@@ -6,8 +6,6 @@
 
         public List<ProductCountModel> Products { get; set; }
 
-        //public List<OrdersProductModel> OrdersProducts { get; set; }
-
         public List<CommentForOrderModel> CommentsForOrder { get; set; }
 
         public List<CommentForClientModel> CommentsForClient { get; set; }
