@@ -1,6 +1,6 @@
 ﻿namespace OfferAggregator.Bll.Models
 {
-    public class AllClientsOutputModel
+    public class ClientsOutputModel
     {
         public int Id { get; set; }
 

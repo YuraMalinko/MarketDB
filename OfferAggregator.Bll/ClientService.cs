@@ -23,7 +23,7 @@ namespace OfferAggregator.Bll
             _orderRepository = orderRepository;
         }
 
-        public List<AllClientsOutputModel> GetAllClientsWithoutComment()
+        public List<ClientsOutputModel> GetAllClientsWithoutComment()
         {
             List<ClientsDto> clientsAll = _clientRepository.GetAllClients();
             var result = _instanceMapper.MapClientsDtosToClientsOutputModels(clientsAll);
