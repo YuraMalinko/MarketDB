@@ -1,0 +1,69 @@
+﻿@page "/Products"
+@using OfferAggregator.Bll;
+@using OfferAggregator.Bll.Models;
+@using OfferAggregator.Dal.Repositories;
+
+<PageTitle>Products</PageTitle>
+
+<button @onclick="GetFullProducts">Получить все продукты на складе</button>
+
+<div class="Products">
+    <div class="GetFullProducts">
+        <div class="tableGetFullProducts">
+            <table border="1.5" width="800">
+                <th>Id</th>
+                <th>Name</th>
+                <th>GroupId</th>
+                <th>GroupName</th>
+                <th>Amount</th>
+                <th>AverageScore</th>
+                <th>Tags</th>
+                @foreach (var product in _fullProducts)
+                {
+                    <tr>
+                        <th>@product.Id</th>
+                        <th>@product.Name</th>
+                        <th>@product.GroupId</th>
+                        <th>@product.GroupName</th>
+                        <th>
+                            @product.Amount</th>
+
+                        <th>
+                            @foreach (var tag in product.Tags)
+                            {
+                                 <tr>
+                            <th border="0">@tag.Name</th>
+                                 </tr>
+                            }
+                    </th>
+                    <th>@product.AverageScore</th>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+</div>
+
+@*<button @onclick="RegistrateProductInStock(StocksWithProductModel stockProduct)">Зарегистрировать продукт на складе</button>
+*@
+
+@code {
+    private ProductService _productService = new ProductService(
+            new ProductsRepository(),
+            new ProductsReviewsAndStocksRepository(),
+            new TagsRepository(),
+            new GroupRepository()
+    );
+
+    private List<FullProductModel> _fullProducts = new List<FullProductModel>();
+
+    private void GetFullProducts()
+    {
+        _fullProducts = _productService.GetFullProducts();
+    }
+
+    //    private void RegistrateProductInStock(StocksWithProductModel stockProduct)
+    //{
+    //    _productService.RegistrateProductInStock(stockProduct);
+    //}
+}

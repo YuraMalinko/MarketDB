@@ -62,3 +62,18 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+.GetFullProducts {
+    background-color: rgba(50, 115, 220, 0.3);
+    border-width: 1px;
+    box-sizing: content-box;
+}
+
+
+.tableGetFullProducts th {
+    border: 1px solid #888;
+    padding: 10px;
+    text-align: center;
+    vertical-align: middle;
+    position: relative;
+}
