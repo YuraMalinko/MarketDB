@@ -114,6 +114,7 @@ namespace OfferAggregator.Bll
             {
                 ManagerDto getManager = _managerRepository.GetManagerById(creatingOrderModel.Order.ManagerId);
                 ClientsDto getClient = _clientRepository.GetClientById(creatingOrderModel.Order.ClientId);
+
                 if (getManager != null && getClient != null && creatingOrderModel.Order.DateCreate < creatingOrderModel.Order.ComplitionDate)
                 {
                     CreatingOrderDto creatingOrderDto = _instanceMapper.MapCreatingOrderModelToCreatingOrderDto(creatingOrderModel);
@@ -173,6 +174,65 @@ namespace OfferAggregator.Bll
                 return -1;
             }
         }
+
+        private bool CheckManager(int managerId)
+        {
+            ManagerDto getManager = _managerRepository.GetManagerById(managerId);
+
+            return getManager != null;
+
+        }
+
+        private bool CheckClient(int clientId)
+        {
+            ClientsDto getClient = _clientRepository.GetClientById(clientId);
+
+            return getClient != null;
+        }
+
+        private bool CheckListProductsCounts(List<ProductCountModel> productsCounts)
+        {
+            return productsCounts != null;
+        }
+
+        private bool CheckProduct(List<ProductCountModel> productsCounts)
+        {
+            if (productsCounts != null)
+            {
+                foreach (var crnt in productsCounts)
+                {
+                    var getProductById = _productsRepository.GetProductById(crnt.Id);
+                    if (getProductById == null)
+                    {
+                        return false;
+                    }
+                }
+                return true;
+            }
+
+            return false;
+        }
+
+        private bool CheckCommentsForOrder(List<CommentForOrderDto> commentsForOrder, int addOrder)
+        {
+            if (commentsForOrder != null)
+            {
+                foreach (var crnt in commentsForOrder)
+                {
+                    crnt.OrderId = addOrder;
+                    int addCommentForOrder = _commentForOrderRepository.AddCommentOrder(crnt);
+                }
+            }
+
+        }
     }
 }
 
+//if (creatingOrderDto.CommentsForOrder != null)
+//{
+//    foreach (var crnt in creatingOrderDto.CommentsForOrder)
+//    {
+//        crnt.OrderId = addOrder;
+//        int addCommentForOrder = _commentForOrderRepository.AddCommentOrder(crnt);
+//    }
+//}
