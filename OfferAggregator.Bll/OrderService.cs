@@ -8,6 +8,7 @@ using System.Data;
 using OfferAggregator.Dal.Repositories;
 using Dapper;
 using System.Linq.Expressions;
+using System.Collections.Generic;
 
 namespace OfferAggregator.Bll
 {
@@ -112,10 +113,10 @@ namespace OfferAggregator.Bll
         {
             try
             {
-                ManagerDto getManager = _managerRepository.GetManagerById(creatingOrderModel.Order.ManagerId);
-                ClientsDto getClient = _clientRepository.GetClientById(creatingOrderModel.Order.ClientId);
-
-                if (getManager != null && getClient != null && creatingOrderModel.Order.DateCreate < creatingOrderModel.Order.ComplitionDate)
+                if (CheckManager(creatingOrderModel.Order.ManagerId)
+                     && CheckClient(creatingOrderModel.Order.ClientId)
+                     && creatingOrderModel.Order.DateCreate < creatingOrderModel.Order.ComplitionDate
+                     && CheckProduct(creatingOrderModel.Products))
                 {
                     CreatingOrderDto creatingOrderDto = _instanceMapper.MapCreatingOrderModelToCreatingOrderDto(creatingOrderModel);
                     int addOrder = _orderRepository.AddOrder(creatingOrderDto.Order);
@@ -123,43 +124,38 @@ namespace OfferAggregator.Bll
 
                     if (creatingOrderDto.CommentsForOrder != null)
                     {
-                        foreach (var crnt in creatingOrderDto.CommentsForOrder)
-                        {
-                            crnt.OrderId = addOrder;
-                            int addCommentForOrder = _commentForOrderRepository.AddCommentOrder(crnt);
-                        }
+                        AddCommentsForOrder(creatingOrderDto.CommentsForOrder, addOrder);
                     }
 
                     if (creatingOrderDto.CommentsForClient != null)
                     {
-                        foreach (var crnt in creatingOrderDto.CommentsForClient)
-                        {
-                            int addCommentForClient = _commentForClientRepository.AddComment(crnt);
-                        }
+                        AddCommentsForClient(creatingOrderDto.CommentsForClient);
                     }
 
-                    List<ProductCountModel> getProducts = creatingOrderModel.Products;
-
-                    if (getProducts != null)
+                    foreach (var crnt in creatingOrderModel.Products)
                     {
-                        foreach (var crnt in getProducts)
-                        {
-                            var getProductById = _productsRepository.GetProductById(crnt.Id);
-                            if (getProductById != null)
-                            {
-                                OrdersProductsDto ordersProductsDto = new OrdersProductsDto
-                                {
-                                    OrderId = creatingOrderModel.Order.Id,
-                                    ProductId = crnt.Id,
-                                    CountProduct = crnt.Count
-                                };
-                                bool addProductToOrder = _ordersProductsRepository.AddProductToOrders(ordersProductsDto);
-                            }
-                            else
-                            {
-                                return -1;
-                            };
-                        }
+                        AddProductDto(creatingOrderModel.Order.Id, crnt.Id, crnt.Count);
+                    }
+
+                    return addOrder;
+                }
+                else if (CheckManager(creatingOrderModel.Order.ManagerId)
+                     && CheckClient(creatingOrderModel.Order.ClientId)
+                     && creatingOrderModel.Order.DateCreate < creatingOrderModel.Order.ComplitionDate
+                     && !CheckListProductsCounts(creatingOrderModel.Products))
+                {
+                    CreatingOrderDto creatingOrderDto = _instanceMapper.MapCreatingOrderModelToCreatingOrderDto(creatingOrderModel);
+                    int addOrder = _orderRepository.AddOrder(creatingOrderDto.Order);
+                    creatingOrderModel.Order.Id = addOrder;
+
+                    if (creatingOrderDto.CommentsForOrder != null)
+                    {
+                        AddCommentsForOrder(creatingOrderDto.CommentsForOrder, addOrder);
+                    }
+
+                    if (creatingOrderDto.CommentsForClient != null)
+                    {
+                        AddCommentsForClient(creatingOrderDto.CommentsForClient);
                     }
 
                     return addOrder;
@@ -167,7 +163,7 @@ namespace OfferAggregator.Bll
                 else
                 {
                     return -1;
-                };
+                }
             }
             catch (Exception ex)
             {
@@ -180,7 +176,6 @@ namespace OfferAggregator.Bll
             ManagerDto getManager = _managerRepository.GetManagerById(managerId);
 
             return getManager != null;
-
         }
 
         private bool CheckClient(int clientId)
@@ -213,26 +208,51 @@ namespace OfferAggregator.Bll
             return false;
         }
 
-        private bool CheckCommentsForOrder(List<CommentForOrderDto> commentsForOrder, int addOrder)
+        private bool AddCommentsForOrder(List<CommenForOrderDto> commentsForOrder, int addOrder)
         {
-            if (commentsForOrder != null)
+            foreach (var crnt in commentsForOrder)
             {
-                foreach (var crnt in commentsForOrder)
+                if (crnt != null)
                 {
                     crnt.OrderId = addOrder;
                     int addCommentForOrder = _commentForOrderRepository.AddCommentOrder(crnt);
                 }
+                else
+                {
+                    return false;
+                }
             }
 
+            return true;
+        }
+
+        private bool AddCommentsForClient(List<CommentForClientDto> commentsForClient)
+        {
+            foreach (var crnt in commentsForClient)
+            {
+                if (crnt != null)
+                {
+                    int addComment = _commentForClientRepository.AddComment(crnt);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+
+            return true;
+        }
+
+        private bool AddProductDto(int orderId, int productId, int countProduct)
+        {
+            OrdersProductsDto ordersProductsDto = new OrdersProductsDto
+            {
+                OrderId = orderId,
+                ProductId = productId,
+                CountProduct = countProduct
+            };
+
+            return _ordersProductsRepository.AddProductToOrders(ordersProductsDto);
         }
     }
 }
-
-//if (creatingOrderDto.CommentsForOrder != null)
-//{
-//    foreach (var crnt in creatingOrderDto.CommentsForOrder)
-//    {
-//        crnt.OrderId = addOrder;
-//        int addCommentForOrder = _commentForOrderRepository.AddCommentOrder(crnt);
-//    }
-//}

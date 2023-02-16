@@ -105,12 +105,11 @@ namespace OfferAggregator.Bll.Tests
         [TestCaseSource(typeof(OrderServiceTestCaseSource), nameof(OrderServiceTestCaseSource.CreateNewOrderWithOneProduct_WhenManagerIsNotExistTestCaseSource))]
         public void CreateNewOrderWithOneProduct_WhenManagerIsNotExistTest(CreatingOrderModel creatingOrderModel, ClientsDto getClient, ManagerDto getManager, int expected)
         {
-            _mockClientRepo.Setup(c => c.GetClientById(creatingOrderModel.Order.ClientId)).Returns(getClient).Verifiable();
             _mockManagerRepo.Setup(m => m.GetManagerById(creatingOrderModel.Order.ManagerId)).Returns(getManager).Verifiable();
 
             int actual = _orderService.CreateNewOrder(creatingOrderModel);
 
-            _mockClientRepo.VerifyAll();
+            _mockClientRepo.Verify(c => c.GetClientById(It.IsAny<int>()), Times.Never);
             _mockManagerRepo.VerifyAll();
             _mockOrderRepo.Verify(or => or.AddOrder(It.IsAny<OrderDto>()), Times.Never);
             _mockCommentForOrderRepo.Verify(comO => comO.AddCommentOrder(It.IsAny<CommenForOrderDto>()), Times.Never);
@@ -162,7 +161,7 @@ namespace OfferAggregator.Bll.Tests
         [TestCaseSource(typeof(OrderServiceTestCaseSource), nameof(OrderServiceTestCaseSource.CreateNewOrderWithOneProduct_WhenCommentsForOrderIsNullTestCaseSource))]
         public void CreateNewOrderWithOneProduct_WhenCommentsForOrderIsNullTest(CreatingOrderModel creatingOrderModel, ClientsDto getClient, CreatingOrderDto creatingOrderDto,
                                        int addOrder, int addCommentForClient, ProductCountModel crntProductModel,
-                                       ProductsDto getProductById, OrdersProductsDto ordersProductsDto,bool addProductToOrder, int expected, ManagerDto getManager)
+                                       ProductsDto getProductById, OrdersProductsDto ordersProductsDto, bool addProductToOrder, int expected, ManagerDto getManager)
         {
             _mockClientRepo.Setup(c => c.GetClientById(creatingOrderModel.Order.ClientId)).Returns(getClient).Verifiable();
             _mockManagerRepo.Setup(m => m.GetManagerById(creatingOrderModel.Order.ManagerId)).Returns(getManager).Verifiable();
@@ -216,18 +215,15 @@ namespace OfferAggregator.Bll.Tests
         {
             _mockClientRepo.Setup(c => c.GetClientById(creatingOrderModel.Order.ClientId)).Returns(getClient).Verifiable();
             _mockManagerRepo.Setup(m => m.GetManagerById(creatingOrderModel.Order.ManagerId)).Returns(getManager).Verifiable();
-            _mockOrderRepo.Setup(o => o.AddOrder(It.Is<OrderDto>(co => co.Equals(creatingOrderDto.Order)))).Returns(addOrder).Verifiable();
-            _mockCommentForOrderRepo.Setup(comO => comO.AddCommentOrder(It.IsAny<CommenForOrderDto>())).Returns(addCommentForOrder).Verifiable();
-            _mockCommentForClientRepo.Setup(comO => comO.AddComment(It.IsAny<CommentForClientDto>())).Returns(addCommentForClient).Verifiable();
             _mockProductsRepo.Setup(p => p.GetProductById(crntProductModel.Id)).Returns(getProductById).Verifiable();
 
             int actual = _orderService.CreateNewOrder(creatingOrderModel);
 
             _mockClientRepo.VerifyAll();
             _mockManagerRepo.VerifyAll();
-            _mockOrderRepo.VerifyAll();
-            _mockCommentForOrderRepo.VerifyAll();
-            _mockCommentForClientRepo.VerifyAll();
+            _mockOrderRepo.Verify(o => o.AddOrder(It.IsAny<OrderDto>()), Times.Never);
+            _mockCommentForOrderRepo.Verify(comO => comO.AddCommentOrder(It.IsAny<CommenForOrderDto>()),Times.Never);
+            _mockCommentForClientRepo.Verify(comC => comC.AddComment(It.IsAny<CommentForClientDto>()), Times.Never);
             _mockProductsRepo.VerifyAll();
             _mockOrdersProductsRepo.Verify(op => op.AddProductToOrders(It.IsAny<OrdersProductsDto>()), Times.Never);
 
