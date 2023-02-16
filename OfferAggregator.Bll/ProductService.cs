@@ -144,6 +144,14 @@ namespace OfferAggregator.Bll
 
             return fullProductModels;
         }
+
+        public List<ProductsStatisticModel> GetProductsStatistic()
+        {
+            var getProductsStatisticDtos = _productsRepository.GetProductsStatistic();
+            var getProductsStatisticModels = _instanceMapper.MapProductsStatisticDtosToProductsStatisticModels(getProductsStatisticDtos);
+
+            return getProductsStatisticModels;
+        }
     }
 }
 

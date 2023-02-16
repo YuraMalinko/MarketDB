@@ -711,6 +711,127 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 
             yield return new object[] { fullProductDtos, expectedFullProductModels };
         }
+
+        public static IEnumerable GetProductsStatisticTestCaseSource()
+        {
+            ProductsStatisticDto productsStatistiDto1 = new ProductsStatisticDto
+            {
+                Id = 19,
+                Name = "19",
+                SumOfCountofProduct = 109,
+                CountOfOrders = 9,
+                CountOfClients = 7,
+                AverageScore = 3.5f
+            };
+            ProductsStatisticDto productsStatistiDto2 = new ProductsStatisticDto
+            {
+                Id = 29,
+                Name = "29",
+                SumOfCountofProduct = 209,
+                CountOfOrders = 8,
+                CountOfClients = 5,
+                AverageScore = 4f
+            };
+            List<ProductsStatisticDto> productsStatisticDtos = new List<ProductsStatisticDto> { productsStatistiDto1, productsStatistiDto2 };
+
+            ProductsStatisticModel productsStatisticModel1 = new ProductsStatisticModel
+            {
+                Id = 19,
+                Name = "19",
+                SumOfCountofProduct = 109,
+                CountOfOrders = 9,
+                CountOfClients = 7,
+                AverageScore = 3.5f
+            };
+            ProductsStatisticModel productsStatisticModel2 = new ProductsStatisticModel
+            {
+                Id = 29,
+                Name = "29",
+                SumOfCountofProduct = 209,
+                CountOfOrders = 8,
+                CountOfClients = 5,
+                AverageScore = 4f
+            };
+            List<ProductsStatisticModel> expectedProductsStatisticModels = new List<ProductsStatisticModel> { productsStatisticModel1, productsStatisticModel2 };
+
+            yield return new object[] { productsStatisticDtos, expectedProductsStatisticModels };
+
+            
+            productsStatisticDtos = new List<ProductsStatisticDto>();
+
+            expectedProductsStatisticModels = new List<ProductsStatisticModel>();
+
+            yield return new object[] { productsStatisticDtos, expectedProductsStatisticModels };
+
+            
+            productsStatistiDto1 = new ProductsStatisticDto
+            {
+                Id = 137,
+                Name = "137",
+                SumOfCountofProduct = 1037,
+                CountOfOrders = 137,
+                CountOfClients = 130,
+                AverageScore = 3.9f
+            };
+            productsStatistiDto2 = new ProductsStatisticDto();
+            productsStatisticDtos = new List<ProductsStatisticDto> { productsStatistiDto1, productsStatistiDto2 };
+
+            productsStatisticModel1 = new ProductsStatisticModel
+            {
+                Id = 137,
+                Name = "137",
+                SumOfCountofProduct = 1037,
+                CountOfOrders = 137,
+                CountOfClients = 130,
+                AverageScore = 3.9f
+            };
+            productsStatisticModel2 = new ProductsStatisticModel();
+            expectedProductsStatisticModels = new List<ProductsStatisticModel> { productsStatisticModel1, productsStatisticModel2 };
+
+            yield return new object[] { productsStatisticDtos, expectedProductsStatisticModels };
+
+            productsStatistiDto1 = new ProductsStatisticDto();
+            productsStatistiDto2 = new ProductsStatisticDto
+            {
+                Id = 246,
+                Name = "246",
+                SumOfCountofProduct = 2046,
+                CountOfOrders = 246,
+                CountOfClients = 246,
+                AverageScore = null
+            };
+            productsStatisticDtos = new List<ProductsStatisticDto> { productsStatistiDto1, productsStatistiDto2 };
+
+            productsStatisticModel1 = new ProductsStatisticModel();
+            productsStatisticModel2 = new ProductsStatisticModel
+            {
+                Id = 246,
+                Name = "246",
+                SumOfCountofProduct = 2046,
+                CountOfOrders = 246,
+                CountOfClients = 246,
+                AverageScore = null
+            };
+            expectedProductsStatisticModels = new List<ProductsStatisticModel> { productsStatisticModel1, productsStatisticModel2 };
+
+            yield return new object[] { productsStatisticDtos, expectedProductsStatisticModels };
+
+            productsStatistiDto1 = new ProductsStatisticDto
+            {
+                Id = 152,
+                Name = "152"
+            };
+            productsStatisticDtos = new List<ProductsStatisticDto> { productsStatistiDto1 };
+
+            productsStatisticModel1 = new ProductsStatisticModel
+            {
+                Id = 152,
+                Name = "152"
+            };
+            expectedProductsStatisticModels = new List<ProductsStatisticModel> { productsStatisticModel1 };
+
+            yield return new object[] { productsStatisticDtos, expectedProductsStatisticModels };
+        }
     }
 }
 

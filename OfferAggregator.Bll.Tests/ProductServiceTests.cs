@@ -343,7 +343,17 @@ namespace OfferAggregator.Bll.Tests
 
             actualFullProductModels.Should().BeEquivalentTo(expectedFullProductModels);
         }
+
+        [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.GetProductsStatisticTestCaseSource))]
+        public void GetProductsStatisticTest(List<ProductsStatisticDto> productsStatisticDtos, List<ProductsStatisticModel> expectedProductsStaticModels)
+        {
+            _mockProductRepo.Setup(p => p.GetProductsStatistic()).Returns(productsStatisticDtos).Verifiable();
+
+            List<ProductsStatisticModel> actualProductsStaticModels = _productService.GetProductsStatistic();
+
+            _mockProductRepo.VerifyAll();
+
+            actualProductsStaticModels.Should().BeEquivalentTo(expectedProductsStaticModels);
+        }
     }
 }
-
-

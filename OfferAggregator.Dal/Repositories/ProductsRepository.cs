@@ -97,6 +97,7 @@ namespace OfferAggregator.Dal.Repositories
                             result = fullProduct;
                             result.Tags = new List<TagDto>();
                         }
+
                         if (tag != null)
                         {
                             result.Tags.Add(tag);
@@ -148,6 +149,17 @@ namespace OfferAggregator.Dal.Repositories
                     commandType: CommandType.StoredProcedure);
 
                 return fullProducts;
+            }
+        }
+
+        public List<ProductsStatisticDto> GetProductsStatistic()
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                return sqlCnctn.Query<ProductsStatisticDto>(
+                    StoredProcedures.GetProductsStatistic,
+                    commandType: CommandType.StoredProcedure).ToList();
             }
         }
     }
