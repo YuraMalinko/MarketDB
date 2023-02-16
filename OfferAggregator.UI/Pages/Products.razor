@@ -8,51 +8,47 @@
 <button @onclick="GetFullProducts">Получить все продукты на складе</button>
 
 <div class="Products">
-    <div class="GetFullProducts">
-        <div class="tableGetFullProducts">
-            <table class="tableGetFullProducts" border="1.5" width="800">
-                <th>Id</th>
-                <th>Name</th>
-                <th>GroupId</th>
-                <th>GroupName</th>
-                <th>Amount</th>
-                <th>AverageScore</th>
-                <th>Tags</th>
-                @foreach (var product in _fullProducts)
-                {
-                    <tr>
-                        <td>@product.Id</td>
-                        <td>@product.Name</td>
-                        <td>@product.GroupId</td>
-                        <td>@product.GroupName</td>
-                        <td>
-                            @product.Amount</td>
-
-                        <td>
-                            @foreach (var tag in product.Tags)
-                            {
-                                 <tr>
-                            <td border="0">@tag.Name</td>
-                                 </tr>
-                            }
-                    </td>
-                    <td>@product.AverageScore</td>
-                    </tr>
-                }
-            </table>
-        </div>
-    </div>
+    <table class="tableGetFullProducts" border="1" width="750">
+        <th>Id</th>
+        <th>Name</th>
+        <th>GroupId</th>
+        <th>GroupName</th>
+        <th>Amount</th>
+        <th>Tags</th>
+        <th>AverageScore</th>
+        @foreach (var product in _fullProducts)
+        {
+            <tr>
+                <td>@product.Id</td>
+                <td>@product.Name</td>
+                <td>@product.GroupId</td>
+                <td>@product.GroupName</td>
+                <td>@product.Amount</td>
+                <div class="tags">
+                <td>
+                        @foreach (var tag in product.Tags)
+                        {
+                <tr>
+                    <td border="0">@tag.Name</td>
+                </tr>
+                        }
+            </td>
+                     </div>
+    <td>@product.AverageScore</td>
+                </tr>
+        }
+    </table>
 </div>
 
-@*<button @onclick="RegistrateProductInStock(StocksWithProductModel stockProduct)">Зарегистрировать продукт на складе</button>*@
+@*<button @onclick="RegistrateProductInStock(StocksWithProductModel stockProduct)">Зарегистрировать продукт на складе</button>
 
-@*<EditForm Model="@_stocksWithProductModel" OnValidSubmit="@HandleValidSubmit">
-*@@*    <DataAnnotationsValidator />
-    <ValidationSummary />*@
+<EditForm Model="@_stocksWithProductModel" OnValidSubmit="@HandleValidSubmit">
+ <DataAnnotationsValidator />
+    <ValidationSummary />
 
-    @*<InputText id="name" @bind-Value="_stocksWithProductModel.Name" />*@
-@*    <InputSelect id="amount" @bind-Value="_stocksWithProductModel.Product">
-
+    <InputText id="name" @bind-Value="_stocksWithProductModel.Name" />
+   <InputSelect id="amount" @bind-Value="_stocksWithProductModel.Product">
+    <option value="Products">Products</option>
         </InputSelect>
     <InputNumber id="amount" @bind-Value="_stocksWithProductModel.Amount" />
 
@@ -84,6 +80,6 @@
 
     //private void HandleValidSubmit()
     ////{
-        
+
     //}
 }
