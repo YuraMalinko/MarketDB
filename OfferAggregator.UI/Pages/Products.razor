@@ -10,7 +10,7 @@
 <div class="Products">
     <div class="GetFullProducts">
         <div class="tableGetFullProducts">
-            <table border="1.5" width="800">
+            <table class="tableGetFullProducts" border="1.5" width="800">
                 <th>Id</th>
                 <th>Name</th>
                 <th>GroupId</th>
@@ -21,22 +21,22 @@
                 @foreach (var product in _fullProducts)
                 {
                     <tr>
-                        <th>@product.Id</th>
-                        <th>@product.Name</th>
-                        <th>@product.GroupId</th>
-                        <th>@product.GroupName</th>
-                        <th>
-                            @product.Amount</th>
+                        <td>@product.Id</td>
+                        <td>@product.Name</td>
+                        <td>@product.GroupId</td>
+                        <td>@product.GroupName</td>
+                        <td>
+                            @product.Amount</td>
 
-                        <th>
+                        <td>
                             @foreach (var tag in product.Tags)
                             {
                                  <tr>
-                            <th border="0">@tag.Name</th>
+                            <td border="0">@tag.Name</td>
                                  </tr>
                             }
-                    </th>
-                    <th>@product.AverageScore</th>
+                    </td>
+                    <td>@product.AverageScore</td>
                     </tr>
                 }
             </table>
@@ -44,8 +44,20 @@
     </div>
 </div>
 
-@*<button @onclick="RegistrateProductInStock(StocksWithProductModel stockProduct)">Зарегистрировать продукт на складе</button>
-*@
+@*<button @onclick="RegistrateProductInStock(StocksWithProductModel stockProduct)">Зарегистрировать продукт на складе</button>*@
+
+@*<EditForm Model="@_stocksWithProductModel" OnValidSubmit="@HandleValidSubmit">
+*@@*    <DataAnnotationsValidator />
+    <ValidationSummary />*@
+
+    @*<InputText id="name" @bind-Value="_stocksWithProductModel.Name" />*@
+@*    <InputSelect id="amount" @bind-Value="_stocksWithProductModel.Product">
+
+        </InputSelect>
+    <InputNumber id="amount" @bind-Value="_stocksWithProductModel.Amount" />
+
+    <button type="submit">Submit</button>
+</EditForm>*@
 
 @code {
     private ProductService _productService = new ProductService(
@@ -57,6 +69,9 @@
 
     private List<FullProductModel> _fullProducts = new List<FullProductModel>();
 
+    private StocksWithProductModel _stocksWithProductModel = new();
+
+
     private void GetFullProducts()
     {
         _fullProducts = _productService.GetFullProducts();
@@ -65,5 +80,10 @@
     //    private void RegistrateProductInStock(StocksWithProductModel stockProduct)
     //{
     //    _productService.RegistrateProductInStock(stockProduct);
+    //}
+
+    //private void HandleValidSubmit()
+    ////{
+        
     //}
 }
