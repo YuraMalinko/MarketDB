@@ -132,30 +132,12 @@ namespace OfferAggregator.Bll
                         AddCommentsForClient(creatingOrderDto.CommentsForClient);
                     }
 
-                    foreach (var crnt in creatingOrderModel.Products)
+                    if (creatingOrderModel.Products != null)
                     {
-                        AddProductDto(creatingOrderModel.Order.Id, crnt.Id, crnt.Count);
-                    }
-
-                    return addOrder;
-                }
-                else if (CheckManager(creatingOrderModel.Order.ManagerId)
-                     && CheckClient(creatingOrderModel.Order.ClientId)
-                     && creatingOrderModel.Order.DateCreate < creatingOrderModel.Order.ComplitionDate
-                     && !CheckListProductsCounts(creatingOrderModel.Products))
-                {
-                    CreatingOrderDto creatingOrderDto = _instanceMapper.MapCreatingOrderModelToCreatingOrderDto(creatingOrderModel);
-                    int addOrder = _orderRepository.AddOrder(creatingOrderDto.Order);
-                    creatingOrderModel.Order.Id = addOrder;
-
-                    if (creatingOrderDto.CommentsForOrder != null)
-                    {
-                        AddCommentsForOrder(creatingOrderDto.CommentsForOrder, addOrder);
-                    }
-
-                    if (creatingOrderDto.CommentsForClient != null)
-                    {
-                        AddCommentsForClient(creatingOrderDto.CommentsForClient);
+                        foreach (var crnt in creatingOrderModel.Products)
+                        {
+                            AddProductDto(creatingOrderModel.Order.Id, crnt.Id, crnt.Count);
+                        }
                     }
 
                     return addOrder;
@@ -185,11 +167,6 @@ namespace OfferAggregator.Bll
             return getClient != null;
         }
 
-        private bool CheckListProductsCounts(List<ProductCountModel> productsCounts)
-        {
-            return productsCounts != null;
-        }
-
         private bool CheckProduct(List<ProductCountModel> productsCounts)
         {
             if (productsCounts != null)
@@ -205,7 +182,7 @@ namespace OfferAggregator.Bll
                 return true;
             }
 
-            return false;
+            return true;
         }
 
         private bool AddCommentsForOrder(List<CommenForOrderDto> commentsForOrder, int addOrder)
