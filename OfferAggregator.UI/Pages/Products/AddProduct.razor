@@ -6,12 +6,12 @@
 @using OfferAggregator.Dal.Repositories;
 @namespace OfferAggregator.UI.Pages
 
-<h3>AddProduct</h3>
+<h3>Добавить товар</h3>
 
 <div>
-    <span>Название продукта:</span><input type="text" @bind="Product.Name"/> <br/>
-    <span>Группа продукта:</span><input type="number" @bind="Product.GroupId"/> <br/>
-    <button @onclick="AddProductToStock">Добавить новый продукт на склад</button>
+    <span>Название товара:</span><input type="text" @bind="Product.Name" /> <br /><br />
+    <span>Номер группы товара:</span><input type="number" @bind="Product.GroupId" /> <br /><br />
+    <button @onclick="AddProductToStock">Добавить новый товар на склад</button>
 </div>
 
 @code {
