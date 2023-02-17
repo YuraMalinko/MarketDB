@@ -97,6 +97,7 @@ namespace OfferAggregator.Dal.Repositories
                             result = fullProduct;
                             result.Tags = new List<TagDto>();
                         }
+
                         if (tag != null)
                         {
                             result.Tags.Add(tag);
@@ -136,6 +137,7 @@ namespace OfferAggregator.Dal.Repositories
                             result.Tags = new List<TagDto>();
                             fullProducts.Add(result);
                         }
+
                         if (tagDto != null)
                         {
                             result.Tags.Add(tagDto);

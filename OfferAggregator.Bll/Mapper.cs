@@ -16,7 +16,8 @@ namespace OfferAggregator.Bll
         private Mapper()
         {
             _configuration = new MapperConfiguration(
-                cfg => {
+                cfg =>
+                {
                     cfg.CreateMap<ProductsDto, ProductModel>();
                     cfg.CreateMap<ProductModel, ProductsDto>();
                     cfg.CreateMap<ClientsDto, InfoAllClientsOutputModel>();
@@ -29,6 +30,13 @@ namespace OfferAggregator.Bll
                     cfg.CreateMap<ManagerAuthInput, ManagerDto>();
                     cfg.CreateMap<CurrentManager, ManagerDto>();
                     cfg.CreateMap<ManagerDto, CurrentManager>();
+                    cfg.CreateMap<CreatingOrderModel, CreatingOrderDto>();
+                    cfg.CreateMap<OrderModel, OrderDto>();
+                    cfg.CreateMap<ProductCountModel, ProductCountDto>();
+                    cfg.CreateMap<CurrentManager, ManagerDto>();
+                    cfg.CreateMap<ClientModel, ClientsDto>();
+                    cfg.CreateMap<CommentForOrderModel, CommenForOrderDto>();
+                    cfg.CreateMap<CommentForClientModel, CommentForClientDto>();
                     cfg.CreateMap<ProductsStatisticDto, ProductsStatisticModel>();
                 });
 
@@ -102,6 +110,11 @@ namespace OfferAggregator.Bll
         public List<ProductsStatisticModel> MapProductsStatisticDtosToProductsStatisticModels(List<ProductsStatisticDto> productsStatistics)
         {
             return _mapper.Map<List<ProductsStatisticModel>>(productsStatistics);
+        }
+
+        public CreatingOrderDto MapCreatingOrderModelToCreatingOrderDto(CreatingOrderModel creatingOrderModel)
+        {
+            return _mapper.Map<CreatingOrderDto>(creatingOrderModel);
         }
     }
 }

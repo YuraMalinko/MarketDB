@@ -137,6 +137,9 @@
     <Build Include="dbo\Stored Procedures\GetFullProductById.sql" />
     <Build Include="dbo\Stored Procedures\GetFullProducts.sql" />
     <Build Include="dbo\Stored Procedures\GetManagerByLogin.sql" />
+    <Build Include="dbo\Stored Procedures\GetClientById.sql" />
+    <Build Include="dbo\Stored Procedures\GetOrderById.sql" />
+    <Build Include="dbo\Stored Procedures\GetManagerById.sql" />
     <Build Include="dbo\Stored Procedures\GetProductsStatistic.sql" />
   </ItemGroup>
   <ItemGroup>

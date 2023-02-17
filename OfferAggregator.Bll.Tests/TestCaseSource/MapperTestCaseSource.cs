@@ -370,6 +370,148 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 
             yield return new object[] { productsStatisticDtos, expectedProductsStatisticModels };
         }
+
+        public static IEnumerable MapCreatingOrderModelToCreatingOrderDtoTestCaseSource()
+        {
+            DateTime date1 = new DateTime(2023, 01, 29, 10, 00, 00);
+            DateTime complitionDate = new DateTime(2023, 01, 30, 10, 00, 00);
+            OrderModel orderModel = new OrderModel
+            {
+                Id = 4,
+                ManagerId = 6,
+                ClientId = 1,
+                DateCreate = date1,
+                ComplitionDate = complitionDate,
+                Manager = new CurrentManager(6, "Andrew", "qqq"),
+                Client = new ClientModel
+                {
+                    Id = 1,
+                    Name = "Medvedev",
+                    PhoneNumber = "8800"
+                }
+            };
+            ProductCountModel pr1 = new ProductCountModel
+            {
+                Id = 1,
+                Name = "Kurica 1",
+                Count = 10
+            };
+            ProductCountModel pr2 = new ProductCountModel
+            {
+                Id = 2,
+                Name = "Sheep",
+                Count = 20
+            };
+            ProductCountModel pr3 = new ProductCountModel
+            {
+                Id = 3,
+                Name = "Okuny 1",
+                Count = 30
+            };
+            List<ProductCountModel> products = new List<ProductCountModel>
+{
+pr1, pr2, pr3
+};
+            CommentForClientModel com1Cl = new CommentForClientModel
+            {
+                Id = 1,
+                Text = "qqq",
+                ClientId = 1
+            };
+            CommentForClientModel com2Cl = new CommentForClientModel
+            {
+                Id = 2,
+                Text = "ppp",
+                ClientId = 1
+            };
+            List<CommentForClientModel> comClList = new List<CommentForClientModel> { com1Cl, com2Cl };
+            CommentForOrderModel comOr1 = new CommentForOrderModel
+            {
+                Id = 1,
+                Text = "Доставить в полночь",
+                OrderId = 4
+            };
+            List<CommentForOrderModel> comOrList = new List<CommentForOrderModel> { comOr1 };
+            CreatingOrderModel creatingOrderModel = new CreatingOrderModel
+            {
+                Order = orderModel,
+                Products = products,
+                CommentsForOrder = comOrList,
+                CommentsForClient = comClList
+            };
+
+            OrderDto orderDto = new OrderDto
+            {
+                Id = 4,
+                ManagerId = 6,
+                ClientId = 1,
+                DateCreate = date1,
+                ComplitionDate = complitionDate,
+                Manager = new ManagerDto
+                {
+                    Id = 6,
+                    Login = "Andrew",
+                    Password = "qqq"
+                },
+                Client = new ClientsDto
+                {
+                    Id = 1,
+                    Name = "Medvedev",
+                    PhoneNumber = "8800"
+                }
+            };
+            ProductCountDto pr1Dto = new ProductCountDto
+            {
+                Id = 1,
+                Name = "Kurica 1",
+                Count = 10
+            };
+            ProductCountDto pr2Dto = new ProductCountDto
+            {
+                Id = 2,
+                Name = "Sheep",
+                Count = 20
+            };
+            ProductCountDto pr3Dto = new ProductCountDto
+            {
+                Id = 3,
+                Name = "Okuny 1",
+                Count = 30
+            };
+            List<ProductCountDto> productsDto = new List<ProductCountDto>
+{
+pr1Dto, pr2Dto, pr3Dto
+};
+            CommentForClientDto com1ClDto = new CommentForClientDto
+            {
+                Id = 1,
+                Text = "qqq",
+                ClientId = 1
+            };
+            CommentForClientDto com2ClDto = new CommentForClientDto
+            {
+                Id = 2,
+                Text = "ppp",
+                ClientId = 1
+            };
+            List<CommentForClientDto> comClListDto = new List<CommentForClientDto> { com1ClDto, com2ClDto };
+            CommenForOrderDto comOr1Dto = new CommenForOrderDto
+            {
+                Id = 1,
+                Text = "Доставить в полночь",
+                OrderId = 4
+            };
+            List<CommenForOrderDto> comOrListDto = new List<CommenForOrderDto> { comOr1Dto };
+            CreatingOrderDto expectedCreatingOrderDto = new CreatingOrderDto
+            {
+                Order = orderDto,
+                Products = productsDto,
+                CommentsForOrder = comOrListDto,
+                CommentsForClient = comClListDto
+            };
+
+            yield return new object[] { creatingOrderModel, expectedCreatingOrderDto };
+        }
     }
 }
 
