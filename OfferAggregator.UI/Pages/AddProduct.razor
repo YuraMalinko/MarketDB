@@ -1,0 +1,41 @@
+﻿@page "/addProduct"
+
+
+@using OfferAggregator.Bll.Models;
+@using OfferAggregator.Bll;
+@using OfferAggregator.Dal.Repositories;
+@namespace OfferAggregator.UI.Pages
+
+<h3>AddProduct</h3>
+
+<div>
+    <span>Название продукта:</span><input type="text" @bind="Product.Name"/> <br/>
+    <span>Группа продукта:</span><input type="number" @bind="Product.GroupId"/> <br/>
+    <button @onclick="AddProductToStock">Добавить новый продукт на склад</button>
+</div>
+
+@code {
+    public ProductModel Product;
+
+    private ProductService _productService;
+
+    protected override void OnInitialized()
+    {
+        Product = new ProductModel();
+        _productService = new ProductService(
+        new ProductsRepository(),
+        new ProductsReviewsAndStocksRepository(),
+        new TagsRepository(),
+        new GroupRepository()
+        );
+    }
+
+    private void AddProductToStock()
+    {
+        if (Product.Name != "" && Product.GroupId != null)
+        {
+            _productService.AddProduct(Product);
+            Product = new ProductModel();
+        }
+    }
+}

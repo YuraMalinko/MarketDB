@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OfferAggregator.Bll", "Offe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OfferAggregator.Bll.Tests", "OfferAggregator.Bll.Tests\OfferAggregator.Bll.Tests.csproj", "{D45D631F-91D7-4948-83C8-A98A520127B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OfferAggregator.UI", "OfferAggregator.UI\OfferAggregator.UI.csproj", "{48DE366A-CBC2-4103-A23C-55EF2CAAE824}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "OfferAggregator.UI", "OfferAggregator.UI\OfferAggregator.UI.csproj", "{48DE366A-CBC2-4103-A23C-55EF2CAAE824}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

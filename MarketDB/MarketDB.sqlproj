@@ -142,4 +142,9 @@
   <ItemGroup>
     <RefactorLog Include="MarketDB.refactorlog" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="..\OfferAggregator.UI\Shared\AddProduct.razor">
+      <Link>AddProduct.razor</Link>
+    </None>
+  </ItemGroup>
 </Project>
