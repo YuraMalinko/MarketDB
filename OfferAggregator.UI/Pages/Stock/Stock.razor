@@ -1,0 +1,34 @@
+﻿@page "/Stock"
+
+<h1>Склад</h1>
+<div>
+    <button @onclick="SetOrUnsetAddProductContent" class="btn">Добавить товар</button>
+</div>
+<div>
+    @switch (_content)
+    {
+        case "AddProduct":
+            <div>
+                <AddProduct />
+            </div>
+            break;
+    }
+
+</div>
+
+
+@code {
+    private string _content;
+
+    private void SetOrUnsetAddProductContent()
+    {
+        if (_content == "AddProduct")
+        {
+            _content = "";
+        }
+        else
+        {
+            _content = "AddProduct";
+        }
+    }
+}

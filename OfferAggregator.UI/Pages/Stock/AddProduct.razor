@@ -1,0 +1,106 @@
+﻿@*@page "/addProduct"
+*@
+
+@using OfferAggregator.Bll.Models;
+@using OfferAggregator.Bll;
+@using OfferAggregator.Dal.Models;
+@using OfferAggregator.Dal.Repositories;
+@using System.ComponentModel.DataAnnotations;
+
+<h3>Добавить товар</h3>
+
+@*<EditForm Model="@exampleModel" OnValidSubmit="@HandleValidSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <InputText id="name" @bind-Value="exampleModel.Name" />
+
+    <button type="submit">Submit</button>
+</EditForm>*@
+
+<div>
+    <EditForm Model="@Product" OnValidSubmit="@AddProductToStock">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <div style="display:flex; flex-direction: row">
+            <div>Название товара:</div>
+            <InputText id="name" @bind-Value="Product.Name" />
+        </div>
+
+        <div style="display:flex; flex-direction: row">
+            <div>Номер группы товара:</div>
+
+            <InputSelect TValue="int" @bind-Value="Product.GroupId">
+                @foreach (var group in _groups)
+                {
+                    if (group != null)
+                    {
+                        <option value="@group.Id">@group.Name</option>
+                    }
+                }
+            </InputSelect>
+        </div>
+
+
+
+        @if (!string.IsNullOrEmpty(_errorMessage))
+        {
+            <div>@_errorMessage</div>
+        }
+        <button type="submit">Добавить новый товар на склад</button>
+    </EditForm>
+</div>
+
+@code {
+    public ProductModel Product;
+
+    private ProductService _productService;
+
+    private string _errorMessage;
+
+    private List<GroupDto> _groups = new(); //todo переделать на групп модел
+
+    protected override void OnInitialized()
+    {
+        Product = new ProductModel();
+        _productService = new ProductService(
+        new ProductsRepository(),
+        new ProductsReviewsAndStocksRepository(),
+        new TagsRepository(),
+        new GroupRepository()
+        );
+
+        _groups = new List<GroupDto>
+        {
+            new GroupRepository().GetGroupById(1),
+            new GroupRepository().GetGroupById(2),
+            new GroupRepository().GetGroupById(3),
+            new GroupRepository().GetGroupById(4),
+            new GroupRepository().GetGroupById(5),
+            new GroupRepository().GetGroupById(6),
+            new GroupRepository().GetGroupById(9)
+        };
+    }
+
+    private void AddProductToStock()
+    {
+        try
+        {
+            if (!string.IsNullOrEmpty(Product.Name) && Product.GroupId != null)
+            {
+                _productService.AddProduct(Product);
+                Product = new ProductModel();
+            }
+            _errorMessage = string.Empty;
+        }
+        catch (ArgumentException ex)
+        {
+            _errorMessage = "Проверьте группу товара";
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = "Произошла ошибка";
+        }
+    }
+}

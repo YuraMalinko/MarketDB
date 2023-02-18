@@ -31,127 +31,140 @@ namespace OfferAggregator.Bll
             _groupRepository = groupRepository;
         }
 
+        //public int AddProduct(ProductModel product)
+        //{
+        //    int result = -1;
+        //    try
+        //    {
+        //        var addProduct = _instanceMapper.MapProductModelToProductsDto(product);
+        //        var groupId = addProduct.GroupId;
+        //        var getGroup = _groupRepository.GetGroupById(groupId);
+        //        if (getGroup != null)
+        //        {
+        //            result = _productsRepository.AddProduct(addProduct);
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return result;
+        //    }
+        //    return result;
+        //}
+
         public int AddProduct(ProductModel product)
         {
-            int result = -1;
-            try
+            var addProduct = _instanceMapper.MapProductModelToProductsDto(product);
+            var groupId = addProduct.GroupId;
+            var getGroup = _groupRepository.GetGroupById(groupId);
+            if (getGroup == null)
             {
-                var addProduct = _instanceMapper.MapProductModelToProductsDto(product);
-                var groupId = addProduct.GroupId;
-                var getGroup = _groupRepository.GetGroupById(groupId);
-                if (getGroup != null)
-                {
-                    result = _productsRepository.AddProduct(addProduct);
-                }
+                throw new ArgumentException ($"GroupId {groupId} is not exist");
             }
-            catch (Exception ex)
-            {
-                return result;
-            }
-            return result;
+        
+            return _productsRepository.AddProduct(addProduct);
         }
 
-        public List<ProductModel> GetAllProducts()
+    public List<ProductModel> GetAllProducts()
+    {
+        List<ProductsDto> allProducts = _productsRepository.GetAllProducts();
+        var result = _instanceMapper.MapProductsDtosToProductModels(allProducts);
+
+        return result;
+    }
+
+    public List<ProductModel> GetAllProductsByGroupId(int groupId)
+    {
+        List<ProductsDto> allProducts = _productsRepository.GetAllProductsByGroupId(groupId);
+        var result = _instanceMapper.MapProductsDtosToProductModels(allProducts);
+
+        return result;
+    }
+
+    public bool UpdateProduct(ProductModel product)
+    {
+        bool result;
+        try
         {
-            List<ProductsDto> allProducts = _productsRepository.GetAllProducts();
-            var result = _instanceMapper.MapProductsDtosToProductModels(allProducts);
-
-            return result;
-        }
-
-        public List<ProductModel> GetAllProductsByGroupId(int groupId)
-        {
-            List<ProductsDto> allProducts = _productsRepository.GetAllProductsByGroupId(groupId);
-            var result = _instanceMapper.MapProductsDtosToProductModels(allProducts);
-
-            return result;
-        }
-
-        public bool UpdateProduct(ProductModel product)
-        {
-            bool result;
-            try
+            var productDto = _instanceMapper.MapProductModelToProductsDto(product);
+            var getGroup = _groupRepository.GetGroupById(productDto.GroupId);
+            var getProductDto = _productsRepository.GetProductById(productDto.Id);
+            if (getProductDto != null && !getProductDto.IsDeleted && getGroup != null)
             {
-                var productDto = _instanceMapper.MapProductModelToProductsDto(product);
-                var getGroup = _groupRepository.GetGroupById(productDto.GroupId);
-                var getProductDto = _productsRepository.GetProductById(productDto.Id);
-                if (getProductDto != null && !getProductDto.IsDeleted && getGroup != null)
-                {
-                    result = _productsRepository.UpdateProduct(productDto);
-                }
-                else
-                {
-                    return false;
-                }
-
+                result = _productsRepository.UpdateProduct(productDto);
             }
-            catch (Exception ex)
+            else
             {
                 return false;
             }
 
-            return result;
         }
-
-        public bool DeleteProduct(int productId)
+        catch (Exception ex)
         {
-            var result = _productsRepository.DeleteProduct(productId);
-
-            if (result)
-            {
-                _productsReviewsAndStocksRepository.DeleteProductReviewsByProductId(productId);
-                _tagsRepository.DeleteTagProductByProductId(productId);
-            }
-
-            return result;
+            return false;
         }
 
-        public bool RegistrateProductInStock(StocksWithProductModel stockProduct)
-        {
-            var stockProductDto = _instanceMapper.MapStocksWithProductModelToStocksWithProductModel(stockProduct);
-            var getProductDto = _productsRepository.GetProductById(stockProductDto.ProductId);
-            bool result = false;
-            if (getProductDto != null && stockProductDto.Amount>0 && !getProductDto.IsDeleted )
-            {
-                var getAmountByProductId = _productsReviewsAndStocksRepository.GetAmountByProductId(stockProductDto.ProductId);
-
-                if (getAmountByProductId is null)
-                {
-                    result = _productsReviewsAndStocksRepository.AddAmountToStocks(stockProductDto);
-                }
-                else
-                {
-                    var sumAmount = getAmountByProductId.Amount + stockProductDto.Amount;
-                    stockProductDto.Amount = sumAmount;
-                    result = _productsReviewsAndStocksRepository.UpdateAmountOfStocks(stockProductDto);
-                }
-            }
-            return result;
-        }
-
-        public FullProductModel GetFullProductById(int productId)
-        {
-            var fullProductDto = _productsRepository.GetFullProductById(productId);
-            var fullProductModel = _instanceMapper.MapFullProductDtoToFullProductModel(fullProductDto);
-
-            return fullProductModel;
-        }
-
-        public List<FullProductModel> GetFullProducts()
-        {
-            var fullProductDtos = _productsRepository.GetFullProducts();
-            var fullProductModels = _instanceMapper.MapFullProductDtosToFullProductModels(fullProductDtos);
-
-            return fullProductModels;
-        }
-
-        public List<ProductsStatisticModel> GetProductsStatistic()
-        {
-            var getProductsStatisticDtos = _productsRepository.GetProductsStatistic();
-            var getProductsStatisticModels = _instanceMapper.MapProductsStatisticDtosToProductsStatisticModels(getProductsStatisticDtos);
-
-            return getProductsStatisticModels;
-        }
+        return result;
     }
+
+    public bool DeleteProduct(int productId)
+    {
+        var result = _productsRepository.DeleteProduct(productId);
+
+        if (result)
+        {
+            _productsReviewsAndStocksRepository.DeleteProductReviewsByProductId(productId);
+            _tagsRepository.DeleteTagProductByProductId(productId);
+        }
+
+        return result;
+    }
+
+    public bool RegistrateProductInStock(StocksWithProductModel stockProduct)
+    {
+        var stockProductDto = _instanceMapper.MapStocksWithProductModelToStocksWithProductModel(stockProduct);
+        var getProductDto = _productsRepository.GetProductById(stockProductDto.ProductId);
+        bool result = false;
+        if (getProductDto != null && stockProductDto.Amount > 0 && !getProductDto.IsDeleted)
+        {
+            var getAmountByProductId = _productsReviewsAndStocksRepository.GetAmountByProductId(stockProductDto.ProductId);
+
+            if (getAmountByProductId is null)
+            {
+                result = _productsReviewsAndStocksRepository.AddAmountToStocks(stockProductDto);
+            }
+            else
+            {
+                var sumAmount = getAmountByProductId.Amount + stockProductDto.Amount;
+                stockProductDto.Amount = sumAmount;
+                result = _productsReviewsAndStocksRepository.UpdateAmountOfStocks(stockProductDto);
+            }
+        }
+        return result;
+    }
+
+    public FullProductModel GetFullProductById(int productId)
+    {
+        var fullProductDto = _productsRepository.GetFullProductById(productId);
+        var fullProductModel = _instanceMapper.MapFullProductDtoToFullProductModel(fullProductDto);
+
+        return fullProductModel;
+    }
+
+    public List<FullProductModel> GetFullProducts()
+    {
+        var fullProductDtos = _productsRepository.GetFullProducts();
+        var fullProductModels = _instanceMapper.MapFullProductDtosToFullProductModels(fullProductDtos);
+
+        return fullProductModels;
+    }
+
+    public List<ProductsStatisticModel> GetProductsStatistic()
+    {
+        var getProductsStatisticDtos = _productsRepository.GetProductsStatistic();
+        var getProductsStatisticModels = _instanceMapper.MapProductsStatisticDtosToProductsStatisticModels(getProductsStatisticDtos);
+
+        return getProductsStatisticModels;
+    }
+}
 }
 
