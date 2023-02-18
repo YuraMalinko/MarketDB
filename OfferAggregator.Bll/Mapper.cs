@@ -20,8 +20,8 @@ namespace OfferAggregator.Bll
                 {
                     cfg.CreateMap<ProductsDto, ProductModel>();
                     cfg.CreateMap<ProductModel, ProductsDto>();
-                    cfg.CreateMap<CommentForClientDto, InfoAllClientsOutputModel>();
-                    cfg.CreateMap<InfoAllClientsOutputModel, CommentForClientDto>();
+                    cfg.CreateMap<CommentForClientDto, ClientsOutputModel>();
+                    cfg.CreateMap<ClientsOutputModel, CommentForClientDto>();
                     cfg.CreateMap<StocksWithProductModel, StocksDtoWithProductName>();
                     cfg.CreateMap<FullProductDto, FullProductModel>();
                     cfg.CreateMap<TagDto, TagModel>();
