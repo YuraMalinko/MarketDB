@@ -137,5 +137,17 @@ namespace OfferAggregator.Dal.Repositories
                 return result;
             }
         }
+
+        public ClientsDto GetClientById(int id)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+               return sqlCnctn.Query<ClientsDto>(
+                  StoredProcedures.GetClientById,
+                  new { id},
+                  commandType: CommandType.StoredProcedure).FirstOrDefault();
+            }
+        }
     }
 }
