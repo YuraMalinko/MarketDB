@@ -143,10 +143,27 @@ namespace OfferAggregator.Dal.Repositories
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
             {
                 sqlCnctn.Open();
-               return sqlCnctn.Query<ClientsDto>(
-                  StoredProcedures.GetClientById,
-                  new { id},
-                  commandType: CommandType.StoredProcedure).FirstOrDefault();
+                return sqlCnctn.Query<ClientsDto>(
+                   StoredProcedures.GetClientById,
+                   new { id },
+                   commandType: CommandType.StoredProcedure).FirstOrDefault();
+            }
+        }
+
+        public ClientsDto GetClientByName(string name)
+        {
+            if (name == null || name=="" || name ==" ")
+            {
+                throw new Exception("name is null");
+            }
+
+            using (var sqlConnection = new SqlConnection(Options.ConnectionString))
+            {
+                sqlConnection.Open();
+                return sqlConnection.QuerySingle<ClientsDto>(
+                    StoredProcedures.GetClientByName,
+                    new { name },
+                    commandType: CommandType.StoredProcedure);
             }
         }
     }
