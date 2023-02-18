@@ -35,7 +35,17 @@ namespace OfferAggregator.Bll
 
         public ClientOutput GetClientByName(string name)
         {
+            if (name == null || name == "" || name == " ")
+            {
+                throw new ArgumentNullException("name is null");
+            }
+
             ClientsDto client = _clientRepository.GetClientByName(name);
+
+            if (client == null)
+            {
+                throw new Exception("Client does not exist or has been deleted");
+            }
 
             return _instanceMapper.MapClientDtoToClientOutput(client);
         }

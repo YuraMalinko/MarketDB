@@ -152,18 +152,13 @@ namespace OfferAggregator.Dal.Repositories
 
         public ClientsDto GetClientByName(string name)
         {
-            if (name == null || name=="" || name ==" ")
-            {
-                throw new Exception("name is null");
-            }
-
             using (var sqlConnection = new SqlConnection(Options.ConnectionString))
             {
                 sqlConnection.Open();
-                return sqlConnection.QuerySingle<ClientsDto>(
+                return sqlConnection.Query<ClientsDto>(
                     StoredProcedures.GetClientByName,
                     new { name },
-                    commandType: CommandType.StoredProcedure);
+                    commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
         }
     }
