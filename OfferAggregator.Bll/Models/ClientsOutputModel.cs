@@ -1,4 +1,4 @@
-﻿namespace OfferAggregator.Bll.Models
+namespace OfferAggregator.Bll.Models
 {
     public class ClientsOutputModel
     {

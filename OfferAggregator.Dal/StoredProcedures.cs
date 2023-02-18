@@ -1,3 +1,5 @@
+using OfferAggregator.Dal.Models;
+
 namespace OfferAggregator.Dal
 {
     public class StoredProcedures
@@ -115,6 +117,20 @@ namespace OfferAggregator.Dal
         public const string DeleteCommentForOrder = "DeleteCommentForOrder";
 
         public const string GetGroupById = "GetGroupById";
+
+        public const string GetFullProductById = "GetFullProductById";
+
+        public const string GetFullProducts = "GetFullProducts";
+
+        public const string GetManagerByLogin = "GetManagerByLogin";
+
+        public const string GetClientById = "GetClientById";
+
+        public const string GetOrderById = "GetOrderById";
+
+        public const string GetManagerById = "GetManagerById";
+
+        public const string GetProductsStatistic = "GetProductsStatistic";
 
         public const string GetClientByPhoneNumber = "GetClientByPhoneNumber";
     }

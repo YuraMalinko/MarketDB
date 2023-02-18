@@ -16,5 +16,5 @@
   LEFT JOIN [dbo].[Managers] AS M ON
   M.Id = O.ManagerId
   WHERE
-  OP.[OrderId] = @orderId AND
+  O.[Id] = @orderId AND
   O.[IsDeleted] =0
