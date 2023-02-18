@@ -2,6 +2,7 @@
 using OfferAggregator.Dal.Models;
 using OfferAggregator.Dal;
 using OfferAggregator.Dal.Repositories;
+using AutoMapper.Configuration.Annotations;
 
 namespace OfferAggregator.Bll
 {
@@ -9,7 +10,19 @@ namespace OfferAggregator.Bll
     {
         private Mapper _instanceMapper = Mapper.GetInstance();
 
-        private IClientRepository _clientRepository = new ClientRepository();
+        public IClientRepository _clientRepository { get; set; }
+
+        public ClientService(IClientRepository clientRepository = null)
+        {
+            if (clientRepository == null)
+            {
+                _clientRepository = new ClientRepository();
+            }
+            else
+            {
+                _clientRepository = clientRepository;
+            }
+        }
 
         public List<InfoAllClientsOutputModel> GetAllClientsWithoutComment()
         {
@@ -18,6 +31,13 @@ namespace OfferAggregator.Bll
             var result = _instanceMapper.MapClientsDtoToClientsOutputModel(clientsAll);
 
             return result;
+        }
+
+        public ClientOutput GetClientByName(string name)
+        {
+            ClientsDto client = _clientRepository.GetClientByName(name);
+
+            return _instanceMapper.MapClientDtoToClientOutput(client);
         }
     }
 }
