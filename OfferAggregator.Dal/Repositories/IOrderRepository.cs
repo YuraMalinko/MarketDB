@@ -15,5 +15,7 @@ namespace OfferAggregator.Dal.Repositories
         public List<OrderDto> GetAllOrdersByIdManager(int managerId);
 
         public int UpdateOrder(OrderDto order);
+
+        public OrderDto GetOrderById(int id);
     }
 }

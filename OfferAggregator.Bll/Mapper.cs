@@ -16,9 +16,28 @@ namespace OfferAggregator.Bll
         private Mapper()
         {
             _configuration = new MapperConfiguration(
-                cfg => {
+                cfg =>
+                {
                     cfg.CreateMap<ProductsDto, ProductModel>();
                     cfg.CreateMap<ProductModel, ProductsDto>();
+                    cfg.CreateMap<ClientsDto, InfoAllClientsOutputModel>();
+                    cfg.CreateMap<InfoAllClientsOutputModel, ClientsDto>();
+                    cfg.CreateMap<CommentForClientDto, InfoAllClientsOutputModel>();
+                    cfg.CreateMap<InfoAllClientsOutputModel, CommentForClientDto>();
+                    cfg.CreateMap<StocksWithProductModel, StocksDtoWithProductName>();
+                    cfg.CreateMap<FullProductDto, FullProductModel>();
+                    cfg.CreateMap<TagDto, TagModel>();
+                    cfg.CreateMap<ManagerAuthInput, ManagerDto>();
+                    cfg.CreateMap<CurrentManager, ManagerDto>();
+                    cfg.CreateMap<ManagerDto, CurrentManager>();
+                    cfg.CreateMap<CreatingOrderModel, CreatingOrderDto>();
+                    cfg.CreateMap<OrderModel, OrderDto>();
+                    cfg.CreateMap<ProductCountModel, ProductCountDto>();
+                    cfg.CreateMap<CurrentManager, ManagerDto>();
+                    cfg.CreateMap<ClientModel, ClientsDto>();
+                    cfg.CreateMap<CommentForOrderModel, CommenForOrderDto>();
+                    cfg.CreateMap<CommentForClientModel, CommentForClientDto>();
+                    cfg.CreateMap<ProductsStatisticDto, ProductsStatisticModel>();
                 });
 
             _mapper = _configuration.CreateMapper();
@@ -41,6 +60,61 @@ namespace OfferAggregator.Bll
         public ProductsDto MapProductModelToProductsDto(ProductModel product)
         {
             return _mapper.Map<ProductsDto>(product);
+        }
+
+        public List<InfoAllClientsOutputModel> MapClientsDtoToClientsOutputModel(List<ClientsDto> clients)
+        {
+            return _configuration.CreateMapper().Map<List<InfoAllClientsOutputModel>>(clients);
+        }
+
+        public ClientsDto MapClientsOutputModelToClientsDto(InfoAllClientsOutputModel clients)
+        {
+            return _mapper.Map<ClientsDto>(clients);
+        }
+
+        public StocksDtoWithProductName MapStocksWithProductModelToStocksWithProductModel(StocksWithProductModel stockProduct)
+        {
+            return _mapper.Map<StocksDtoWithProductName>(stockProduct);
+        }
+
+        public List<FullProductModel> MapFullProductDtosToFullProductModels(List<FullProductDto> fullProduct)
+        {
+            return _mapper.Map<List<FullProductModel>>(fullProduct);
+        }
+
+        public FullProductModel MapFullProductDtoToFullProductModel(FullProductDto fullProduct)
+        {
+            return _mapper.Map<FullProductModel>(fullProduct);
+        }
+
+        public ManagerDto MapManagerAuthInputToManagerDto(ManagerAuthInput manager)
+        {
+            return _mapper.Map<ManagerDto>(manager);
+        }
+
+        public CurrentManager MapManagerDtoToCurrentManager(ManagerDto manager)
+        {
+            return _mapper.Map<CurrentManager>(manager);
+        }
+
+        public List<OutsideManager> MapManagersDtoToOutsideManagers(List<ManagerDto> manager)
+        {
+            return _mapper.Map<List<OutsideManager>>(manager);
+        }
+
+        public ManagerDto MapCurrentManagerToManagerDto(CurrentManager manager)
+        {
+            return _mapper.Map<ManagerDto>(manager);
+        }
+
+        public List<ProductsStatisticModel> MapProductsStatisticDtosToProductsStatisticModels(List<ProductsStatisticDto> productsStatistics)
+        {
+            return _mapper.Map<List<ProductsStatisticModel>>(productsStatistics);
+        }
+
+        public CreatingOrderDto MapCreatingOrderModelToCreatingOrderDto(CreatingOrderModel creatingOrderModel)
+        {
+            return _mapper.Map<CreatingOrderDto>(creatingOrderModel);
         }
     }
 }

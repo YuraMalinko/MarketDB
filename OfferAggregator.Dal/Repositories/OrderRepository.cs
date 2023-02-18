@@ -171,5 +171,17 @@ namespace OfferAggregator.Dal.Repositories
                 return result;
             }
         }
+
+        public OrderDto GetOrderById(int id)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                return sqlCnctn.Query<OrderDto>(
+                   StoredProcedures.GetOrderById,
+                   new { id },
+                   commandType: CommandType.StoredProcedure).FirstOrDefault();
+            }
+        }
     }
 }
