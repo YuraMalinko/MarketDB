@@ -37,7 +37,7 @@ namespace OfferAggregator.Bll
             
             var newClient = _instanceMapper.MapClientsOutputModelToClientsDto(client);
             var phoneNewClient = newClient.PhoneNumber;
-            var searchClietnt = _clientRepository.GetClientByPhoneNumber(phoneNewClient);
+            ClientsDto searchClietnt = _clientRepository.GetClientByPhoneNumber(phoneNewClient);
             if (searchClietnt == null) 
             {
                 result = _clientRepository.AddClient(newClient);
@@ -46,11 +46,11 @@ namespace OfferAggregator.Bll
             return result;
         }
 
-        public bool DeleteClient(ClientsOutputModel client)
+        public bool DeleteClient(int id)
         {
-            var result = _clientRepository.DeleteClient(client.Id);
-            _clientsWishesRepository.DeleteClientWishesById(client.Id);
-            _commentForClientRepository.DeleteComment(client.Id);
+            var result = _clientRepository.DeleteClient(id);
+            _clientsWishesRepository.DeleteClientWishesById(id);
+            _commentForClientRepository.DeleteComment(id);
 
             return result;
         }

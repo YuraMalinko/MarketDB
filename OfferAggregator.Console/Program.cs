@@ -15,7 +15,13 @@ ClientService clt = new ClientService(_clientRepository, _clientsWishesRepositor
 
 ClientsOutputModel newclt = new ClientsOutputModel() { Id = 352, Name = "Kevin", PhoneNumber = "38286387" };
 
-var ccc = clt.AddClient(newclt);
+//var ccc = clt.AddClient(newclt);
 
-Console.WriteLine();
+var sss = clt.GetAllClientsWithoutComment();
+
+var del = clt.DeleteClient(13);
+
+var s = clt.GetAllClientsWithoutComment();
+
+Console.WriteLine( );
 

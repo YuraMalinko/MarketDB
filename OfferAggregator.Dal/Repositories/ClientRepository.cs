@@ -3,6 +3,7 @@ using Microsoft.Data.SqlClient;
 using OfferAggregator.Dal.Models;
 using System.Data;
 
+
 namespace OfferAggregator.Dal.Repositories
 {
     public class ClientRepository : IClientRepository
@@ -140,23 +141,24 @@ namespace OfferAggregator.Dal.Repositories
 
         public ClientsDto GetClientById(int id)
         {
-            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            using (var sqlConnect = new SqlConnection(Options.ConnectionString))
             {
-                sqlCnctn.Open();
-               return sqlCnctn.Query<ClientsDto>(
-                  StoredProcedures.GetClientById,
-                  new { id},
-                  commandType: CommandType.StoredProcedure).FirstOrDefault();
+                sqlConnect.Open();
+                return sqlConnect.Query<ClientsDto>(
+                   StoredProcedures.GetClientById,
+                   new { id },
+                   commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
+
         }
 
         public ClientsDto GetClientByPhoneNumber(string phoneNumber)
         {
-            using (SqlConnection sqlConnection = new SqlConnection(Options.ConnectionString))
+            using (var sqlConnect = new SqlConnection(Options.ConnectionString))
             {
-                sqlConnection.Open();
+                sqlConnect.Open();
 
-                return sqlConnection.Query<ClientsDto>(
+                return sqlConnect.Query<ClientsDto>(
                     StoredProcedures.GetClientByPhoneNumber,
                     new { phoneNumber },
                     commandType: CommandType.StoredProcedure).FirstOrDefault();
