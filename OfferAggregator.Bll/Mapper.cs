@@ -38,6 +38,7 @@ namespace OfferAggregator.Bll
                     cfg.CreateMap<CommentForOrderModel, CommenForOrderDto>();
                     cfg.CreateMap<CommentForClientModel, CommentForClientDto>();
                     cfg.CreateMap<ProductsStatisticDto, ProductsStatisticModel>();
+                    cfg.CreateMap<ClientsDto, ClientOutput>();
                 });
 
             _mapper = _configuration.CreateMapper();
@@ -115,6 +116,11 @@ namespace OfferAggregator.Bll
         public CreatingOrderDto MapCreatingOrderModelToCreatingOrderDto(CreatingOrderModel creatingOrderModel)
         {
             return _mapper.Map<CreatingOrderDto>(creatingOrderModel);
+        }
+
+        public ClientOutput MapClientDtoToClientOutput(ClientsDto client)
+        {
+            return _mapper.Map<ClientOutput>(client);
         }
     }
 }
