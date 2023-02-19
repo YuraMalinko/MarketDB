@@ -111,7 +111,7 @@ namespace OfferAggregator.Bll
             var stockProductDto = _instanceMapper.MapStocksWithProductModelToStocksWithProductModel(stockProduct);
             var getProductDto = _productsRepository.GetProductById(stockProductDto.ProductId);
             bool result = false;
-            if (getProductDto != null && stockProductDto.Amount>0 && !getProductDto.IsDeleted )
+            if (getProductDto != null && stockProductDto.Amount > 0 && !getProductDto.IsDeleted)
             {
                 var getAmountByProductId = _productsReviewsAndStocksRepository.GetAmountByProductId(stockProductDto.ProductId);
 
@@ -151,6 +151,14 @@ namespace OfferAggregator.Bll
             var getProductsStatisticModels = _instanceMapper.MapProductsStatisticDtosToProductsStatisticModels(getProductsStatisticDtos);
 
             return getProductsStatisticModels;
+        }
+
+        public List<ProductWithScoresAndCommentsModel> GetAllScoresAndCommentsByProductId(int productId)
+        {
+            var getAllScoresAndCommentsDtos = _productsReviewsAndStocksRepository.GetAllScoresAndCommentsForProductByProductId(productId);
+            var getAllScoresAndCommentsModels = _instanceMapper.MapProducstWithScoresAndCommentsDtosToProductsWithScoresAndCommentsModels(getAllScoresAndCommentsDtos);
+
+            return getAllScoresAndCommentsModels;
         }
     }
 }

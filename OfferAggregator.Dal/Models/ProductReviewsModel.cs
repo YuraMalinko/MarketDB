@@ -1,6 +1,6 @@
 ﻿namespace OfferAggregator.Dal.Models
 {
-    public class ProductReviewsDto
+    public class ProductReviewsModel
     {
         public int? Score { get; set; }
 

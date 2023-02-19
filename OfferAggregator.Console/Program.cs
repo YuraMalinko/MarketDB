@@ -6,11 +6,6 @@ using OfferAggregator.Bll;
 using OfferAggregator.Bll.Models;
 using System.Net.Http.Headers;
 
-Console.WriteLine();
-Console.WriteLine();
-Console.WriteLine();
-Console.WriteLine();
-Console.WriteLine();
 
 //ManagerModel manM = new ManagerModel
 //{
@@ -136,12 +131,17 @@ CommentForClientRepository _commentForClientRepository = new CommentForClientRep
 
 OrderService orderService = new OrderService(_managerRepository, clRepo, orRepo, _ordersProductsRepository, _productsRepository, _commentForOrderRepository, _commentForClientRepository);
 
+ProductsReviewsAndStocksRepository _productsReviewsAndStocksRepository = new ProductsReviewsAndStocksRepository();
 
-var createOrder = orderService.CreateNewOrder(creatingOrderModel);
+
+//var createOrder = orderService.CreateNewOrder(creatingOrderModel);
 
 //OrderDto o1 = new OrderDto { Client = new ClientsDto() };
 //OrderDto o2 = new OrderDto { Client = new ClientsDto() };
 //o1.Equals(o2);
+
+var getSc = _productsReviewsAndStocksRepository.GetAllScoresAndCommentsForProductByProductId(30);
+
 
 Console.WriteLine();
 
