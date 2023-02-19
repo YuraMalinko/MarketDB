@@ -276,7 +276,7 @@ namespace OfferAggregator.Bll.Tests
         }
 
         [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.RegistrateProductInStockTest_WhenProductIsNotExistTestCaseSource))]
-        public void RegistrateProductInStockTest_WhenProductIsNotExist(StocksDtoWithProductName stockProductDto, ProductsDto getProductDto, 
+        public void RegistrateProductInStockTest_WhenProductIsNotExist(StocksDtoWithProductName stockProductDto, ProductsDto getProductDto,
                                                                        StocksWithProductModel stockProductModel, bool expected)
         {
             _mockProductRepo.Setup(p => p.GetProductById(stockProductDto.ProductId)).Returns(getProductDto).Verifiable();
@@ -354,6 +354,19 @@ namespace OfferAggregator.Bll.Tests
             _mockProductRepo.VerifyAll();
 
             actualProductsStaticModels.Should().BeEquivalentTo(expectedProductsStaticModels);
+        }
+
+        [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.GetAllScoresAndCommentsByProductIdTestCaseSource))]
+        public void GetAllScoresAndCommentsByProductIdTest(int productId, List<ProductWithScoresAndCommentsDto> getAllScoresAndCommentsDtos, 
+                                                            List<ProductWithScoresAndCommentsModel> expectedAllScoresAndCommentsModels)
+        {
+            _mockProductReviewsAndStocksRepo.Setup(prs => prs.GetAllScoresAndCommentsForProductByProductId(productId)).Returns(getAllScoresAndCommentsDtos).Verifiable();
+
+            List<ProductWithScoresAndCommentsModel> actualAllScoresAndCommentsModels = _productService.GetAllScoresAndCommentsByProductId(productId);
+
+            _mockProductReviewsAndStocksRepo.Verify(prs => prs.GetAllScoresAndCommentsForProductByProductId(It.IsAny<int>()),Times.Once());
+
+            actualAllScoresAndCommentsModels.Should().BeEquivalentTo(expectedAllScoresAndCommentsModels);
         }
     }
 }

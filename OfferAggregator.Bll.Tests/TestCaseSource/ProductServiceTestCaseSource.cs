@@ -547,7 +547,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 
 
             fullProductDto = new FullProductDto();
-            expectedFullProductModel = new FullProductModel { Tags = new ()} ;
+            expectedFullProductModel = new FullProductModel { Tags = new() };
             productId = 9;
 
             yield return new object[] { productId, fullProductDto, expectedFullProductModel };
@@ -756,14 +756,14 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 
             yield return new object[] { productsStatisticDtos, expectedProductsStatisticModels };
 
-            
+
             productsStatisticDtos = new List<ProductsStatisticDto>();
 
             expectedProductsStatisticModels = new List<ProductsStatisticModel>();
 
             yield return new object[] { productsStatisticDtos, expectedProductsStatisticModels };
 
-            
+
             productsStatistiDto1 = new ProductsStatisticDto
             {
                 Id = 137,
@@ -831,6 +831,193 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             expectedProductsStatisticModels = new List<ProductsStatisticModel> { productsStatisticModel1 };
 
             yield return new object[] { productsStatisticDtos, expectedProductsStatisticModels };
+        }
+
+        public static IEnumerable GetAllScoresAndCommentsByProductIdTestCaseSource()
+        {
+            int productId = 10;
+            ProductWithScoresAndCommentsDto productDto1 = new ProductWithScoresAndCommentsDto
+            {
+                ProductId = 10,
+                Name = "one",
+                ProductReviews = new List<ProductReviewsDto>
+                {
+                new ProductReviewsDto
+                {
+               Score = 5,
+               Comment = "5",
+               ClientId = 100,
+               ProductId = 10
+                },
+                new ProductReviewsDto
+                {
+                    Score = 4,
+               Comment = "4",
+               ClientId = 95,
+               ProductId = 10
+                }
+                }
+            };
+            List<ProductWithScoresAndCommentsDto> getAllScoresAndCommentsDtos = new List<ProductWithScoresAndCommentsDto> { productDto1 };
+
+            ProductWithScoresAndCommentsModel productModel1 = new ProductWithScoresAndCommentsModel
+            {
+                ProductId = 10,
+                Name = "one",
+                ProductReviews = new List<ProductReviewsModel>
+                {
+                new ProductReviewsModel
+                {
+               Score = 5,
+               Comment = "5",
+               ClientId = 100,
+               ProductId = 10
+                },
+                new ProductReviewsModel
+                {
+                    Score = 4,
+               Comment = "4",
+               ClientId = 95,
+               ProductId = 10
+                }
+                }
+            };
+            List<ProductWithScoresAndCommentsModel> expectedAllScoresAndCommentsModels = new List<ProductWithScoresAndCommentsModel> { productModel1 };
+
+            yield return new object[] { productId, getAllScoresAndCommentsDtos, expectedAllScoresAndCommentsModels };
+
+            productId = 101;
+            productDto1 = new ProductWithScoresAndCommentsDto
+            {
+                ProductId = 101,
+                Name = "one1",
+                ProductReviews = new List<ProductReviewsDto>
+                {
+                new ProductReviewsDto(),
+            new ProductReviewsDto
+            {
+                Score = 41,
+                Comment = "41",
+                ClientId = 951,
+                ProductId = 101
+            }
+                }
+            };
+            getAllScoresAndCommentsDtos = new List<ProductWithScoresAndCommentsDto> { productDto1
+};
+
+            productModel1 = new ProductWithScoresAndCommentsModel
+            {
+                ProductId = 101,
+                Name = "one1",
+                ProductReviews = new List<ProductReviewsModel>
+                {
+                new ProductReviewsModel(),
+                                new ProductReviewsModel
+                {
+                    Score = 41,
+               Comment = "41",
+               ClientId = 951,
+               ProductId = 101
+                }
+                }
+            };
+            expectedAllScoresAndCommentsModels = new List<ProductWithScoresAndCommentsModel> { productModel1 };
+
+            yield return new object[] { productId, getAllScoresAndCommentsDtos, expectedAllScoresAndCommentsModels };
+
+            productId = 1012;
+            productDto1 = new ProductWithScoresAndCommentsDto
+            {
+                ProductId = 1012,
+                Name = "one12",
+                ProductReviews = new List<ProductReviewsDto>
+                {
+                new ProductReviewsDto()
+                }
+            };
+            getAllScoresAndCommentsDtos = new List<ProductWithScoresAndCommentsDto> { productDto1
+};
+
+            productModel1 = new ProductWithScoresAndCommentsModel
+            {
+                ProductId = 1012,
+                Name = "one12",
+                ProductReviews = new List<ProductReviewsModel>
+                {
+                new ProductReviewsModel()
+                }
+            };
+            expectedAllScoresAndCommentsModels = new List<ProductWithScoresAndCommentsModel> { productModel1 };
+
+            yield return new object[] { productId, getAllScoresAndCommentsDtos, expectedAllScoresAndCommentsModels };
+
+            productId = 10123;
+            productDto1 = new ProductWithScoresAndCommentsDto
+            {
+                ProductId = 10123,
+                Name = "one123",
+                ProductReviews = new List<ProductReviewsDto>()
+            };
+            getAllScoresAndCommentsDtos = new List<ProductWithScoresAndCommentsDto> { productDto1 };
+
+            productModel1 = new ProductWithScoresAndCommentsModel
+            {
+                ProductId = 10123,
+                Name = "one123",
+                ProductReviews = new List<ProductReviewsModel>()
+            };
+            expectedAllScoresAndCommentsModels = new List<ProductWithScoresAndCommentsModel> { productModel1 };
+
+            yield return new object[] { productId, getAllScoresAndCommentsDtos, expectedAllScoresAndCommentsModels };
+
+            productId = 109;
+            productDto1 = new ProductWithScoresAndCommentsDto
+            {
+                ProductId = 109,
+                Name = "one9",
+                ProductReviews = new List<ProductReviewsDto>
+                {
+                new ProductReviewsDto
+                {
+                              Comment = "59",
+               ClientId = 1009,
+               ProductId = 109
+                },
+                new ProductReviewsDto
+                {
+                    Score = 49,
+               ClientId = 959,
+               ProductId = 109
+                }
+                }
+            };
+            getAllScoresAndCommentsDtos = new List<ProductWithScoresAndCommentsDto> { productDto1 };
+
+            productModel1 = new ProductWithScoresAndCommentsModel
+            {
+                ProductId = 109,
+                Name = "one9",
+                ProductReviews = new List<ProductReviewsModel>
+                {
+                new ProductReviewsModel
+                {
+                              Comment = "59",
+               ClientId = 1009,
+               ProductId = 109
+                },
+                new ProductReviewsModel
+                {
+                    Score = 49,
+               ClientId = 959,
+               ProductId = 109
+                }
+                }
+            };
+            expectedAllScoresAndCommentsModels = new List<ProductWithScoresAndCommentsModel> { productModel1 };
+
+            yield return new object[] { productId, getAllScoresAndCommentsDtos, expectedAllScoresAndCommentsModels };
+
         }
     }
 }
