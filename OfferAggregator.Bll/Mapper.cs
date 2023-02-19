@@ -20,8 +20,8 @@ namespace OfferAggregator.Bll
                 {
                     cfg.CreateMap<ProductsDto, ProductModel>();
                     cfg.CreateMap<ProductModel, ProductsDto>();
-                    cfg.CreateMap<CommentForClientDto, ClientsOutputModel>();
-                    cfg.CreateMap<ClientsOutputModel, CommentForClientDto>();
+                    cfg.CreateMap<CommentForClientDto, ClientOutput>();
+                    cfg.CreateMap<ClientOutput, CommentForClientDto>();
                     cfg.CreateMap<StocksWithProductModel, StocksDtoWithProductName>();
                     cfg.CreateMap<FullProductDto, FullProductModel>();
                     cfg.CreateMap<TagDto, TagModel>();
@@ -36,8 +36,6 @@ namespace OfferAggregator.Bll
                     cfg.CreateMap<CommentForOrderModel, CommenForOrderDto>();
                     cfg.CreateMap<CommentForClientModel, CommentForClientDto>();
                     cfg.CreateMap<ProductsStatisticDto, ProductsStatisticModel>();
-                    cfg.CreateMap<ClientsDto, ClientsOutputModel>();
-                    cfg.CreateMap<ClientsOutputModel, ClientsDto>();
                     cfg.CreateMap<ClientsDto, ClientOutput>();
                 });
 
@@ -63,12 +61,12 @@ namespace OfferAggregator.Bll
             return _mapper.Map<ProductsDto>(product);
         }
 
-        public List<ClientsOutputModel> MapClientsDtosToClientsOutputModels(List<ClientsDto> clients)
+        public List<ClientOutput> MapClientsDtosToClientsOutput(List<ClientsDto> clients)
         {
-            return _configuration.CreateMapper().Map<List<ClientsOutputModel>>(clients);
+            return _configuration.CreateMapper().Map<List<ClientOutput>>(clients);
         }
 
-        public ClientsDto MapClientsOutputModelToClientsDto(ClientsOutputModel clients)
+        public ClientsDto MapClientsOutputModelToClientsDto(ClientOutput clients)
         {
             return _mapper.Map<ClientsDto>(clients);
         }
