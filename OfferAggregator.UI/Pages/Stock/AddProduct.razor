@@ -18,48 +18,44 @@
     <button type="submit">Submit</button>
 </EditForm>*@
 
-<div>
-    <EditForm Model="@Product" OnValidSubmit="@AddProductToStock">
-        <DataAnnotationsValidator />
-        <ValidationSummary />
+<EditForm Model="@Product" OnValidSubmit="@AddProductToStock">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
 
-        <div style="display:flex; flex-direction: row">
-            <div>Название товара:</div>
-            <InputText id="name" @bind-Value="Product.Name" />
-        </div>
+    <div class="edit-form-row">
+        <div class="left-part">Название товара:</div>
+        <InputText id="name" @bind-Value="Product.Name" />
+    </div>
 
-        <div style="display:flex; flex-direction: row">
-            <div>Номер группы товара:</div>
+    <div class="edit-form-row">
+        <div class="left-part">Номер группы товара:</div>
 
-            <InputSelect TValue="int" @bind-Value="Product.GroupId">
-                @foreach (var group in _groups)
+        <InputSelect TValue="int" @bind-Value="Product.GroupId">
+            @foreach (var group in _groups)
+            {
+                if (group != null)
                 {
-                    if (group != null)
-                    {
-                        <option value="@group.Id">@group.Name</option>
-                    }
+                    <option value="@group.Id">@group.Name</option>
                 }
-            </InputSelect>
-        </div>
+            }
+        </InputSelect>
+    </div>
 
-
-
-        @if (!string.IsNullOrEmpty(_errorMessage))
-        {
-            <div>@_errorMessage</div>
-        }
-        <button type="submit">Добавить новый товар на склад</button>
-    </EditForm>
-</div>
+    @if (!string.IsNullOrEmpty(_errorMessage))
+    {
+        <div>@_errorMessage</div>
+    }
+    <button type="submit">Добавить новый товар на склад</button>
+</EditForm>
 
 @code {
-    public ProductModel Product;
+    public ProductModel Product { get; set; }
 
     private ProductService _productService;
 
     private string _errorMessage;
 
-    private List<GroupDto> _groups = new(); //todo переделать на групп модел
+    private List<GroupModel> _groups = new();
 
     protected override void OnInitialized()
     {
@@ -70,17 +66,7 @@
         new TagsRepository(),
         new GroupRepository()
         );
-
-        _groups = new List<GroupDto>
-        {
-            new GroupRepository().GetGroupById(1),
-            new GroupRepository().GetGroupById(2),
-            new GroupRepository().GetGroupById(3),
-            new GroupRepository().GetGroupById(4),
-            new GroupRepository().GetGroupById(5),
-            new GroupRepository().GetGroupById(6),
-            new GroupRepository().GetGroupById(9)
-        };
+        _groups = _productService.GetAllGroups();
     }
 
     private void AddProductToStock()

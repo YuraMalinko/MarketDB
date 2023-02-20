@@ -62,3 +62,21 @@ a, .btn-link {
     .blazor-error-boundary::after {
         content: "An error has occurred."
     }
+
+.edit-form-row {
+    display: flex;
+    flex-direction: row;
+    padding: 5px;
+}
+
+    .edit-form-row select {
+        height: 30px
+    }
+
+    .edit-form-row .left-part {
+        width: 270px
+    }
+
+.input-number {
+    width: 80px
+}

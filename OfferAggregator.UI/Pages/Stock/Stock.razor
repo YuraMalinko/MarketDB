@@ -3,14 +3,16 @@
 <h1>Склад</h1>
 <div>
     <button @onclick="SetOrUnsetAddProductContent" class="btn">Добавить товар</button>
+    <button @onclick="SetOrUnsetRegistrateProductContent" class="btn">Оприходывать товар</button>
 </div>
-<div>
+<div style="width: 500px">
     @switch (_content)
     {
-        case "AddProduct":
-            <div>
+        case StockPageContent.AddProduct:
                 <AddProduct />
-            </div>
+            break;
+        case StockPageContent.RegistrateProduct:
+                <RegistrateProduct />
             break;
     }
 
@@ -18,17 +20,34 @@
 
 
 @code {
-    private string _content;
+    private StockPageContent _content;
 
     private void SetOrUnsetAddProductContent()
     {
-        if (_content == "AddProduct")
+        SetContent(StockPageContent.AddProduct);
+    }
+
+    private void SetOrUnsetRegistrateProductContent()
+    {
+        SetContent(StockPageContent.RegistrateProduct);
+    }
+
+    private void SetContent(StockPageContent stockPageContent)
+    {
+        if (_content == stockPageContent)
         {
-            _content = "";
+            _content = StockPageContent.None;
         }
         else
         {
-            _content = "AddProduct";
+            _content = stockPageContent;
         }
+    }
+
+    private enum StockPageContent
+    {
+        None = 0,
+        AddProduct = 1,
+        RegistrateProduct = 2
     }
 }

@@ -1,0 +1,77 @@
+﻿@using OfferAggregator.Bll.Models;
+@using OfferAggregator.Bll;
+@using OfferAggregator.Dal.Models;
+@using OfferAggregator.Dal.Repositories;
+@using System.ComponentModel.DataAnnotations;
+
+<h3>Оприходывать товар</h3>
+
+<EditForm Model="@StockProduct" OnValidSubmit="@RegistrateProductInStock">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="edit-form-row">
+        <div class="left-part">Название товара:</div>
+
+        <InputSelect TValue="int" @bind-Value="StockProduct.ProductId">
+            @foreach (var product in _products)
+            {
+                if (product != null)
+                {
+                    <option value="@product.Id">@product.Name</option>
+                }
+            }
+        </InputSelect>
+    </div>
+
+    <div class="edit-form-row">
+        <div class="left-part">Количество товара:</div>
+        <InputNumber class="input-number" id="amount" @bind-Value="StockProduct.Amount" />
+    </div>
+
+    @if (!string.IsNullOrEmpty(_errorMessage))
+    {
+        <div>@_errorMessage</div>
+    }
+
+    <button type="submit">Оприходывать товар на складе</button>
+</EditForm>
+
+@code {
+    public StocksWithProductModel StockProduct { get; set; }
+
+    private ProductService _productService;
+
+    private string _errorMessage;
+
+    private List<ProductModel> _products = new();
+
+    protected override void OnInitialized()
+    {
+        StockProduct = new StocksWithProductModel();
+        _productService = new ProductService(
+        new ProductsRepository(),
+        new ProductsReviewsAndStocksRepository(),
+        new TagsRepository(),
+        new GroupRepository()
+        );
+        _products = _productService.GetAllProducts();
+    }
+
+    private void RegistrateProductInStock()
+    {
+        try
+        {
+            if (StockProduct.Amount != 0 && StockProduct.ProductId > 0)
+            {
+                _productService.RegistrateProductInStock(StockProduct);
+                StockProduct = new StocksWithProductModel();
+            }
+            _errorMessage = string.Empty;
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = "Произошла ошибка";
+        }
+    }
+}

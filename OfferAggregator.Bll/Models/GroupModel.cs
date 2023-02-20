@@ -1,6 +1,6 @@
-﻿namespace OfferAggregator.Dal.Models
+﻿namespace OfferAggregator.Bll.Models
 {
-    public class GroupDto
+    public class GroupModel
     {
         public int Id { get; set; }
 

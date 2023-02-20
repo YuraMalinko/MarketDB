@@ -131,8 +131,17 @@ CommentForClientRepository _commentForClientRepository = new CommentForClientRep
 
 OrderService orderService = new OrderService(_managerRepository, clRepo, orRepo, _ordersProductsRepository, _productsRepository, _commentForOrderRepository, _commentForClientRepository);
 
+ProductsReviewsAndStocksRepository _productsReviewsAndStocksRepository = new ProductsReviewsAndStocksRepository();
 
-var createOrder = orderService.CreateNewOrder(creatingOrderModel);
+TagsRepository _tagsRepository = new TagsRepository();
+
+GroupRepository _groupRepository = new GroupRepository();
+
+ProductService productService = new ProductService(_productsRepository, _productsReviewsAndStocksRepository, _tagsRepository, _groupRepository);
+
+var getAllGroups = productService.GetAllGroups();
+
+//var createOrder = orderService.CreateNewOrder(creatingOrderModel);
 
 //OrderDto o1 = new OrderDto { Client = new ClientsDto() };
 //OrderDto o2 = new OrderDto { Client = new ClientsDto() };
