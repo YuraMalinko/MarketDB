@@ -139,13 +139,18 @@ GroupRepository _groupRepository = new GroupRepository();
 
 ProductService productService = new ProductService(_productsRepository, _productsReviewsAndStocksRepository, _tagsRepository, _groupRepository);
 
-var getAllGroups = productService.GetAllGroups();
+//var getAllGroups = productService.GetAllGroups();
 
 //var createOrder = orderService.CreateNewOrder(creatingOrderModel);
 
 //OrderDto o1 = new OrderDto { Client = new ClientsDto() };
 //OrderDto o2 = new OrderDto { Client = new ClientsDto() };
 //o1.Equals(o2);
+
+ProductsDto pr = new ProductsDto
+{ Name = "Sheep" };
+
+var addPr = _productsRepository.AddProduct(pr);
 
 Console.WriteLine();
 

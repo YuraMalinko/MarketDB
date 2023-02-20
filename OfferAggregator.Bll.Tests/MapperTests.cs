@@ -10,16 +10,16 @@ namespace OfferAggregator.Bll.Tests
         private Mapper _mapper = Mapper.GetInstance();
 
 
-        [TestCaseSource(typeof(MapperTestCaseSource), nameof(MapperTestCaseSource.MapProductsDtosToProductModelsTestCaseSource))]
-        public void MapProductsDtosToProductModelsTest(List<ProductsDto> baseProductsDto, List<ProductModel> expectedProductModel)
+        [TestCaseSource(typeof(MapperTestCaseSource), nameof(MapperTestCaseSource.MapProductsDtosToProductOutputModelsTestCaseSource))]
+        public void MapProductsDtosToProductOutputModelsTest(List<ProductsDto> baseProductsDto, List<ProductOutputModel> expectedProductModel)
         {
-            List<ProductModel> actualProductModel = _mapper.MapProductsDtosToProductModels(baseProductsDto);
+            List<ProductOutputModel> actualProductModel = _mapper.MapProductsDtosToProductOutputModels(baseProductsDto);
 
             actualProductModel.Should().BeEquivalentTo(expectedProductModel);
         }
 
         [TestCaseSource(typeof(MapperTestCaseSource), nameof(MapperTestCaseSource.MapProductModelToProductsDtoTestCaseSource))]
-        public void MapProductModelToProductsDtoTest(ProductModel baseProductModel, ProductsDto expectedProductsDto)
+        public void MapProductModelToProductsDtoTest(ProductInputModel baseProductModel, ProductsDto expectedProductsDto)
         {
             ProductsDto actualProductsDto = _mapper.MapProductModelToProductsDto(baseProductModel);
 
@@ -28,7 +28,7 @@ namespace OfferAggregator.Bll.Tests
 
         [TestCaseSource(typeof(MapperTestCaseSource), nameof(MapperTestCaseSource.MapStocksWithProductModelToStocksWithProductModelTestCaseSource))]
 
-        public void MapStocksWithProductModelToStocksDtoWithProductNameTest(StocksWithProductModel baseStockModel, StocksDtoWithProductName exepectedStockDto)
+        public void MapStocksWithProductModelToStocksDtoWithProductNameTest(StocksWithProductInputModel baseStockModel, StocksDtoWithProductName exepectedStockDto)
         {
             StocksDtoWithProductName actualStockDto = _mapper.MapStocksWithProductModelToStocksWithProductModel(baseStockModel);
 

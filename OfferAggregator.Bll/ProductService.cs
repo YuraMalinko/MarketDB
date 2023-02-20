@@ -31,27 +31,7 @@ namespace OfferAggregator.Bll
             _groupRepository = groupRepository;
         }
 
-        //public int AddProduct(ProductModel product)
-        //{
-        //    int result = -1;
-        //    try
-        //    {
-        //        var addProduct = _instanceMapper.MapProductModelToProductsDto(product);
-        //        var groupId = addProduct.GroupId;
-        //        var getGroup = _groupRepository.GetGroupById(groupId);
-        //        if (getGroup != null)
-        //        {
-        //            result = _productsRepository.AddProduct(addProduct);
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return result;
-        //    }
-        //    return result;
-        //}
-
-        public int AddProduct(ProductModel product)
+        public int AddProduct(ProductInputModel product)
         {
             var addProduct = _instanceMapper.MapProductModelToProductsDto(product);
             var groupId = addProduct.GroupId;
@@ -64,23 +44,23 @@ namespace OfferAggregator.Bll
             return _productsRepository.AddProduct(addProduct);
         }
 
-        public List<ProductModel> GetAllProducts()
+        public List<ProductOutputModel> GetAllProducts()
         {
             List<ProductsDto> allProducts = _productsRepository.GetAllProducts();
-            var result = _instanceMapper.MapProductsDtosToProductModels(allProducts);
+            var result = _instanceMapper.MapProductsDtosToProductOutputModels(allProducts);
 
             return result;
         }
 
-        public List<ProductModel> GetAllProductsByGroupId(int groupId)
+        public List<ProductOutputModel> GetAllProductsByGroupId(int groupId)
         {
             List<ProductsDto> allProducts = _productsRepository.GetAllProductsByGroupId(groupId);
-            var result = _instanceMapper.MapProductsDtosToProductModels(allProducts);
+            var result = _instanceMapper.MapProductsDtosToProductOutputModels(allProducts);
 
             return result;
         }
 
-        public bool UpdateProduct(ProductModel product)
+        public bool UpdateProduct(ProductInputModel product)
         {
             bool result;
             try
@@ -119,7 +99,7 @@ namespace OfferAggregator.Bll
             return result;
         }
 
-        public bool RegistrateProductInStock(StocksWithProductModel stockProduct)
+        public bool RegistrateProductInStock(StocksWithProductInputModel stockProduct)
         {
             var stockProductDto = _instanceMapper.MapStocksWithProductModelToStocksWithProductModel(stockProduct);
             var getProductDto = _productsRepository.GetProductById(stockProductDto.ProductId);

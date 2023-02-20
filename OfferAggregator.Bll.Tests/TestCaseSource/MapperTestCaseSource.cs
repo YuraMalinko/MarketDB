@@ -7,7 +7,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 {
     public class MapperTestCaseSource
     {
-        public static IEnumerable MapProductsDtosToProductModelsTestCaseSource()
+        public static IEnumerable MapProductsDtosToProductOutputModelsTestCaseSource()
         {
             ProductsDto productsDto1 = new ProductsDto
             {
@@ -25,28 +25,28 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             };
             List<ProductsDto> baseProductsDto = new List<ProductsDto> { productsDto1, productsDto2 };
 
-            ProductModel productModel1 = new ProductModel
+            ProductOutputModel productModel1 = new ProductOutputModel
             {
                 Id = 1,
                 Name = "one",
                 IsDeleted = false,
                 GroupId = 1
             };
-            ProductModel productModel2 = new ProductModel
+            ProductOutputModel productModel2 = new ProductOutputModel
             {
                 Id = 2,
                 Name = "two",
                 IsDeleted = false,
                 GroupId = 2
             };
-            List<ProductModel> expectedProductModel = new List<ProductModel> { productModel1, productModel2 };
+            List<ProductOutputModel> expectedProductModel = new List<ProductOutputModel> { productModel1, productModel2 };
 
             yield return new object[] { baseProductsDto, expectedProductModel };
 
 
             baseProductsDto = new List<ProductsDto>();
 
-            expectedProductModel = new List<ProductModel>();
+            expectedProductModel = new List<ProductOutputModel>();
 
             yield return new object[] { baseProductsDto, expectedProductModel };
 
@@ -61,22 +61,22 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             };
             baseProductsDto = new List<ProductsDto> { productsDto10, productsDto20 };
 
-            ProductModel productModel10 = new ProductModel();
-            ProductModel productModel20 = new ProductModel
+            ProductOutputModel productModel10 = new ProductOutputModel();
+            ProductOutputModel productModel20 = new ProductOutputModel
             {
                 Id = 20,
                 Name = "two2",
                 IsDeleted = true,
                 GroupId = 20
             };
-            expectedProductModel = new List<ProductModel> { productModel10, productModel20 };
+            expectedProductModel = new List<ProductOutputModel> { productModel10, productModel20 };
 
             yield return new object[] { baseProductsDto, expectedProductModel };
         }
 
         public static IEnumerable MapProductModelToProductsDtoTestCaseSource()
         {
-            ProductModel baseProductModel = new ProductModel
+            ProductInputModel baseProductModel = new ProductInputModel
             {
                 Id = 10,
                 Name = "ten",
@@ -234,7 +234,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 
         public static IEnumerable MapStocksWithProductModelToStocksWithProductModelTestCaseSource()
         {
-            StocksWithProductModel baseStockModel = new StocksWithProductModel
+            StocksWithProductInputModel baseStockModel = new StocksWithProductInputModel
             {
                 Amount = 10,
                 ProductId = 1,

@@ -18,13 +18,13 @@ namespace OfferAggregator.Bll
             _configuration = new MapperConfiguration(
                 cfg =>
                 {
-                    cfg.CreateMap<ProductsDto, ProductModel>();
-                    cfg.CreateMap<ProductModel, ProductsDto>();
+                    cfg.CreateMap<ProductsDto, ProductOutputModel>();
+                    cfg.CreateMap<ProductInputModel, ProductsDto>();
                     cfg.CreateMap<ClientsDto, InfoAllClientsOutputModel>();
                     cfg.CreateMap<InfoAllClientsOutputModel, ClientsDto>();
                     cfg.CreateMap<CommentForClientDto, InfoAllClientsOutputModel>();
                     cfg.CreateMap<InfoAllClientsOutputModel, CommentForClientDto>();
-                    cfg.CreateMap<StocksWithProductModel, StocksDtoWithProductName>();
+                    cfg.CreateMap<StocksWithProductInputModel, StocksDtoWithProductName>();
                     cfg.CreateMap<FullProductDto, FullProductModel>();
                     cfg.CreateMap<TagDto, TagModel>();
                     cfg.CreateMap<ManagerAuthInput, ManagerDto>();
@@ -53,12 +53,12 @@ namespace OfferAggregator.Bll
             return _instanceMapper;
         }
 
-        public List<ProductModel> MapProductsDtosToProductModels(List<ProductsDto> products)
+        public List<ProductOutputModel> MapProductsDtosToProductOutputModels(List<ProductsDto> products)
         {
-            return _mapper.Map<List<ProductModel>>(products);
+            return _mapper.Map<List<ProductOutputModel>>(products);
         }
 
-        public ProductsDto MapProductModelToProductsDto(ProductModel product)
+        public ProductsDto MapProductModelToProductsDto(ProductInputModel product)
         {
             return _mapper.Map<ProductsDto>(product);
         }
@@ -73,7 +73,7 @@ namespace OfferAggregator.Bll
             return _mapper.Map<ClientsDto>(clients);
         }
 
-        public StocksDtoWithProductName MapStocksWithProductModelToStocksWithProductModel(StocksWithProductModel stockProduct)
+        public StocksDtoWithProductName MapStocksWithProductModelToStocksWithProductModel(StocksWithProductInputModel stockProduct)
         {
             return _mapper.Map<StocksDtoWithProductName>(stockProduct);
         }

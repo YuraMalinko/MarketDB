@@ -49,7 +49,7 @@
 </EditForm>
 
 @code {
-    public ProductModel Product { get; set; }
+    public ProductInputModel Product { get; set; }
 
     private ProductService _productService;
 
@@ -59,7 +59,7 @@
 
     protected override void OnInitialized()
     {
-        Product = new ProductModel();
+        Product = new ProductInputModel();
         _productService = new ProductService(
         new ProductsRepository(),
         new ProductsReviewsAndStocksRepository(),
@@ -76,7 +76,7 @@
             if (!string.IsNullOrEmpty(Product.Name) && Product.GroupId != null)
             {
                 _productService.AddProduct(Product);
-                Product = new ProductModel();
+                Product = new ProductInputModel();
             }
             _errorMessage = string.Empty;
         }

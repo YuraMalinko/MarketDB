@@ -38,17 +38,17 @@
 </EditForm>
 
 @code {
-    public StocksWithProductModel StockProduct { get; set; }
+    public StocksWithProductInputModel StockProduct { get; set; }
 
     private ProductService _productService;
 
     private string _errorMessage;
 
-    private List<ProductModel> _products = new();
+    private List<ProductOutputModel> _products = new();
 
     protected override void OnInitialized()
     {
-        StockProduct = new StocksWithProductModel();
+        StockProduct = new StocksWithProductInputModel();
         _productService = new ProductService(
         new ProductsRepository(),
         new ProductsReviewsAndStocksRepository(),
@@ -65,7 +65,7 @@
             if (StockProduct.Amount != 0 && StockProduct.ProductId > 0)
             {
                 _productService.RegistrateProductInStock(StockProduct);
-                StockProduct = new StocksWithProductModel();
+                StockProduct = new StocksWithProductInputModel();
             }
             _errorMessage = string.Empty;
         }
