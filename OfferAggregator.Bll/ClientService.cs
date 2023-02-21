@@ -30,21 +30,21 @@ namespace OfferAggregator.Bll
             return result;
         }
 
-        public ClientOutput GetClientByName(string name)
+        public List<ClientOutput> GetClientByName(string name)
         {
             if (name == null || name == "" || name == " ")
             {
                 throw new ArgumentNullException("name is null");
             }
 
-            ClientsDto client = _clientRepository.GetClientByName(name);
+            List<ClientsDto> clients = _clientRepository.GetClientsByName(name);
 
-            if (client == null)
+            if (clients.Count==0)
             {
-                throw new Exception("Client does not exist or has been deleted");
+                throw new Exception("There are no clients with this name or they were deleted");
             }
 
-            return _instanceMapper.MapClientDtoToClientOutput(client);
+            return _instanceMapper.MapClientsDtoToClientsOutput(clients);
         }
     }
 }

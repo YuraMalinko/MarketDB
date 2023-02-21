@@ -16,6 +16,6 @@ namespace OfferAggregator.Dal.Repositories
 
         public ClientsDto GetClientById(int id);
 
-        public ClientsDto GetClientByName(string name);
+        public List<ClientsDto> GetClientsByName(string name);
     }
 }

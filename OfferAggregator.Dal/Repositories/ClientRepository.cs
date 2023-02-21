@@ -150,15 +150,15 @@ namespace OfferAggregator.Dal.Repositories
             }
         }
 
-        public ClientsDto GetClientByName(string name)
+        public List<ClientsDto> GetClientsByName(string name)
         {
             using (var sqlConnection = new SqlConnection(Options.ConnectionString))
             {
                 sqlConnection.Open();
                 return sqlConnection.Query<ClientsDto>(
-                    StoredProcedures.GetClientByName,
+                    StoredProcedures.GetClientsByName,
                     new { name },
-                    commandType: CommandType.StoredProcedure).FirstOrDefault();
+                    commandType: CommandType.StoredProcedure).ToList();
             }
         }
     }

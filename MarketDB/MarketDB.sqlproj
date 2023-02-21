@@ -141,7 +141,7 @@
     <Build Include="dbo\Stored Procedures\GetOrderById.sql" />
     <Build Include="dbo\Stored Procedures\GetManagerById.sql" />
     <Build Include="dbo\Stored Procedures\GetProductsStatistic.sql" />
-    <Build Include="dbo\Stored Procedures\GetClientByName.sql" />
+    <Build Include="dbo\Stored Procedures\GetClientsByName.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="MarketDB.refactorlog" />

@@ -132,6 +132,6 @@ namespace OfferAggregator.Dal
 
         public const string GetProductsStatistic = "GetProductsStatistic";
 
-        public const string GetClientByName = "GetClientByName";
+        public const string GetClientsByName = "GetClientsByName";
     }
 }

@@ -3,13 +3,6 @@ using OfferAggregator.Bll.Models;
 using OfferAggregator.Bll.Tests.TestCaseSource;
 using OfferAggregator.Dal.Models;
 using OfferAggregator.Dal.Repositories;
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Web;
 
 namespace OfferAggregator.Bll.Tests
 {
@@ -27,11 +20,11 @@ namespace OfferAggregator.Bll.Tests
             _clientService = new ClientService(_mockClientRepo.Object);
         }
 
-        [TestCaseSource(typeof(ClientServiceTestCaseSource),nameof(ClientServiceTestCaseSource.GetCLientByNameTestCaseSource))]
-        public void GetCLientByNameTest(string name, ClientsDto clientsDto, ClientOutput expected)
+        [TestCaseSource(typeof(ClientServiceTestCaseSource), nameof(ClientServiceTestCaseSource.GetCLientsByNameTestCaseSource))]
+        public void GetCLientsByNameTest(string name, List<ClientsDto> clientsDto, List<ClientOutput> expected)
         {
-            _mockClientRepo.Setup(c => c.GetClientByName(name)).Returns(clientsDto).Verifiable();
-            ClientOutput actual = _clientService.GetClientByName(name);
+            _mockClientRepo.Setup(c => c.GetClientsByName(name)).Returns(clientsDto).Verifiable();
+            List<ClientOutput> actual = _clientService.GetClientByName(name);
 
             _mockClientRepo.VerifyAll();
 
@@ -42,21 +35,20 @@ namespace OfferAggregator.Bll.Tests
         [TestCase(null)]
         [TestCase("")]
         [TestCase(" ")]
-        public void GetClientByName_WhenNameIsNull_ShouldThrowAddProductTest_ShouldThrowArgumentNullExceptionn(string name)
+        public void GetClientsByName_WhenNameIsNull_ShouldThrowAddProductTest_ShouldThrowArgumentNullExceptionn(string name)
         {
             Assert.Throws<ArgumentNullException>(() => _clientService.GetClientByName(name));
         }
 
         [Test]
-        public void GetClientByName_WhenClientNotExistOrDeleted_ShouldThrowExeption()
+        public void GetClientsByName_WhenClientsNotExistOrDeleted_ShouldThrowExeption()
         {
             string name = "Pashka";
-            ClientsDto clientsDto = null;
-            _mockClientRepo.Setup(c=>c.GetClientByName(name)).Returns(clientsDto);
+            List<ClientsDto> clients = new List<ClientsDto>() { };
+            _mockClientRepo.Setup(c => c.GetClientsByName(name)).Returns(new List<ClientsDto>()).Verifiable();
+            _mockClientRepo.Verify(c => c.GetClientsByName(name), Times.Never);
 
-            Assert.Throws<Exception>(()=> _clientService.GetClientByName(name));
+            Assert.Throws<Exception>(() => _clientService.GetClientByName(name));
         }
-
-
     }
 }

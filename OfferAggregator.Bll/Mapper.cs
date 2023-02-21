@@ -116,9 +116,9 @@ namespace OfferAggregator.Bll
             return _mapper.Map<CreatingOrderDto>(creatingOrderModel);
         }
 
-        public ClientOutput MapClientDtoToClientOutput(ClientsDto client)
+        public List<ClientOutput> MapClientsDtoToClientsOutput(List<ClientsDto> clients)
         {
-            return _mapper.Map<ClientOutput>(client);
+            return _mapper.Map<List<ClientOutput>>(clients);
         }
     }
 }

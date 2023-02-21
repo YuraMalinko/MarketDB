@@ -1,4 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[GetClientByName]
+﻿CREATE PROCEDURE [dbo].[GetClientsByName]
 @Name nvarchar(100)
 AS
 SELECT [Id],[Name],[PhoneNumber] FROM [Clients]
