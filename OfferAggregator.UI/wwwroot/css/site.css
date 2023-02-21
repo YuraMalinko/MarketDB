@@ -103,17 +103,26 @@ a, .btn-link {
 
     .table-get-full-products th {
         text-align: left;
+        border-bottom: 1px solid black;
     }
 
     .table-get-full-products tr {
-        border-left: 1px solid darkgray;
-        border-right: 1px solid darkgray;
         border-bottom: 1px solid darkgray;
-        border-top: 1px solid darkgray;
+    }
+
+    .table-get-full-products tr :hover {
+        background-color:beige;
+    }
+
+    .table-get-full-products .nested-row {
+        border-left: 0px;
+        border-right: 0px;
+        border-bottom: 0px;
+        border-top: 0px;
     }
 
     .table-get-full-products td {
-        text-align: center;
+        text-align: left;
     }
 
 

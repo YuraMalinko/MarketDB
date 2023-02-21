@@ -5,43 +5,52 @@
 @using System.ComponentModel.DataAnnotations;
 
 <div class="get-full-products">
-<h3>Список товаров на складе</h3>
-@if (_fullProducts.Count > 0)
-{
+    <h3>Список товаров на складе</h3>
+    @if (_fullProducts.Count > 0)
+    {
         <table class="table-get-full-products">
-        <th>№ товара</th>
-        <th>Наименование товара</th>
-        <th>Наименование группы</th>
+            <th>№ товара</th>
+            <th>Наименование товара</th>
+            <th>Наименование группы</th>
             <th width: 130px>Кол-во товара на складе</th>
-        <th>Наименование тега</th>
-        <th>Средняя оценка товара</th>
-        @foreach (var fullProduct in _fullProducts)
-        {
-            <tr>
-                <td>@fullProduct.Id</td>
-                <a href="/product/@fullProduct.Id">
-                <td>@fullProduct.Name</td>
-                </a>
-                <td>@fullProduct.GroupName</td>
-                    <td>@fullProduct.Amount</td>
-                <td>
-                    @foreach (var tag in fullProduct.Tags)
-                    {
+            <th>Наименование тега</th>
+            <th>Средняя оценка товара</th>
+            @foreach (var fullProduct in _fullProducts)
+            {
                 <tr>
-                    <td>@tag.Name</td>
-                </tr>
+                    <td>@fullProduct.Id</td>
+                    <td>
+                        <a href="/product/@fullProduct.Id">
+                    @fullProduct.Name
+                        </a>
+                    </td>
+                    <td>@fullProduct.GroupName</td>
+                    <td>@fullProduct.Amount</td>
+                    <td>
+                        @foreach (var tag in fullProduct.Tags)
+                        {
+                    <tr class="nested-row">
+                        <td>@tag.Name</td>
+                    </tr>
+                        }
+                    </td>
+                    @if (fullProduct.AverageScore != null)
+                    {
+                        <td>@Math.Round((double)fullProduct.AverageScore,1)</td>
                     }
-            </td>
-            <td>@fullProduct.AverageScore</td>
-            </tr>
-        }
-    </table>
+                    else
+                    {
+                        <td>-</td>
+                    }
+                </tr>
+            }
+        </table>
 
-}
-else
-{
-    <h4>В настоящий момент товары на складе отсутствуют</h4>
-}
+    }
+    else
+    {
+        <h4>В настоящий момент товары на складе отсутствуют</h4>
+    }
 </div>
 
 @code {
@@ -60,5 +69,6 @@ else
         new GroupRepository()
         );
         _fullProducts = _productService.GetFullProducts();
+
     }
 }
