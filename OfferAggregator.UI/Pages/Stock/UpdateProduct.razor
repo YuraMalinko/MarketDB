@@ -1,5 +1,67 @@
-﻿<h3>Изменить количество товара на складе</h3>
+﻿@using OfferAggregator.Bll.Models;
+@using OfferAggregator.Bll;
+@using OfferAggregator.Dal.Models;
+@using OfferAggregator.Dal.Repositories;
+@using System.ComponentModel.DataAnnotations;
+
+<h3>Изменить товар</h3>
+
+<EditForm Model="@_product" OnValidSubmit="@UpdateProductInStock">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div>
+        <span>Если вы хотите изменить наименование товара, то впишите новое наименование в поле, в противном случае - оставьте поле пустым</span>
+        <div class="left-part">Название товара:</div>
+        <InputText id="name" @bind-Value="_product.Name" />
+    </div>
+
+    <div>
+        <span>Если вы хотите изменить принадлежность товара, то выберите подходящую группу из выпадающего списка, в противном случае - оставьте поле пустым</span>
+        <div class="left-part">Номер группы товара:</div>
+        <InputSelect TValue="int" @bind-Value=_product.GroupId>
+            @foreach (var group in _groups)
+            {
+                if (group != null)
+                {
+                    <option value="@group.Id">@group.Name</option>
+                }
+            }
+        </InputSelect>
+    </div>
+
+    <button type="submit">Изменить товар</button>
+</EditForm>
 
 @code {
+    public ProductInputModel _product;
 
+    private ProductService _productService;
+
+    private string _errorMessage;
+
+    private List<GroupModel> _groups = new();
+
+    protected override void OnInitialized()
+    {
+        _product = new ProductInputModel();
+        _productService = new ProductService(
+        new ProductsRepository(),
+        new ProductsReviewsAndStocksRepository(),
+        new TagsRepository(),
+        new GroupRepository()
+        );
+        _groups = _productService.GetAllGroups();
+    }
+
+    private void UpdateProductInStock()
+    {
+        if (string.IsNullOrEmpty(_product.Name) && _product.GroupId != null)
+        {
+            //_product.Name
+            _productService.UpdateProduct(_product);
+            _product = new ProductInputModel();
+        }
+        _errorMessage = string.Empty;
+    }
 }

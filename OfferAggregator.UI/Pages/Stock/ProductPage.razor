@@ -7,13 +7,13 @@
 @page "/product/{Id:int}"
 
 <div>
-    <button @onclick="SetOrUnsetUpdateProductContent" class="btn">Добавить товар</button>
+    <button @onclick="SetOrUnsetUpdateProductContent" class="btn">Изменить товар</button>
 </div>
 
 <div style="width: 500px">
     @switch (_content)
     {
-        case StockPageContent.AddProduct:
+        case ProductPageContent.UpdateProduct:
             <UpdateProduct />
             break;
     }
@@ -23,9 +23,9 @@
 
 
 @code {
-        [Parameter] public int Id { get; set; }
+    [Parameter] public int Id { get; set; }
 
-    private ProductsModel _product
+    private ProductInputModel _product;
 
     private ProductService _productService;
 
@@ -37,8 +37,31 @@
     new ProductsRepository(),
     new ProductsReviewsAndStocksRepository(),
     new TagsRepository(),
-    new GroupRepository()
+    new GroupRepository());
     }
 
+    private ProductPageContent _content;
 
+    private void SetOrUnsetUpdateProductContent()
+    {
+        SetContenet(ProductPageContent.UpdateProduct);
+    }
+
+    private void SetContenet(ProductPageContent productPageContent)
+    {
+        if (_content == productPageContent)
+        {
+            _content = ProductPageContent.None;
+        }
+        else
+        {
+            _content = productPageContent;
+        }
+    }
+
+    private enum ProductPageContent
+    {
+    None = 0,
+    UpdateProduct = 1
+    }
 }
