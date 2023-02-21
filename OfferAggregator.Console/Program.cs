@@ -6,6 +6,11 @@ using OfferAggregator.Bll;
 using OfferAggregator.Bll.Models;
 using System.Net.Http.Headers;
 
+Console.WriteLine();
+Console.WriteLine();
+Console.WriteLine();
+Console.WriteLine();
+Console.WriteLine();
 
 //ManagerModel manM = new ManagerModel
 //{
