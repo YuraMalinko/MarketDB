@@ -9,15 +9,6 @@
 
 <h3>Добавить товар</h3>
 
-@*<EditForm Model="@exampleModel" OnValidSubmit="@HandleValidSubmit">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-
-    <InputText id="name" @bind-Value="exampleModel.Name" />
-
-    <button type="submit">Submit</button>
-</EditForm>*@
-
 <EditForm Model="@Product" OnValidSubmit="@AddProductToStock">
     <DataAnnotationsValidator />
     <ValidationSummary />

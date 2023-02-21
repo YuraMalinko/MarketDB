@@ -1,0 +1,60 @@
+﻿@using OfferAggregator.Bll.Models;
+@using OfferAggregator.Bll;
+@using OfferAggregator.Dal.Models;
+@using OfferAggregator.Dal.Repositories;
+@using System.ComponentModel.DataAnnotations;
+
+<h3>Посмотреть все товары на складе</h3>
+@if (_fullProducts.Count > 0)
+{
+    <table>
+        <th>№ товара</th>
+        <th>Наименование товара</th>
+        <th>Наименование группы</th>
+        <th>Кол-во товара на складе</th>
+        <th>Наименование тега</th>
+        <th>Средняя оценка товара</th>
+        @foreach (var fullProduct in _fullProducts)
+        {
+            <tr>
+                <td>@fullProduct.Id</td>
+                <td>@fullProduct.Name</td>
+                <td>@fullProduct.GroupName</td>
+                <td>@fullProduct.Amount</td>
+                <td>
+                    @foreach (var tag in fullProduct.Tags)
+                    {
+                <tr>
+                    <td>@tag.Name</td>
+                </tr>
+                    }
+            </td>
+            <td>@fullProduct.AverageScore</td>
+            </tr>
+        }
+    </table>
+
+}
+else
+{
+    <h4>В настоящий момент товары на складе отсутствуют</h4>
+}
+
+@code {
+    private ProductService _productService;
+
+    // private string _errorMessage;
+
+    private List<FullProductModel> _fullProducts = new();
+
+    protected override void OnInitialized()
+    {
+        _productService = new ProductService(
+        new ProductsRepository(),
+        new ProductsReviewsAndStocksRepository(),
+        new TagsRepository(),
+        new GroupRepository()
+        );
+        _fullProducts = _productService.GetFullProducts();
+    }
+}

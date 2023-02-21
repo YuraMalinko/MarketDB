@@ -1,0 +1,44 @@
+﻿@using OfferAggregator.Bll.Models;
+@using OfferAggregator.Bll;
+@using OfferAggregator.Dal.Models;
+@using OfferAggregator.Dal.Repositories;
+@using System.ComponentModel.DataAnnotations;
+
+@page "/product/{Id:int}"
+
+<div>
+    <button @onclick="SetOrUnsetUpdateProductContent" class="btn">Добавить товар</button>
+</div>
+
+<div style="width: 500px">
+    @switch (_content)
+    {
+        case StockPageContent.AddProduct:
+            <UpdateProduct />
+            break;
+    }
+
+</div>
+
+
+
+@code {
+        [Parameter] public int Id { get; set; }
+
+    private ProductsModel _product
+
+    private ProductService _productService;
+
+    private string _errorMessage;
+
+    protected override void OnInitialized()
+    {
+        _productService = new ProductService(
+    new ProductsRepository(),
+    new ProductsReviewsAndStocksRepository(),
+    new TagsRepository(),
+    new GroupRepository()
+    }
+
+
+}

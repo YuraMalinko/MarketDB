@@ -4,15 +4,19 @@
 <div>
     <button @onclick="SetOrUnsetAddProductContent" class="btn">Добавить товар</button>
     <button @onclick="SetOrUnsetRegistrateProductContent" class="btn">Оприходывать товар</button>
+    <button @onclick="SetOrUnsetGetFullProductsContent" class="btn">Посмотреть все товары на складе</button>
 </div>
 <div style="width: 500px">
     @switch (_content)
     {
         case StockPageContent.AddProduct:
-                <AddProduct />
+            <AddProduct />
             break;
         case StockPageContent.RegistrateProduct:
-                <RegistrateProduct />
+            <RegistrateProduct />
+            break;
+        case StockPageContent.GetFullProducts:
+            <GetFullProducts />
             break;
     }
 
@@ -32,6 +36,11 @@
         SetContent(StockPageContent.RegistrateProduct);
     }
 
+    private void SetOrUnsetGetFullProductsContent()
+    {
+        SetContent(StockPageContent.GetFullProducts);
+    }
+
     private void SetContent(StockPageContent stockPageContent)
     {
         if (_content == stockPageContent)
@@ -48,6 +57,7 @@
     {
         None = 0,
         AddProduct = 1,
-        RegistrateProduct = 2
+        RegistrateProduct = 2,
+        GetFullProducts = 3
     }
 }
