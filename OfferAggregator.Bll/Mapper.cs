@@ -122,5 +122,10 @@ namespace OfferAggregator.Bll
         {
             return _mapper.Map<List<GroupModel>>(groupsDtos);
         }
+
+        public ProductOutputModel MapProductDtoToProductOutputModel(ProductsDto productDto)
+        {
+            return _mapper.Map<ProductOutputModel>(productDto);
+        }
     }
 }

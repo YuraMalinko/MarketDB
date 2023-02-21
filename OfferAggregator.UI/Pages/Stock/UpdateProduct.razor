@@ -6,20 +6,36 @@
 
 <h3>Изменить товар</h3>
 
-<EditForm Model="@_product" OnValidSubmit="@UpdateProductInStock">
+<EditForm Model="@_updateProduct" OnValidSubmit="@UpdateProductInStock">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
+    @*<div>
+        <button @onclick="SetOrUnsetUpdateNameofProductContent" class="btn">Изменить наименование товара</button>
+        <button @onclick="SetOrUnsetUpdateGroupIdOfProductContent" class="btn">Изменить группу товара</button>
+    </div>
+
+    <div style="width: 500px">
+        @switch (_content)
+        {
+            case UpdatePageContent.AddProduct:
+                UpdateNameOfProduct();
+                break;
+            case UpdatePageContent.RegistrateProduct:
+                <RegistrateProduct />
+                break;
+        }
+
+    </div>*@
+
     <div>
-        <span>Если вы хотите изменить наименование товара, то впишите новое наименование в поле, в противном случае - оставьте поле пустым</span>
         <div class="left-part">Название товара:</div>
-        <InputText id="name" @bind-Value="_product.Name" />
+        <InputText id="name" @bind-Value="_updateProduct.Name" />
     </div>
 
     <div>
-        <span>Если вы хотите изменить принадлежность товара, то выберите подходящую группу из выпадающего списка, в противном случае - оставьте поле пустым</span>
         <div class="left-part">Номер группы товара:</div>
-        <InputSelect TValue="int" @bind-Value=_product.GroupId>
+        <InputSelect TValue="int" @bind-Value=_updateProduct.GroupId>
             @foreach (var group in _groups)
             {
                 if (group != null)
@@ -34,7 +50,10 @@
 </EditForm>
 
 @code {
-    public ProductInputModel _product;
+    public ProductInputModel _updateProduct;
+
+    [Parameter]
+    public int ProductId { get; set; }
 
     private ProductService _productService;
 
@@ -44,24 +63,64 @@
 
     protected override void OnInitialized()
     {
-        _product = new ProductInputModel();
+        _updateProduct = new ProductInputModel();
         _productService = new ProductService(
         new ProductsRepository(),
         new ProductsReviewsAndStocksRepository(),
         new TagsRepository(),
         new GroupRepository()
         );
-        _groups = _productService.GetAllGroups();
+        FillFormOfUpdateProduct();
     }
 
     private void UpdateProductInStock()
     {
-        if (string.IsNullOrEmpty(_product.Name) && _product.GroupId != null)
+        if (!string.IsNullOrEmpty(_updateProduct.Name) && _updateProduct.GroupId != null)
         {
             //_product.Name
-            _productService.UpdateProduct(_product);
-            _product = new ProductInputModel();
+            _productService.UpdateProduct(_updateProduct);
+            FillFormOfUpdateProduct();
         }
         _errorMessage = string.Empty;
     }
+
+    private void FillFormOfUpdateProduct()
+    {
+        var _product = _productService.GetProductById(ProductId);
+        _updateProduct.Id = _product.Id;
+        _updateProduct.Name = _product.Name;
+        _updateProduct.GroupId = _product.GroupId;
+        _groups = _productService.GetAllGroups();
+    }
+
+    //private UpdatePageContent _content;
+
+    //private void SetOrUnsetUpdateNameofProductContent()
+    //{
+    //    SetContent(UpdatePageContent.UpdateNameofProduct);
+    //}
+
+    //private void SetOrUnsetUpdateGroupIdOfProductContent()
+    //{
+    //    SetContent(UpdatePageContent.UpdateGroupIdOfProduct);
+    //}
+
+    //private void SetContent(UpdatePageContent updatePageContent)
+    //{
+    //    if (_content == updatePageContent)
+    //    {
+    //        _content = UpdatePageContent.None;
+    //    }
+    //    else
+    //    {
+    //        _content = updatePageContent;
+    //    }
+    //}
+
+    //private enum UpdatePageContent
+    //{
+    //    None = 0,
+    //    UpdateNameOfProduct = 1,
+    //    UpdateGroupIdOfProduct = 2
+    //}
 }

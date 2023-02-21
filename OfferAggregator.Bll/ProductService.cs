@@ -153,6 +153,14 @@ namespace OfferAggregator.Bll
 
             return result;
         }
+
+        public ProductOutputModel GetProductById(int productId)
+        {
+            var productDto = _productsRepository.GetProductById(productId);
+            var productModel = _instanceMapper.MapProductDtoToProductOutputModel(productDto);
+
+            return productModel;
+        }
     }
 }
 

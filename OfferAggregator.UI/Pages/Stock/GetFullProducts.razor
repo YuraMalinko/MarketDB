@@ -4,24 +4,26 @@
 @using OfferAggregator.Dal.Repositories;
 @using System.ComponentModel.DataAnnotations;
 
-<h3>Посмотреть все товары на складе</h3>
+<div class="get-full-products">
+<h3>Список товаров на складе</h3>
 @if (_fullProducts.Count > 0)
 {
-    <table>
+        <table class="table-get-full-products">
         <th>№ товара</th>
         <th>Наименование товара</th>
         <th>Наименование группы</th>
-        <th>Кол-во товара на складе</th>
+            <th width: 130px>Кол-во товара на складе</th>
         <th>Наименование тега</th>
         <th>Средняя оценка товара</th>
         @foreach (var fullProduct in _fullProducts)
         {
             <tr>
                 <td>@fullProduct.Id</td>
+                <a href="/product/@fullProduct.Id">
                 <td>@fullProduct.Name</td>
-                <a href="/product/@fullProduct.Id"></a>
+                </a>
                 <td>@fullProduct.GroupName</td>
-                <td>@fullProduct.Amount</td>
+                    <td>@fullProduct.Amount</td>
                 <td>
                     @foreach (var tag in fullProduct.Tags)
                     {
@@ -40,6 +42,7 @@ else
 {
     <h4>В настоящий момент товары на складе отсутствуют</h4>
 }
+</div>
 
 @code {
     private ProductService _productService;

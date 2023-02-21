@@ -80,3 +80,41 @@ a, .btn-link {
 .input-number {
     width: 80px
 }
+
+.stock-top-btns {
+    color: darkgray;
+    display: flex;
+    flex-direction: row;
+    padding-bottom: 10px;
+    width: 1200px;
+}
+
+.get-full-products {
+    width: 800px;
+}
+
+.table-get-full-products {
+    margin-top: 15px;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+}
+
+    .table-get-full-products th {
+        text-align: left;
+    }
+
+    .table-get-full-products tr {
+        border-left: 1px solid darkgray;
+        border-right: 1px solid darkgray;
+        border-bottom: 1px solid darkgray;
+        border-top: 1px solid darkgray;
+    }
+
+    .table-get-full-products td {
+        text-align: center;
+    }
+
+
+
