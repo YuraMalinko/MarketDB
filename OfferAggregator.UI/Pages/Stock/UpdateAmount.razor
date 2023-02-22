@@ -1,0 +1,79 @@
+﻿@using OfferAggregator.Bll.Models;
+@using OfferAggregator.Bll;
+@using OfferAggregator.Dal.Models;
+@using OfferAggregator.Dal.Repositories;
+@using System.ComponentModel.DataAnnotations;
+
+<h3>Изменить количество товара на складе</h3>
+
+<EditForm Model="@_updateStockProduct" OnValidSubmit="@UpdateAmountProductInStock">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+<div>
+        Название товара: @_stockProduct.Name
+</div>
+
+<div>
+        Сейчас на складе товар находится в следующем количестве: @_stockProduct.Amount
+</div>
+
+<div>
+    <div>Введите количество, на которое хотите изменить</div>
+    <InputNumber id="amount" @bind-Value="_updateStockProduct.Amount" />
+</div>
+
+<button type="submit">Изменить количество</button>
+</EditForm>
+
+@code {
+    [Parameter]
+    public int ProductId { get; set; }
+
+    private ProductService _productService;
+
+    private StocksWithProductInputModel _updateStockProduct;
+
+    private StocksWithProductOutputModel _stockProduct;
+
+    protected override void OnInitialized()
+    {
+        _productService = new ProductService(
+        new ProductsRepository(),
+        new ProductsReviewsAndStocksRepository(),
+        new TagsRepository(),
+        new GroupRepository(),
+        new ClientRepository()
+        );
+        _stockProduct = _productService.GetAmountByProductId(ProductId);
+        FillFormOfUpdateStockProduct();
+    }
+
+    //public string GetProductById()
+    //{
+    //    var productName = _productService.GetProductById(ProductId).Name;
+    //    return productName;
+    //}
+
+    //public void GetAmount()
+    //{
+    //    var productAmount = _productService.GetAmountByProductId(ProductId).Amount;
+    //}
+
+    private void FillFormOfUpdateStockProduct()
+    {
+        _updateStockProduct = new StocksWithProductInputModel();
+        _updateStockProduct.ProductId = _stockProduct.ProductId;
+        _updateStockProduct.Name = _stockProduct.Name;
+        _updateStockProduct.Amount = _stockProduct.Amount;
+    }
+
+    private void UpdateAmountProductInStock()
+    {
+        if (_updateStockProduct.Amount > 0)
+        {
+            _productService.UpdateAmountInStock(_updateStockProduct);
+            _stockProduct = _productService.GetAmountByProductId(ProductId);
+        }
+    }
+}

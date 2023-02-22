@@ -25,6 +25,7 @@ namespace OfferAggregator.Bll
                     cfg.CreateMap<CommentForClientDto, InfoAllClientsOutputModel>();
                     cfg.CreateMap<InfoAllClientsOutputModel, CommentForClientDto>();
                     cfg.CreateMap<StocksWithProductInputModel, StocksDtoWithProductName>();
+                    cfg.CreateMap<StocksDtoWithProductName, StocksWithProductOutputModel>();
                     cfg.CreateMap<FullProductDto, FullProductModel>();
                     cfg.CreateMap<TagDto, TagModel>();
                     cfg.CreateMap<ManagerAuthInput, ManagerDto>();
@@ -34,11 +35,13 @@ namespace OfferAggregator.Bll
                     cfg.CreateMap<OrderModel, OrderDto>();
                     cfg.CreateMap<ProductCountModel, ProductCountDto>();
                     cfg.CreateMap<CurrentManager, ManagerDto>();
-                    cfg.CreateMap<ClientModel, ClientsDto>();
+                    cfg.CreateMap<ClientModel, ClientsDto>().ReverseMap();
                     cfg.CreateMap<CommentForOrderModel, CommenForOrderDto>();
                     cfg.CreateMap<CommentForClientModel, CommentForClientDto>();
                     cfg.CreateMap<ProductsStatisticDto, ProductsStatisticModel>();
                     cfg.CreateMap<GroupDto, GroupModel>();
+                    cfg.CreateMap<ClientsProductDto, ClientsProductOutputModel>();
+                    cfg.CreateMap<ProductReviewInputModel, ProductReviewsDto>();
                 });
 
             _mapper = _configuration.CreateMapper();
@@ -73,7 +76,7 @@ namespace OfferAggregator.Bll
             return _mapper.Map<ClientsDto>(clients);
         }
 
-        public StocksDtoWithProductName MapStocksWithProductModelToStocksWithProductModel(StocksWithProductInputModel stockProduct)
+        public StocksDtoWithProductName MapStocksWithProductInputModelToStocksDtoWithProductName(StocksWithProductInputModel stockProduct)
         {
             return _mapper.Map<StocksDtoWithProductName>(stockProduct);
         }
@@ -126,6 +129,21 @@ namespace OfferAggregator.Bll
         public ProductOutputModel MapProductDtoToProductOutputModel(ProductsDto productDto)
         {
             return _mapper.Map<ProductOutputModel>(productDto);
+        }
+
+        public StocksWithProductOutputModel MapStocksDtoWithProductNameToStocksWithProductOutputModel(StocksDtoWithProductName stockProductDto)
+        {
+            return _mapper.Map<StocksWithProductOutputModel>(stockProductDto);
+        }
+
+        public ClientsProductOutputModel MapClientsProductDtoToClientsProductOutpetModel(ClientsProductDto clientProductDto)
+        {
+            return _mapper.Map<ClientsProductOutputModel>(clientProductDto);
+        }
+
+        public ProductReviewsDto MapProductReviewInputModelToProductReviewsDto(ProductReviewInputModel productReviewModel)
+        {
+            return _mapper.Map<ProductReviewsDto>(productReviewModel);
         }
     }
 }

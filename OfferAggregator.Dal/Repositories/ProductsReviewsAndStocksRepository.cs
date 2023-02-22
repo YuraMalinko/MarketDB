@@ -22,16 +22,18 @@ namespace OfferAggregator.Dal.Repositories
             }
         }
 
-        public int AddScoreAndCommentToProductReview(ProductReviewsDto prReview)
+        public bool AddScoreOrCommentToProductReview(ProductReviewsDto prReview)
         {
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
             {
                 sqlCnctn.Open();
 
-                return sqlCnctn.Execute(
+                int result = sqlCnctn.Execute(
                     StoredProcedures.AddScoreAndCommentToProductReview,
                     prReview,
                     commandType: CommandType.StoredProcedure);
+
+                return result > 0;
             }
         }
 

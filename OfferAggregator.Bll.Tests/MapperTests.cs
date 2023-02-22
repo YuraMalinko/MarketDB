@@ -30,7 +30,7 @@ namespace OfferAggregator.Bll.Tests
 
         public void MapStocksWithProductModelToStocksDtoWithProductNameTest(StocksWithProductInputModel baseStockModel, StocksDtoWithProductName exepectedStockDto)
         {
-            StocksDtoWithProductName actualStockDto = _mapper.MapStocksWithProductModelToStocksWithProductModel(baseStockModel);
+            StocksDtoWithProductName actualStockDto = _mapper.MapStocksWithProductInputModelToStocksDtoWithProductName(baseStockModel);
 
             actualStockDto.Should().BeEquivalentTo(exepectedStockDto);
         }

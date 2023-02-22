@@ -9,7 +9,15 @@ namespace OfferAggregator.Bll
     {
         private Mapper _instanceMapper = Mapper.GetInstance();
 
-        private IClientRepository _clientRepository = new ClientRepository();
+        private IClientRepository _clientRepository;
+
+        private IProductsRepository _productsRepository;
+
+        public ClientService(IClientRepository clientRepository, IProductsRepository productsRepository)
+        {
+            _clientRepository = clientRepository;
+            _productsRepository = productsRepository;
+        }
 
         public List<InfoAllClientsOutputModel> GetAllClientsWithoutComment()
         {
@@ -18,6 +26,20 @@ namespace OfferAggregator.Bll
             var result = _instanceMapper.MapClientsDtoToClientsOutputModel(clientsAll);
 
             return result;
+        }
+
+        public ClientsProductOutputModel GetClientsWhoOrderedProductByProductId(int productId)
+        {
+            var getProduct = _productsRepository.GetProductById(productId);
+
+            if (getProduct == null)
+            {
+                throw new ArgumentException($"Product with productId {productId} is not exist");
+            }
+                var getClientsDto = _clientRepository.GetClientsWhoOrderedProductByProductId(productId);
+                var getClientsModel = _instanceMapper.MapClientsProductDtoToClientsProductOutpetModel(getClientsDto);
+
+                return getClientsModel;
         }
     }
 }

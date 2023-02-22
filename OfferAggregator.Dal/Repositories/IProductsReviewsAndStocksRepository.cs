@@ -6,7 +6,7 @@ namespace OfferAggregator.Dal.Repositories
     {
         public bool AddAmountToStocks(StocksDtoWithProductName stock);
 
-        public int AddScoreAndCommentToProductReview(ProductReviewsDto prReview);
+        public bool AddScoreOrCommentToProductReview(ProductReviewsDto prReview);
 
         public List<ProductWithScoresAndCommentsDto> GetAllScoresAndCommentsForProductByProductId(int productId);
 

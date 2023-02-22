@@ -4,29 +4,11 @@
 @using OfferAggregator.Dal.Repositories;
 @using System.ComponentModel.DataAnnotations;
 
-<h3>Изменить товар</h3>
+<h3>Изменить наименование или группу товара</h3>
 
 <EditForm Model="@_updateProduct" OnValidSubmit="@UpdateProductInStock">
     <DataAnnotationsValidator />
     <ValidationSummary />
-
-    @*<div>
-        <button @onclick="SetOrUnsetUpdateNameofProductContent" class="btn">Изменить наименование товара</button>
-        <button @onclick="SetOrUnsetUpdateGroupIdOfProductContent" class="btn">Изменить группу товара</button>
-    </div>
-
-    <div style="width: 500px">
-        @switch (_content)
-        {
-            case UpdatePageContent.AddProduct:
-                UpdateNameOfProduct();
-                break;
-            case UpdatePageContent.RegistrateProduct:
-                <RegistrateProduct />
-                break;
-        }
-
-    </div>*@
 
     <div>
         <div class="left-part">Название товара:</div>
@@ -46,14 +28,19 @@
         </InputSelect>
     </div>
 
+    @if (!string.IsNullOrEmpty(_errorMessage))
+    {
+        <div>@_errorMessage</div>
+    }
+
     <button type="submit">Изменить товар</button>
 </EditForm>
 
 @code {
-    public ProductInputModel _updateProduct;
-
     [Parameter]
     public int ProductId { get; set; }
+
+    public ProductInputModel _updateProduct;
 
     private ProductService _productService;
 
@@ -68,20 +55,44 @@
         new ProductsRepository(),
         new ProductsReviewsAndStocksRepository(),
         new TagsRepository(),
-        new GroupRepository()
+        new GroupRepository(),
+        new ClientRepository()
         );
         FillFormOfUpdateProduct();
     }
 
     private void UpdateProductInStock()
     {
-        if (!string.IsNullOrEmpty(_updateProduct.Name) && _updateProduct.GroupId != null)
+        try
         {
-            //_product.Name
-            _productService.UpdateProduct(_updateProduct);
-            FillFormOfUpdateProduct();
+            if (!string.IsNullOrEmpty(_updateProduct.Name) && _updateProduct.GroupId != 0)
+            {
+                _productService.UpdateProduct(_updateProduct);
+                FillFormOfUpdateProduct();
+            }
+            _errorMessage = string.Empty;
         }
-        _errorMessage = string.Empty;
+        catch (ArgumentException ex)
+        {
+            switch (ex.Message)
+            {
+                case "ProductId is not exist":
+                    _errorMessage = "Такого товара не существует";
+                    break;
+
+                case "Product is deleted":
+                    _errorMessage = "Такой товар удален";
+                    break;
+
+                case "GroupId is not exist":
+                    _errorMessage = "Такой группы товаров не существует";
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = "Произошла ошибка";
+        }
     }
 
     private void FillFormOfUpdateProduct()
@@ -92,35 +103,4 @@
         _updateProduct.GroupId = _product.GroupId;
         _groups = _productService.GetAllGroups();
     }
-
-    //private UpdatePageContent _content;
-
-    //private void SetOrUnsetUpdateNameofProductContent()
-    //{
-    //    SetContent(UpdatePageContent.UpdateNameofProduct);
-    //}
-
-    //private void SetOrUnsetUpdateGroupIdOfProductContent()
-    //{
-    //    SetContent(UpdatePageContent.UpdateGroupIdOfProduct);
-    //}
-
-    //private void SetContent(UpdatePageContent updatePageContent)
-    //{
-    //    if (_content == updatePageContent)
-    //    {
-    //        _content = UpdatePageContent.None;
-    //    }
-    //    else
-    //    {
-    //        _content = updatePageContent;
-    //    }
-    //}
-
-    //private enum UpdatePageContent
-    //{
-    //    None = 0,
-    //    UpdateNameOfProduct = 1,
-    //    UpdateGroupIdOfProduct = 2
-    //}
 }

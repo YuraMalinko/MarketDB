@@ -394,11 +394,16 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 GroupId = 10,
                 IsDeleted = false
             };
-            StocksDtoWithProductName getAmountByProductId = null;
-            bool resultOfAdd = true;
+            StocksDtoWithProductName getAmountByProductId = new StocksDtoWithProductName
+            {
+                Amount = 0,
+                Name = "one",
+                ProductId = 1
+            };
+            bool resultOfUpdate = true;
             bool expected = true;
 
-            yield return new object[] { stockProductDto, getProductDto, getAmountByProductId, resultOfAdd, expected, stockProductModel };
+            yield return new object[] { stockProductDto, getProductDto, getAmountByProductId, resultOfUpdate, expected, stockProductModel };
         }
 
         public static IEnumerable RegistrateProductInStockTest_WhenUpdateExistProductTestCaseSource()
@@ -547,7 +552,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 
 
             fullProductDto = new FullProductDto();
-            expectedFullProductModel = new FullProductModel { Tags = new ()} ;
+            expectedFullProductModel = new FullProductModel { Tags = new() };
             productId = 9;
 
             yield return new object[] { productId, fullProductDto, expectedFullProductModel };
@@ -756,14 +761,14 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 
             yield return new object[] { productsStatisticDtos, expectedProductsStatisticModels };
 
-            
+
             productsStatisticDtos = new List<ProductsStatisticDto>();
 
             expectedProductsStatisticModels = new List<ProductsStatisticModel>();
 
             yield return new object[] { productsStatisticDtos, expectedProductsStatisticModels };
 
-            
+
             productsStatistiDto1 = new ProductsStatisticDto
             {
                 Id = 137,

@@ -137,7 +137,17 @@ TagsRepository _tagsRepository = new TagsRepository();
 
 GroupRepository _groupRepository = new GroupRepository();
 
-ProductService productService = new ProductService(_productsRepository, _productsReviewsAndStocksRepository, _tagsRepository, _groupRepository);
+ClientRepository clientRepository = new ClientRepository();
+
+ProductService productService = new ProductService(_productsRepository, _productsReviewsAndStocksRepository, _tagsRepository, _groupRepository, clientRepository);
+
+ProductReviewInputModel productReviewModel = new ProductReviewInputModel
+{
+    ClientId = 1,
+    ProductId = 2
+};
+
+var addCom = productService.AddScoreOrCommentToProductReview(productReviewModel);
 
 //var getAllGroups = productService.GetAllGroups();
 
@@ -150,7 +160,15 @@ ProductService productService = new ProductService(_productsRepository, _product
 ProductsDto pr = new ProductsDto
 { Name = "Sheep" };
 
-var addPr = _productsRepository.AddProduct(pr);
+//var addPr = _productsRepository.AddProduct(pr);
+
+
+
+//var get = clientRepository.GetClientsWhoOrderedProductByProductId(50);
+
+ClientService clientService = new ClientService(clientRepository, _productsRepository);
+
+//var get = clientService.GetClientsWhoOrderedProductByProductId(500);
 
 Console.WriteLine();
 

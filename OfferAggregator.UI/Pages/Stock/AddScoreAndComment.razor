@@ -1,0 +1,119 @@
+﻿@using OfferAggregator.Bll.Models;
+@using OfferAggregator.Bll;
+@using OfferAggregator.Dal.Models;
+@using OfferAggregator.Dal.Repositories;
+@using System.ComponentModel.DataAnnotations;
+
+<h3>Добавить оценку и/или комментарий товару</h3>
+
+<EditForm Model="@_updateProductReview" OnValidSubmit="@AddScoreOrCommentForProduct">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div>Список всех клиентов, которые заказывали данный товар</div>
+    <InputSelect TValue="int" @bind-Value="_updateProductReview.ClientId">
+        @foreach (var client in _clients)
+        {
+            if (client != null)
+            {
+                <option value="@client.Id">@client.Name</option>
+            }
+        }
+    </InputSelect>
+
+    <div>Поставьте оценку клиента от 1 до 5</div>
+    <InputSelect TValue="int?" @bind-Value="_updateProductReview.Score">
+        <option value="">   </option>
+        @foreach (var score in _scores)
+        {
+            <option value="@score">@score</option>
+        }
+    </InputSelect>
+
+    <div>Напишите комментарий клиента о товаре</div>
+    <InputText id="comment" @bind-Value="_updateProductReview.Comment" />
+
+    @if (!string.IsNullOrEmpty(_errorMessage))
+    {
+        <div>@_errorMessage</div>
+    }
+
+    <button type="submit">Добавить ревью на товар</button>
+</EditForm>
+
+@code {
+    [Parameter]
+    public int ProductId { get; set; }
+
+    public ProductReviewInputModel _updateProductReview;
+
+    private ProductService _productService;
+
+    private ClientService _clientService;
+
+    private List<ClientModel> _clients = new();
+
+    private List<int> _scores = new List<int> { 1, 2, 3, 4, 5 };
+
+    private string _errorMessage;
+
+    protected override void OnInitialized()
+    {
+        _updateProductReview = new ProductReviewInputModel();
+        _productService = new ProductService(
+        new ProductsRepository(),
+        new ProductsReviewsAndStocksRepository(),
+        new TagsRepository(),
+        new GroupRepository(),
+        new ClientRepository()
+        );
+        _clientService = new ClientService(
+        new ClientRepository(),
+        new ProductsRepository()
+        );
+        var getClients = _clientService.GetClientsWhoOrderedProductByProductId(ProductId);
+
+        _clients = getClients?.Clients ?? new List<ClientModel>();
+        _updateProductReview.ProductId = ProductId;
+    }
+
+    private void AddScoreOrCommentForProduct()
+    {
+        try
+        {
+            if (_updateProductReview.ClientId != 0 && (_updateProductReview.Score != null || !string.IsNullOrEmpty(_updateProductReview.Comment)))
+            {
+                _productService.AddScoreOrCommentToProductReview(_updateProductReview);
+                _errorMessage = string.Empty;
+                _updateProductReview = new() { ProductId = ProductId };
+            }
+
+            else if (_updateProductReview.Score == null && string.IsNullOrEmpty(_updateProductReview.Comment))
+            {
+                _errorMessage = "Необходимо ввести хотя бы одно значение: оценку или комментарий";
+            }
+        }
+        catch (ArgumentException ex)
+        {
+            switch (ex.Message)
+            {
+                case "Client did not order product with this product":
+                    _errorMessage = "Клиент не может оценить товар, поскольку его еще не заказывал.";
+                    break;
+                case "This score not included in the range from 1 to 5":
+                    _errorMessage = "Необходимо ввести оценку от 1 до 5";
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = "Произошла ошибка";
+        }
+    }
+
+        //private void FillFormOfAddScoreOrComment()
+        //{
+        //    _updateProductReview.ProductId = ProductId;
+        //    // _updateProductReview.ClientId
+        //}
+}

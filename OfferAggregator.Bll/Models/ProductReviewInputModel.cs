@@ -1,6 +1,6 @@
-﻿namespace OfferAggregator.Dal.Models
+﻿namespace OfferAggregator.Bll.Models
 {
-    public class ProductReviewsDto
+    public class ProductReviewInputModel
     {
         public int? Score { get; set; }
 

@@ -7,6 +7,8 @@ using OfferAggregator.Dal;
 using System.Data;
 using OfferAggregator.Dal.Repositories;
 using Dapper;
+using System.Text.RegularExpressions;
+using System.Linq;
 
 namespace OfferAggregator.Bll
 {
@@ -22,13 +24,16 @@ namespace OfferAggregator.Bll
 
         private IGroupRepository _groupRepository;
 
+        private IClientRepository _clientRepository;
+
         public ProductService(IProductsRepository productsRepository, IProductsReviewsAndStocksRepository productsReviewsAndStocksRepository,
-                              ITagsRepository tagsRepository, IGroupRepository groupRepository)
+                              ITagsRepository tagsRepository, IGroupRepository groupRepository, IClientRepository clientRepository)
         {
             _productsRepository = productsRepository;
             _productsReviewsAndStocksRepository = productsReviewsAndStocksRepository;
             _tagsRepository = tagsRepository;
             _groupRepository = groupRepository;
+            _clientRepository = clientRepository;
         }
 
         public int AddProduct(ProductInputModel product)
@@ -41,7 +46,15 @@ namespace OfferAggregator.Bll
                 throw new ArgumentException($"GroupId {groupId} is not exist");
             }
 
-            return _productsRepository.AddProduct(addProduct);
+            var productId = _productsRepository.AddProduct(addProduct);
+            _productsReviewsAndStocksRepository.AddAmountToStocks(
+                new()
+                {
+                    Amount = 0,
+                    ProductId = productId
+                });
+
+            return productId;
         }
 
         public List<ProductOutputModel> GetAllProducts()
@@ -60,31 +73,58 @@ namespace OfferAggregator.Bll
             return result;
         }
 
+        //public bool UpdateProduct(ProductInputModel product)
+        //{
+        //    bool result;
+        //    try
+        //    {
+        //        var productDto = _instanceMapper.MapProductModelToProductsDto(product);
+        //        var getGroup = _groupRepository.GetGroupById(productDto.GroupId);
+        //        var getProductDto = _productsRepository.GetProductById(productDto.Id);
+        //        if (getProductDto != null && !getProductDto.IsDeleted && getGroup != null)
+        //        {
+        //            result = _productsRepository.UpdateProduct(productDto);
+        //        }
+        //        else
+        //        {
+        //            return false;
+        //        }
+
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return false;
+        //    }
+
+        //    return result;
+        //}
+
         public bool UpdateProduct(ProductInputModel product)
         {
-            bool result;
-            try
+            var productDto = _instanceMapper.MapProductModelToProductsDto(product);
+            var getGroup = _groupRepository.GetGroupById(productDto.GroupId);
+            var getProductDto = _productsRepository.GetProductById(productDto.Id);
+            if (getProductDto == null)
             {
-                var productDto = _instanceMapper.MapProductModelToProductsDto(product);
-                var getGroup = _groupRepository.GetGroupById(productDto.GroupId);
-                var getProductDto = _productsRepository.GetProductById(productDto.Id);
-                if (getProductDto != null && !getProductDto.IsDeleted && getGroup != null)
-                {
-                    result = _productsRepository.UpdateProduct(productDto);
-                }
-                else
-                {
-                    return false;
-                }
-
-            }
-            catch (Exception ex)
-            {
-                return false;
+                throw new ArgumentException("ProductId is not exist");
             }
 
-            return result;
+            else if (getProductDto.IsDeleted)
+            {
+                throw new ArgumentException("Product is deleted");
+            }
+
+            else if (getGroup == null)
+            {
+                throw new ArgumentException("GroupId is not exist");
+            }
+
+            else
+            {
+                return _productsRepository.UpdateProduct(productDto);
+            }
         }
+
 
         public bool DeleteProduct(int productId)
         {
@@ -101,23 +141,23 @@ namespace OfferAggregator.Bll
 
         public bool RegistrateProductInStock(StocksWithProductInputModel stockProduct)
         {
-            var stockProductDto = _instanceMapper.MapStocksWithProductModelToStocksWithProductModel(stockProduct);
+            var stockProductDto = _instanceMapper.MapStocksWithProductInputModelToStocksDtoWithProductName(stockProduct);
             var getProductDto = _productsRepository.GetProductById(stockProductDto.ProductId);
             bool result = false;
             if (getProductDto != null && stockProductDto.Amount > 0 && !getProductDto.IsDeleted)
             {
                 var getAmountByProductId = _productsReviewsAndStocksRepository.GetAmountByProductId(stockProductDto.ProductId);
 
-                if (getAmountByProductId is null)
-                {
-                    result = _productsReviewsAndStocksRepository.AddAmountToStocks(stockProductDto);
-                }
-                else
-                {
+                //if (getAmountByProductId is null)
+                //{
+                //    result = _productsReviewsAndStocksRepository.AddAmountToStocks(stockProductDto);
+                //}
+                //else
+                //{
                     var sumAmount = getAmountByProductId.Amount + stockProductDto.Amount;
                     stockProductDto.Amount = sumAmount;
                     result = _productsReviewsAndStocksRepository.UpdateAmountOfStocks(stockProductDto);
-                }
+                //}
             }
             return result;
         }
@@ -160,6 +200,54 @@ namespace OfferAggregator.Bll
             var productModel = _instanceMapper.MapProductDtoToProductOutputModel(productDto);
 
             return productModel;
+        }
+
+        public bool UpdateAmountInStock(StocksWithProductInputModel stockProductInModel)
+        {
+            var stockProductDto = _instanceMapper.MapStocksWithProductInputModelToStocksDtoWithProductName(stockProductInModel);
+            var result = _productsReviewsAndStocksRepository.UpdateAmountOfStocks(stockProductDto);
+
+            return result;
+        }
+
+        public StocksWithProductOutputModel GetAmountByProductId(int productId)
+        {
+            var getAmountDto = _productsReviewsAndStocksRepository.GetAmountByProductId(productId);
+            var getAmountModel = _instanceMapper.MapStocksDtoWithProductNameToStocksWithProductOutputModel(getAmountDto);
+
+            return getAmountModel;
+        }
+
+        public bool AddScoreOrCommentToProductReview(ProductReviewInputModel productReviewModel)
+        {
+            if (productReviewModel.Score !=null && (productReviewModel.Score<1 || productReviewModel.Score>5))
+            {
+                throw new ArgumentException("This score not included in the range from 1 to 5");
+            }
+
+            if (!CheckClientOrderedProduct(productReviewModel.ProductId, productReviewModel.ClientId))
+            {
+                throw new ArgumentException("Client did not order product with this product");
+            }
+
+            var productReviewDto = _instanceMapper.MapProductReviewInputModelToProductReviewsDto(productReviewModel);
+            var result = _productsReviewsAndStocksRepository.AddScoreOrCommentToProductReview(productReviewDto);
+
+            return result;
+        }
+
+        private bool CheckClientOrderedProduct(int productId, int clientId)
+        {
+            var getProductDto = _productsRepository.GetProductById(productId);
+
+            if (getProductDto == null)
+            {
+                throw new Exception();
+            }
+
+            var clientsList = _clientRepository.GetClientsWhoOrderedProductByProductId(productId).Clients;
+            
+            return clientsList.Any(c => c.Id == clientId);
         }
     }
 }
