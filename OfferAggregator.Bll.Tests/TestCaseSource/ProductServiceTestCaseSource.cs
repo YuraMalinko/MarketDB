@@ -739,7 +739,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             };
             List<ProductsStatisticDto> productsStatisticDtos = new List<ProductsStatisticDto> { productsStatistiDto1, productsStatistiDto2 };
 
-            ProductsStatisticModel productsStatisticModel1 = new ProductsStatisticModel
+            ProductsStatisticOutputModel productsStatisticModel1 = new ProductsStatisticOutputModel
             {
                 Id = 19,
                 Name = "19",
@@ -748,7 +748,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 CountOfClients = 7,
                 AverageScore = 3.5f
             };
-            ProductsStatisticModel productsStatisticModel2 = new ProductsStatisticModel
+            ProductsStatisticOutputModel productsStatisticModel2 = new ProductsStatisticOutputModel
             {
                 Id = 29,
                 Name = "29",
@@ -757,14 +757,14 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 CountOfClients = 5,
                 AverageScore = 4f
             };
-            List<ProductsStatisticModel> expectedProductsStatisticModels = new List<ProductsStatisticModel> { productsStatisticModel1, productsStatisticModel2 };
+            List<ProductsStatisticOutputModel> expectedProductsStatisticModels = new List<ProductsStatisticOutputModel> { productsStatisticModel1, productsStatisticModel2 };
 
             yield return new object[] { productsStatisticDtos, expectedProductsStatisticModels };
 
 
             productsStatisticDtos = new List<ProductsStatisticDto>();
 
-            expectedProductsStatisticModels = new List<ProductsStatisticModel>();
+            expectedProductsStatisticModels = new List<ProductsStatisticOutputModel>();
 
             yield return new object[] { productsStatisticDtos, expectedProductsStatisticModels };
 
@@ -781,7 +781,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             productsStatistiDto2 = new ProductsStatisticDto();
             productsStatisticDtos = new List<ProductsStatisticDto> { productsStatistiDto1, productsStatistiDto2 };
 
-            productsStatisticModel1 = new ProductsStatisticModel
+            productsStatisticModel1 = new ProductsStatisticOutputModel
             {
                 Id = 137,
                 Name = "137",
@@ -790,8 +790,8 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 CountOfClients = 130,
                 AverageScore = 3.9f
             };
-            productsStatisticModel2 = new ProductsStatisticModel();
-            expectedProductsStatisticModels = new List<ProductsStatisticModel> { productsStatisticModel1, productsStatisticModel2 };
+            productsStatisticModel2 = new ProductsStatisticOutputModel();
+            expectedProductsStatisticModels = new List<ProductsStatisticOutputModel> { productsStatisticModel1, productsStatisticModel2 };
 
             yield return new object[] { productsStatisticDtos, expectedProductsStatisticModels };
 
@@ -807,8 +807,8 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             };
             productsStatisticDtos = new List<ProductsStatisticDto> { productsStatistiDto1, productsStatistiDto2 };
 
-            productsStatisticModel1 = new ProductsStatisticModel();
-            productsStatisticModel2 = new ProductsStatisticModel
+            productsStatisticModel1 = new ProductsStatisticOutputModel();
+            productsStatisticModel2 = new ProductsStatisticOutputModel
             {
                 Id = 246,
                 Name = "246",
@@ -817,7 +817,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 CountOfClients = 246,
                 AverageScore = null
             };
-            expectedProductsStatisticModels = new List<ProductsStatisticModel> { productsStatisticModel1, productsStatisticModel2 };
+            expectedProductsStatisticModels = new List<ProductsStatisticOutputModel> { productsStatisticModel1, productsStatisticModel2 };
 
             yield return new object[] { productsStatisticDtos, expectedProductsStatisticModels };
 
@@ -828,12 +828,12 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             };
             productsStatisticDtos = new List<ProductsStatisticDto> { productsStatistiDto1 };
 
-            productsStatisticModel1 = new ProductsStatisticModel
+            productsStatisticModel1 = new ProductsStatisticOutputModel
             {
                 Id = 152,
                 Name = "152"
             };
-            expectedProductsStatisticModels = new List<ProductsStatisticModel> { productsStatisticModel1 };
+            expectedProductsStatisticModels = new List<ProductsStatisticOutputModel> { productsStatisticModel1 };
 
             yield return new object[] { productsStatisticDtos, expectedProductsStatisticModels };
         }

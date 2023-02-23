@@ -143,6 +143,7 @@
     <Build Include="dbo\Stored Procedures\GetProductsStatistic.sql" />
     <Build Include="dbo\Stored Procedures\GetAllGroups.sql" />
     <Build Include="dbo\Stored Procedures\GetClientsWhoOrderedProductByProductId.sql" />
+    <Build Include="dbo\Stored Procedures\GetProductStatisticById.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="MarketDB.refactorlog" />

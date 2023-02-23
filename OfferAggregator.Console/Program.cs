@@ -147,7 +147,7 @@ ProductReviewInputModel productReviewModel = new ProductReviewInputModel
     ProductId = 2
 };
 
-var addCom = productService.AddScoreOrCommentToProductReview(productReviewModel);
+//var addCom = productService.AddScoreOrCommentToProductReview(productReviewModel);
 
 //var getAllGroups = productService.GetAllGroups();
 
@@ -169,6 +169,14 @@ ProductsDto pr = new ProductsDto
 ClientService clientService = new ClientService(clientRepository, _productsRepository);
 
 //var get = clientService.GetClientsWhoOrderedProductByProductId(500);
+
+//var getSt = _productsRepository.GetProductStatisticById(47);
+
+//var get = productService.GetProductStatisticById(470);
+
+//var get = _productsReviewsAndStocksRepository.GetAllScoresAndCommentsForProductByProductId(30);
+
+var getScC = productService.GetAllScoresAndCommentsForProductByProductId(30);
 
 Console.WriteLine();
 

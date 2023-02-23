@@ -52,9 +52,9 @@ namespace OfferAggregator.Bll.Tests
         }
 
         [TestCaseSource(typeof(MapperTestCaseSource), nameof(MapperTestCaseSource.MapProductsStatisticDtosToProductsStatisticModelsTestCaseSource))]
-        public void MapProductsStatisticDtosToProductsStatisticModelsTest(List<ProductsStatisticDto> productsStatisticDtos, List<ProductsStatisticModel> expectedProductsStatisticModels)
+        public void MapProductsStatisticDtosToProductsStatisticModelsTest(List<ProductsStatisticDto> productsStatisticDtos, List<ProductsStatisticOutputModel> expectedProductsStatisticModels)
         {
-            List<ProductsStatisticModel> actualProductsStatisticModels = _mapper.MapProductsStatisticDtosToProductsStatisticModels(productsStatisticDtos);
+            List<ProductsStatisticOutputModel> actualProductsStatisticModels = _mapper.MapProductsStatisticDtosToProductsStatisticOutputModels(productsStatisticDtos);
 
             actualProductsStatisticModels.Should().BeEquivalentTo(expectedProductsStatisticModels);
         }

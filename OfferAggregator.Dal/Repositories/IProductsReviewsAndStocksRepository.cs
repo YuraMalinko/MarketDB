@@ -8,7 +8,7 @@ namespace OfferAggregator.Dal.Repositories
 
         public bool AddScoreOrCommentToProductReview(ProductReviewsDto prReview);
 
-        public List<ProductWithScoresAndCommentsDto> GetAllScoresAndCommentsForProductByProductId(int productId);
+        public ProductWithScoresAndCommentsDto GetAllScoresAndCommentsForProductByProductId(int productId);
 
         public List<ProductWithScoresAndCommentsDto> GetAllScoresAndCommentsForProductByProductIDAndClientId(int productId, int clientId);
 

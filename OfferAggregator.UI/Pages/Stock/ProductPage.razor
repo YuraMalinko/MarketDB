@@ -10,6 +10,16 @@
     <button @onclick="SetOrUnsetUpdateProductContent" class="btn">Изменить товар</button>
     <button @onclick="SetOrUnsetUpdateAmountContent" class="btn">Изменить количество</button>
     <button @onclick="SetOrUnsetAddScoreAndCommentContent" class="btn">Добавить оценку/комментарий</button>
+    <button @onclick="SetOrUnsetGetProductStatisticContent" class="btn">Посмотреть статитстику товара</button>
+        <a href="/getFullProducts">
+    <button class="btn">Вернуться к общему списку товаров</button>
+    </a>
+    <button @onclick="SetOrUnsetGetAllScoresAndCommentsByProductIdContent" class="btn">Посмотреть все оценки и комментарии на товар</button>
+</div>
+
+<div style="text-align: right">
+    Вы находитесь внутри карточки товара: <br />
+    @_product.Name
 </div>
 
 <div style="width: 500px">
@@ -26,17 +36,23 @@
         case ProductPageContent.AddScoreAndComment:
             <AddScoreAndComment ProductId="Id" />
             break;
+
+        case ProductPageContent.GetProductStatistic:
+            <GetProductStatistic ProductId="Id" />
+            break;
+
+        case ProductPageContent.GetAllScoresAndCommentsByProductId:
+            <GetAllScoresAndCommentsByProductId ProductId="Id" />
+            break;                       
     }
 
 </div>
-
-
 
 @code {
     [Parameter]
     public int Id { get; set; }
 
-    private ProductInputModel _product;
+    private ProductOutputModel _product;
 
     private ProductService _productService;
 
@@ -50,6 +66,7 @@
     new TagsRepository(),
     new GroupRepository(),
     new ClientRepository());
+        _product = _productService.GetProductById(Id);
     }
 
     private ProductPageContent _content;
@@ -69,6 +86,16 @@
         SetContenet(ProductPageContent.AddScoreAndComment);
     }
 
+    private void SetOrUnsetGetProductStatisticContent()
+    {
+        SetContenet(ProductPageContent.GetProductStatistic);
+    }
+
+    private void SetOrUnsetGetAllScoresAndCommentsByProductIdContent()
+    {
+        SetContenet(ProductPageContent.GetAllScoresAndCommentsByProductId);
+    }
+
     private void SetContenet(ProductPageContent productPageContent)
     {
         if (_content == productPageContent)
@@ -86,6 +113,8 @@
         None = 0,
         UpdateProduct = 1,
         UpdateAmount = 2,
-        AddScoreAndComment = 3
+        AddScoreAndComment = 3,
+        GetProductStatistic = 4,
+        GetAllScoresAndCommentsByProductId = 5
     }
 }

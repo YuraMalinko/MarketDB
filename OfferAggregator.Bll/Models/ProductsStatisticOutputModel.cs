@@ -1,6 +1,6 @@
 ﻿namespace OfferAggregator.Bll.Models
 {
-    public class ProductsStatisticModel
+    public class ProductsStatisticOutputModel
     {
         public int Id { get; set; }
 

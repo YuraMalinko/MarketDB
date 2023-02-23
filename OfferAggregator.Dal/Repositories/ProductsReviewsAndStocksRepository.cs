@@ -13,10 +13,10 @@ namespace OfferAggregator.Dal.Repositories
             {
                 sqlCnct.Open();
 
-               int result = sqlCnct.Execute(
-                    StoredProcedures.AddAmountToStocks,
-                    new { stock.Amount, stock.ProductId },
-                                    commandType: CommandType.StoredProcedure);
+                int result = sqlCnct.Execute(
+                     StoredProcedures.AddAmountToStocks,
+                     new { stock.Amount, stock.ProductId },
+                                     commandType: CommandType.StoredProcedure);
 
                 return result > 0;
             }
@@ -143,42 +143,35 @@ namespace OfferAggregator.Dal.Repositories
             }
         }
 
-        public List<ProductWithScoresAndCommentsDto> GetAllScoresAndCommentsForProductByProductId(int productId)
+        public ProductWithScoresAndCommentsDto GetAllScoresAndCommentsForProductByProductId(int productId)
         {
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
             {
-                List<ProductWithScoresAndCommentsDto> result = new List<ProductWithScoresAndCommentsDto>();
+                ProductWithScoresAndCommentsDto result = null;
                 sqlCnctn.Open();
                 sqlCnctn.Query<ProductWithScoresAndCommentsDto, ProductReviewsDto, ProductWithScoresAndCommentsDto>(
                     StoredProcedures.GetAllScoresAndCommentsForProductByProductId,
                     (scoresAndComments, reviews) =>
                     {
                         reviews.ProductId = scoresAndComments.ProductId;
-                        ProductWithScoresAndCommentsDto crnt = null;
 
-                        foreach (var product in result)
+                        if (result == null)
                         {
-                            if (product.ProductId == scoresAndComments.ProductId)
-                            {
-                                crnt = product;
-                            }
+                            result = scoresAndComments;
+                            result.ProductReviews = new List<ProductReviewsDto>();
                         }
 
-                        if (crnt is null)
+                        if (reviews != null)
                         {
-                            crnt = scoresAndComments;
-                            result.Add(crnt);
-                            crnt.ProductReviews = new List<ProductReviewsDto>();
+                            result.ProductReviews.Add(reviews);
                         }
-
-                        crnt.ProductReviews.Add(reviews);
 
                         return scoresAndComments;
                     },
                     new { productId },
-                    splitOn: "Score",
+                    splitOn: "ClientId",
                     commandType: CommandType.StoredProcedure
-                    ).ToList();
+                    );
 
                 return result;
             }
@@ -260,7 +253,7 @@ namespace OfferAggregator.Dal.Repositories
                 sqlCnctn.Open();
                 int result = sqlCnctn.Execute(
                     StoredProcedures.DeleteProductsReviews,
-                    new { productReview.ProductId, productReview.ClientId},
+                    new { productReview.ProductId, productReview.ClientId },
                     commandType: CommandType.StoredProcedure);
 
                 return result > 0;
@@ -270,8 +263,8 @@ namespace OfferAggregator.Dal.Repositories
         public bool DeleteStock(StocksDtoWithProductName stock)
         {
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
-            { 
-            sqlCnctn.Open();
+            {
+                sqlCnctn.Open();
                 int result = sqlCnctn.Execute(
                     StoredProcedures.DeleteStock,
                     new { stock.Amount, stock.ProductId },

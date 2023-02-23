@@ -38,10 +38,12 @@ namespace OfferAggregator.Bll
                     cfg.CreateMap<ClientModel, ClientsDto>().ReverseMap();
                     cfg.CreateMap<CommentForOrderModel, CommenForOrderDto>();
                     cfg.CreateMap<CommentForClientModel, CommentForClientDto>();
-                    cfg.CreateMap<ProductsStatisticDto, ProductsStatisticModel>();
+                    cfg.CreateMap<ProductsStatisticDto, ProductsStatisticOutputModel>();
                     cfg.CreateMap<GroupDto, GroupModel>();
                     cfg.CreateMap<ClientsProductDto, ClientsProductOutputModel>();
                     cfg.CreateMap<ProductReviewInputModel, ProductReviewsDto>();
+                    cfg.CreateMap<ProductWithScoresAndCommentsDto, ProductWithScoresAndCommentsOutputModel>();
+                    cfg.CreateMap<ProductReviewsDto, ProductReviewOutputModel>();
                 });
 
             _mapper = _configuration.CreateMapper();
@@ -111,9 +113,9 @@ namespace OfferAggregator.Bll
             return _mapper.Map<ManagerDto>(manager);
         }
 
-        public List<ProductsStatisticModel> MapProductsStatisticDtosToProductsStatisticModels(List<ProductsStatisticDto> productsStatistics)
+        public List<ProductsStatisticOutputModel> MapProductsStatisticDtosToProductsStatisticOutputModels(List<ProductsStatisticDto> productsStatistics)
         {
-            return _mapper.Map<List<ProductsStatisticModel>>(productsStatistics);
+            return _mapper.Map<List<ProductsStatisticOutputModel>>(productsStatistics);
         }
 
         public CreatingOrderDto MapCreatingOrderModelToCreatingOrderDto(CreatingOrderModel creatingOrderModel)
@@ -144,6 +146,16 @@ namespace OfferAggregator.Bll
         public ProductReviewsDto MapProductReviewInputModelToProductReviewsDto(ProductReviewInputModel productReviewModel)
         {
             return _mapper.Map<ProductReviewsDto>(productReviewModel);
+        }
+
+        public ProductsStatisticOutputModel MapProductStatisticDtoToProductStatisticOutputModel(ProductsStatisticDto productStatistic)
+        {
+            return _mapper.Map<ProductsStatisticOutputModel>(productStatistic);
+        }
+
+        public ProductWithScoresAndCommentsOutputModel MapProductWithScoresAndCommentsDtoToProductWithScoresAndCommentsOutputModel(ProductWithScoresAndCommentsDto productScoresCommentsDto)
+        {
+            return _mapper.Map<ProductWithScoresAndCommentsOutputModel>(productScoresCommentsDto);
         }
     }
 }
