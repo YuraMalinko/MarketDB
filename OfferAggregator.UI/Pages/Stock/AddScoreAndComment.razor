@@ -3,6 +3,8 @@
 @using OfferAggregator.Dal.Models;
 @using OfferAggregator.Dal.Repositories;
 @using System.ComponentModel.DataAnnotations;
+@using System.Timers
+@using System.Threading.Tasks
 
 <h3>Добавить оценку и/или комментарий товару</h3>
 
@@ -41,6 +43,11 @@
     <button type="submit">Добавить ревью на товар</button>
 </EditForm>
 
+@if (_isAdded)
+{
+<div>Ревью клиента на товар успешно добавлено!</div>    
+}
+
 @code {
     [Parameter]
     public int ProductId { get; set; }
@@ -57,6 +64,10 @@
 
     private string _errorMessage;
 
+    private bool _isAdded;
+
+    private Timer _timer;
+
     protected override void OnInitialized()
     {
         _updateProductReview = new ProductReviewInputModel();
@@ -72,9 +83,11 @@
         new ProductsRepository()
         );
         var getClients = _clientService.GetClientsWhoOrderedProductByProductId(ProductId);
-
         _clients = getClients?.Clients ?? new List<ClientModel>();
         _updateProductReview.ProductId = ProductId;
+        _timer = new Timer();
+        _timer.Interval = 2000;
+        _timer.Elapsed += StopShowing;
     }
 
     private void AddScoreOrCommentForProduct()
@@ -86,6 +99,8 @@
                 _productService.AddScoreOrCommentToProductReview(_updateProductReview);
                 _errorMessage = string.Empty;
                 _updateProductReview = new() { ProductId = ProductId };
+                _isAdded = true;
+                _timer.Start();
             }
 
             else if (_updateProductReview.Score == null && string.IsNullOrEmpty(_updateProductReview.Comment))
@@ -111,9 +126,10 @@
         }
     }
 
-        //private void FillFormOfAddScoreOrComment()
-        //{
-        //    _updateProductReview.ProductId = ProductId;
-        //    // _updateProductReview.ClientId
-        //}
+    private async void StopShowing(object sender, ElapsedEventArgs args)
+    {
+        _isAdded = false;
+        await InvokeAsync(StateHasChanged);
+        _timer.Stop();
+    }
 }

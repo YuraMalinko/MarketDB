@@ -3,6 +3,8 @@
 @using OfferAggregator.Dal.Models;
 @using OfferAggregator.Dal.Repositories;
 @using System.ComponentModel.DataAnnotations;
+@using System.Timers
+@using System.Threading.Tasks
 
 <h3>Изменить количество товара на складе</h3>
 
@@ -26,6 +28,11 @@
 <button type="submit">Изменить количество</button>
 </EditForm>
 
+@if (_isAdded)
+{
+<div>Количество товара на складе успешно изменено!</div>    
+}
+
 @code {
     [Parameter]
     public int ProductId { get; set; }
@@ -35,6 +42,10 @@
     private StocksWithProductInputModel _updateStockProduct;
 
     private StocksWithProductOutputModel _stockProduct;
+
+    private bool _isAdded;
+
+    private Timer _timer;
 
     protected override void OnInitialized()
     {
@@ -47,18 +58,10 @@
         );
         _stockProduct = _productService.GetAmountByProductId(ProductId);
         FillFormOfUpdateStockProduct();
+        _timer = new Timer();
+        _timer.Interval = 2000;
+        _timer.Elapsed += StopShowing;
     }
-
-    //public string GetProductById()
-    //{
-    //    var productName = _productService.GetProductById(ProductId).Name;
-    //    return productName;
-    //}
-
-    //public void GetAmount()
-    //{
-    //    var productAmount = _productService.GetAmountByProductId(ProductId).Amount;
-    //}
 
     private void FillFormOfUpdateStockProduct()
     {
@@ -74,6 +77,15 @@
         {
             _productService.UpdateAmountInStock(_updateStockProduct);
             _stockProduct = _productService.GetAmountByProductId(ProductId);
+            _isAdded = true;
+            _timer.Start();
         }
+    }
+
+    private async void StopShowing(object sender, ElapsedEventArgs args)
+    {
+        _isAdded = false;
+        await InvokeAsync(StateHasChanged);
+        _timer.Stop();
     }
 }

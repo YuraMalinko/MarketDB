@@ -3,6 +3,8 @@
 @using OfferAggregator.Dal.Models;
 @using OfferAggregator.Dal.Repositories;
 @using System.ComponentModel.DataAnnotations;
+@using System.Timers
+@using System.Threading.Tasks
 
 <h3>Оприходывать товар</h3>
 
@@ -37,6 +39,12 @@
     <button type="submit">Оприходывать товар на складе</button>
 </EditForm>
 
+@if (_isAdded)
+{
+    <div>Товар: @StockProduct.Name успешно оприходаван.</div>
+    <div>Товар: Текущее количество товара на складе: </div>
+}
+
 @code {
     private StocksWithProductInputModel StockProduct { get; set; }
 
@@ -45,6 +53,10 @@
     private string _errorMessage;
 
     private List<ProductOutputModel> _products = new();
+
+    private bool _isAdded;
+
+    private Timer _timer;
 
     protected override void OnInitialized()
     {
@@ -57,6 +69,9 @@
         new ClientRepository()
         );
         _products = _productService.GetAllProducts();
+        _timer = new Timer();
+        _timer.Interval = 3000;
+        _timer.Elapsed += StopSowing;
     }
 
     private void RegistrateProductInStock()
@@ -67,6 +82,8 @@
             {
                 _productService.RegistrateProductInStock(StockProduct);
                 StockProduct = new StocksWithProductInputModel();
+                _isAdded = true;
+                _timer.Start();
             }
             _errorMessage = string.Empty;
         }
@@ -74,5 +91,12 @@
         {
             _errorMessage = "Произошла ошибка";
         }
+    }
+
+    private async void StopSowing(object sender, ElapsedEventArgs args)
+    {
+        _isAdded = false;
+        await InvokeAsync(StateHasChanged);
+        _timer.Stop();
     }
 }

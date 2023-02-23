@@ -1,11 +1,10 @@
-﻿@*@page "/addProduct"
-*@
-
-@using OfferAggregator.Bll.Models;
+﻿@using OfferAggregator.Bll.Models;
 @using OfferAggregator.Bll;
 @using OfferAggregator.Dal.Models;
 @using OfferAggregator.Dal.Repositories;
 @using System.ComponentModel.DataAnnotations;
+@using System.Timers
+@using System.Threading.Tasks
 
 <h3>Добавить товар</h3>
 
@@ -39,6 +38,11 @@
     <button type="submit">Добавить новый товар на склад</button>
 </EditForm>
 
+@if (_isAdded)
+{
+   <div>Товар успешно добавлен на склад!</div> 
+}
+
 @code {
     public ProductInputModel Product { get; set; }
 
@@ -47,6 +51,10 @@
     private string _errorMessage;
 
     private List<GroupModel> _groups = new();
+
+    private bool _isAdded;
+
+    private Timer _timer;
 
     protected override void OnInitialized()
     {
@@ -59,6 +67,10 @@
         new ClientRepository()
         );
         _groups = _productService.GetAllGroups();
+        _isAdded = false;
+        _timer = new Timer();
+        _timer.Interval = 3000;
+        _timer.Elapsed += StopShowing;
     }
 
     private void AddProductToStock()
@@ -69,6 +81,8 @@
             {
                 _productService.AddProduct(Product);
                 Product = new ProductInputModel();
+                _isAdded = true;
+                _timer.Start();
             }
             _errorMessage = string.Empty;
         }
@@ -80,5 +94,12 @@
         {
             _errorMessage = "Произошла ошибка";
         }
+    }
+
+    private async void StopShowing(object sender, ElapsedEventArgs args)
+    {
+        _isAdded = false;
+        await InvokeAsync(StateHasChanged);
+        _timer.Stop();
     }
 }
