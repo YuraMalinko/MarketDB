@@ -1,4 +1,4 @@
-﻿@using OfferAggregator.Bll.Models;
+﻿@*@using OfferAggregator.Bll.Models;
 @using OfferAggregator.Bll;
 @using OfferAggregator.Dal.Models;
 @using OfferAggregator.Dal.Repositories;
@@ -36,18 +36,20 @@
     }
 
     <button type="submit">Изменить товар</button>
+    @if (_isAdded)
+    {
+        <div>Товар успешно изменен!</div>
+    }
 </EditForm>
 
-@if (_isAdded)
-{
-<div>Товар успешно изменен!</div>    
-}
+
+
 
 @code {
     [Parameter]
     public int ProductId { get; set; }
 
-    public ProductInputModel _updateProduct;
+    private ProductInputModel _updateProduct;
 
     private ProductService _productService;
 
@@ -127,3 +129,4 @@
         _timer.Stop();
     }
 }
+*@

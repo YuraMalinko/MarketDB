@@ -176,7 +176,7 @@ ClientService clientService = new ClientService(clientRepository, _productsRepos
 
 //var get = _productsReviewsAndStocksRepository.GetAllScoresAndCommentsForProductByProductId(30);
 
-var getScC = productService.GetAllScoresAndCommentsForProductByProductId(30);
+var getScC = productService.GetAllScoresAndCommentsForProductByProductId(13);
 
 Console.WriteLine();
 

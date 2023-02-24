@@ -1,0 +1,388 @@
+﻿@using OfferAggregator.Bll.Models;
+@using OfferAggregator.Bll;
+@using OfferAggregator.Dal.Models;
+@using OfferAggregator.Dal.Repositories;
+@using System.ComponentModel.DataAnnotations;
+@using System.Timers
+@using System.Threading.Tasks
+
+<div class="update-product-get-statistic">
+
+    <div>
+        Товар: @_stockProduct.Name
+    </div>
+    <div>
+        Количество на складе: @_stockProduct.Amount
+    </div><br />
+
+    <table>
+
+        <td>
+            <div class="update-product">
+                <EditForm Model="@_updateProduct" OnValidSubmit="@UpdateProductInStock">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+
+                    <div>
+                        <div style="width: 390px; padding-bottom: 10px">
+                            Для изменения наименования или группы товара заполните форму ниже.
+                        </div>
+                        <div>Название товара:</div>
+                        <InputText id="name" @bind-Value="_updateProduct.Name" />
+                    </div>
+
+                    <div style="padding-top: 7px;">
+                        <div>Группа товара:</div>
+                        <InputSelect TValue="int" @bind-Value=_updateProduct.GroupId>
+                            @foreach (var group in _groups)
+                            {
+                                if (group != null)
+                                {
+                                    <option value="@group.Id">@group.Name</option>
+                                }
+                            }
+                        </InputSelect>
+                    </div>
+
+                    <button type="submit" class="button-submit">Изменить товар</button>
+
+                    <div style="height:20px">
+                    @if (!string.IsNullOrEmpty(_errorMessage))
+                    {
+                            <span>@_errorMessage</span>
+                    }
+                    </div>
+
+                    <div style="height:20px">
+                        @if (_isAdded)
+                        {
+                            <span>Товар успешно изменен!</span>
+                        }
+                    </div>
+                </EditForm>
+            </div>
+        </td>
+        <td>
+            <div class="update-amount">
+
+                <EditForm Model="@_updateStockProduct" OnValidSubmit="@UpdateAmountProductInStock">
+                    <DataAnnotationsValidator />
+                    <ValidationSummary />
+
+                    <div style="width: 390px; padding-bottom: 10px">
+                        Для изменения количества товара на складе заполните форму ниже.
+                    </div>
+                    <div>
+                        <div>Введите количество, на которое хотите изменить</div>
+                        <InputNumber id="amount" style="width:90px" @bind-Value="_updateStockProduct.Amount" />
+                    </div>
+
+                    <button type="submit" class="button-submit">Изменить количество</button>
+                    <div style="width: 390px; padding-top: 5px; font-size: 13px;">
+                        *Обращаем внимание, что для оприходывания товара Вам необходимо перейти в соответсвующий раздел
+                    </div>
+                    @if (_isAddedAmount)
+                    {
+                        <div>Количество товара на складе успешно изменено!</div>
+                    }
+                </EditForm>
+            </div>
+        </td>
+    </table>
+
+    <div class="get-statistic" style="padding-top: 10px; padding-bottom: 15px;">
+        <div style=" padding-bottom: 10px;">
+            Статистика по товару за все время:
+        </div>
+        <div>
+            <div class="div-row" style="padding-bottom: 4px;">
+                <div style="width:100%">Количество проданного товара:</div>
+                <div style="width:50px; padding-left: 10px; ">@_productStatistic.SumOfCountofProduct</div>
+            </div>
+            <div class="div-row" style="padding-bottom: 4px;">
+                <div style="width:100%">
+                    Количество заказов товара:
+                </div>
+                <div style="padding-left: 10px; width:50px">@_productStatistic.CountOfOrders</div>
+            </div>
+            <div class="div-row" style="padding-bottom: 4px;">
+                <div style="width:100%">
+                    Количество клиентов, заказавших товар:
+                </div>
+                <div style="padding-left: 10px; width:50px">@_productStatistic.CountOfClients</div>
+            </div>
+            <div class="div-row" style="padding-bottom: 4px;">
+                <div style="width:100%">
+                    Средняя оценка товара:
+                </div>
+                <div style="padding-left: 10px; width:50px">
+                    @if (_productStatistic.AverageScore != null)
+                    {
+                        @Math.Round((double)_productStatistic.AverageScore,1)
+                    }
+                    else
+                    {
+                        <span>-</span>
+                    }
+                </div>
+            </div>
+        </div>
+
+        @if (!string.IsNullOrEmpty(_errorMessage))
+        {
+            <div>@_errorMessage</div>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int ProductId { get; set; }
+
+    private ProductOutputModel _product;
+
+    private ProductService _productService;
+
+    private string _errorMessage;
+
+    protected override void OnInitialized()
+    {
+        _productStatistic = new ProductsStatisticOutputModel();
+        _productService = new ProductService(
+        new ProductsRepository(),
+        new ProductsReviewsAndStocksRepository(),
+        new TagsRepository(),
+        new GroupRepository(),
+        new ClientRepository());
+        _product = _productService.GetProductById(ProductId);
+
+
+        _updateProduct = new ProductInputModel();
+        FillFormOfUpdateProduct();
+        _timer = new Timer();
+        _timer.Interval = 3000;
+        _timer.Elapsed += StopShowing;
+
+
+
+        _stockProduct = _productService.GetAmountByProductId(ProductId);
+        FillFormOfUpdateStockProduct();
+        _timerAmount = new Timer();
+        _timerAmount.Interval = 3000;
+        _timerAmount.Elapsed += StopShowingAmount;
+
+        GetProductStatisticById();
+    }
+
+    private ProductPageContent _content;
+
+    private ProductsStatisticOutputModel _productStatistic;
+
+
+    //private void SetOrUnsetUpdateProductContent()
+    //{
+    //    SetContenet(ProductPageContent.UpdateProduct);
+    //}
+
+    //private void SetOrUnsetUpdateAmountContent()
+    //{
+    //    SetContenet(ProductPageContent.UpdateAmount);
+    //}
+
+    private void SetOrUnsetAddScoreAndCommentContent()
+    {
+        SetContenet(ProductPageContent.AddScoreAndComment);
+    }
+
+    private void SetOrUnsetGetProductStatisticContent()
+    {
+        SetContenet(ProductPageContent.GetProductStatistic);
+    }
+
+    private void SetOrUnsetGetAllScoresAndCommentsByProductIdContent()
+    {
+        SetContenet(ProductPageContent.GetAllScoresAndCommentsByProductId);
+    }
+
+    private void SetContenet(ProductPageContent productPageContent)
+    {
+        if (_content == productPageContent)
+        {
+            _content = ProductPageContent.None;
+        }
+        else
+        {
+            _content = productPageContent;
+        }
+    }
+
+    private enum ProductPageContent
+    {
+        None = 0,
+        //UpdateProduct = 1,
+        //UpdateAmount = 2,
+        AddScoreAndComment = 1,
+        GetProductStatistic = 2,
+        GetAllScoresAndCommentsByProductId = 3
+    }
+
+
+
+    private ProductInputModel _updateProduct;
+
+    //private ProductService _productService;
+
+    //private string _errorMessage;
+
+    private List<GroupModel> _groups = new();
+
+    private bool _isAdded;
+
+    private bool _isAddedAmount;
+
+    private Timer _timer;
+
+    private Timer _timerAmount;
+
+    //protected override void OnInitialized()
+    //{
+    //    _updateProduct = new ProductInputModel();
+    //    _productService = new ProductService(
+    //    new ProductsRepository(),
+    //    new ProductsReviewsAndStocksRepository(),
+    //    new TagsRepository(),
+    //    new GroupRepository(),
+    //    new ClientRepository()
+    //    );
+    //    FillFormOfUpdateProduct();
+    //    _timer = new Timer();
+    //    _timer.Interval = 3000;
+    //    _timer.Elapsed += StopShowing;
+    //}
+
+    private void UpdateProductInStock()
+    {
+        try
+        {
+            if (!string.IsNullOrEmpty(_updateProduct.Name) && _updateProduct.GroupId != 0)
+            {
+                _productService.UpdateProduct(_updateProduct);
+                FillFormOfUpdateProduct();
+                _isAdded = true;
+                _timer.Start();
+            }
+            _errorMessage = string.Empty;
+        }
+        catch (ArgumentException ex)
+        {
+            switch (ex.Message)
+            {
+                case "ProductId is not exist":
+                    _errorMessage = "Такого товара не существует";
+                    break;
+
+                case "Product is deleted":
+                    _errorMessage = "Такой товар удален";
+                    break;
+
+                case "GroupId is not exist":
+                    _errorMessage = "Такой группы товаров не существует";
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = "Произошла ошибка";
+        }
+    }
+
+    private void UpdateAmountProductInStock()
+    {
+        if (_updateStockProduct.Amount > 0)
+        {
+            _productService.UpdateAmountInStock(_updateStockProduct);
+            _stockProduct = _productService.GetAmountByProductId(ProductId);
+            _isAddedAmount = true;
+            _timerAmount.Start();
+        }
+    }
+
+    private void FillFormOfUpdateProduct()
+    {
+        var _product = _productService.GetProductById(ProductId);
+        _updateProduct.Id = _product.Id;
+        _updateProduct.Name = _product.Name;
+        _updateProduct.GroupId = _product.GroupId;
+        _groups = _productService.GetAllGroups();
+    }
+
+    private async void StopShowing(object sender, ElapsedEventArgs args)
+    {
+        _isAdded = false;
+        await InvokeAsync(StateHasChanged);
+        _timer.Stop();
+    }
+
+    private async void StopShowingAmount(object sender, ElapsedEventArgs args)
+    {
+        _isAddedAmount = false;
+        await InvokeAsync(StateHasChanged);
+        _timerAmount.Stop();
+    }
+
+
+    //private ProductService _productService;
+
+    private StocksWithProductInputModel _updateStockProduct;
+
+    private StocksWithProductOutputModel _stockProduct;
+
+    //private bool _isAdded;
+
+    //private Timer _timer;
+
+    //protected override void OnInitialized()
+    //{
+    //    _productService = new ProductService(
+    //    new ProductsRepository(),
+    //    new ProductsReviewsAndStocksRepository(),
+    //    new TagsRepository(),
+    //    new GroupRepository(),
+    //    new ClientRepository()
+    //    );
+    //    _stockProduct = _productService.GetAmountByProductId(ProductId);
+    //    FillFormOfUpdateStockProduct();
+    //    _timer = new Timer();
+    //    _timer.Interval = 2000;
+    //    _timer.Elapsed += StopShowing;
+    //}
+
+    private void FillFormOfUpdateStockProduct()
+    {
+        _updateStockProduct = new StocksWithProductInputModel();
+        _updateStockProduct.ProductId = _stockProduct.ProductId;
+        _updateStockProduct.Name = _stockProduct.Name;
+        _updateStockProduct.Amount = _stockProduct.Amount;
+    }
+
+
+
+
+
+    private void GetProductStatisticById()
+    {
+        try
+        {
+            _productStatistic = _productService.GetProductStatisticById(ProductId);
+            _errorMessage = string.Empty;
+        }
+        catch (ArgumentException ex)
+        {
+            _errorMessage = "Такого товара не существует";
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = "Произошла ошибка";
+        }
+    }
+}

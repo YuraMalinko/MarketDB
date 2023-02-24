@@ -8,6 +8,12 @@
 
 <div class="get-full-products">
     <h3>Список товаров на складе</h3>
+
+    <EditForm Model="@_filter">
+        <InputNumber id="countOver" @bind-Value="_filter.CountOverFilter" />
+        <InputNumber id="countUnder" @bind-Value="_filter.CountUnderFilter" />
+    </EditForm>
+
     @if (_fullProducts.Count > 0)
     {
         <table class="table-get-full-products">
@@ -17,13 +23,13 @@
             <th width: 130px>Кол-во товара на складе</th>
             <th>Наименование тега</th>
             <th>Средняя оценка товара</th>
-            @foreach (var fullProduct in _fullProducts)
+            @foreach (var fullProduct in _fullProducts.Where(FilterPredicat))
             {
                 <tr>
                     <td>@fullProduct.Id</td>
                     <td>
                         <a href="/product/@fullProduct.Id">
-                    @fullProduct.Name
+                            @fullProduct.Name
                         </a>
                     </td>
                     <td>@fullProduct.GroupName</td>
@@ -35,14 +41,14 @@
                         <td>@tag.Name</td>
                     </tr>
                         }
-                    </td>
+                </td>
                     @if (fullProduct.AverageScore != null)
                     {
-                        <td>@Math.Round((double)fullProduct.AverageScore,1)</td>
+                    <td>@Math.Round((double)fullProduct.AverageScore,1)</td>
                     }
                     else
                     {
-                        <td>-</td>
+                    <td>-</td>
                     }
                 </tr>
             }
@@ -64,6 +70,8 @@
 
     private List<FullProductModel> _fullProducts = new();
 
+    private Filter _filter = new();
+
     protected override void OnInitialized()
     {
         _productService = new ProductService(
@@ -71,9 +79,21 @@
         new ProductsReviewsAndStocksRepository(),
         new TagsRepository(),
         new GroupRepository(),
-        new ClientRepository()
-    );
-        _fullProducts = _productService.GetFullProducts();
+        new ClientRepository());
 
+        _fullProducts = _productService.GetFullProducts();
+    }
+
+    private bool FilterPredicat(FullProductModel fullProduct)
+    {
+        return (_filter.CountUnderFilter is null || fullProduct.Amount <= _filter.CountUnderFilter)
+        && (_filter.CountOverFilter is null || fullProduct.Amount >= _filter.CountOverFilter);
+    }
+
+    private class Filter
+    {
+        public int? CountUnderFilter { get; set; }
+
+        public int? CountOverFilter { get; set; }
     }
 }

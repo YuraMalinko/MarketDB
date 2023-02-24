@@ -153,8 +153,6 @@ namespace OfferAggregator.Dal.Repositories
                     StoredProcedures.GetAllScoresAndCommentsForProductByProductId,
                     (scoresAndComments, reviews) =>
                     {
-                        reviews.ProductId = scoresAndComments.ProductId;
-
                         if (result == null)
                         {
                             result = scoresAndComments;
@@ -164,6 +162,7 @@ namespace OfferAggregator.Dal.Repositories
                         if (reviews != null)
                         {
                             result.ProductReviews.Add(reviews);
+                            reviews.ProductId = scoresAndComments.ProductId;
                         }
 
                         return scoresAndComments;

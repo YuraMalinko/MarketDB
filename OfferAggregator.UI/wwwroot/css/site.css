@@ -125,5 +125,29 @@ a, .btn-link {
         text-align: left;
     }
 
+.update-product-get-statistic {
+width: 1170px;
+}
 
+    .update-product-get-statistic .update-product {
+        width: 585px;
+    }
 
+    .update-product-get-statistic .update-amount {
+        width: 1170px;
+}
+
+    .update-product-get-statistic .get-statistic {
+        width: 365px;
+    }
+
+.div-row {
+display:flex;
+flex-direction:row;
+}
+
+.button-submit {
+    cursor: alias;
+    border-radius: 7px;
+    margin-top: 7px;
+}
