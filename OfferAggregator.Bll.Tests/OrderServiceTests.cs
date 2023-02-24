@@ -26,6 +26,8 @@ namespace OfferAggregator.Bll.Tests
 
         private Mock<ICommentForClientRepository> _mockCommentForClientRepo;
 
+        private Mock<IProductsReviewsAndStocksRepository> _mockProductReviewAndStockRepo;
+
         [SetUp]
 
         public void SetUp()
@@ -37,6 +39,7 @@ namespace OfferAggregator.Bll.Tests
             _mockProductsRepo = new Mock<IProductsRepository>();
             _mockCommentForOrderRepo = new Mock<ICommentForOrderRepository>();
             _mockCommentForClientRepo = new Mock<ICommentForClientRepository>();
+            _mockProductReviewAndStockRepo = new Mock<IProductsReviewsAndStocksRepository>();
             _orderService = new OrderService(
                _mockManagerRepo.Object,
                _mockClientRepo.Object,
@@ -44,13 +47,14 @@ namespace OfferAggregator.Bll.Tests
                _mockOrdersProductsRepo.Object,
                _mockProductsRepo.Object,
                _mockCommentForOrderRepo.Object,
-               _mockCommentForClientRepo.Object);
+               _mockCommentForClientRepo.Object,
+               _mockProductReviewAndStockRepo.Object);
         }
 
         [TestCaseSource(typeof(OrderServiceTestCaseSource), nameof(OrderServiceTestCaseSource.CreateNewOrderWithOneProductTestCaseSource))]
-        public void CreateNewOrderWithOneProductTest(CreatingOrderModel creatingOrderModel, ClientsDto getClient, CreatingOrderDto creatingOrderDto,
-                                       int addOrder, int addCommentForOrder, int addCommentForClient, ProductCountModel crntProductModel,
-                                       ProductsDto getProductById, OrdersProductsDto ordersProductsDto, bool addProductToOrder, int expected, ManagerDto getManager)
+        public void CreateNewOrderWithOneProductTest(CreatingOrderModel creatingOrderModel, ClientsDto getClient, CreatingOrderDto creatingOrderDto,int addOrder, int addCommentForOrder, 
+                                               int addCommentForClient, ProductCountModel crntProductModel, ProductsDto getProductById,OrdersProductsDto ordersProductsDto, bool addProductToOrder, 
+                                               int expected, ManagerDto getManager, StocksDtoWithProductName getAmountProductOnStock, StocksDtoWithProductName stockProduct)
         {
             _mockClientRepo.Setup(c => c.GetClientById(creatingOrderModel.Order.ClientId)).Returns(getClient).Verifiable();
             _mockManagerRepo.Setup(m => m.GetManagerById(creatingOrderModel.Order.ManagerId)).Returns(getManager).Verifiable();
@@ -59,6 +63,8 @@ namespace OfferAggregator.Bll.Tests
             _mockCommentForClientRepo.Setup(comO => comO.AddComment(It.IsAny<CommentForClientDto>())).Returns(addCommentForClient).Verifiable();
             _mockProductsRepo.Setup(p => p.GetProductById(crntProductModel.Id)).Returns(getProductById).Verifiable();
             _mockOrdersProductsRepo.Setup(op => op.AddProductToOrders(It.Is<OrdersProductsDto>(op => op.Equals(ordersProductsDto)))).Returns(addProductToOrder).Verifiable();
+            _mockProductReviewAndStockRepo.Setup(prs => prs.GetAmountByProductId(crntProductModel.Id)).Returns(getAmountProductOnStock).Verifiable();
+            _mockProductReviewAndStockRepo.Setup(prs => prs.UpdateAmountOfStocks(It.Is<StocksDtoWithProductName>(prs => prs.Equals(stockProduct)))).Returns(true).Verifiable();
 
             int actual = _orderService.CreateNewOrder(creatingOrderModel);
 
@@ -69,6 +75,7 @@ namespace OfferAggregator.Bll.Tests
             _mockCommentForClientRepo.VerifyAll();
             _mockProductsRepo.VerifyAll();
             _mockOrdersProductsRepo.VerifyAll();
+            _mockProductReviewAndStockRepo.VerifyAll();
 
             Assert.AreEqual(expected, actual);
         }
@@ -77,7 +84,9 @@ namespace OfferAggregator.Bll.Tests
         public void CreateNewOrderWithTwoProductTest(CreatingOrderModel creatingOrderModel, ClientsDto getClient, CreatingOrderDto creatingOrderDto,
                                        int addOrder, int addCommentForOrder, int addCommentForClient, ProductCountModel crntProductModel1,
                                        ProductCountModel crntProductModel2, ProductsDto getProductById, OrdersProductsDto ordersProductsDto1,
-                                       OrdersProductsDto ordersProductsDto2, bool addProductToOrder, int expected, ManagerDto getManager)
+                                       OrdersProductsDto ordersProductsDto2, bool addProductToOrder, int expected, ManagerDto getManager,
+                                       StocksDtoWithProductName getAmountProductOnStock1, StocksDtoWithProductName getAmountProductOnStock2,
+                                       StocksDtoWithProductName stockProduct1, StocksDtoWithProductName stockProduct2)
         {
             _mockClientRepo.Setup(c => c.GetClientById(creatingOrderModel.Order.ClientId)).Returns(getClient).Verifiable();
             _mockManagerRepo.Setup(m => m.GetManagerById(creatingOrderModel.Order.ManagerId)).Returns(getManager).Verifiable();
@@ -88,6 +97,10 @@ namespace OfferAggregator.Bll.Tests
             _mockProductsRepo.Setup(p => p.GetProductById(crntProductModel2.Id)).Returns(getProductById).Verifiable();
             _mockOrdersProductsRepo.Setup(op => op.AddProductToOrders(It.Is<OrdersProductsDto>(op => op.Equals(ordersProductsDto1)))).Returns(addProductToOrder).Verifiable();
             _mockOrdersProductsRepo.Setup(op => op.AddProductToOrders(It.Is<OrdersProductsDto>(op => op.Equals(ordersProductsDto2)))).Returns(addProductToOrder).Verifiable();
+            _mockProductReviewAndStockRepo.Setup(prs => prs.GetAmountByProductId(crntProductModel1.Id)).Returns(getAmountProductOnStock1).Verifiable();
+            _mockProductReviewAndStockRepo.Setup(prs => prs.GetAmountByProductId(crntProductModel2.Id)).Returns(getAmountProductOnStock2).Verifiable();
+            _mockProductReviewAndStockRepo.Setup(prs => prs.UpdateAmountOfStocks(It.Is<StocksDtoWithProductName>(prs => prs.Equals(stockProduct1)))).Returns(true).Verifiable();
+            _mockProductReviewAndStockRepo.Setup(prs => prs.UpdateAmountOfStocks(It.Is<StocksDtoWithProductName>(prs => prs.Equals(stockProduct2)))).Returns(true).Verifiable();
 
             int actual = _orderService.CreateNewOrder(creatingOrderModel);
 
@@ -98,6 +111,7 @@ namespace OfferAggregator.Bll.Tests
             _mockCommentForClientRepo.VerifyAll();
             _mockProductsRepo.VerifyAll();
             _mockOrdersProductsRepo.VerifyAll();
+            _mockProductReviewAndStockRepo.VerifyAll();
 
             Assert.AreEqual(expected, actual);
         }
@@ -160,8 +174,8 @@ namespace OfferAggregator.Bll.Tests
 
         [TestCaseSource(typeof(OrderServiceTestCaseSource), nameof(OrderServiceTestCaseSource.CreateNewOrderWithOneProduct_WhenCommentsForOrderIsNullTestCaseSource))]
         public void CreateNewOrderWithOneProduct_WhenCommentsForOrderIsNullTest(CreatingOrderModel creatingOrderModel, ClientsDto getClient, CreatingOrderDto creatingOrderDto,
-                                       int addOrder, int addCommentForClient, ProductCountModel crntProductModel,
-                                       ProductsDto getProductById, OrdersProductsDto ordersProductsDto, bool addProductToOrder, int expected, ManagerDto getManager)
+                                       int addOrder, int addCommentForClient, ProductCountModel crntProductModel, ProductsDto getProductById, OrdersProductsDto ordersProductsDto,
+                                       bool addProductToOrder, int expected, ManagerDto getManager, StocksDtoWithProductName getAmountProductOnStock, StocksDtoWithProductName stockProduct)
         {
             _mockClientRepo.Setup(c => c.GetClientById(creatingOrderModel.Order.ClientId)).Returns(getClient).Verifiable();
             _mockManagerRepo.Setup(m => m.GetManagerById(creatingOrderModel.Order.ManagerId)).Returns(getManager).Verifiable();
@@ -169,6 +183,8 @@ namespace OfferAggregator.Bll.Tests
             _mockCommentForClientRepo.Setup(comO => comO.AddComment(It.IsAny<CommentForClientDto>())).Returns(addCommentForClient).Verifiable();
             _mockProductsRepo.Setup(p => p.GetProductById(crntProductModel.Id)).Returns(getProductById).Verifiable();
             _mockOrdersProductsRepo.Setup(op => op.AddProductToOrders(It.Is<OrdersProductsDto>(op => op.Equals(ordersProductsDto)))).Returns(addProductToOrder).Verifiable();
+            _mockProductReviewAndStockRepo.Setup(prs => prs.GetAmountByProductId(crntProductModel.Id)).Returns(getAmountProductOnStock).Verifiable();
+            _mockProductReviewAndStockRepo.Setup(prs => prs.UpdateAmountOfStocks(It.Is<StocksDtoWithProductName>(prs => prs.Equals(stockProduct)))).Returns(true).Verifiable();
 
             int actual = _orderService.CreateNewOrder(creatingOrderModel);
 
@@ -179,14 +195,16 @@ namespace OfferAggregator.Bll.Tests
             _mockCommentForClientRepo.VerifyAll();
             _mockProductsRepo.VerifyAll();
             _mockOrdersProductsRepo.VerifyAll();
+            _mockProductReviewAndStockRepo.VerifyAll();
+
 
             Assert.AreEqual(expected, actual);
         }
 
         [TestCaseSource(typeof(OrderServiceTestCaseSource), nameof(OrderServiceTestCaseSource.CreateNewOrderWithOneProduct_WhenCommentsForClientIsNullTestCaseSource))]
         public void CreateNewOrderWithOneProduct_WhenCommentsForClientIsNullTest(CreatingOrderModel creatingOrderModel, ClientsDto getClient, CreatingOrderDto creatingOrderDto,
-                                       int addOrder, int addCommentForOrder, ProductCountModel crntProductModel,
-                                       ProductsDto getProductById, OrdersProductsDto ordersProductsDto, bool addProductToOrder, int expected, ManagerDto getManager)
+                                       int addOrder, int addCommentForOrder, ProductCountModel crntProductModel,ProductsDto getProductById, OrdersProductsDto ordersProductsDto,
+                                       bool addProductToOrder, int expected, ManagerDto getManager, StocksDtoWithProductName getAmountProductOnStock, StocksDtoWithProductName stockProduct)
         {
             _mockClientRepo.Setup(c => c.GetClientById(creatingOrderModel.Order.ClientId)).Returns(getClient).Verifiable();
             _mockManagerRepo.Setup(m => m.GetManagerById(creatingOrderModel.Order.ManagerId)).Returns(getManager).Verifiable();
@@ -194,6 +212,8 @@ namespace OfferAggregator.Bll.Tests
             _mockCommentForOrderRepo.Setup(comO => comO.AddCommentOrder(It.IsAny<CommenForOrderDto>())).Returns(addCommentForOrder).Verifiable();
             _mockProductsRepo.Setup(p => p.GetProductById(crntProductModel.Id)).Returns(getProductById).Verifiable();
             _mockOrdersProductsRepo.Setup(op => op.AddProductToOrders(It.Is<OrdersProductsDto>(op => op.Equals(ordersProductsDto)))).Returns(addProductToOrder).Verifiable();
+            _mockProductReviewAndStockRepo.Setup(prs => prs.GetAmountByProductId(crntProductModel.Id)).Returns(getAmountProductOnStock).Verifiable();
+            _mockProductReviewAndStockRepo.Setup(prs => prs.UpdateAmountOfStocks(It.Is<StocksDtoWithProductName>(prs=>prs.Equals(stockProduct)))).Returns(true).Verifiable();
 
             int actual = _orderService.CreateNewOrder(creatingOrderModel);
 
@@ -204,6 +224,7 @@ namespace OfferAggregator.Bll.Tests
             _mockCommentForClientRepo.Verify(comC => comC.AddComment(It.IsAny<CommentForClientDto>()), Times.Never);
             _mockProductsRepo.VerifyAll();
             _mockOrdersProductsRepo.VerifyAll();
+            _mockProductReviewAndStockRepo.VerifyAll();
 
             Assert.AreEqual(expected, actual);
         }
@@ -226,6 +247,31 @@ namespace OfferAggregator.Bll.Tests
             _mockCommentForClientRepo.Verify(comC => comC.AddComment(It.IsAny<CommentForClientDto>()), Times.Never);
             _mockProductsRepo.VerifyAll();
             _mockOrdersProductsRepo.Verify(op => op.AddProductToOrders(It.IsAny<OrdersProductsDto>()), Times.Never);
+
+            Assert.AreEqual(expected, actual);
+        }
+
+        [TestCaseSource(typeof(OrderServiceTestCaseSource), nameof(OrderServiceTestCaseSource.CreateNewOrderWithOneProduct_WhenAmountOnStockLessThenAmountProductInOrderTestCaseSource))]
+        public void CreateNewOrderWithOneProduct_WhenAmountOnStockLessThenAmountProductInOrderTest(CreatingOrderModel creatingOrderModel, ClientsDto getClient, CreatingOrderDto creatingOrderDto,
+                                       int addOrder, int addCommentForClient, ProductCountModel crntProductModel, int addCommentForOrder,
+                                       ProductsDto getProductById, int expected, ManagerDto getManager, StocksDtoWithProductName getAmountProductOnStock)
+        {
+            _mockClientRepo.Setup(c => c.GetClientById(creatingOrderModel.Order.ClientId)).Returns(getClient).Verifiable();
+            _mockManagerRepo.Setup(m => m.GetManagerById(creatingOrderModel.Order.ManagerId)).Returns(getManager).Verifiable();
+            _mockProductsRepo.Setup(p => p.GetProductById(crntProductModel.Id)).Returns(getProductById).Verifiable();
+            _mockProductReviewAndStockRepo.Setup(prs => prs.GetAmountByProductId(crntProductModel.Id)).Returns(getAmountProductOnStock).Verifiable();
+
+            int actual = _orderService.CreateNewOrder(creatingOrderModel);
+
+            _mockClientRepo.VerifyAll();
+            _mockManagerRepo.VerifyAll();
+            _mockOrderRepo.Verify(o => o.AddOrder(It.IsAny<OrderDto>()), Times.Never);
+            _mockCommentForOrderRepo.Verify(comO => comO.AddCommentOrder(It.IsAny<CommenForOrderDto>()), Times.Never);
+            _mockCommentForClientRepo.Verify(comC => comC.AddComment(It.IsAny<CommentForClientDto>()), Times.Never);
+            _mockProductsRepo.VerifyAll();
+            _mockOrdersProductsRepo.Verify(op => op.AddProductToOrders(It.IsAny<OrdersProductsDto>()), Times.Never);
+            _mockProductReviewAndStockRepo.VerifyAll();
+            _mockProductReviewAndStockRepo.Verify(prs => prs.UpdateAmountOfStocks(It.IsAny<StocksDtoWithProductName>()), Times.Never);
 
             Assert.AreEqual(expected, actual);
         }

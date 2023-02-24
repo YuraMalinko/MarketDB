@@ -19,8 +19,8 @@ Console.WriteLine();
 //    Password = "qqq"
 //};
 
-DateTime date1 = new DateTime(2030, 02, 15, 12, 00, 00);
-DateTime complitionDate = new DateTime(2040, 02, 15, 12, 30, 00);
+DateTime date1 = new DateTime(2022, 02, 15, 12, 00, 00);
+DateTime complitionDate = new DateTime(2023, 02, 15, 12, 30, 00);
 
 OrderModel orderModel = new OrderModel
 {
@@ -39,16 +39,16 @@ OrderModel orderModel = new OrderModel
 
 ProductCountModel pr1 = new ProductCountModel
 {
-    Id = 30,
+    Id = 50,
     Name = "earlGrey",
-    Count = 300
+    Count = 0
 };
 
 ProductCountModel pr2 = new ProductCountModel
 {
     Id = 50,
     Name = "Baltika",
-    Count = 500
+    Count = 0
 };
 
 
@@ -85,7 +85,7 @@ pr1, pr2
 
 //List<CommentForClientModel> commentsForClient = new List<CommentForClientModel>();
 
-CommentForClientModel com1Cl = new CommentForClientModel
+CommentForClientModel com1Cl = new CommentForClientModel()
 {
     
     Text = "love her!!!",
@@ -93,14 +93,14 @@ CommentForClientModel com1Cl = new CommentForClientModel
 };
 
 
-List<CommentForClientModel> comClList = new List<CommentForClientModel> { com1Cl };
+List<CommentForClientModel> comClList = new List<CommentForClientModel>();
 
 CommentForOrderModel comOr1 = new CommentForOrderModel
 {
     Text = "cool !!!"
 };
 
-List<CommentForOrderModel> comOrList = new List<CommentForOrderModel> { comOr1 };
+List<CommentForOrderModel> comOrList = new List<CommentForOrderModel>();
 
 CreatingOrderModel creatingOrderModel = new CreatingOrderModel
 {
@@ -134,7 +134,9 @@ CommentForOrderRepository _commentForOrderRepository = new CommentForOrderReposi
 
 CommentForClientRepository _commentForClientRepository = new CommentForClientRepository();
 
-OrderService orderService = new OrderService(_managerRepository, clRepo, orRepo, _ordersProductsRepository, _productsRepository, _commentForOrderRepository, _commentForClientRepository);
+ProductsReviewsAndStocksRepository _productsReviewsAndStocksRepository = new ProductsReviewsAndStocksRepository();
+
+OrderService orderService = new OrderService(_managerRepository, clRepo, orRepo, _ordersProductsRepository, _productsRepository, _commentForOrderRepository, _commentForClientRepository, _productsReviewsAndStocksRepository);
 
 
 var createOrder = orderService.CreateNewOrder(creatingOrderModel);
