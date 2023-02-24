@@ -1,10 +1,9 @@
-﻿using OfferAggregator.Bll.Models;
+﻿using FluentAssertions;
+using Moq;
+using OfferAggregator.Bll.Models;
 using OfferAggregator.Bll.Tests.TestCaseSource;
 using OfferAggregator.Dal.Models;
-using FluentAssertions;
-using Moq;
 using OfferAggregator.Dal.Repositories;
-using System.Text.RegularExpressions;
 
 namespace OfferAggregator.Bll.Tests
 {
@@ -276,7 +275,7 @@ namespace OfferAggregator.Bll.Tests
         }
 
         [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.RegistrateProductInStockTest_WhenProductIsNotExistTestCaseSource))]
-        public void RegistrateProductInStockTest_WhenProductIsNotExist(StocksDtoWithProductName stockProductDto, ProductsDto getProductDto, 
+        public void RegistrateProductInStockTest_WhenProductIsNotExist(StocksDtoWithProductName stockProductDto, ProductsDto getProductDto,
                                                                        StocksWithProductModel stockProductModel, bool expected)
         {
             _mockProductRepo.Setup(p => p.GetProductById(stockProductDto.ProductId)).Returns(getProductDto).Verifiable();
