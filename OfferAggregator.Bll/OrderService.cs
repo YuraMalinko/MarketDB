@@ -30,9 +30,11 @@ namespace OfferAggregator.Bll
 
         ICommentForClientRepository _commentForClientRepository;
 
+        IProductsReviewsAndStocksRepository _productsReviewsAndStocksRepository;
+
         public OrderService(IManagerRepository managerRepository, IClientRepository clientRepository, IOrderRepository orderRepository,
                             IOrdersProductsRepository ordersProductsRepository, IProductsRepository productsRepository, ICommentForOrderRepository commentForOrderRepository,
-                            ICommentForClientRepository commentForClientRepository)
+                            ICommentForClientRepository commentForClientRepository, IProductsReviewsAndStocksRepository productsReviewsAndStocksRepository)
         {
             _managerRepository = managerRepository;
             _clientRepository = clientRepository;
@@ -41,6 +43,7 @@ namespace OfferAggregator.Bll
             _productsRepository = productsRepository;
             _commentForOrderRepository = commentForOrderRepository;
             _commentForClientRepository = commentForClientRepository;
+            _productsReviewsAndStocksRepository = productsReviewsAndStocksRepository;
         }
 
         public int CreateNewOrder(CreatingOrderModel creatingOrderModel)
@@ -50,7 +53,8 @@ namespace OfferAggregator.Bll
                 if (CheckManager(creatingOrderModel.Order.ManagerId)
                      && CheckClient(creatingOrderModel.Order.ClientId)
                      && creatingOrderModel.Order.DateCreate < creatingOrderModel.Order.ComplitionDate
-                     && CheckProduct(creatingOrderModel.Products))
+                     && CheckProduct(creatingOrderModel.Products)
+                     && CheckAmountsListProducts(creatingOrderModel.Products))
                 {
                     CreatingOrderDto creatingOrderDto = _instanceMapper.MapCreatingOrderModelToCreatingOrderDto(creatingOrderModel);
                     int addOrder = _orderRepository.AddOrder(creatingOrderDto.Order);
@@ -70,7 +74,9 @@ namespace OfferAggregator.Bll
                     {
                         foreach (var crnt in creatingOrderModel.Products)
                         {
+                            UpdateAmountProductOnStock(crnt.Count, crnt.Id, crnt.Name);
                             AddProductDto(creatingOrderModel.Order.Id, crnt.Id, crnt.Count);
+
                         }
                     }
 
@@ -164,6 +170,57 @@ namespace OfferAggregator.Bll
             };
 
             return _ordersProductsRepository.AddProductToOrders(ordersProductsDto);
+        }
+
+        private bool CheckAmountsListProducts(List<ProductCountModel> productsCounts)
+        {
+            if (productsCounts != null)
+            {
+                productsCounts = AggregateProductCountModels(productsCounts);
+
+                foreach (var crnt in productsCounts)
+                {
+                    var getAmountProductOnStock = _productsReviewsAndStocksRepository.GetAmountByProductId(crnt.Id);
+                    if (crnt.Count > getAmountProductOnStock.Amount)
+                    {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        private bool UpdateAmountProductOnStock(int amount, int productId, string productName)
+        {
+            int amountOnStock = _productsReviewsAndStocksRepository.GetAmountByProductId(productId).Amount;
+            int updateAmount = amountOnStock - amount;
+            StocksDtoWithProductName stockProduct = new StocksDtoWithProductName
+            {
+                Amount = updateAmount,
+                ProductId = productId,
+                Name = productName
+            };
+            return _productsReviewsAndStocksRepository.UpdateAmountOfStocks(stockProduct);
+        }
+
+        private List<ProductCountModel> AggregateProductCountModels(List<ProductCountModel> productCountModels)
+        {
+            var distinctProducts = productCountModels
+                .GroupBy(p => p.Id)
+                .Select(g =>
+                {
+                    var aggreagatedProductCountModel = new ProductCountModel
+                    {
+                        Id = g.Key,
+                        Count = g.Sum(pr => pr.Count)
+                    };
+
+                    return aggreagatedProductCountModel;
+                })
+                .ToList();
+
+            return distinctProducts;
         }
     }
 }

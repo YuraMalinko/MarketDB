@@ -143,13 +143,25 @@ namespace OfferAggregator.Dal.Repositories
         {
             using (var sqlConnect = new SqlConnection(Options.ConnectionString))
             {
-                sqlConnect.Open();
-                return sqlConnect.Query<ClientsDto>(
+                sqlCnctn.Open();
+                return sqlCnctn.Query<ClientsDto>(
                    StoredProcedures.GetClientById,
                    new { id },
                    commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
 
+        }
+
+        public List<ClientsDto> GetClientsByName(string name)
+        {
+            using (var sqlConnection = new SqlConnection(Options.ConnectionString))
+            {
+                sqlConnection.Open();
+                return sqlConnection.Query<ClientsDto>(
+                    StoredProcedures.GetClientsByName,
+                    new { name },
+                    commandType: CommandType.StoredProcedure).ToList();
+            }
         }
 
         public ClientsDto GetClientByPhoneNumber(string phoneNumber)
