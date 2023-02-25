@@ -1,6 +1,7 @@
 using OfferAggregator.Bll.Models;
 using OfferAggregator.Dal.Models;
 using OfferAggregator.Dal.Repositories;
+using System.Net;
 
 namespace OfferAggregator.Bll
 {
@@ -9,6 +10,8 @@ namespace OfferAggregator.Bll
         private Mapper _instanceMapper = Mapper.GetInstance();
 
         public IClientRepository _clientRepository { get; set; }
+        public IClientsWishesRepository _clientsWishesRepository { get; set; }
+        public ICommentForClientRepository _commentForClientRepository { get; set; }
 
         public ClientService(IClientRepository clientRepository = null)
         {
@@ -47,34 +50,65 @@ namespace OfferAggregator.Bll
             return _instanceMapper.MapClientsDtoToClientsOutput(clients);
         }
 
-        public int AddClient (ClientsOutputModel client)
+        public int AddClient (ClientOutput client)
         {
-            int result = -1;
-            
             var newClient = _instanceMapper.MapClientsOutputModelToClientsDto(client);
-            var phoneNewClient = newClient.PhoneNumber;
-            ClientsDto searchClietnt = _clientRepository.GetClientByPhoneNumber(phoneNewClient);
-            if (searchClietnt == null) 
+
+            if (client.Name == null || client.PhoneNumber == null)
             {
-                result = _clientRepository.AddClient(newClient);
+                throw new ArgumentException("Заполните все поля!");
+            }
+            else
+            {
+                var phoneNewClient = newClient.PhoneNumber;
+                ClientsDto searchClietnt = _clientRepository.GetClientByPhoneNumber(phoneNewClient);
+                if (searchClietnt == null)
+                {
+                    _clientRepository.AddClient(newClient);
+                }
+                else
+                {
+                    throw new ArgumentException("");
+                }
+            }
+
+            return newClient.Id;
+        }
+
+        public bool DeleteClient(int id)
+        {
+            var client = _clientRepository.GetClientById(id);
+            bool result;
+
+            if (client == null)
+            {
+                throw new ArgumentException("Клиента, карточку которого вы пытаетесь удалить, не существует.");
+                result = false;
+            }
+            else
+            {
+                _clientRepository.DeleteClient(id);
+                _clientsWishesRepository.DeleteClientWishesById(id);
+                _commentForClientRepository.DeleteComment(id);
+                result = false;
             }
 
             return result;
         }
 
-        public bool DeleteClient(int id)
+        public bool UpdateCLient(ClientOutput client)
         {
-            var result = _clientRepository.DeleteClient(id);
-            _clientsWishesRepository.DeleteClientWishesById(id);
-            _commentForClientRepository.DeleteComment(id);
+            bool result = false;
 
-            return result;
-        }
-
-        public bool UpdateCLient(ClientsOutputModel client)
-        {
-            var clietnDto = _instanceMapper.MapClientsOutputModelToClientsDto(client);
-            var result = _clientRepository.UpdateClient(clietnDto);
+            if (client.Name == null || client.PhoneNumber == null)
+            {
+                throw new ArgumentException("Поля 'Имя' и 'Номер телефона' не могут быть пустыми!");
+            }
+            else
+            {
+                var newClient = _instanceMapper.MapClientsOutputModelToClientsDto(client);
+                _clientRepository.UpdateClient(newClient);
+            }
 
             return result;
         }
