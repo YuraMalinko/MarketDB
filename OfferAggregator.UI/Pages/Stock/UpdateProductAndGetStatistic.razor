@@ -7,7 +7,7 @@
 @using System.Threading.Tasks
 
 <div class="update-product-get-statistic">
-        <div>
+    <div>
         Товар: @_stockProduct.Name
     </div>
     <div>
@@ -15,7 +15,7 @@
     </div><br />
 
     <table>
-                <td>
+        <td>
             <div class="update-product">
                 <EditForm Model="@_updateProduct" OnValidSubmit="@UpdateProductInStock">
                     <DataAnnotationsValidator />
@@ -45,16 +45,20 @@
                     <button type="submit" class="button-submit">Изменить товар</button>
 
                     <div style="height:20px">
-                    @if (!string.IsNullOrEmpty(_errorMessage))
-                    {
-                            <span>@_errorMessage</span>
-                    }
+                        @if (!string.IsNullOrEmpty(_errorMessage))
+                        {
+                            <div class="error-message">
+                                @_errorMessage
+                            </div>
+                        }
                     </div>
 
                     <div style="height:20px">
                         @if (_isAdded)
                         {
-                            <span>Товар успешно изменен!</span>
+                            <div class="pop-up-success-message">
+                                Товар успешно изменен!
+                            </div>
                         }
                     </div>
                 </EditForm>
@@ -81,7 +85,9 @@
                     </div>
                     @if (_isAddedAmount)
                     {
-                        <div>Количество товара на складе успешно изменено!</div>
+                        <div class="pop-up-success-message">
+                            Количество товара на складе успешно изменено!
+                        </div>
                     }
                 </EditForm>
             </div>
@@ -128,7 +134,9 @@
 
         @if (!string.IsNullOrEmpty(_errorMessage))
         {
-            <div>@_errorMessage</div>
+            <div class="error-message">
+                @_errorMessage
+            </div>
         }
     </div>
 </div>

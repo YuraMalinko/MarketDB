@@ -6,46 +6,51 @@
 @using System.Timers
 @using System.Threading.Tasks
 
-<h3>Добавить оценку и/или комментарий товару</h3>
+<div class="header-pages-stock" style="padding-left: 0px;">
+    Добавить оценку и/или комментарий товару
+</div>
 
 <EditForm Model="@_updateProductReview" OnValidSubmit="@AddScoreOrCommentForProduct">
     <DataAnnotationsValidator />
     <ValidationSummary />
-
-    <div>Список всех клиентов, которые заказывали данный товар</div>
-    <InputSelect TValue="int" @bind-Value="_updateProductReview.ClientId">
-        @foreach (var client in _clients)
-        {
-            if (client != null)
+    <div>
+        <div>Список всех клиентов, которые заказывали данный товар</div>
+        <InputSelect TValue="int" @bind-Value="_updateProductReview.ClientId">
+            @foreach (var client in _clients)
             {
-                <option value="@client.Id">@client.Name</option>
+                if (client != null)
+                {
+                    <option value="@client.Id">@client.Name</option>
+                }
             }
-        }
-    </InputSelect>
+        </InputSelect>
 
-    <div>Поставьте оценку клиента от 1 до 5</div>
-    <InputSelect TValue="int?" @bind-Value="_updateProductReview.Score">
-        <option value="">   </option>
-        @foreach (var score in _scores)
-        {
-            <option value="@score">@score</option>
-        }
-    </InputSelect>
+        <div style="margin-top: 7px;">Поставьте оценку клиента от 1 до 5</div>
+        <InputSelect TValue="int?" @bind-Value="_updateProductReview.Score">
+            <option value="">   </option>
+            @foreach (var score in _scores)
+            {
+                <option value="@score">@score</option>
+            }
+        </InputSelect>
 
-    <div>Напишите комментарий клиента о товаре</div>
-    <InputText id="comment" @bind-Value="_updateProductReview.Comment" />
+        <div style="margin-top: 7px;">Напишите комментарий клиента о товаре</div>
+        <InputText id="comment" style="width: 600px; height: 150px;" @bind-Value="_updateProductReview.Comment" />
+    </div>
+
+    <button class="button-submit" type="submit">Добавить ревью на товар</button>
 
     @if (!string.IsNullOrEmpty(_errorMessage))
     {
         <div>@_errorMessage</div>
     }
-
-    <button type="submit">Добавить ревью на товар</button>
 </EditForm>
 
 @if (_isAdded)
 {
-<div>Ревью клиента на товар успешно добавлено!</div>    
+    <div class="pop-up-success-message">
+        Ревью клиента на товар успешно добавлено!
+    </div>
 }
 
 @code {

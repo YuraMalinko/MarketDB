@@ -6,7 +6,7 @@
 @using System.Timers
 @using System.Threading.Tasks
 
-<h3>Оприходывать товар</h3>
+<div class="header-pages-stock">Оприходывать товар на складе</div>
 
 <EditForm Model="@StockProduct" OnValidSubmit="@RegistrateProductInStock">
     <DataAnnotationsValidator />
@@ -33,16 +33,17 @@
 
     @if (!string.IsNullOrEmpty(_errorMessage))
     {
-        <div>@_errorMessage</div>
+        <div class="error-message">@_errorMessage</div>
     }
 
-    <button type="submit">Оприходывать товар на складе</button>
+    <button class="button-submit" type="submit">Оприходывать товар</button>
 </EditForm>
 
 @if (_isAdded)
 {
-    <div>Товар: @StockProduct.Name успешно оприходаван.</div>
-    <div>Товар: Текущее количество товара на складе: </div>
+    <div class="pop-up-success-message">
+        Товар успешно оприходаван
+    </div>
 }
 
 @code {

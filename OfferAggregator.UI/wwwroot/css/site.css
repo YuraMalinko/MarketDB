@@ -9,7 +9,7 @@ h1:focus {
 }
 
 a, .btn-link {
-    color: #0071c1;
+    color: #005a9a;
 }
 
 .btn-primary {
@@ -90,11 +90,11 @@ a, .btn-link {
 }
 
 .get-full-products {
-    width: 800px;
+    width: 750px;
 }
 
 .table-get-full-products {
-    margin-top: 15px;
+    margin-top: 1px;
     border-left: 1px solid black;
     border-right: 1px solid black;
     border-bottom: 1px solid black;
@@ -104,15 +104,18 @@ a, .btn-link {
     .table-get-full-products th {
         text-align: left;
         border-bottom: 1px solid black;
+        font-size: 15px;
     }
 
     .table-get-full-products tr {
         border-bottom: 1px solid darkgray;
+        font-size: 15px;
     }
 
-    .table-get-full-products tr :hover {
-        background-color:beige;
-    }
+        .table-get-full-products tr:hover {
+            background-color: papayawhip;
+            color: brown;
+        }
 
     .table-get-full-products .nested-row {
         border-left: 0px;
@@ -126,7 +129,7 @@ a, .btn-link {
     }
 
 .update-product-get-statistic {
-width: 1170px;
+    width: 1170px;
 }
 
     .update-product-get-statistic .update-product {
@@ -135,19 +138,73 @@ width: 1170px;
 
     .update-product-get-statistic .update-amount {
         width: 1170px;
-}
+    }
 
     .update-product-get-statistic .get-statistic {
         width: 365px;
     }
 
 .div-row {
-display:flex;
-flex-direction:row;
+    display: flex;
+    flex-direction: row;
 }
 
 .button-submit {
     cursor: alias;
     border-radius: 7px;
     margin-top: 7px;
+    background-color: azure;
+    color: darkslategrey;
+}
+
+.header-pages-stock {
+    padding-top: 20px;
+    padding-bottom: 10px;
+    padding-left: 5px;
+}
+
+.filters {
+    width: 500px;
+}
+
+.filters-row {
+    padding-bottom: 5px;
+    padding-top: 13px;
+    font-family: italic;
+    font-weight: 500;
+}
+
+.table-get-scores-comments-on-product {
+    margin-top: 1px;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+}
+
+    .table-get-scores-comments-on-product th {
+        text-align: center;
+        border-bottom: 1px solid black;
+        font-size: 15px;
+    }
+
+    .table-get-scores-comments-on-product tr {
+        text-align: center;
+    }
+
+        .table-get-scores-comments-on-product tr:hover {
+            background-color: papayawhip;
+            color: brown;
+        }
+
+.pop-up-success-message {
+    font-family: Georgia, serif;
+    color: darkgreen;
+    font-weight: 600;
+}
+
+.error-message {
+    font-family: Georgia, serif;
+    color: darkred;
+    font-weight: 600;
 }

@@ -6,7 +6,9 @@
 @using System.Timers
 @using System.Threading.Tasks
 
-<h3>Добавить товар</h3>
+<div class="header-pages-stock">
+    Добавить новый товар на склад
+</div>
 
 <EditForm Model="@Product" OnValidSubmit="@AddProductToStock">
     <DataAnnotationsValidator />
@@ -18,7 +20,7 @@
     </div>
 
     <div class="edit-form-row">
-        <div class="left-part">Номер группы товара:</div>
+        <div class="left-part">Группа товара:</div>
 
         <InputSelect TValue="int" @bind-Value="Product.GroupId">
             @foreach (var group in _groups)
@@ -33,14 +35,18 @@
 
     @if (!string.IsNullOrEmpty(_errorMessage))
     {
-        <div>@_errorMessage</div>
+        <div class="error-message">
+            @_errorMessage
+        </div>
     }
-    <button type="submit">Добавить новый товар на склад</button>
+    <button class="button-submit" type="submit">Добавить новый товар</button>
 </EditForm>
 
 @if (_isAdded)
 {
-   <div>Товар успешно добавлен на склад!</div> 
+    <div class="pop-up-success-message">
+        Товар успешно добавлен на склад!
+        </div>
 }
 
 @code {

@@ -40,8 +40,8 @@ namespace OfferAggregator.Bll
         {
             var addProduct = _instanceMapper.MapProductModelToProductsDto(product);
             var groupId = addProduct.GroupId;
-            var getGroup = _groupRepository.GetGroupById(groupId);
-            if (getGroup == null)
+
+            if (!CheckGroupIsExist(groupId))
             {
                 throw new ArgumentException($"GroupId {groupId} is not exist");
             }
@@ -76,9 +76,8 @@ namespace OfferAggregator.Bll
         public bool UpdateProduct(ProductInputModel product)
         {
             var productDto = _instanceMapper.MapProductModelToProductsDto(product);
-            var getGroup = _groupRepository.GetGroupById(productDto.GroupId);
             var getProductDto = _productsRepository.GetProductById(productDto.Id);
-            if (getProductDto == null)
+            if (!CheckProductIsExist(productDto.Id))
             {
                 throw new ArgumentException("ProductId is not exist");
             }
@@ -88,7 +87,7 @@ namespace OfferAggregator.Bll
                 throw new ArgumentException("Product is deleted");
             }
 
-            else if (getGroup == null)
+            else if (!CheckGroupIsExist(productDto.GroupId))
             {
                 throw new ArgumentException("GroupId is not exist");
             }
@@ -205,8 +204,7 @@ namespace OfferAggregator.Bll
 
         public ProductsStatisticOutputModel GetProductStatisticById(int productId)
         {
-            var getProduct = _productsRepository.GetProductById(productId);
-            if (getProduct == null)
+            if (!CheckProductIsExist(productId))
             {
                 throw new ArgumentException($"Product with productId {productId} is not exist");
             }
@@ -219,8 +217,7 @@ namespace OfferAggregator.Bll
 
         public ProductWithScoresAndCommentsOutputModel GetAllScoresAndCommentsForProductByProductId(int productId)
         {
-            var getProduct = _productsRepository.GetProductById(productId);
-            if (getProduct == null)
+            if (!CheckProductIsExist(productId))
             {
                 throw new ArgumentException($"Product with productId {productId} is not exist");
             }
@@ -233,14 +230,12 @@ namespace OfferAggregator.Bll
 
         public ProductWithScoresAndCommentsOutputModel GetAllScoresAndCommentsForProductByProductIdAndClientId(int productId, int clientId)
         {
-            var getProduct = _productsRepository.GetProductById(productId);
-            if (getProduct == null)
+            if (!CheckProductIsExist(productId))
             {
                 throw new ArgumentException("Product is not exist");
             }
 
-            var getClient = _clientRepository.GetClientById(clientId);
-            if (getClient == null)
+            if (!CheckClientIsExist(clientId))
             {
                 throw new ArgumentException("Client is not exist");
             }
@@ -258,14 +253,12 @@ namespace OfferAggregator.Bll
 
         public bool UpdateScoreAndCommentOfProductReview(ProductReviewInputModel productReviewModel)
         {
-            var getProduct = _productsRepository.GetProductById(productReviewModel.ProductId);
-            if (getProduct == null)
+            if (!CheckProductIsExist(productReviewModel.ProductId))
             {
                 throw new ArgumentException("Product is not exist");
             }
 
-            var getClient = _clientRepository.GetClientById(productReviewModel.ClientId);
-            if (getClient == null)
+            if (!CheckClientIsExist(productReviewModel.ClientId))
             {
                 throw new ArgumentException("Client is not exist");
             }
@@ -289,9 +282,7 @@ namespace OfferAggregator.Bll
 
         private bool CheckClientOrderedProduct(int productId, int clientId)
         {
-            var getProductDto = _productsRepository.GetProductById(productId);
-
-            if (getProductDto == null)
+            if (!CheckProductIsExist(productId))
             {
                 throw new Exception();
             }
@@ -301,6 +292,47 @@ namespace OfferAggregator.Bll
             return clientsList.Any(c => c.Id == clientId);
         }
 
+        private bool CheckProductIsExist(int productId)
+        {
+            var getProduct = _productsRepository.GetProductById(productId);
+
+            if (getProduct != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private bool CheckGroupIsExist(int groupId)
+        {
+            var getGroup = _groupRepository.GetGroupById(groupId);
+
+            if (getGroup != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private bool CheckClientIsExist(int clientId)
+        {
+            var getClient = _clientRepository.GetClientById(clientId);
+
+            if (getClient != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
 
