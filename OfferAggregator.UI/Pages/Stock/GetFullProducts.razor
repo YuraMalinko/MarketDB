@@ -10,8 +10,24 @@
     <h3>Список товаров на складе</h3>
 
     <EditForm Model="@_filter">
+        <div>Фильтр по количеству товара на складе</div>
         <InputNumber id="countOver" @bind-Value="_filter.CountOverFilter" />
         <InputNumber id="countUnder" @bind-Value="_filter.CountUnderFilter" />
+
+        <div>Фильтр по средней оценке товара</div>
+        <InputNumber id="AverageScoreOver" @bind-Value="_filter.AverageScoreOverFilter" />
+        <InputNumber id="AverageScoreUnder" @bind-Value="_filter.AverageScoreUnderFilter" />
+
+        <div>Фильтр по группе товара</div>
+        <InputText id="Group" @bind-Value="_filter.GroupFilter" />
+
+        <div>Фильтр по тегу товара</div>
+        <InputText id="Tag" @bind-Value="_filter.TagFilter" />
+
+        <div>Фильтр по наименованию товара</div>
+        <InputText id="ProductName" @bind-Value="_filter.ProductName" />
+
+        <button @onclick="NullAllFilters">Сбросить все фильтры</button>
     </EditForm>
 
     @if (_fullProducts.Count > 0)
@@ -84,16 +100,48 @@
         _fullProducts = _productService.GetFullProducts();
     }
 
-    private bool FilterPredicat(FullProductModel fullProduct)
-    {
-        return (_filter.CountUnderFilter is null || fullProduct.Amount <= _filter.CountUnderFilter)
-        && (_filter.CountOverFilter is null || fullProduct.Amount >= _filter.CountOverFilter);
-    }
-
     private class Filter
     {
+        public int? CountOverFilter { get; set; }
+
         public int? CountUnderFilter { get; set; }
 
-        public int? CountOverFilter { get; set; }
+        public float? AverageScoreOverFilter { get; set; }
+
+        public float? AverageScoreUnderFilter { get; set; }
+
+        public string? GroupFilter { get; set; }
+
+        public string? TagFilter { get; set; }
+
+        public string? ProductName { get; set; }
+    }
+
+    private bool FilterPredicat(FullProductModel fullProduct)
+    {
+        return (_filter.CountOverFilter is null || fullProduct.Amount >= _filter.CountOverFilter)
+        && (_filter.CountUnderFilter is null || fullProduct.Amount <= _filter.CountUnderFilter)
+        && (_filter.AverageScoreOverFilter is null || fullProduct.AverageScore >= _filter.AverageScoreOverFilter)
+        && (_filter.AverageScoreUnderFilter is null || fullProduct.AverageScore <= _filter.AverageScoreUnderFilter)
+        && (_filter.GroupFilter is null
+            || fullProduct.GroupName.ToUpperInvariant() == _filter.GroupFilter
+            || fullProduct.GroupName.ToLower() == _filter.GroupFilter
+            || fullProduct.GroupName == _filter.GroupFilter)
+        //&& (_filter.TagFilter is null || fullProduct.Tags.Any() == _filter.TagFilter)
+        && (_filter.ProductName is null  
+            || fullProduct.Name == _filter.ProductName
+            || fullProduct.Name.ToUpperInvariant() == _filter.ProductName
+            || fullProduct.Name.ToLower() == _filter.ProductName);
+    }
+
+    private void NullAllFilters()
+    {
+        //_filter.CountOverFilter is null
+        //&& _filter.CountUnderFilter is null
+        //&& _filter.AverageScoreOverFilter is null
+        //&& _filter.AverageScoreUnderFilter is null
+        //&& _filter.GroupFilter is null
+        //&& _filter.TagFilter is null
+        //&& _filter.ProductName is null;
     }
 }

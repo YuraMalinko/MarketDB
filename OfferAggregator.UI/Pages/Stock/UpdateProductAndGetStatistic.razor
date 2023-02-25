@@ -7,8 +7,7 @@
 @using System.Threading.Tasks
 
 <div class="update-product-get-statistic">
-
-    <div>
+        <div>
         Товар: @_stockProduct.Name
     </div>
     <div>
@@ -16,8 +15,7 @@
     </div><br />
 
     <table>
-
-        <td>
+                <td>
             <div class="update-product">
                 <EditForm Model="@_updateProduct" OnValidSubmit="@UpdateProductInStock">
                     <DataAnnotationsValidator />
@@ -156,14 +154,11 @@
         new ClientRepository());
         _product = _productService.GetProductById(ProductId);
 
-
         _updateProduct = new ProductInputModel();
         FillFormOfUpdateProduct();
         _timer = new Timer();
         _timer.Interval = 3000;
         _timer.Elapsed += StopShowing;
-
-
 
         _stockProduct = _productService.GetAmountByProductId(ProductId);
         FillFormOfUpdateStockProduct();
@@ -177,17 +172,6 @@
     private ProductPageContent _content;
 
     private ProductsStatisticOutputModel _productStatistic;
-
-
-    //private void SetOrUnsetUpdateProductContent()
-    //{
-    //    SetContenet(ProductPageContent.UpdateProduct);
-    //}
-
-    //private void SetOrUnsetUpdateAmountContent()
-    //{
-    //    SetContenet(ProductPageContent.UpdateAmount);
-    //}
 
     private void SetOrUnsetAddScoreAndCommentContent()
     {
@@ -219,14 +203,10 @@
     private enum ProductPageContent
     {
         None = 0,
-        //UpdateProduct = 1,
-        //UpdateAmount = 2,
         AddScoreAndComment = 1,
         GetProductStatistic = 2,
         GetAllScoresAndCommentsByProductId = 3
     }
-
-
 
     private ProductInputModel _updateProduct;
 

@@ -176,7 +176,23 @@ ClientService clientService = new ClientService(clientRepository, _productsRepos
 
 //var get = _productsReviewsAndStocksRepository.GetAllScoresAndCommentsForProductByProductId(30);
 
-var getScC = productService.GetAllScoresAndCommentsForProductByProductId(13);
+//var getScC = productService.GetAllScoresAndCommentsForProductByProductId(13);
+
+
+ProductReviewInputModel productReviewInputModel = new ProductReviewInputModel
+{
+    ProductId = 59,
+    ClientId = 90,
+    Score = 0,
+    Comment = "норм"
+
+};
+
+//var upd = productService.UpdateScoreAndCommentOfProductReview(productReviewInputModel);
+
+//var get = _productsReviewsAndStocksRepository.GetAllScoresAndCommentsForProductByProductIdAndClientId(59, 1); 
+
+var get = productService.GetAllScoresAndCommentsForProductByProductIdAndClientId(30, 1);
 
 Console.WriteLine();
 

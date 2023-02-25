@@ -176,42 +176,34 @@ namespace OfferAggregator.Dal.Repositories
             }
         }
 
-        public List<ProductWithScoresAndCommentsDto> GetAllScoresAndCommentsForProductByProductIDAndClientId(int productId, int clientId)
+        public ProductWithScoresAndCommentsDto GetAllScoresAndCommentsForProductByProductIDAndClientId(int productId, int clientId)
         {
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
             {
-                List<ProductWithScoresAndCommentsDto> result = new List<ProductWithScoresAndCommentsDto>();
+                ProductWithScoresAndCommentsDto result = null;
                 sqlCnctn.Open();
                 sqlCnctn.Query<ProductWithScoresAndCommentsDto, ProductReviewsDto, ProductWithScoresAndCommentsDto>(
                     StoredProcedures.GetAllScoresAndCommentsForProductByProductIDAndClientId,
                     (scoresAndComments, reviews) =>
                     {
-                        reviews.ProductId = scoresAndComments.ProductId;
-                        ProductWithScoresAndCommentsDto crnt = null;
-
-                        foreach (var product in result)
+                        if (result == null)
                         {
-                            if (product.ProductId == scoresAndComments.ProductId)
-                            {
-                                crnt = product;
-                            }
+                            result = scoresAndComments;
+                            result.ProductReviews = new List<ProductReviewsDto>();
                         }
 
-                        if (crnt is null)
+                        if (reviews != null)
                         {
-                            crnt = scoresAndComments;
-                            result.Add(crnt);
-                            crnt.ProductReviews = new List<ProductReviewsDto>();
-                        }
-
-                        crnt.ProductReviews.Add(reviews);
+                            result.ProductReviews.Add(reviews);
+                            reviews.ProductId = result.ProductId;
+                        }                                              
 
                         return scoresAndComments;
                     },
                     new { clientId, productId },
                     splitOn: "Score",
                     commandType: CommandType.StoredProcedure
-                    ).ToList();
+                    );
 
                 return result;
             }

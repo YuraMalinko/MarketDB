@@ -8,7 +8,7 @@
 
 
 
-@if(_productScoresComment == null)
+@if (_productScoresComment == null)
 {
     <div>Товар не найден</div>
 }
@@ -38,6 +38,15 @@ else
     <div>@_errorMessage</div>
 }
 
+<div style="width: 500px">
+    @switch (_content)
+    {
+        case ScoresAndCommentsContent.UpdateReview:
+            <UpdateReview ProductId="ProductId" />
+            break;
+    }
+</div>
+
 @code {
     [Parameter]
     public int ProductId { get; set; }
@@ -49,6 +58,8 @@ else
     private string _errorMessage;
 
     private List<ProductReviewOutputModel> _productReviews = new();
+
+    private ScoresAndCommentsContent _content;
 
     protected override void OnInitialized()
     {
@@ -80,5 +91,11 @@ else
         {
             _errorMessage = "Произошла ошибка";
         }
+    }
+
+    private enum ScoresAndCommentsContent
+    {
+        None = 0,
+        UpdateReview = 1
     }
 }

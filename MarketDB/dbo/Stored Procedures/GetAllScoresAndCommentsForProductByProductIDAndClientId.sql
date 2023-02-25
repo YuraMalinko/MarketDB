@@ -2,11 +2,10 @@
 @productId int,
 @clientId int
 AS
-SELECT PR.ProductId, P.Name, PR.Score, PR.Comment, PR.ClientId
-FROM [dbo].[ProductsReviews] AS PR
-LEFT JOIN [dbo].[Products] AS P ON
-PR.ProductId=P.Id
+SELECT P.Id AS ProductId, P.Name, PR.Score, PR.Comment, PR.ClientId
+FROM [dbo].[Products] AS P
+LEFT JOIN [dbo].[ProductsReviews] AS PR ON
+PR.ProductId=P.Id AND PR.ClientId = @clientId
 WHERE
 P.IsDeleted =0 AND
-PR.ProductId = @productId AND
-PR.ClientId = @clientId
+P.Id = @productId 

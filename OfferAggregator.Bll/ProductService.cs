@@ -122,16 +122,9 @@ namespace OfferAggregator.Bll
             {
                 var getAmountByProductId = _productsReviewsAndStocksRepository.GetAmountByProductId(stockProductDto.ProductId);
 
-                //if (getAmountByProductId is null)
-                //{
-                //    result = _productsReviewsAndStocksRepository.AddAmountToStocks(stockProductDto);
-                //}
-                //else
-                //{
                 var sumAmount = getAmountByProductId.Amount + stockProductDto.Amount;
                 stockProductDto.Amount = sumAmount;
                 result = _productsReviewsAndStocksRepository.UpdateAmountOfStocks(stockProductDto);
-                //}
             }
             return result;
         }
@@ -210,20 +203,6 @@ namespace OfferAggregator.Bll
             return result;
         }
 
-        private bool CheckClientOrderedProduct(int productId, int clientId)
-        {
-            var getProductDto = _productsRepository.GetProductById(productId);
-
-            if (getProductDto == null)
-            {
-                throw new Exception();
-            }
-
-            var clientsList = _clientRepository.GetClientsWhoOrderedProductByProductId(productId).Clients;
-
-            return clientsList.Any(c => c.Id == clientId);
-        }
-
         public ProductsStatisticOutputModel GetProductStatisticById(int productId)
         {
             var getProduct = _productsRepository.GetProductById(productId);
@@ -248,9 +227,80 @@ namespace OfferAggregator.Bll
 
             var productScoresCommentsDto = _productsReviewsAndStocksRepository.GetAllScoresAndCommentsForProductByProductId(productId);
             var productScoresCommentsOutputModel = _instanceMapper.MapProductWithScoresAndCommentsDtoToProductWithScoresAndCommentsOutputModel(productScoresCommentsDto);
-            
+
             return productScoresCommentsOutputModel;
         }
+
+        public ProductWithScoresAndCommentsOutputModel GetAllScoresAndCommentsForProductByProductIdAndClientId(int productId, int clientId)
+        {
+            var getProduct = _productsRepository.GetProductById(productId);
+            if (getProduct == null)
+            {
+                throw new ArgumentException("Product is not exist");
+            }
+
+            var getClient = _clientRepository.GetClientById(clientId);
+            if (getClient == null)
+            {
+                throw new ArgumentException("Client is not exist");
+            }
+
+            if (!CheckClientOrderedProduct(productId, clientId))
+            {
+                throw new ArgumentException("Client not ordered this product");
+            }
+
+            var productScoresCommentsDto = _productsReviewsAndStocksRepository.GetAllScoresAndCommentsForProductByProductIDAndClientId(productId, clientId);
+            var productScoresCommentsOutputModel = _instanceMapper.MapProductWithScoresAndCommentsDtoToProductWithScoresAndCommentsOutputModel(productScoresCommentsDto);
+
+            return productScoresCommentsOutputModel;
+        }
+
+        public bool UpdateScoreAndCommentOfProductReview(ProductReviewInputModel productReviewModel)
+        {
+            var getProduct = _productsRepository.GetProductById(productReviewModel.ProductId);
+            if (getProduct == null)
+            {
+                throw new ArgumentException("Product is not exist");
+            }
+
+            var getClient = _clientRepository.GetClientById(productReviewModel.ClientId);
+            if (getClient == null)
+            {
+                throw new ArgumentException("Client is not exist");
+            }
+
+            if (!CheckClientOrderedProduct(productReviewModel.ProductId, productReviewModel.ClientId))
+            {
+                throw new ArgumentException("Client not ordered this product");
+            }
+
+            if (productReviewModel.Score != null
+                && (productReviewModel.Score < 1 || productReviewModel.Score > 5))
+            {
+                throw new ArgumentException("This score not included in the range from 1 to 5");
+            }
+
+            var productReviewDto = _instanceMapper.MapProductReviewInputModelToProductReviewsDto(productReviewModel);
+            var result = _productsReviewsAndStocksRepository.UpdateScoreAndCommentOfProductsReviews(productReviewDto);
+
+            return result;
+        }
+
+        private bool CheckClientOrderedProduct(int productId, int clientId)
+        {
+            var getProductDto = _productsRepository.GetProductById(productId);
+
+            if (getProductDto == null)
+            {
+                throw new Exception();
+            }
+
+            var clientsList = _clientRepository.GetClientsWhoOrderedProductByProductId(productId).Clients;
+
+            return clientsList.Any(c => c.Id == clientId);
+        }
+
     }
 }
 

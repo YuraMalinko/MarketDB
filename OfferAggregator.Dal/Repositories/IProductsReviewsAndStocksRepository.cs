@@ -10,7 +10,7 @@ namespace OfferAggregator.Dal.Repositories
 
         public ProductWithScoresAndCommentsDto GetAllScoresAndCommentsForProductByProductId(int productId);
 
-        public List<ProductWithScoresAndCommentsDto> GetAllScoresAndCommentsForProductByProductIDAndClientId(int productId, int clientId);
+        public ProductWithScoresAndCommentsDto GetAllScoresAndCommentsForProductByProductIDAndClientId(int productId, int clientId);
 
         public List<ProductWithScoresAndCommentsDto> GetAllScoresAndCommentsForProducts();
 
