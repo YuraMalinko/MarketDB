@@ -28,7 +28,7 @@ namespace OfferAggregator.Bll
         public List<ClientOutput> GetAllClients()
         {
             List<ClientsDto> clientsAll = _clientRepository.GetAllClients();
-            var result = _instanceMapper.MapClientsDtosToClientsOutput(clientsAll);
+            var result = _instanceMapper.MapClientsDtoToClientsOutput(clientsAll);
 
             return result;
         }
