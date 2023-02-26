@@ -1,0 +1,21 @@
+﻿@page "/clients"
+
+<div class="blokVerx">
+    <h2>Add new client</h2>
+    <span>Имя:</span><input type="text" @bind="_client.Name" /> <br /><br />
+    <span>Номер телефона:</span><input type="number" @bind="_client.PhoneNumber" /> <br /><br />
+    <button @onclick="SaveChanges">Добавить!</button><br /><br />
+</div>
+
+@code {
+
+    private ClientOutputModel _client { get; set; }
+
+    private void SaveChanges()
+    {
+        var newClient = new ClientInputModel()
+        {
+
+        };
+    }
+}
