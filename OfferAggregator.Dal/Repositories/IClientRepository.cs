@@ -1,4 +1,4 @@
-﻿using OfferAggregator.Dal.Models;
+using OfferAggregator.Dal.Models;
 
 namespace OfferAggregator.Dal.Repositories
 {
@@ -15,6 +15,8 @@ namespace OfferAggregator.Dal.Repositories
         public List<PurchasedProductDto> GetAllPurchasedProductsByClientId(int id);
 
         public ClientsDto GetClientById(int id);
+
+        public ClientsDto GetClientByPhoneNumber (string phoneNumber);
 
         public List<ClientsDto> GetClientsByName(string name);
     }

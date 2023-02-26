@@ -61,9 +61,9 @@ namespace OfferAggregator.Bll
             return _mapper.Map<ProductsDto>(product);
         }
 
-        public List<ClientOutput> MapClientsDtosToClientsOutput(List<ClientsDto> clients)
+        public List<ClientOutput> MapClientsDtoToClientsOutput(List<ClientsDto> clients)
         {
-            return _configuration.CreateMapper().Map<List<ClientOutput>>(clients);
+            return _mapper.Map<List<ClientOutput>>(clients);
         }
 
         public ClientsDto MapClientsOutputModelToClientsDto(ClientOutput clients)
@@ -114,11 +114,6 @@ namespace OfferAggregator.Bll
         public CreatingOrderDto MapCreatingOrderModelToCreatingOrderDto(CreatingOrderModel creatingOrderModel)
         {
             return _mapper.Map<CreatingOrderDto>(creatingOrderModel);
-        }
-
-        public List<ClientOutput> MapClientsDtoToClientsOutput(List<ClientsDto> clients)
-        {
-            return _mapper.Map<List<ClientOutput>>(clients);
         }
     }
 }

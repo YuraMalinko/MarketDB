@@ -1,7 +1,8 @@
-﻿using Dapper;
+using Dapper;
 using Microsoft.Data.SqlClient;
 using OfferAggregator.Dal.Models;
 using System.Data;
+
 
 namespace OfferAggregator.Dal.Repositories
 {
@@ -140,7 +141,7 @@ namespace OfferAggregator.Dal.Repositories
 
         public ClientsDto GetClientById(int id)
         {
-            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            using (var sqlConnect = new SqlConnection(Options.ConnectionString))
             {
                 sqlCnctn.Open();
                 return sqlCnctn.Query<ClientsDto>(
@@ -148,6 +149,7 @@ namespace OfferAggregator.Dal.Repositories
                    new { id },
                    commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
+
         }
 
         public List<ClientsDto> GetClientsByName(string name)
@@ -159,6 +161,19 @@ namespace OfferAggregator.Dal.Repositories
                     StoredProcedures.GetClientsByName,
                     new { name },
                     commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
+
+        public ClientsDto GetClientByPhoneNumber(string phoneNumber)
+        {
+            using (var sqlConnect = new SqlConnection(Options.ConnectionString))
+            {
+                sqlConnect.Open();
+
+                return sqlConnect.Query<ClientsDto>(
+                    StoredProcedures.GetClientByPhoneNumber,
+                    new { phoneNumber },
+                    commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
         }
     }

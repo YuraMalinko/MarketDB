@@ -134,6 +134,7 @@
     <Build Include="dbo\Stored Procedures\AddCommentForOrder.sql" />
     <Build Include="dbo\Stored Procedures\DeleteCommentForOrder.sql" />
     <Build Include="dbo\Stored Procedures\UpdateCommentForOrder.sql" />
+    <Build Include="dbo\Stored Procedures\GetClientByPhoneNumber.sql" />
     <Build Include="dbo\Stored Procedures\GetFullProductById.sql" />
     <Build Include="dbo\Stored Procedures\GetFullProducts.sql" />
     <Build Include="dbo\Stored Procedures\GetManagerByLogin.sql" />
