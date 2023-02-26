@@ -67,7 +67,7 @@
 
 <td>
     <div class="filters">
-       @* <div style="height: 50px;"> <span></span></div>*@
+            @* <div style="height: 50px;"> <span></span></div>*@
         <EditForm Model="@_filter">
             <div class="filters-row">Фильтр по количеству товара на складе</div>
             <InputNumber id="countOver" placeholder="Количество От" @bind-Value="_filter.CountOverFilter" />
@@ -78,13 +78,23 @@
             <InputNumber id="AverageScoreUnder" placeholder="Оценка До" @bind-Value="_filter.AverageScoreUnderFilter" />
 
             <div class="filters-row">Фильтр по группе товара</div>
-            <InputText id="Group" placeholder="Название группы" @bind-Value="_filter.GroupFilter" />
+                @*<InputText id="Group" placeholder="Название группы" @bind-Value="_filter.GroupFilter" />*@
+            <InputSelect id="groupId" @bind-Value="_filter.GroupFilter">
+                <option></option>
+                    @foreach (var group in _groups.OrderBy(g => g.Name))
+                    {
+                        if (group != null)
+                        {
+                        <option value="@group.Id">@group.Name</option>
+                        }
+                    }
+            </InputSelect>
 
             <div class="filters-row">Фильтр по тегу товара</div>
             <InputText id="Tag" placeholder="Название тега" @bind-Value="_filter.TagFilter" />
 
             <div class="filters-row">Фильтр по наименованию товара</div>
-            <InputText id="ProductName" placeholder="Название товара"  @bind-Value="_filter.ProductName" /><br/>
+            <InputText id="ProductName" placeholder="Название товара" @bind-Value="_filter.ProductName" /><br />
 
             <button @onclick="NullAllFilters" class="button-submit">Сбросить все фильтры</button>
         </EditForm>
@@ -101,6 +111,8 @@
 
     private Filter _filter = new();
 
+    private List<GroupModel> _groups = new List<GroupModel>();
+
     protected override void OnInitialized()
     {
         _productService = new ProductService(
@@ -111,6 +123,7 @@
         new ClientRepository());
 
         _fullProducts = _productService.GetFullProducts();
+        _groups = _productService.GetAllGroups();
     }
 
     private class Filter
@@ -123,7 +136,7 @@
 
         public float? AverageScoreUnderFilter { get; set; }
 
-        public string? GroupFilter { get; set; }
+        public int? GroupFilter { get; set; }
 
         public string? TagFilter { get; set; }
 
@@ -136,25 +149,14 @@
         && (_filter.CountUnderFilter is null || fullProduct.Amount <= _filter.CountUnderFilter)
         && (_filter.AverageScoreOverFilter is null || fullProduct.AverageScore >= _filter.AverageScoreOverFilter)
         && (_filter.AverageScoreUnderFilter is null || fullProduct.AverageScore <= _filter.AverageScoreUnderFilter)
-        && (_filter.GroupFilter is null
-            || fullProduct.GroupName.ToUpperInvariant() == _filter.GroupFilter
-            || fullProduct.GroupName.ToLower() == _filter.GroupFilter
-            || fullProduct.GroupName == _filter.GroupFilter)
-        //&& (_filter.TagFilter is null || fullProduct.Tags.Any() == _filter.TagFilter)
-        && (_filter.ProductName is null
-            || fullProduct.Name == _filter.ProductName
-            || fullProduct.Name.ToUpperInvariant() == _filter.ProductName
-            || fullProduct.Name.ToLower() == _filter.ProductName);
+        && (_filter.GroupFilter is null || fullProduct.GroupId == _filter.GroupFilter)
+        && (string.IsNullOrEmpty(_filter.TagFilter) || fullProduct.Tags.Any(t => t.Name.Contains(_filter.TagFilter, StringComparison.InvariantCultureIgnoreCase)))
+        && (string.IsNullOrEmpty(_filter.ProductName)
+            || fullProduct.Name.Contains(_filter.ProductName, StringComparison.InvariantCultureIgnoreCase));
     }
 
     private void NullAllFilters()
     {
-        //_filter.CountOverFilter is null
-        //&& _filter.CountUnderFilter is null
-        //&& _filter.AverageScoreOverFilter is null
-        //&& _filter.AverageScoreUnderFilter is null
-        //&& _filter.GroupFilter is null
-        //&& _filter.TagFilter is null
-        //&& _filter.ProductName is null;
+        _filter = new Filter();
     }
 }

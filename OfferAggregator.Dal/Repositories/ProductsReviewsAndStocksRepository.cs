@@ -30,7 +30,7 @@ namespace OfferAggregator.Dal.Repositories
 
                 int result = sqlCnctn.Execute(
                     StoredProcedures.AddScoreAndCommentToProductReview,
-                    prReview,
+                    new { prReview.ProductId, prReview .ClientId, prReview.Score, prReview.Comment },
                     commandType: CommandType.StoredProcedure);
 
                 return result > 0;

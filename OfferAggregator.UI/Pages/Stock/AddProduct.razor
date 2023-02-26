@@ -42,15 +42,23 @@
     <button class="button-submit" type="submit">Добавить новый товар</button>
 </EditForm>
 
+
+    <div class="pop-up-success-message" >
 @if (_isAdded)
 {
-    <div class="pop-up-success-message">
-        Товар успешно добавлен на склад!
-        </div>
+        <span>Товар успешно добавлен на склад!</span>
+}
+    </div>
+
+@if (_addedProductId > 0)
+{
+    <a href="/product/@_addedProductId" style="padding-top: 10px;">Вы можете перейти на страницу созданного товара</a>
 }
 
 @code {
     private ProductInputModel Product { get; set; }
+
+    private int _addedProductId;
 
     private ProductService _productService;
 
@@ -85,7 +93,7 @@
         {
             if (!string.IsNullOrEmpty(Product.Name) && Product.GroupId != null)
             {
-                _productService.AddProduct(Product);
+                _addedProductId = _productService.AddProduct(Product);
                 Product = new ProductInputModel();
                 _isAdded = true;
                 _timer.Start();

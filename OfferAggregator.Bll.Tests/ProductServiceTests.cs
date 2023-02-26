@@ -154,12 +154,11 @@ namespace OfferAggregator.Bll.Tests
         [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.UpdateProductTest_WhenProductIsNotExistTestCaseSource))]
         public void UpdateProductTest_WhenProductIsNotExist(GroupDto getGroup, ProductsDto getProductDto, ProductsDto productDto, ProductInputModel product, bool expected)
         {
-            _mockGroupRepo.Setup(g => g.GetGroupById(productDto.GroupId)).Returns(getGroup).Verifiable();
             _mockProductRepo.Setup(p => p.GetProductById(productDto.Id)).Returns(getProductDto).Verifiable();
 
             Assert.Throws<ArgumentException>(() => _productService.UpdateProduct(product));
 
-            _mockGroupRepo.VerifyAll();
+            _mockGroupRepo.Verify(g => g.GetGroupById(It.IsAny<int>()), Times.Never);
             _mockProductRepo.VerifyAll();
             _mockProductRepo.Verify(p => p.UpdateProduct(It.IsAny<ProductsDto>()), Times.Never);
         }
@@ -167,12 +166,11 @@ namespace OfferAggregator.Bll.Tests
         [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.UpdateProductTest_WhenProductIsDeletedTestCaseSource))]
         public void UpdateProductTest_WhenProductIsDeleted(GroupDto getGroup, ProductsDto getProductDto, ProductsDto productDto, ProductInputModel product, bool expected)
         {
-            _mockGroupRepo.Setup(g => g.GetGroupById(productDto.GroupId)).Returns(getGroup).Verifiable();
             _mockProductRepo.Setup(p => p.GetProductById(productDto.Id)).Returns(getProductDto).Verifiable();
 
             Assert.Throws<ArgumentException>(() => _productService.UpdateProduct(product));
 
-            _mockGroupRepo.VerifyAll();
+            _mockGroupRepo.Verify(g => g.GetGroupById(It.IsAny<int>()), Times.Never);
             _mockProductRepo.VerifyAll();
             _mockProductRepo.Verify(p => p.UpdateProduct(It.IsAny<ProductsDto>()), Times.Never);
         }

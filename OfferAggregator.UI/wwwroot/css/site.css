@@ -150,11 +150,14 @@ a, .btn-link {
 }
 
 .button-submit {
-    cursor: alias;
     border-radius: 7px;
     margin-top: 7px;
     background-color: azure;
     color: darkslategrey;
+}
+
+.button-submit:hover {
+    cursor: alias;
 }
 
 .header-pages-stock {
@@ -201,6 +204,7 @@ a, .btn-link {
     font-family: Georgia, serif;
     color: darkgreen;
     font-weight: 600;
+    height: 20px;
 }
 
 .error-message {

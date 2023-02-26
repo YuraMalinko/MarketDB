@@ -15,7 +15,9 @@
     <div class="edit-form-row">
         <div class="left-part">Название товара:</div>
 
-        <InputSelect TValue="int" @bind-Value="StockProduct.ProductId">
+        <InputSelect TValue="int" style="max-width: 210px" ValueExpression="@(()=>StockProduct.ProductId)"
+                     Value="@StockProduct.ProductId"
+                     ValueChanged="@OnProductValueChange">
             @foreach (var product in _products)
             {
                 if (product != null)
@@ -46,8 +48,17 @@
     </div>
 }
 
+<div>
+    @if (_currentProduct != null)
+    {
+        @_currentProduct.Amount
+    }
+</div>
+
 @code {
     private StocksWithProductInputModel StockProduct { get; set; }
+
+    private StocksWithProductOutputModel _currentProduct;
 
     private ProductService _productService;
 
@@ -82,9 +93,10 @@
             if (StockProduct.Amount != 0 && StockProduct.ProductId > 0)
             {
                 _productService.RegistrateProductInStock(StockProduct);
-                StockProduct = new StocksWithProductInputModel();
+                StockProduct.Amount = 0;
                 _isAdded = true;
                 _timer.Start();
+                ActualizeAmountProduct();
             }
             _errorMessage = string.Empty;
         }
@@ -99,5 +111,31 @@
         _isAdded = false;
         await InvokeAsync(StateHasChanged);
         _timer.Stop();
+    }
+
+    private void OnProductValueChange(int value)
+    {
+
+        StockProduct.ProductId = value;
+        ActualizeAmountProduct();
+    }
+
+    private void ActualizeAmountProduct()
+    {
+        try
+        {
+            if (StockProduct != null && StockProduct.ProductId != 0)
+            {
+                _currentProduct = _productService.GetAmountByProductId(StockProduct.ProductId);
+            }
+            else
+            {
+                _currentProduct = null;
+            }
+        }
+        catch (Exception ex)
+        {
+            _currentProduct = null;
+        }
     }
 }
