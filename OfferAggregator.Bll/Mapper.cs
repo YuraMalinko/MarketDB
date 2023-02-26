@@ -20,8 +20,8 @@ namespace OfferAggregator.Bll
                 {
                     cfg.CreateMap<ProductsDto, ProductModel>();
                     cfg.CreateMap<ProductModel, ProductsDto>();
-                    cfg.CreateMap<CommentForClientDto, ClientOutput>();
-                    cfg.CreateMap<ClientOutput, CommentForClientDto>();
+                    cfg.CreateMap<CommentForClientDto, ClientOutputModel>();
+                    cfg.CreateMap<ClientOutputModel, CommentForClientDto>();
                     cfg.CreateMap<StocksWithProductModel, StocksDtoWithProductName>();
                     cfg.CreateMap<FullProductDto, FullProductModel>();
                     cfg.CreateMap<TagDto, TagModel>();
@@ -32,11 +32,11 @@ namespace OfferAggregator.Bll
                     cfg.CreateMap<OrderModel, OrderDto>();
                     cfg.CreateMap<ProductCountModel, ProductCountDto>();
                     cfg.CreateMap<CurrentManager, ManagerDto>();
-                    cfg.CreateMap<ClientModel, ClientsDto>();
+                    cfg.CreateMap<ClientInputModel, ClientsDto>();
                     cfg.CreateMap<CommentForOrderModel, CommenForOrderDto>();
                     cfg.CreateMap<CommentForClientModel, CommentForClientDto>();
                     cfg.CreateMap<ProductsStatisticDto, ProductsStatisticModel>();
-                    cfg.CreateMap<ClientsDto, ClientOutput>();
+                    cfg.CreateMap<ClientsDto, ClientOutputModel>();
                 });
 
             _mapper = _configuration.CreateMapper();
@@ -61,14 +61,19 @@ namespace OfferAggregator.Bll
             return _mapper.Map<ProductsDto>(product);
         }
 
-        public List<ClientOutput> MapClientsDtoToClientsOutput(List<ClientsDto> clients)
+        public List<ClientOutputModel> MapClientsDtoToClientsOutputModel(List<ClientsDto> clients)
         {
-            return _mapper.Map<List<ClientOutput>>(clients);
+            return _mapper.Map<List<ClientOutputModel>>(clients);
         }
 
-        public ClientsDto MapClientsOutputModelToClientsDto(ClientOutput clients)
+        public ClientsDto MapClientsInputModelModelToClientsDto(ClientInputModel clients)
         {
             return _mapper.Map<ClientsDto>(clients);
+        }
+
+        public List<ClientInputModel> MapClientsDtoToClientsInputModel(List<ClientsDto> clients)
+        {
+            return _mapper.Map<List<ClientInputModel>>(clients);
         }
 
         public StocksDtoWithProductName MapStocksWithProductModelToStocksWithProductModel(StocksWithProductModel stockProduct)

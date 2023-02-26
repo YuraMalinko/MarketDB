@@ -25,15 +25,15 @@ namespace OfferAggregator.Bll
             }
         }
 
-        public List<ClientOutput> GetAllClients()
+        public List<ClientOutputModel> GetAllClients()
         {
             List<ClientsDto> clientsAll = _clientRepository.GetAllClients();
-            var result = _instanceMapper.MapClientsDtoToClientsOutput(clientsAll);
+            var result = _instanceMapper.MapClientsDtoToClientsOutputModel(clientsAll);
 
             return result;
         }
 
-        public List<ClientOutput> GetClientByName(string name)
+        public List<ClientOutputModel> GetClientByName(string name)
         {
             if (name == null || name == "" || name == " ")
             {
@@ -47,12 +47,12 @@ namespace OfferAggregator.Bll
                 throw new Exception("There are no clients with this name or they were deleted");
             }
 
-            return _instanceMapper.MapClientsDtoToClientsOutput(clients);
+            return _instanceMapper.MapClientsDtoToClientsOutputModel(clients);
         }
 
-        public int AddClient (ClientOutput client)
+        public int AddClient (ClientInputModel client)
         {
-            var newClient = _instanceMapper.MapClientsOutputModelToClientsDto(client);
+            var newClient = _instanceMapper.MapClientsInputModelModelToClientsDto(client);
 
             if (client.Name == null || client.PhoneNumber == null)
             {
@@ -96,7 +96,7 @@ namespace OfferAggregator.Bll
             return result;
         }
 
-        public bool UpdateCLient(ClientOutput client)
+        public bool UpdateCLient(ClientInputModel client)
         {
             bool result = false;
 
@@ -106,7 +106,7 @@ namespace OfferAggregator.Bll
             }
             else
             {
-                var newClient = _instanceMapper.MapClientsOutputModelToClientsDto(client);
+                var newClient = _instanceMapper.MapClientsInputModelModelToClientsDto(client);
                 _clientRepository.UpdateClient(newClient);
             }
 

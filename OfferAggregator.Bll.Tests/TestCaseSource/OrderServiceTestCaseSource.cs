@@ -20,7 +20,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(1, "OneMan", "111"),
-                Client = new ClientModel
+                Client = new ClientInputModel
                 {
                     Id = 2,
                     Name = "OneClient",
@@ -163,7 +163,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(12, "OneMan2", "1112"),
-                Client = new ClientModel
+                Client = new ClientInputModel
                 {
                     Id = 22,
                     Name = "OneClient2",
@@ -344,7 +344,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(123, "OneMan23", "11123"),
-                Client = new ClientModel
+                Client = new ClientInputModel
                 {
                     Id = 223,
                     Name = "OneClient23",
@@ -400,7 +400,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(1234, "OneMan234", "111234"),
-                Client = new ClientModel
+                Client = new ClientInputModel
                 {
                     Id = 2234,
                     Name = "OneClient234",
@@ -456,7 +456,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(12345, "OneMan2345", "1112345"),
-                Client = new ClientModel
+                Client = new ClientInputModel
                 {
                     Id = 22345,
                     Name = "OneClient2345",
@@ -517,7 +517,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(147, "OneMan47", "11147"),
-                Client = new ClientModel
+                Client = new ClientInputModel
                 {
                     Id = 247,
                     Name = "OneClient47",
@@ -654,7 +654,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(1478, "OneMan478", "111478"),
-                Client = new ClientModel
+                Client = new ClientInputModel
                 {
                     Id = 2478,
                     Name = "OneClient478",
@@ -791,7 +791,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(14787, "OneMan4787", "11147877"),
-                Client = new ClientModel
+                Client = new ClientInputModel
                 {
                     Id = 24787,
                     Name = "OneClient4787",
@@ -918,7 +918,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(147870, "OneMan47870", "111478770"),
-                Client = new ClientModel
+                Client = new ClientInputModel
                 {
                     Id = 247870,
                     Name = "OneClient47870",

@@ -383,7 +383,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 DateCreate = date1,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(6, "Andrew", "qqq"),
-                Client = new ClientModel
+                Client = new ClientInputModel
                 {
                     Id = 1,
                     Name = "Medvedev",

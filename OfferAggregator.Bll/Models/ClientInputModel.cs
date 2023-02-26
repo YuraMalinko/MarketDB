@@ -1,9 +1,7 @@
 ﻿namespace OfferAggregator.Bll.Models
 {
-    public class ClientModel
+    public class ClientInputModel
     {
-        public int Id { get; set; }
-
         public string Name { get; set; }
 
         public string PhoneNumber { get; set; }
