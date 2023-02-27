@@ -35,8 +35,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
             CommentForClientOutputModel com1Cl = new CommentForClientOutputModel
             {
-                Text = "commentClient",
-                ClientId = 2
+                Text = "commentClient"
             };
             List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel> { com1Cl };
             CommentForOrderModel comOr1 = new CommentForOrderModel
@@ -183,8 +182,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             List<ProductCountModel> products = new List<ProductCountModel> { pr1, pr2 };
             CommentForClientOutputModel com1Cl = new CommentForClientOutputModel
             {
-                Text = "commentClient2",
-                ClientId = 22
+                Text = "commentClient2"
             };
             List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel> { com1Cl };
             CommentForOrderModel comOr1 = new CommentForOrderModel
@@ -357,8 +355,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
             CommentForClientOutputModel com1Cl = new CommentForClientOutputModel
             {
-                Text = "commentClient23",
-                ClientId = 223
+                Text = "commentClient23"
             };
             List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel> { com1Cl };
             CommentForOrderModel comOr1 = new CommentForOrderModel
@@ -412,8 +409,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
             CommentForClientOutputModel com1Cl = new CommentForClientOutputModel
             {
-                Text = "commentClient234",
-                ClientId = 2234
+                Text = "commentClient234"
             };
             List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel> { com1Cl };
             CommentForOrderModel comOr1 = new CommentForOrderModel
@@ -467,8 +463,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
             CommentForClientOutputModel com1Cl = new CommentForClientOutputModel
             {
-                Text = "commentClient2345",
-                ClientId = 22345
+                Text = "commentClient2345"
             };
             List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel> { com1Cl };
             CommentForOrderModel comOr1 = new CommentForOrderModel
@@ -529,8 +524,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             {
             new CommentForClientOutputModel
             {
-                Text = "comment7",
-                ClientId = 247
+                Text = "comment7"
             }
             };
             List<CommentForOrderModel> comOrList = new List<CommentForOrderModel>();
@@ -801,8 +795,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 {
                 new CommentForClientOutputModel
                 {
-                Text = "comment7",
-                ClientId = 24787
+                Text = "comment7"
                 }
             };
             List<CommentForOrderModel> comOrList = new List<CommentForOrderModel>
@@ -927,8 +920,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 {
                 new CommentForClientOutputModel
                 {
-                Text = "comment70",
-                ClientId = 247870
+                Text = "comment70"
                 }
             };
             List<CommentForOrderModel> comOrList = new List<CommentForOrderModel>

@@ -413,15 +413,11 @@ pr1, pr2, pr3
 };
             CommentForClientOutputModel com1Cl = new CommentForClientOutputModel
             {
-                Id = 1,
                 Text = "qqq",
-                ClientId = 1
             };
             CommentForClientOutputModel com2Cl = new CommentForClientOutputModel
             {
-                Id = 2,
                 Text = "ppp",
-                ClientId = 1
             };
             List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel> { com1Cl, com2Cl };
             CommentForOrderModel comOr1 = new CommentForOrderModel
