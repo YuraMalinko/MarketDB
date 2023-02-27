@@ -10,18 +10,9 @@ ClientRepository _clientRepository = new ClientRepository();
 ClientsWishesRepository _clientsWishesRepository = new ClientsWishesRepository();
 CommentForClientRepository _commentForClientRepository = new CommentForClientRepository();
 OrderRepository _orderRepository = new OrderRepository();
+ClientService _cl = new ClientService();
 
-ClientService clt = new ClientService(_clientRepository, _clientsWishesRepository, _commentForClientRepository, _orderRepository);
-
-ClientsOutputModel newclt = new ClientsOutputModel() { Id = 352, Name = "Kevin", PhoneNumber = "38286387" };
-
-//var ccc = clt.AddClient(newclt);
-
-var sss = clt.GetAllClientsWithoutComment();
-
-var del = clt.DeleteClient(13);
-
-var s = clt.GetAllClientsWithoutComment();
+var ccc = _cl.GetAllClients();
 
 Console.WriteLine( );
 

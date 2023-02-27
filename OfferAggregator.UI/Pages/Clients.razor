@@ -1,21 +1,20 @@
 ﻿@page "/clients"
 
-<div class="blokVerx">
-    <h2>Add new client</h2>
-    <span>Имя:</span><input type="text" @bind="_client.Name" /> <br /><br />
-    <span>Номер телефона:</span><input type="number" @bind="_client.PhoneNumber" /> <br /><br />
-    <button @onclick="SaveChanges">Добавить!</button><br /><br />
+<div class="">
+    @foreach (var i in _clients)
+        {
+            <ClientCard client="i"/>
+        }
 </div>
 
+
+
 @code {
+    ClientService _clientServis = new ClientService();
+    private List<ClientOutputModel> _clients = new List<ClientOutputModel>();
 
-    private ClientOutputModel _client { get; set; }
-
-    private void SaveChanges()
+    protected override void OnInitialized()
     {
-        var newClient = new ClientInputModel()
-        {
-
-        };
+        _clients = _clientServis.GetAllClients();
     }
 }
