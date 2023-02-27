@@ -53,13 +53,12 @@ else
 {
     <div class="error-message">
         @_errorMessage
-        </div>
+    </div>
 }
 
 <div style="width: 500px">
-
-            <UpdateReview ProductId="ProductId" />
-
+    <UpdateReview ProductId="ProductId" />
+    <AddScoreAndComment ProductId="ProductId" OnReviewAdded="GetAllScoresAndCommentsForProduct" />
 </div>
 
 @code {
@@ -113,4 +112,5 @@ else
     //    None = 0,
     //    UpdateReview = 1
     //}
+
 }

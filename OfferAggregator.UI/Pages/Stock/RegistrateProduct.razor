@@ -8,52 +8,62 @@
 
 <div class="header-pages-stock">Оприходывать товар на складе</div>
 
-<EditForm Model="@StockProduct" OnValidSubmit="@RegistrateProductInStock">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
+<table>
+    <div class="table-registrate-product">
+    <td>
+        <div style=" width: 530px;">
+        <EditForm Model="@StockProduct" OnValidSubmit="@RegistrateProductInStock">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
 
-    <div class="edit-form-row">
-        <div class="left-part">Название товара:</div>
+            <div class="edit-form-row">
+                <div class="left-part">Название товара:</div>
 
-        <InputSelect TValue="int" style="max-width: 210px" ValueExpression="@(()=>StockProduct.ProductId)"
-                     Value="@StockProduct.ProductId"
-                     ValueChanged="@OnProductValueChange">
-            @foreach (var product in _products)
+                <InputSelect TValue="int" style="max-width: 210px" ValueExpression="@(()=>StockProduct.ProductId)"
+                             Value="@StockProduct.ProductId"
+                             ValueChanged="@OnProductValueChange">
+                    @foreach (var product in _products)
+                    {
+                        if (product != null)
+                        {
+                            <option value="@product.Id">@product.Name</option>
+                        }
+                    }
+                </InputSelect>
+            </div>
+
+            <div class="edit-form-row">
+                <div class="left-part">Количество товара:</div>
+                <InputNumber class="input-number" id="amount" @bind-Value="StockProduct.Amount" />
+            </div>
+
+            @if (!string.IsNullOrEmpty(_errorMessage))
             {
-                if (product != null)
-                {
-                    <option value="@product.Id">@product.Name</option>
-                }
+                <div class="error-message">@_errorMessage</div>
             }
-        </InputSelect>
+
+            <button class="button-submit" type="submit">Оприходывать товар</button>
+        </EditForm>
+
+        @if (_isAdded)
+        {
+            <div class="pop-up-success-message">
+                Товар успешно оприходаван
+            </div>
+        }
+        </div>
+    </td>
+
+    <td>
+        <div style=" width: 450px;">
+            @if (_currentProduct != null)
+            {
+                <span>Количество на складе: @_currentProduct.Amount</span>
+            }
+        </div>
+    </td>
     </div>
-
-    <div class="edit-form-row">
-        <div class="left-part">Количество товара:</div>
-        <InputNumber class="input-number" id="amount" @bind-Value="StockProduct.Amount" />
-    </div>
-
-    @if (!string.IsNullOrEmpty(_errorMessage))
-    {
-        <div class="error-message">@_errorMessage</div>
-    }
-
-    <button class="button-submit" type="submit">Оприходывать товар</button>
-</EditForm>
-
-@if (_isAdded)
-{
-    <div class="pop-up-success-message">
-        Товар успешно оприходаван
-    </div>
-}
-
-<div>
-    @if (_currentProduct != null)
-    {
-        @_currentProduct.Amount
-    }
-</div>
+</table>
 
 @code {
     private StocksWithProductInputModel StockProduct { get; set; }

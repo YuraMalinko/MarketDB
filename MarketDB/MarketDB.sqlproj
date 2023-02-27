@@ -144,6 +144,10 @@
     <Build Include="dbo\Stored Procedures\GetAllGroups.sql" />
     <Build Include="dbo\Stored Procedures\GetClientsWhoOrderedProductByProductId.sql" />
     <Build Include="dbo\Stored Procedures\GetProductStatisticById.sql" />
+    <Build Include="dbo\Stored Procedures\AddScore.sql" />
+    <Build Include="dbo\Stored Procedures\AddComment.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateScore.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateComment.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="MarketDB.refactorlog" />

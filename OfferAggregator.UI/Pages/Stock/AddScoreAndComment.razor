@@ -73,6 +73,9 @@
 
     private Timer _timer;
 
+    [Parameter]
+    public EventCallback OnReviewAdded { get; set; }
+
     protected override void OnInitialized()
     {
         _updateProductReview = new ProductReviewInputModel();
@@ -106,6 +109,7 @@
                 _updateProductReview = new() { ProductId = ProductId };
                 _isAdded = true;
                 _timer.Start();
+                OnReviewAdded.InvokeAsync();
             }
 
             else if (_updateProductReview.Score == null && string.IsNullOrEmpty(_updateProductReview.Comment))

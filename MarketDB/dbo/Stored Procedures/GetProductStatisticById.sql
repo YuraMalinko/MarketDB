@@ -1,8 +1,13 @@
 ﻿CREATE PROCEDURE [dbo].GetProductStatisticById
 @productId int
 AS
-SELECT t1.[Id], t1.[Name], ISNULL (t1.[SumOfCountofProduct], 0) AS SumOfCountofProduct, 
-t1.[CountOfOrders], t1.[CountOfClients], AVG(CAST(PR.[Score] AS float)) AS AverageScore
+SELECT 
+	t1.[Id],
+	t1.[Name],
+	ISNULL (t1.[SumOfCountofProduct], 0) AS SumOfCountofProduct, 
+	t1.[CountOfOrders],
+	t1.[CountOfClients],
+	AVG(CAST(t2.[Score] AS float)) AS AverageScore
 FROM
 (SELECT P.[Id], P.[Name], SUM(OP.[CountProduct]) AS SumOfCountofProduct,
 COUNT(OP.[OrderId]) AS CountOfOrders, COUNT(DISTINCT O.[ClientId]) AS CountOfClients
@@ -16,8 +21,13 @@ P.[IsDeleted] = 0 AND
 P.[Id] = @productId
 GROUP BY P.[Id], P.[Name]
 ) AS t1
-LEFT JOIN [dbo].[ProductsReviews] AS PR ON
-t1.[Id] = PR.[ProductId]
+LEFT JOIN 
+(SELECT *
+FROM [dbo].[ProductsReviews] AS PR
+INNER JOIN [dbo].[Clients] AS C ON
+PR.[ClientId] = C.[Id] AND C.[IsDeleted] =0) AS t2
+ON
+t1.[Id] = t2.[ProductId]
 GROUP BY t1.[Id], t1.[Name], t1.[SumOfCountofProduct],
 t1.[CountOfOrders], t1.[CountOfClients] 
 ORDER BY t1.[SumOfCountofProduct] DESC

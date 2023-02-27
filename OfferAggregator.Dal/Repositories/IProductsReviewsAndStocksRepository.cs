@@ -25,5 +25,13 @@ namespace OfferAggregator.Dal.Repositories
         public bool UpdateScoreAndCommentOfProductsReviews(ProductReviewsDto productReviews);
 
         public bool DeleteProductReviewsByProductId(int productId);
+
+        public bool AddScoreToProductReview(ProductReviewsDto prReview);
+
+        public bool AddCommentToProductReview(ProductReviewsDto prReview);
+
+        public bool UpdateScoreOfProductReview(ProductReviewsDto productReviews);
+
+        public bool UpdateCommentOfProductReview(ProductReviewsDto productReviews);
     }
 }

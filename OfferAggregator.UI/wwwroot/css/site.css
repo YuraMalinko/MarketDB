@@ -92,19 +92,21 @@ a, .btn-link {
 .get-full-products {
     width: 750px;
 }
-
+/*
 .table-get-full-products {
     margin-top: 1px;
     border-left: 1px solid black;
     border-right: 1px solid black;
     border-bottom: 1px solid black;
     border-top: 1px solid black;
-}
+    background-color: #ffffe0;
+}*/
 
-    .table-get-full-products th {
+/*.table-get-full-products th {
         text-align: left;
         border-bottom: 1px solid black;
         font-size: 15px;
+        background-color: #cc9293;
     }
 
     .table-get-full-products tr {
@@ -113,7 +115,7 @@ a, .btn-link {
     }
 
         .table-get-full-products tr:hover {
-            background-color: papayawhip;
+            background-color: #ffcc99;
             color: brown;
         }
 
@@ -126,7 +128,7 @@ a, .btn-link {
 
     .table-get-full-products td {
         text-align: left;
-    }
+    }*/
 
 .update-product-get-statistic {
     width: 1170px;
@@ -156,14 +158,22 @@ a, .btn-link {
     color: darkslategrey;
 }
 
-.button-submit:hover {
-    cursor: alias;
+    .button-submit:hover {
+        cursor: alias;
+    }
+
+.btn {
+    background-color: aliceblue;
+    border: 2px solid #0a0a0a;
+    margin-right: 10px;
 }
 
 .header-pages-stock {
     padding-top: 20px;
     padding-bottom: 10px;
     padding-left: 5px;
+    text-align: center;
+    font-size: 25px;
 }
 
 .filters {
@@ -183,12 +193,14 @@ a, .btn-link {
     border-right: 1px solid black;
     border-bottom: 1px solid black;
     border-top: 1px solid black;
+    background-color: #ffffe0;
 }
 
     .table-get-scores-comments-on-product th {
         text-align: center;
         border-bottom: 1px solid black;
         font-size: 15px;
+        background-color: #cc9293;
     }
 
     .table-get-scores-comments-on-product tr {
@@ -196,7 +208,7 @@ a, .btn-link {
     }
 
         .table-get-scores-comments-on-product tr:hover {
-            background-color: papayawhip;
+            background-color: #ffcc99;
             color: brown;
         }
 
@@ -212,3 +224,110 @@ a, .btn-link {
     color: darkred;
     font-weight: 600;
 }
+
+.table-registrate-product {
+    width: 1000px;
+}
+
+.in-product-card {
+    text-align: right;
+    color: #001d18;
+}
+
+
+.scroll-table-body {
+    height: 550px;
+    overflow-x: auto;
+    /*margin-top: 0px;
+    margin-bottom: 10px;
+    border-bottom: 1px solid black;*/
+    margin-top: 1px;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    background-color: #ffffe0;
+}
+
+.get-full-products table {
+    width: 100%;
+    table-layout: fixed;
+    border: none;
+}
+
+.get-full-products thead th {
+    font-weight: bold;
+    text-align: left;
+    font-size: 15px;
+    background: #d8d8d8;
+    padding: 5px;
+}
+
+.get-full-products tbody td {
+    text-align: left;
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+    padding: 10px 15px;
+    font-size: 14px;
+    vertical-align: top;
+}
+
+.get-full-products tbody tr:nth-child(even) {
+    background: #f3f3f3;
+}
+
+/*.scroll-table-body {
+    margin-top: 1px;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    border-bottom: 1px solid black;
+    border-top: 1px solid black;
+    background-color: #ffffe0;
+}
+
+    .scroll-table-body th {
+        text-align: left;
+        border-bottom: 1px solid #002137;
+        font-size: 15px;
+        background-color: #cc9293;
+    }
+
+    .scroll-table-body tr {
+        border-bottom: 1px solid #002137;
+        font-size: 15px;
+    }
+
+        .scroll-table-body tr:hover {
+            background-color: #ffcc99;
+            color: brown;
+        }
+
+    .scroll-table-body .nested-row {
+        border-left: 0px;
+        border-right: 0px;
+        border-bottom: 0px;
+        border-top: 0px;
+    }
+
+    .scroll-table-body td {
+        text-align: left;
+    }*/
+
+.table-get-full-products {
+    overflow: auto;
+    height: 600px;
+}
+
+    .table-get-full-products thead tr th {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+        border: 1px solid #002137;
+    }
+    .table-get-full-products .nested-row td{
+        border-left: 0px;
+        border-right: 0px;
+        border-bottom: 0px;
+        border-top: 0px;
+    }
+

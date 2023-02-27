@@ -181,10 +181,10 @@ ClientService clientService = new ClientService(clientRepository, _productsRepos
 
 ProductReviewInputModel productReviewInputModel = new ProductReviewInputModel
 {
-    ProductId = 59,
-    ClientId = 90,
-    Score = 0,
-    Comment = "норм"
+    ProductId = 90,
+    ClientId = 6,
+   Score = 5,
+    //Comment = "my score 5!"
 
 };
 
@@ -192,7 +192,9 @@ ProductReviewInputModel productReviewInputModel = new ProductReviewInputModel
 
 //var get = _productsReviewsAndStocksRepository.GetAllScoresAndCommentsForProductByProductIdAndClientId(59, 1); 
 
-var get = productService.GetAllScoresAndCommentsForProductByProductIdAndClientId(30, 1);
+//var get = productService.GetAllScoresAndCommentsForProductByProductIdAndClientId(30, 1);
+
+var addUPD = productService.AddScoreOrCommentToProductReview(productReviewInputModel);
 
 Console.WriteLine();
 

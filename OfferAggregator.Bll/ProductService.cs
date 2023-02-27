@@ -184,7 +184,25 @@ namespace OfferAggregator.Bll
             return getAmountModel;
         }
 
-        public bool AddScoreOrCommentToProductReview(ProductReviewInputModel productReviewModel)
+        //public bool AddScoreOrCommentToProductReview(ProductReviewInputModel productReviewModel)
+        //{
+        //    if (productReviewModel.Score != null && (productReviewModel.Score < 1 || productReviewModel.Score > 5))
+        //    {
+        //        throw new ArgumentException("This score not included in the range from 1 to 5");
+        //    }
+
+        //    if (!CheckClientOrderedProduct(productReviewModel.ProductId, productReviewModel.ClientId))
+        //    {
+        //        throw new ArgumentException("Client did not order product with this product");
+        //    }
+
+        //    var productReviewDto = _instanceMapper.MapProductReviewInputModelToProductReviewsDto(productReviewModel);
+        //    var result = _productsReviewsAndStocksRepository.AddScoreOrCommentToProductReview(productReviewDto);
+
+        //    return result;
+        //}
+
+        public void AddScoreOrCommentToProductReview(ProductReviewInputModel productReviewModel)
         {
             if (productReviewModel.Score != null && (productReviewModel.Score < 1 || productReviewModel.Score > 5))
             {
@@ -197,12 +215,170 @@ namespace OfferAggregator.Bll
             }
 
             var productReviewDto = _instanceMapper.MapProductReviewInputModelToProductReviewsDto(productReviewModel);
-            var result = _productsReviewsAndStocksRepository.AddScoreOrCommentToProductReview(productReviewDto);
+            var getProductWithScoresAndComments = _productsReviewsAndStocksRepository.GetAllScoresAndCommentsForProductByProductIDAndClientId(productReviewModel.ProductId, productReviewModel.ClientId);
 
-            return result;
+            //if (productReviewModel.Score != null && CheckProductDoesNotHaveScoreByProductIdAndClientId(getProductWithScoresAndComments))
+            //{
+            //    _productsReviewsAndStocksRepository.AddScoreToProductReview(productReviewDto);
+            //}
+            //else if (productReviewModel.Score != null && !CheckProductDoesNotHaveScoreByProductIdAndClientId(getProductWithScoresAndComments))
+            //{
+            //    _productsReviewsAndStocksRepository.UpdateScoreOfProductReview(productReviewDto);
+            //}
+
+            //if (productReviewModel.Comment!=null && CheckProductDoesNotHaveCommentByProductIdAndClientId(getProductWithScoresAndComments))
+            //{
+            //    _productsReviewsAndStocksRepository.AddCommentToProductReview(productReviewDto);
+            //}
+            //else if(productReviewModel.Comment != null && !CheckProductDoesNotHaveCommentByProductIdAndClientId(getProductWithScoresAndComments))
+            //{
+            //    _productsReviewsAndStocksRepository.UpdateCommentOfProductReview(productReviewDto);
+            //}
+
+            if (CheckProductDoesNotHaveScoreByProductIdAndClientId(getProductWithScoresAndComments))
+            {
+                if (productReviewModel.Score == null && productReviewModel.Comment != null)
+                {
+                    if (CheckProductDoesNotHaveCommentByProductIdAndClientId(getProductWithScoresAndComments))
+                    {
+                        _productsReviewsAndStocksRepository.AddCommentToProductReview(productReviewDto);
+                    }
+                    else
+                    {
+                        _productsReviewsAndStocksRepository.UpdateCommentOfProductReview(productReviewDto);
+                    }
+                }
+                else if (productReviewModel.Score != null && productReviewModel.Comment != null)
+                {
+                    if (CheckProductDoesNotHaveCommentByProductIdAndClientId(getProductWithScoresAndComments))
+                    {
+                        //_productsReviewsAndStocksRepository.AddScoreToProductReview(productReviewDto);
+                        //_productsReviewsAndStocksRepository.AddCommentToProductReview(productReviewDto);
+                        _productsReviewsAndStocksRepository.AddScoreOrCommentToProductReview(productReviewDto);
+                    }
+                    else
+                    {
+                        _productsReviewsAndStocksRepository.AddScoreToProductReview(productReviewDto);
+                        _productsReviewsAndStocksRepository.UpdateCommentOfProductReview(productReviewDto);
+                    }
+                }
+                //else if (productReviewModel.Score == null && productReviewModel.Comment == null)
+                //{
+                //    if (CheckProductDoesNotHaveCommentByProductIdAndClientId(getProductWithScoresAndComments))
+                //    {
+                //        _productsReviewsAndStocksRepository.AddCommentToProductReview(productReviewDto);
+                //    }
+                //    else
+                //    {
+                //        _productsReviewsAndStocksRepository.UpdateCommentOfProductReview(productReviewDto);
+                //    }
+                //}
+                else if (productReviewModel.Score != null && productReviewModel.Comment == null)
+                {
+                    _productsReviewsAndStocksRepository.AddScoreToProductReview(productReviewDto);
+                }
+            }
+            else if (!CheckProductDoesNotHaveScoreByProductIdAndClientId(getProductWithScoresAndComments))
+            //if (!CheckProductDoesNotHaveScoreByProductIdAndClientId(getProductWithScoresAndComments) && productReviewModel.Score != null && productReviewModel.Comment != null)
+            {
+                if (productReviewModel.Score == null && productReviewModel.Comment != null)
+                {
+                    if (CheckProductDoesNotHaveCommentByProductIdAndClientId(getProductWithScoresAndComments))
+                    {
+                        //_productsReviewsAndStocksRepository.AddCommentToProductReview(productReviewDto);
+                        _productsReviewsAndStocksRepository.UpdateCommentOfProductReview(productReviewDto);
+
+                    }
+                    else
+                    {
+                        _productsReviewsAndStocksRepository.UpdateCommentOfProductReview(productReviewDto);
+                    }
+                }
+                else if (productReviewModel.Score != null && productReviewModel.Comment != null)
+                {
+                    if (CheckProductDoesNotHaveCommentByProductIdAndClientId(getProductWithScoresAndComments))
+                    {
+                        _productsReviewsAndStocksRepository.UpdateScoreOfProductReview(productReviewDto);
+                        _productsReviewsAndStocksRepository.AddCommentToProductReview(productReviewDto);
+                    }
+                    else
+                    {
+                        _productsReviewsAndStocksRepository.UpdateScoreOfProductReview(productReviewDto);
+                        _productsReviewsAndStocksRepository.UpdateCommentOfProductReview(productReviewDto);
+                    }
+                }
+                else if (productReviewModel.Score != null && productReviewModel.Comment == null)
+                {
+                    _productsReviewsAndStocksRepository.UpdateScoreOfProductReview(productReviewDto);
+                }
+            }
+
+            else if (CheckProductDoesNotHaveCommentByProductIdAndClientId(getProductWithScoresAndComments))
+            {
+                if (productReviewModel.Comment == null && productReviewModel.Score != null)
+                {
+                    if (CheckProductDoesNotHaveScoreByProductIdAndClientId(getProductWithScoresAndComments))
+                    {
+                        _productsReviewsAndStocksRepository.AddScoreToProductReview(productReviewDto);
+                    }
+                    else
+                    {
+                        _productsReviewsAndStocksRepository.UpdateScoreOfProductReview(productReviewDto);
+                    }
+                }
+                else if (productReviewModel.Comment != null && productReviewModel.Score != null)
+                {
+                    if (CheckProductDoesNotHaveScoreByProductIdAndClientId(getProductWithScoresAndComments))
+                    {
+                        _productsReviewsAndStocksRepository.AddCommentToProductReview(productReviewDto);
+                        _productsReviewsAndStocksRepository.AddScoreToProductReview(productReviewDto);
+                    }
+                    else
+                    {
+                        _productsReviewsAndStocksRepository.AddCommentToProductReview(productReviewDto);
+                        _productsReviewsAndStocksRepository.UpdateScoreOfProductReview(productReviewDto);
+                    }
+                }
+                else if (productReviewModel.Comment != null && productReviewModel.Score == null)
+                {
+                    _productsReviewsAndStocksRepository.AddCommentToProductReview(productReviewDto);
+                }
+            }
+
+            else if (!CheckProductDoesNotHaveCommentByProductIdAndClientId(getProductWithScoresAndComments))
+            {
+                if (productReviewModel.Comment == null && productReviewModel.Score != null)
+                {
+                    if (CheckProductDoesNotHaveScoreByProductIdAndClientId(getProductWithScoresAndComments))
+                    {
+                        _productsReviewsAndStocksRepository.AddScoreToProductReview(productReviewDto);
+                    }
+                    else
+                    {
+                        _productsReviewsAndStocksRepository.UpdateScoreOfProductReview(productReviewDto);
+                    }
+                }
+                else if (productReviewModel.Comment != null && productReviewModel.Score != null)
+                {
+                    if (CheckProductDoesNotHaveScoreByProductIdAndClientId(getProductWithScoresAndComments))
+                    {
+                        _productsReviewsAndStocksRepository.UpdateCommentOfProductReview(productReviewDto);
+                        _productsReviewsAndStocksRepository.AddScoreToProductReview(productReviewDto);
+                    }
+                    else
+                    {
+                        _productsReviewsAndStocksRepository.UpdateCommentOfProductReview(productReviewDto);
+                        _productsReviewsAndStocksRepository.UpdateScoreOfProductReview(productReviewDto);
+                    }
+                }
+                else if (productReviewModel.Comment != null && productReviewModel.Score == null)
+                {
+                    _productsReviewsAndStocksRepository.UpdateCommentOfProductReview(productReviewDto);
+                }
+            }
         }
 
-        public ProductsStatisticOutputModel GetProductStatisticById(int productId)
+                public ProductsStatisticOutputModel GetProductStatisticById(int productId)
         {
             if (!CheckProductIsExist(productId))
             {
@@ -327,6 +503,48 @@ namespace OfferAggregator.Bll
             if (getClient != null)
             {
                 return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private bool CheckProductDoesNotHaveScoreByProductIdAndClientId(ProductWithScoresAndCommentsDto getProductWithScoresAndComments)
+        {
+            //var getProductWithScoresAndComments = _productsReviewsAndStocksRepository.GetAllScoresAndCommentsForProductByProductIDAndClientId(productId, clientId);
+            if (getProductWithScoresAndComments != null && getProductWithScoresAndComments.ProductReviews != null)
+            {
+                var scoresAndComments = getProductWithScoresAndComments.ProductReviews;
+                if (!scoresAndComments.Any() || scoresAndComments.Any(s => s.Score is null))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private bool CheckProductDoesNotHaveCommentByProductIdAndClientId(ProductWithScoresAndCommentsDto getProductWithScoresAndComments)
+        {
+            //var getProductWithScoresAndComments = _productsReviewsAndStocksRepository.GetAllScoresAndCommentsForProductByProductIDAndClientId(productId, clientId);
+            if (getProductWithScoresAndComments != null && getProductWithScoresAndComments.ProductReviews != null)
+            {
+                var scoresAndComments = getProductWithScoresAndComments.ProductReviews;
+                if (!scoresAndComments.Any() || scoresAndComments.Any(c => c.Comment is null))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
             else
             {

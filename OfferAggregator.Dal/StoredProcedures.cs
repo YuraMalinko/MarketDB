@@ -137,5 +137,13 @@ namespace OfferAggregator.Dal
         public const string GetClientsWhoOrderedProductByProductId = "GetClientsWhoOrderedProductByProductId";
 
         public const string GetProductStatisticById = "GetProductStatisticById";
+
+        public const string AddComment = "AddComment";
+
+        public const string AddScore = "AddScore";
+
+        public const string UpdateComment = "UpdateComment";
+
+        public const string UpdateScore = "UpdateScore";
     }
 }

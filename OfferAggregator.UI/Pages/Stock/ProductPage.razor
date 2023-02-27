@@ -14,16 +14,18 @@
 
 @*    <button @onclick="SetOrUnsetGetProductStatisticContent" class="btn">Посмотреть статитстику товара</button>*@
 
-    <button @onclick="SetOrUnsetAddScoreAndCommentContent" class="btn">Добавить оценку/комментарий</button>
-    <a href="/getFullProducts">
-        <button class="btn">Вернуться к общему списку товаров</button>
+    @*<button @onclick="SetOrUnsetAddScoreAndCommentContent" class="btn">Добавить оценку/комментарий</button>*@
+
+    <button @onclick="SetOrUnsetGetAllScoresAndCommentsByProductIdContent" class="btn">Оценки и комментарии</button>
+    <button class="btn">Теги</button>
+  
+    <a href="/Stock">
+        <button class="btn">Вернуться в меню Склада</button>
     </a>
-    <button @onclick="SetOrUnsetGetAllScoresAndCommentsByProductIdContent" class="btn">Посмотреть все оценки и комментарии на товар</button>
 </div>
 
-<div style="text-align: right">
-    Вы находитесь внутри карточки товара: <br />
-    @_product.Name
+<div class="in-product-card">
+    <em>Вы внутри карточки<br /> товара: @_product.Name</em>
 </div>
 
 <div style="width: 500px">
@@ -37,9 +39,9 @@
     <UpdateAmount ProductId="Id" />
     break;*@
 
-        case ProductPageContent.AddScoreAndComment:
+        @*case ProductPageContent.AddScoreAndComment:
             <AddScoreAndComment ProductId="Id" />
-            break;
+            break;*@
 
       @*  case ProductPageContent.GetProductStatistic:
             <GetProductStatistic ProductId="Id" />
@@ -106,10 +108,10 @@
     //    SetContenet(ProductPageContent.UpdateAmount);
     //}
 
-    private void SetOrUnsetAddScoreAndCommentContent()
-    {
-        SetContenet(ProductPageContent.AddScoreAndComment);
-    }
+    //private void SetOrUnsetAddScoreAndCommentContent()
+    //{
+    //    SetContenet(ProductPageContent.AddScoreAndComment);
+    //}
 
     //private void SetOrUnsetGetProductStatisticContent()
     //{
@@ -138,9 +140,9 @@
         None = 0,
         //UpdateProduct = 1,
         //UpdateAmount = 2,
-        AddScoreAndComment = 1,
+      //  AddScoreAndComment = 1,
        // GetProductStatistic = 2,
-        GetAllScoresAndCommentsByProductId = 2
+        GetAllScoresAndCommentsByProductId = 1
     }
 
 

@@ -278,5 +278,63 @@ namespace OfferAggregator.Dal.Repositories
                 return result > 0;
             }
         }
+
+        public bool AddScoreToProductReview(ProductReviewsDto prReview)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+
+                int result = sqlCnctn.Execute(
+                    StoredProcedures.AddScore,
+                    new { prReview.ProductId, prReview.ClientId, prReview.Score },
+                    commandType: CommandType.StoredProcedure);
+
+                return result > 0;
+            }
+        }
+
+        public bool AddCommentToProductReview(ProductReviewsDto prReview)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+
+                int result = sqlCnctn.Execute(
+                    StoredProcedures.AddComment,
+                    new { prReview.ProductId, prReview.ClientId, prReview.Comment },
+                    commandType: CommandType.StoredProcedure);
+
+                return result > 0;
+            }
+        }
+
+        public bool UpdateScoreOfProductReview(ProductReviewsDto productReviews)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                int result = sqlCnctn.Execute(
+                    StoredProcedures.UpdateScore,
+                    new { productReviews.ProductId, productReviews.ClientId, productReviews.Score },
+                    commandType: CommandType.StoredProcedure);
+
+                return result > 0;
+            }
+        }
+
+        public bool UpdateCommentOfProductReview(ProductReviewsDto productReviews)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                int result = sqlCnctn.Execute(
+                    StoredProcedures.UpdateComment,
+                    new { productReviews.ProductId, productReviews.ClientId, productReviews.Comment },
+                    commandType: CommandType.StoredProcedure);
+
+                return result > 0;
+            }
+        }
     }
 }
