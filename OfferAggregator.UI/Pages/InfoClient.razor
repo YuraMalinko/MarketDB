@@ -1,0 +1,13 @@
+﻿@page "/clients/{Id:int}"
+
+<h3>InfoClient</h3>
+
+@code {
+    [Parameter] public int Id { get; set; }
+    private ClientOutputModel _client;
+
+    protected override void OnInitialized()
+    {
+        _client = new ClientService().GetClientById(Id);
+    }
+}

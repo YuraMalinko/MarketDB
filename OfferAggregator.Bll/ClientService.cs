@@ -50,6 +50,13 @@ namespace OfferAggregator.Bll
             return _instanceMapper.MapClientsDtoToClientsOutputModel(clients);
         }
 
+        public ClientOutputModel GetClientById(int Id)
+        {
+            ClientsDto clients = _clientRepository.GetClientById(Id);
+
+            return _instanceMapper.MapClientDtoToClientOutputModel(clients);
+        }
+
         public int AddClient (ClientInputModel client)
         {
             var newClient = _instanceMapper.MapClientsInputModelModelToClientsDto(client);
@@ -88,9 +95,18 @@ namespace OfferAggregator.Bll
             else
             {
                 _clientRepository.DeleteClient(id);
-                _clientsWishesRepository.DeleteClientWishesById(id);
-                _commentForClientRepository.DeleteComment(id);
-                result = false;
+
+                //if (_clientsWishesRepository.GetClientWishesByClientId(id) != null)
+                //{
+                //    _clientsWishesRepository.DeleteClientWishesById(id);
+                //}
+
+                //if(_commentForClientRepository.GetClientCommentsByClientId(id) != null)
+                //{
+                //    _commentForClientRepository.DeleteComment(id);
+                //}
+
+                result = true;
             }
 
             return result;

@@ -1,9 +1,9 @@
-﻿<div class="client_all_block">
-    <a>
+﻿<div class="client_card">
+    <a href="/clients/@client.Id">
         <h4>@client.Name - @client.PhoneNumber</h4>
     </a>
     <button @onclick="ClickDelete"> Удалить </button>
-    <button @onclick="ClickUpdate"> </button>
+    <button @onclick="ClickUpdate"> Изменить </button>
 </div>
 
 @code {
