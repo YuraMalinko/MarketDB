@@ -50,9 +50,9 @@ namespace OfferAggregator.Bll
             return _instanceMapper.MapClientsDtoToClientsOutputModel(clients);
         }
 
-        public ClientOutputModel GetClientById(int Id)
+        public ClientOutputModel GetClientById(int id)
         {
-            ClientsDto clients = _clientRepository.GetClientById(Id);
+            ClientsDto clients = _clientRepository.GetClientById(id);
 
             return _instanceMapper.MapClientDtoToClientOutputModel(clients);
         }
@@ -127,6 +127,31 @@ namespace OfferAggregator.Bll
             }
 
             return result;
+        }
+
+        public List<CommentForClientOutputModel> AllCommentsForClient(int id) 
+        { 
+            List<CommentForClientDto> comment = _commentForClientRepository.GetClientCommentsByClientId(id);
+            var result = _instanceMapper.MapCommentForClientDtoToCommentForClientOutputModel(comment);
+
+            return result;
+        }
+
+        public int AddComment(CommentForClientInputModel comment, int clientId)
+        {
+            comment.ClientId = clientId;
+            var newComment = _instanceMapper.MapCommentForClientInputModelToCommentForClientDto(comment);
+            
+            if(newComment.Text != null && newComment.ClientId != null) 
+            {
+                _commentForClientRepository.AddComment(newComment);
+            }
+            else
+            {
+                throw new ArgumentException("Текст комментария не может быть пустым!");
+            }
+
+            return newComment.Id;
         }
     }
 }

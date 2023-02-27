@@ -20,8 +20,9 @@ namespace OfferAggregator.Bll
                 {
                     cfg.CreateMap<ProductsDto, ProductModel>();
                     cfg.CreateMap<ProductModel, ProductsDto>();
-                    cfg.CreateMap<CommentForClientDto, ClientOutputModel>();
-                    cfg.CreateMap<ClientOutputModel, CommentForClientDto>();
+                    cfg.CreateMap<CommentForClientDto, CommentForClientOutputModel>();
+                    cfg.CreateMap<CommentForClientOutputModel, CommentForClientDto>();
+                    cfg.CreateMap<CommentForClientInputModel, CommentForClientDto>();
                     cfg.CreateMap<StocksWithProductModel, StocksDtoWithProductName>();
                     cfg.CreateMap<FullProductDto, FullProductModel>();
                     cfg.CreateMap<TagDto, TagModel>();
@@ -34,7 +35,7 @@ namespace OfferAggregator.Bll
                     cfg.CreateMap<CurrentManager, ManagerDto>();
                     cfg.CreateMap<ClientInputModel, ClientsDto>();
                     cfg.CreateMap<CommentForOrderModel, CommenForOrderDto>();
-                    cfg.CreateMap<CommentForClientModel, CommentForClientDto>();
+                    cfg.CreateMap<CommentForClientOutputModel, CommentForClientDto>();
                     cfg.CreateMap<ProductsStatisticDto, ProductsStatisticModel>();
                     cfg.CreateMap<ClientsDto, ClientOutputModel>();
                 });
@@ -74,6 +75,21 @@ namespace OfferAggregator.Bll
         public ClientsDto MapClientsInputModelModelToClientsDto(ClientInputModel clients)
         {
             return _mapper.Map<ClientsDto>(clients);
+        }
+
+        public CommentForClientDto MapCommentForClientOutputModelToCommentForClientDto (CommentForClientOutputModel comment)
+        {
+            return _mapper.Map<CommentForClientDto>(comment);
+        }
+
+        public List<CommentForClientOutputModel> MapCommentForClientDtoToCommentForClientOutputModel(List<CommentForClientDto> comment)
+        {
+            return _mapper.Map<List<CommentForClientOutputModel>>(comment);
+        }
+
+        public CommentForClientDto MapCommentForClientInputModelToCommentForClientDto(CommentForClientInputModel comment)
+        {
+            return _mapper.Map<CommentForClientDto>(comment);
         }
 
         public List<ClientInputModel> MapClientsDtoToClientsInputModel(List<ClientsDto> clients)

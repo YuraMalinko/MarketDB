@@ -1,6 +1,6 @@
 ﻿namespace OfferAggregator.Bll.Models
 {
-    public class CommentForClientModel
+    public class CommentForClientOutputModel
     {
         public int Id { get; set; }
 

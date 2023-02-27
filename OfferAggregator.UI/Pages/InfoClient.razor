@@ -1,13 +1,20 @@
 ﻿@page "/clients/{Id:int}"
+@inject NavigationManager _navigationManager
 
 <h3>InfoClient</h3>
+<div>
+    
+</div>
 
 @code {
     [Parameter] public int Id { get; set; }
-    private ClientOutputModel _client;
+    private ClientService _clientServis;
+    private ClientOutputModel Client;
+
 
     protected override void OnInitialized()
     {
-        _client = new ClientService().GetClientById(Id);
+        _clientServis = new ClientService();
+        Client = _clientServis.GetClientById(Id);
     }
 }
