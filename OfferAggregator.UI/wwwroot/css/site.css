@@ -1,5 +1,23 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 
+.blokVerx{
+    background-color: lavender;
+}
+
+.client_all_block {
+    background-color: lavenderblush;
+}
+
+
+
+
+
+
+
+
+
+
+
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
