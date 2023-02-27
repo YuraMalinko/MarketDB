@@ -2,8 +2,16 @@
     <a href="/clients/@client.Id">
         <h4>@client.Id - @client.Name - @client.PhoneNumber</h4>
     </a>
-    <button @onclick="ClickDelete"> Удалить </button>
-    <button @onclick="ClickUpdate"> Изменить </button>
+    <button type ="button" class="btn btn-outline-danger" @onclick="ClickDelete"> Удалить </button>
+    @*<button type="button" class="btn btn-outline-warning" @onclick="ClickUpdate"> Изменить </button>*@
+    <button type="button" class="btn btn-outline-warning" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        Изменить
+    </button>
+    <div class="collapse" id="collapseExample">
+  <div class="card card-body">
+    Некоторый заполнитель для компонента сворачивания. Эта панель по умолчанию скрыта, но открывается, когда пользователь активирует соответствующий триггер.
+  </div>
+</div>
 </div>
 
 @code {
@@ -15,8 +23,15 @@
     {
         btnDelete.InvokeAsync(client.Id);
     }
+
     private void ClickUpdate()
     {
-        btnDelete.InvokeAsync(client.Id);
+        ClientInputModel updateClient = new ClientInputModel
+            {
+                Name = client.Name,
+                PhoneNumber = client.PhoneNumber
+            };
+
+        btnUpdate.InvokeAsync(updateClient);
     }
 }

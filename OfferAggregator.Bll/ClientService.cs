@@ -1,6 +1,7 @@
 using OfferAggregator.Bll.Models;
 using OfferAggregator.Dal.Models;
 using OfferAggregator.Dal.Repositories;
+using OfferAggregator.Dal;
 using System.Net;
 
 namespace OfferAggregator.Bll
@@ -10,8 +11,8 @@ namespace OfferAggregator.Bll
         private Mapper _instanceMapper = Mapper.GetInstance();
 
         public IClientRepository _clientRepository { get; set; }
-        public IClientsWishesRepository _clientsWishesRepository { get; set; }
-        public ICommentForClientRepository _commentForClientRepository { get; set; }
+        public IClientsWishesRepository _clientsWishesRepository = new ClientsWishesRepository();
+        public ICommentForClientRepository _commentForClientRepository = new CommentForClientRepository();
 
         public ClientService(IClientRepository clientRepository = null)
         {
@@ -129,7 +130,7 @@ namespace OfferAggregator.Bll
             return result;
         }
 
-        public List<CommentForClientOutputModel> AllCommentsForClient(int id) 
+        public List<CommentForClientOutputModel> GetAllCommentsForClientById(int id) 
         { 
             List<CommentForClientDto> comment = _commentForClientRepository.GetClientCommentsByClientId(id);
             var result = _instanceMapper.MapCommentForClientDtoToCommentForClientOutputModel(comment);

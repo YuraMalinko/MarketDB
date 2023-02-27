@@ -10,9 +10,10 @@ ClientRepository _clientRepository = new ClientRepository();
 ClientsWishesRepository _clientsWishesRepository = new ClientsWishesRepository();
 CommentForClientRepository _commentForClientRepository = new CommentForClientRepository();
 OrderRepository _orderRepository = new OrderRepository();
-ClientService _cl = new ClientService();
+CommentForClientRepository _ccc = new CommentForClientRepository();
 
-var ccc = _cl.GetAllClients();
+var bbb = _ccc.GetClientCommentsByClientId(2);
+
 
 Console.WriteLine( );
 

@@ -5,7 +5,7 @@
     <h2>Добавить нового клиента</h2>
     <span>Имя:</span><input type="text" @bind="Client.Name" />
     <span>Телефон:</span><input type="text" @bind="Client.PhoneNumber" />
-    <button @onclick="AddNewClient">Добавить</button>
+    <button type="button" class="btn btn-outline-success" @onclick="AddNewClient">Добавить</button>
 </div>
 <nav class="navbar bg-body-tertiary">
   <div class="container-fluid">
@@ -34,8 +34,9 @@
         Client = new ClientInputModel();
     }
 
-    private void UpdateClient(int a)
+    private void UpdateClient(ClientInputModel client)
     {
+        
     }
 
     private void DeleteClient(int a)
