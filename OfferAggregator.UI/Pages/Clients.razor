@@ -1,20 +1,56 @@
 ﻿@page "/clients"
+@inject NavigationManager _navigationManager
 
-<div class="">
+<div class="blokVerx">
+    <h2>Добавить нового клиента</h2>
+    <span>Имя:</span><input type="text" @bind="Client.Name" />
+    <span>Телефон:</span><input type="text" @bind="Client.PhoneNumber" />
+    <button @onclick="AddNewClient">Добавить</button>
+</div>
+<nav class="navbar bg-body-tertiary">
+  <div class="container-fluid">
+    <a class="navbar-brand">Поиск по номеру телефона</a>
+    <form class="d-flex" role="search">
+            <input class="form-control me-2" type="search" placeholder="Поиск" aria-label="Поиск" @bind="Client.PhoneNumber">
+            <button class="btn btn-outline-success" type="submit">Поиск</button>
+    </form>
+  </div>
+</nav>
+<div>
     @foreach (var i in _clients)
         {
-            <ClientCard client="i"/>
+        <ClientCard client="i" btnDelete="DeleteClient"/>
         }
 </div>
-
-
 
 @code {
     ClientService _clientServis = new ClientService();
     private List<ClientOutputModel> _clients = new List<ClientOutputModel>();
+    public ClientInputModel Client;
 
     protected override void OnInitialized()
     {
         _clients = _clientServis.GetAllClients();
+        Client = new ClientInputModel();
+    }
+
+    private void UpdateClient(int a)
+    {
+    }
+
+    private void DeleteClient(int a)
+    {
+        _clientServis.DeleteClient(a);
+        _navigationManager.NavigateTo("/clients", true);
+    }
+
+    private void AddNewClient()
+    {
+        _clientServis.AddClient(Client);
+        _navigationManager.NavigateTo("/clients", true);
+    }
+
+    private void SearchClientByPhone(string phone)
+    {
     }
 }
