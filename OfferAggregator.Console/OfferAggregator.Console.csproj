@@ -12,6 +12,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\OfferAggregator.Bll.Tests\OfferAggregator.Bll.Tests.csproj" />
     <ProjectReference Include="..\OfferAggregator.Bll\OfferAggregator.Bll.csproj" />
     <ProjectReference Include="..\OfferAggregator.Dal\OfferAggregator.Dal.csproj" />
   </ItemGroup>
