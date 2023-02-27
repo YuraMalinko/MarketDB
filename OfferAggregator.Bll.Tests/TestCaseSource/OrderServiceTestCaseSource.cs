@@ -22,7 +22,6 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Manager = new CurrentManager(1, "OneMan", "111"),
                 Client = new ClientInputModel
                 {
-                    Id = 2,
                     Name = "OneClient",
                     PhoneNumber = "11111"
                 }
@@ -165,7 +164,6 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Manager = new CurrentManager(12, "OneMan2", "1112"),
                 Client = new ClientInputModel
                 {
-                    Id = 22,
                     Name = "OneClient2",
                     PhoneNumber = "111112"
                 }
@@ -346,7 +344,6 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Manager = new CurrentManager(123, "OneMan23", "11123"),
                 Client = new ClientInputModel
                 {
-                    Id = 223,
                     Name = "OneClient23",
                     PhoneNumber = "1111123"
                 }
@@ -402,7 +399,6 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Manager = new CurrentManager(1234, "OneMan234", "111234"),
                 Client = new ClientInputModel
                 {
-                    Id = 2234,
                     Name = "OneClient234",
                     PhoneNumber = "11111234"
                 }
@@ -458,7 +454,6 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Manager = new CurrentManager(12345, "OneMan2345", "1112345"),
                 Client = new ClientInputModel
                 {
-                    Id = 22345,
                     Name = "OneClient2345",
                     PhoneNumber = "111112345"
                 }
@@ -519,7 +514,6 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Manager = new CurrentManager(147, "OneMan47", "11147"),
                 Client = new ClientInputModel
                 {
-                    Id = 247,
                     Name = "OneClient47",
                     PhoneNumber = "1111147"
                 }
@@ -656,7 +650,6 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Manager = new CurrentManager(1478, "OneMan478", "111478"),
                 Client = new ClientInputModel
                 {
-                    Id = 2478,
                     Name = "OneClient478",
                     PhoneNumber = "11111478"
                 }
@@ -793,7 +786,6 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Manager = new CurrentManager(14787, "OneMan4787", "11147877"),
                 Client = new ClientInputModel
                 {
-                    Id = 24787,
                     Name = "OneClient4787",
                     PhoneNumber = "111114787"
                 }
@@ -920,7 +912,6 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Manager = new CurrentManager(147870, "OneMan47870", "111478770"),
                 Client = new ClientInputModel
                 {
-                    Id = 247870,
                     Name = "OneClient47870",
                     PhoneNumber = "1111147870"
                 }

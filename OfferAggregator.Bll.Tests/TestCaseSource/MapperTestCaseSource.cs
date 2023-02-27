@@ -385,7 +385,6 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Manager = new CurrentManager(6, "Andrew", "qqq"),
                 Client = new ClientInputModel
                 {
-                    Id = 1,
                     Name = "Medvedev",
                     PhoneNumber = "8800"
                 }
