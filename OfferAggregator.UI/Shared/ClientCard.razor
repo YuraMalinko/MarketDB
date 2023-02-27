@@ -1,0 +1,22 @@
+﻿<div class="client_all_block">
+    <a>
+        <h4>@client.Name - @client.PhoneNumber</h4>
+    </a>
+    <button @onclick="ClickDelete"> Удалить </button>
+    <button @onclick="ClickUpdate"> </button>
+</div>
+
+@code {
+    [Parameter] public ClientOutputModel client {get; set;}
+    [Parameter] public EventCallback<int>  btnDelete { get; set; }
+    [Parameter] public EventCallback<ClientInputModel> btnUpdate { get; set; }
+
+    private void ClickDelete()
+    {
+        btnDelete.InvokeAsync(client.Id);
+    }
+    private void ClickUpdate()
+    {
+        btnDelete.InvokeAsync(client.Id);
+    }
+}
