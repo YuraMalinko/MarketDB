@@ -52,7 +52,7 @@ namespace OfferAggregator.Dal.Repositories
             }
         }
 
-        public List<CommentForClientDto> GetClientWishesByClientId(int clientId)
+        public List<CommentForClientDto> GetClientCommentsByClientId(int clientId)
         {
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
             {
