@@ -2,10 +2,13 @@
 
 .blokVerx{
     background-color: lavender;
+    margin: 2px;
+    padding: 4px;
 }
 
-.client_all_block {
+.client_card {
     background-color: lavenderblush;
+    padding: 4px;
 }
 
 
