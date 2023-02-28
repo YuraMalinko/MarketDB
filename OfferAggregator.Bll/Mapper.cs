@@ -22,7 +22,6 @@ namespace OfferAggregator.Bll
                     cfg.CreateMap<ProductModel, ProductsDto>();
                     cfg.CreateMap<CommentForClientDto, CommentForClientOutputModel>();
                     cfg.CreateMap<CommentForClientInputModel, CommentForClientDto>();
-                    cfg.CreateMap<CommentForClientDto, CommentForClientInputModel>();
                     cfg.CreateMap<StocksWithProductModel, StocksDtoWithProductName>();
                     cfg.CreateMap<FullProductDto, FullProductModel>();
                     cfg.CreateMap<TagDto, TagModel>();

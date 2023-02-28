@@ -13,6 +13,7 @@ namespace OfferAggregator.Bll
         public IClientRepository _clientRepository { get; set; }
         public IClientsWishesRepository _clientsWishesRepository = new ClientsWishesRepository();
         public ICommentForClientRepository _commentForClientRepository = new CommentForClientRepository();
+        public IOrderRepository _orderRepository = new OrderRepository();
 
         public ClientService(IClientRepository clientRepository = null)
         {
