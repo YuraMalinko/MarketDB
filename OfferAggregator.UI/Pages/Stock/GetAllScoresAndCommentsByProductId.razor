@@ -4,61 +4,63 @@
 @using OfferAggregator.Dal.Repositories;
 @using System.ComponentModel.DataAnnotations;
 
-<div class="header-pages-stock" style="padding-left: 0px;">
-    Оценки и комментарии на товар
+<div style="width: 500px">
+    @*<UpdateReview ProductId="ProductId" />*@
+    <AddScoreAndComment ProductId="ProductId" OnReviewAdded="GetAllScoresAndCommentsForProduct" />
 </div>
 
-@if (_productScoresComment == null)
-{
-    <div>Товар не найден</div>
-}
-else if (_productScoresComment.ProductReviews.Count > 0)
-{
-    <table class="table-get-scores-comments-on-product">
-        <th style="width:130px;">Клиент</th>
-        <th>Оценка</th>
-        <th style="width:500px;">Комментарий</th>
-        @foreach (var productReview in _productScoresComment.ProductReviews)
-        {
-            <tr>
-                <td>@productReview.Name</td>
-
-                @if (@productReview.Score != null)
-                {
-                    <td>@productReview.Score</td>
-                }
-                else
-                {
-                    <td>-</td>
-                }
-
-                @if (@productReview.Comment != null)
-                {
-                    <td>@productReview.Comment</td>
-                }
-                else
-                {
-                    <td>-</td>
-                }
-            </tr>
-        }
-    </table>
-}
-else
-{
-    <div>На данный товар оценки или комментарии еще не оставляли</div>
-}
-
-@if (!string.IsNullOrEmpty(_errorMessage))
-{
-    <div class="error-message">
-        @_errorMessage
+<div>
+    <div class="header-pages-stock" style="padding-left: 0px;">
+        Оценки и комментарии на товар
     </div>
-}
 
-<div style="width: 500px">
-    <UpdateReview ProductId="ProductId" />
-    <AddScoreAndComment ProductId="ProductId" OnReviewAdded="GetAllScoresAndCommentsForProduct" />
+    @if (_productScoresComment == null)
+    {
+        <div>Товар не найден</div>
+    }
+    else if (_productScoresComment.ProductReviews.Count > 0)
+    {
+        <table class="table-get-scores-comments-on-product">
+            <th style="width:160px;">Клиент</th>
+            <th>Оценка</th>
+            <th style="width:550px;">Комментарий</th>
+            @foreach (var productReview in _productScoresComment.ProductReviews)
+            {
+                <tr>
+                    <td>@productReview.Name</td>
+
+                    @if (@productReview.Score != null)
+                    {
+                        <td>@productReview.Score</td>
+                    }
+                    else
+                    {
+                        <td>-</td>
+                    }
+
+                    @if (@productReview.Comment != null)
+                    {
+                        <td>@productReview.Comment</td>
+                    }
+                    else
+                    {
+                        <td>-</td>
+                    }
+                </tr>
+            }
+        </table>
+    }
+    else
+    {
+        <div>На данный товар оценки или комментарии еще не оставляли</div>
+    }
+
+    @if (!string.IsNullOrEmpty(_errorMessage))
+    {
+        <div class="error-message">
+            @_errorMessage
+        </div>
+    }
 </div>
 
 @code {

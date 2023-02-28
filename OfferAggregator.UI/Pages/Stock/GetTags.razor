@@ -1,0 +1,72 @@
+﻿@using OfferAggregator.Bll.Models;
+@using OfferAggregator.Bll;
+@using OfferAggregator.Dal.Models;
+@using OfferAggregator.Dal.Repositories;
+@using System.ComponentModel.DataAnnotations;
+
+<div class="header-pages-stock" style="padding-left: 0px;">
+    Список присвоенных тегов
+</div>
+
+@if (_tags.Count == 0)
+{
+    <div>У данного товара отсутствуют теги</div>
+}
+else
+{
+    @foreach (var tag in _tags)
+    {
+        <div>@tag.Name</div>
+    }
+}
+
+@if (!string.IsNullOrEmpty(_errorMessage))
+{
+    <div class="error-message">
+        @_errorMessage
+    </div>
+}
+
+<AddTag ProductId="ProductId"/>
+
+@code {
+    [Parameter]
+    public int ProductId { get; set; }
+
+    //private TagOutputModel _tag = new();
+
+    private List<TagOutputModel> _tags;
+
+    private ProductService _productService;
+
+    private string _errorMessage;
+
+    protected override void OnInitialized()
+    {
+        _productService = new ProductService(
+        new ProductsRepository(),
+        new ProductsReviewsAndStocksRepository(),
+        new TagsRepository(),
+        new GroupRepository(),
+        new ClientRepository()
+        );
+        GetAllTagsByProductId();
+    }
+
+    private void GetAllTagsByProductId()
+    {
+        try
+        {
+            _tags = _productService.GetAllTagsByProductId(ProductId);
+            _errorMessage = string.Empty;
+        }
+        catch (ArgumentException ex)
+        {
+            _errorMessage = "Такого продукта не существует";
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = "Произошла ошибка";
+        }
+    }
+}

@@ -194,7 +194,13 @@ ProductReviewInputModel productReviewInputModel = new ProductReviewInputModel
 
 //var get = productService.GetAllScoresAndCommentsForProductByProductIdAndClientId(30, 1);
 
-var addUPD = productService.AddScoreOrCommentToProductReview(productReviewInputModel);
+//var addUPD = productService.AddScoreOrCommentToProductReview(productReviewInputModel);
+
+//var getTags = productService.GetAllTagsByProductId(300);
+
+//var addtag = productService.AddNewTagToProduct("дешевое", 98);
+
+var add = productService.AddExistTagToProduct(new TagProductInputModel{TagId = 20, ProductId = 12});
 
 Console.WriteLine();
 

@@ -1,6 +1,6 @@
 ﻿namespace OfferAggregator.Bll.Models
 {
-    public class TagModel
+    public class TagOutputModel
     {
         public int Id { get; set; }
 

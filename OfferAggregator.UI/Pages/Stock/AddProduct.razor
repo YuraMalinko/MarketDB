@@ -33,13 +33,13 @@
         </InputSelect>
     </div>
 
+    <button class="button-submit" type="submit">Добавить новый товар</button>
     @if (!string.IsNullOrEmpty(_errorMessage))
     {
         <div class="error-message">
             @_errorMessage
         </div>
     }
-    <button class="button-submit" type="submit">Добавить новый товар</button>
 </EditForm>
 
 

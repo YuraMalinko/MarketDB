@@ -119,10 +119,10 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 GroupId = 10,
                 Amount = 100,
                 AverageScore = 3.5f,
-                Tags = new List<TagModel>
+                Tags = new List<TagOutputModel>
                 {
-                new TagModel{ Id = 1, Name = "tag1"},
-                new TagModel{ Id = 2, Name = "tag2"}
+                new TagOutputModel{ Id = 1, Name = "tag1"},
+                new TagOutputModel{ Id = 2, Name = "tag2"}
                 }
             };
             List<FullProductModel> expectedFullProductModels = new List<FullProductModel> { fullProductModel1 };
@@ -154,13 +154,13 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             FullProductDto fullProduct2 = new FullProductDto();
             fullProductDtos = new List<FullProductDto> { fullProduct1, fullProduct2 };
 
-            TagModel tagModel1 = new TagModel
+            TagOutputModel tagModel1 = new TagOutputModel
             {
                 Id = 11,
                 Name = "11"
             };
-            TagModel tagModel2 = new TagModel();
-            List<TagModel> tagModels = new List<TagModel> { tagModel1, tagModel2 };
+            TagOutputModel tagModel2 = new TagOutputModel();
+            List<TagOutputModel> tagModels = new List<TagOutputModel> { tagModel1, tagModel2 };
 
             fullProductModel1 = new FullProductModel
             {
@@ -200,10 +200,10 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 GroupId = 70,
                 Amount = 700,
                 AverageScore = 34.5f,
-                Tags = new List<TagModel>
+                Tags = new List<TagOutputModel>
                 {
-                new TagModel{ Id = 10, Name = "tag10"},
-                new TagModel{ Id = 20, Name = "tag20"}
+                new TagOutputModel{ Id = 10, Name = "tag10"},
+                new TagOutputModel{ Id = 20, Name = "tag20"}
                 }
             };
 
@@ -226,7 +226,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 GroupId = 70,
                 Amount = 700,
                 AverageScore = 34.5f,
-                Tags = new List<TagModel>()
+                Tags = new List<TagOutputModel>()
             };
 
             yield return new object[] { fullProductDto, expectedFullProductModel };

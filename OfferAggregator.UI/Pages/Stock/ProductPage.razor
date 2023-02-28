@@ -8,25 +8,27 @@
 
 @page "/product/{Id:int}"
 
+<div style ="display:flex; flex-direction:row;">
 <div>
     @*<button @onclick="SetOrUnsetUpdateProductContent" class="btn">Изменить товар</button>
     <button @onclick="SetOrUnsetUpdateAmountContent" class="btn">Изменить количество</button>*@
 
-@*    <button @onclick="SetOrUnsetGetProductStatisticContent" class="btn">Посмотреть статитстику товара</button>*@
+    @*    <button @onclick="SetOrUnsetGetProductStatisticContent" class="btn">Посмотреть статитстику товара</button>*@
 
     @*<button @onclick="SetOrUnsetAddScoreAndCommentContent" class="btn">Добавить оценку/комментарий</button>*@
 
     <button @onclick="SetOrUnsetGetAllScoresAndCommentsByProductIdContent" class="btn">Оценки и комментарии</button>
-    <button class="btn">Теги</button>
-  
+    <button @onclick="SetOrUnsetGetTagsContent" class="btn">Теги</button>
+
     <a href="/Stock">
         <button class="btn">Вернуться в меню Склада</button>
     </a>
 </div>
-
-<div class="in-product-card">
-    <em>Вы внутри карточки<br /> товара: @_product.Name</em>
+    <div class="in-product-card">
+        <em>Вы внутри карточки<br /> товара: @_product.Name</em>
+    </div>
 </div>
+
 
 <div style="width: 500px">
     @switch (_content)
@@ -40,19 +42,23 @@
     break;*@
 
         @*case ProductPageContent.AddScoreAndComment:
-            <AddScoreAndComment ProductId="Id" />
-            break;*@
+    <AddScoreAndComment ProductId="Id" />
+    break;*@
 
-      @*  case ProductPageContent.GetProductStatistic:
-            <GetProductStatistic ProductId="Id" />
-            break;*@
+        @*  case ProductPageContent.GetProductStatistic:
+    <GetProductStatistic ProductId="Id" />
+    break;*@
 
         case ProductPageContent.GetAllScoresAndCommentsByProductId:
             <GetAllScoresAndCommentsByProductId ProductId="Id" />
             break;
 
         case ProductPageContent.None:
-            <UpdateProductAndGetStatistic ProductId="Id"/>
+            <UpdateProductAndGetStatistic ProductId="Id" />
+            break;
+
+        case ProductPageContent.GetTags:
+            <GetTags ProductId="Id" />
             break;
     }
 
@@ -88,7 +94,7 @@
         //_timer.Elapsed += StopShowing;
 
 
-       
+
         //_stockProduct = _productService.GetAmountByProductId(Id);
         //FillFormOfUpdateStockProduct();
         //_timer = new Timer();
@@ -123,6 +129,11 @@
         SetContenet(ProductPageContent.GetAllScoresAndCommentsByProductId);
     }
 
+    private void SetOrUnsetGetTagsContent()
+    {
+        SetContenet(ProductPageContent.GetTags);
+    }
+
     private void SetContenet(ProductPageContent productPageContent)
     {
         if (_content == productPageContent)
@@ -140,9 +151,10 @@
         None = 0,
         //UpdateProduct = 1,
         //UpdateAmount = 2,
-      //  AddScoreAndComment = 1,
-       // GetProductStatistic = 2,
-        GetAllScoresAndCommentsByProductId = 1
+        //  AddScoreAndComment = 1,
+        // GetProductStatistic = 2,
+        GetAllScoresAndCommentsByProductId = 1,
+        GetTags = 2
     }
 
 

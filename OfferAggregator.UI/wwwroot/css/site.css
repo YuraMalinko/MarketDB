@@ -154,8 +154,8 @@ a, .btn-link {
 .button-submit {
     border-radius: 7px;
     margin-top: 7px;
-    background-color: azure;
-    color: darkslategrey;
+    background-color: #C0C0C0;
+    color: #191970;
 }
 
     .button-submit:hover {
@@ -163,7 +163,8 @@ a, .btn-link {
     }
 
 .btn {
-    background-color: aliceblue;
+    background-color: #D3D3D3;
+    color: #4B0082;
     border: 2px solid #0a0a0a;
     margin-right: 10px;
 }
@@ -177,7 +178,9 @@ a, .btn-link {
 }
 
 .filters {
-    width: 500px;
+    width: 470px;
+    padding: 19px;
+    margin-top: 39px;
 }
 
 .filters-row {
@@ -193,23 +196,28 @@ a, .btn-link {
     border-right: 1px solid black;
     border-bottom: 1px solid black;
     border-top: 1px solid black;
-    background-color: #ffffe0;
+    background-color: #F5F5F5;
+    width: 595px;
 }
 
     .table-get-scores-comments-on-product th {
         text-align: center;
         border-bottom: 1px solid black;
         font-size: 15px;
-        background-color: #cc9293;
+        background-color: #D3D3D3;
     }
 
     .table-get-scores-comments-on-product tr {
         text-align: center;
     }
 
+    .table-get-scores-comments-on-product td {
+        border: 1px solid #696969;
+    }
+
         .table-get-scores-comments-on-product tr:hover {
-            background-color: #ffcc99;
-            color: brown;
+            background-color: #A9A9A9;
+            color: #FFFFF0;
         }
 
 .pop-up-success-message {
@@ -232,21 +240,7 @@ a, .btn-link {
 .in-product-card {
     text-align: right;
     color: #001d18;
-}
-
-
-.scroll-table-body {
-    height: 550px;
-    overflow-x: auto;
-    /*margin-top: 0px;
-    margin-bottom: 10px;
-    border-bottom: 1px solid black;*/
-    margin-top: 1px;
-    border-left: 1px solid black;
-    border-right: 1px solid black;
-    border-bottom: 1px solid black;
-    border-top: 1px solid black;
-    background-color: #ffffe0;
+    margin-left: auto;
 }
 
 .get-full-products table {
@@ -259,64 +253,32 @@ a, .btn-link {
     font-weight: bold;
     text-align: left;
     font-size: 15px;
-    background: #d8d8d8;
+    background: #D3D3D3;
     padding: 5px;
 }
 
 .get-full-products tbody td {
     text-align: left;
-    border-left: 1px solid #ddd;
-    border-right: 1px solid #ddd;
-    padding: 10px 15px;
+    border-left: 1px solid #1d334a;
+    border-right: 1px solid #1d334a;
+    border-bottom: 1px solid #b0b7c6;
+    padding: 2px;
     font-size: 14px;
     vertical-align: top;
+    background-color: #F5F5F5;
 }
-
-.get-full-products tbody tr:nth-child(even) {
-    background: #f3f3f3;
-}
-
-/*.scroll-table-body {
-    margin-top: 1px;
-    border-left: 1px solid black;
-    border-right: 1px solid black;
-    border-bottom: 1px solid black;
-    border-top: 1px solid black;
-    background-color: #ffffe0;
-}
-
-    .scroll-table-body th {
-        text-align: left;
-        border-bottom: 1px solid #002137;
-        font-size: 15px;
-        background-color: #cc9293;
-    }
-
-    .scroll-table-body tr {
-        border-bottom: 1px solid #002137;
-        font-size: 15px;
-    }
-
-        .scroll-table-body tr:hover {
-            background-color: #ffcc99;
-            color: brown;
-        }
-
-    .scroll-table-body .nested-row {
-        border-left: 0px;
-        border-right: 0px;
-        border-bottom: 0px;
-        border-top: 0px;
-    }
-
-    .scroll-table-body td {
-        text-align: left;
-    }*/
 
 .table-get-full-products {
     overflow: auto;
     height: 600px;
+    border-bottom: 1px solid #1d334a;
 }
+
+    .table-get-full-products tr:hover td {
+        background-color: #A9A9A9;
+        color: #FFFFF0;
+    }
+
 
     .table-get-full-products thead tr th {
         position: sticky;
@@ -324,10 +286,10 @@ a, .btn-link {
         z-index: 1;
         border: 1px solid #002137;
     }
-    .table-get-full-products .nested-row td{
+
+    .table-get-full-products .nested-row td {
         border-left: 0px;
         border-right: 0px;
         border-bottom: 0px;
         border-top: 0px;
     }
-

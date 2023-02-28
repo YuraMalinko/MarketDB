@@ -539,10 +539,10 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Name = "117",
                 GroupId = 1107,
                 Amount = 1007,
-                Tags = new List<TagModel>
+                Tags = new List<TagOutputModel>
             {
-            new TagModel{ Id = 17, Name = "17"},
-            new TagModel{ Id = 27, Name = "27"}
+            new TagOutputModel{ Id = 17, Name = "17"},
+            new TagOutputModel{ Id = 27, Name = "27"}
             },
                 AverageScore = 2.7f
             };
@@ -574,7 +574,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Name = "1138",
                 GroupId = 11038,
                 Amount = 10038,
-                Tags = new List<TagModel>(),
+                Tags = new List<TagOutputModel>(),
                 AverageScore = 3
             };
             productId = 1138;
@@ -596,7 +596,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Name = "11386",
                 GroupId = 110386,
                 Amount = 100386,
-                Tags = new List<TagModel>()
+                Tags = new List<TagOutputModel>()
             };
             productId = 11386;
 
@@ -627,10 +627,10 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 GroupId = 105,
                 Amount = 1005,
                 AverageScore = 4.6f,
-                Tags = new List<TagModel>
+                Tags = new List<TagOutputModel>
                 {
-                new TagModel{ Id = 15, Name = "tag15"},
-                new TagModel{ Id = 25, Name = "tag25"}
+                new TagOutputModel{ Id = 15, Name = "tag15"},
+                new TagOutputModel{ Id = 25, Name = "tag25"}
                 }
             };
             List<FullProductModel> expectedFullProductModels = new List<FullProductModel> { fullProductModel1 };
@@ -662,13 +662,13 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             FullProductDto fullProduct2 = new FullProductDto();
             fullProductDtos = new List<FullProductDto> { fullProduct1, fullProduct2 };
 
-            TagModel tagModel1 = new TagModel
+            TagOutputModel tagModel1 = new TagOutputModel
             {
                 Id = 116,
                 Name = "116"
             };
-            TagModel tagModel2 = new TagModel();
-            List<TagModel> tagModels = new List<TagModel> { tagModel1, tagModel2 };
+            TagOutputModel tagModel2 = new TagOutputModel();
+            List<TagOutputModel> tagModels = new List<TagOutputModel> { tagModel1, tagModel2 };
 
             fullProductModel1 = new FullProductModel
             {
@@ -705,10 +705,10 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Name = "154",
                 GroupId = 1054,
                 Amount = 10054,
-                Tags = new List<TagModel>
+                Tags = new List<TagOutputModel>
                 {
-                new TagModel{ Id = 154, Name = "tag154"},
-                new TagModel{ Id = 254, Name = "tag254"}
+                new TagOutputModel{ Id = 154, Name = "tag154"},
+                new TagOutputModel{ Id = 254, Name = "tag254"}
                 }
             };
             fullProductModel2 = new FullProductModel { Tags = new() };

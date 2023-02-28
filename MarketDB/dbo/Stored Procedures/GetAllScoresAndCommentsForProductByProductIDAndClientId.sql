@@ -2,7 +2,7 @@
 @productId int,
 @clientId int
 AS
-SELECT P.Id AS ProductId, P.Name, PR.Score, PR.Comment, PR.ClientId
+SELECT P.Id AS ProductId, P.Name, PR.ClientId, PR.Score, PR.Comment
 FROM [dbo].[Products] AS P
 LEFT JOIN [dbo].[ProductsReviews] AS PR ON
 PR.ProductId=P.Id AND PR.ClientId = @clientId

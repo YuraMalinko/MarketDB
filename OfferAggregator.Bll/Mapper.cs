@@ -27,7 +27,7 @@ namespace OfferAggregator.Bll
                     cfg.CreateMap<StocksWithProductInputModel, StocksDtoWithProductName>();
                     cfg.CreateMap<StocksDtoWithProductName, StocksWithProductOutputModel>();
                     cfg.CreateMap<FullProductDto, FullProductModel>();
-                    cfg.CreateMap<TagDto, TagModel>();
+                    cfg.CreateMap<TagDto, TagOutputModel>();
                     cfg.CreateMap<ManagerAuthInput, ManagerDto>();
                     cfg.CreateMap<CurrentManager, ManagerDto>();
                     cfg.CreateMap<ManagerDto, CurrentManager>();
@@ -44,6 +44,7 @@ namespace OfferAggregator.Bll
                     cfg.CreateMap<ProductReviewInputModel, ProductReviewsDto>();
                     cfg.CreateMap<ProductWithScoresAndCommentsDto, ProductWithScoresAndCommentsOutputModel>();
                     cfg.CreateMap<ProductReviewsDto, ProductReviewOutputModel>();
+                    cfg.CreateMap<TagProductInputModel, TagProductDto>();
                 });
 
             _mapper = _configuration.CreateMapper();
@@ -156,6 +157,16 @@ namespace OfferAggregator.Bll
         public ProductWithScoresAndCommentsOutputModel MapProductWithScoresAndCommentsDtoToProductWithScoresAndCommentsOutputModel(ProductWithScoresAndCommentsDto productScoresCommentsDto)
         {
             return _mapper.Map<ProductWithScoresAndCommentsOutputModel>(productScoresCommentsDto);
+        }
+
+        public List<TagOutputModel> MapTagDtosToTagOutputModels(List<TagDto> tags)
+        {
+            return _mapper.Map<List<TagOutputModel>>(tags);
+        }
+
+        public TagProductDto MapTagProductInputModelToTagProductDto(TagProductInputModel tagProductModel)
+        {
+            return _mapper.Map<TagProductDto>(tagProductModel);
         }
     }
 }

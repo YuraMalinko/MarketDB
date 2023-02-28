@@ -258,8 +258,9 @@ namespace OfferAggregator.Bll
                     }
                     else
                     {
-                        _productsReviewsAndStocksRepository.AddScoreToProductReview(productReviewDto);
-                        _productsReviewsAndStocksRepository.UpdateCommentOfProductReview(productReviewDto);
+                        //_productsReviewsAndStocksRepository.AddScoreToProductReview(productReviewDto);
+                        //_productsReviewsAndStocksRepository.UpdateCommentOfProductReview(productReviewDto);
+                        _productsReviewsAndStocksRepository.UpdateScoreAndCommentOfProductsReviews(productReviewDto);
                     }
                 }
                 //else if (productReviewModel.Score == null && productReviewModel.Comment == null)
@@ -275,7 +276,16 @@ namespace OfferAggregator.Bll
                 //}
                 else if (productReviewModel.Score != null && productReviewModel.Comment == null)
                 {
-                    _productsReviewsAndStocksRepository.AddScoreToProductReview(productReviewDto);
+                    // _productsReviewsAndStocksRepository.AddScoreToProductReview(productReviewDto);
+                    // _productsReviewsAndStocksRepository.UpdateScoreAndCommentOfProductsReviews(productReviewDto);
+                    if (CheckProductDoesNotHaveCommentByProductIdAndClientId(getProductWithScoresAndComments))
+                    {
+                        _productsReviewsAndStocksRepository.AddScoreToProductReview(productReviewDto);
+                    }
+                    else
+                    {
+                        _productsReviewsAndStocksRepository.UpdateScoreOfProductReview(productReviewDto);
+                    }
                 }
             }
             else if (!CheckProductDoesNotHaveScoreByProductIdAndClientId(getProductWithScoresAndComments))
@@ -298,8 +308,9 @@ namespace OfferAggregator.Bll
                 {
                     if (CheckProductDoesNotHaveCommentByProductIdAndClientId(getProductWithScoresAndComments))
                     {
-                        _productsReviewsAndStocksRepository.UpdateScoreOfProductReview(productReviewDto);
-                        _productsReviewsAndStocksRepository.AddCommentToProductReview(productReviewDto);
+                        //_productsReviewsAndStocksRepository.UpdateScoreOfProductReview(productReviewDto);
+                        //_productsReviewsAndStocksRepository.AddCommentToProductReview(productReviewDto);
+                        _productsReviewsAndStocksRepository.UpdateScoreAndCommentOfProductsReviews(productReviewDto);
                     }
                     else
                     {
@@ -378,7 +389,7 @@ namespace OfferAggregator.Bll
             }
         }
 
-                public ProductsStatisticOutputModel GetProductStatisticById(int productId)
+        public ProductsStatisticOutputModel GetProductStatisticById(int productId)
         {
             if (!CheckProductIsExist(productId))
             {
@@ -454,6 +465,83 @@ namespace OfferAggregator.Bll
             var result = _productsReviewsAndStocksRepository.UpdateScoreAndCommentOfProductsReviews(productReviewDto);
 
             return result;
+        }
+
+        public List<TagOutputModel> GetAllTagsByProductId(int productId)
+        {
+            if (!CheckProductIsExist(productId))
+            {
+                throw new ArgumentException("Product is not exist");
+            }
+
+            var getTagsDtos = _tagsRepository.GetAllTagsByProductId(productId);
+            var tagsModels = _instanceMapper.MapTagDtosToTagOutputModels(getTagsDtos);
+
+            return tagsModels;
+        }
+
+        public bool AddNewTagToProduct(string tagName, int productId)
+        {
+            if (!CheckProductIsExist(productId))
+            {
+                throw new ArgumentException("Product is not exist");
+            }
+
+            if (!CheckTagNameIsUnique(tagName))
+            {
+                throw new ArgumentException("Name of tag already exists");
+            }
+
+            TagDto tag = new TagDto { Name = tagName };
+            var tagId = _tagsRepository.AddTag(tag);
+            TagProductDto tagProduct = new TagProductDto
+            {
+                ProductId = productId,
+                TagId = tagId
+            };
+            var result = _tagsRepository.AddTagProduct(tagProduct);
+
+            return result;
+        }
+
+        public bool AddExistTagToProduct(TagProductInputModel tagProduct)
+        {
+            if (!CheckProductIsExist(tagProduct.ProductId))
+            {
+                throw new ArgumentException("Product is not exist");
+            }
+
+            //if (!CheckTagNameIsUnique(tagName))
+            //{
+            //    throw new ArgumentException("Name of tag already exists");
+            //}
+
+            //TagDto tag = new TagDto { Name = tagName };
+            //var tagId = _tagsRepository.AddTag(tag);
+            //TagProductDto tagProduct = new TagProductDto
+            //{
+            //    ProductId = productId,
+            //    TagId = tagId
+            //};
+            var tagProductDto = _instanceMapper.MapTagProductInputModelToTagProductDto(tagProduct);
+            var result = _tagsRepository.AddTagProduct(tagProductDto);
+
+            return result;
+        }
+
+        public List<TagOutputModel> GetAllTags()
+        {
+            var getTagsDtos = _tagsRepository.GetAllTags();
+            var result = _instanceMapper.MapTagDtosToTagOutputModels(getTagsDtos);
+
+            return result;
+        }
+
+        private bool CheckTagNameIsUnique(string tagName)
+        {
+            var getAllTags = _tagsRepository.GetAllTags();
+
+            return !getAllTags.Any(t => t.Name == tagName);
         }
 
         private bool CheckClientOrderedProduct(int productId, int clientId)
