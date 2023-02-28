@@ -1,44 +1,50 @@
 ﻿@page "/clients/{Id:int}"
 @inject NavigationManager _navigationManager
 
-<h3>InfoClient</h3>
-<div>
-    <span>Комментарий:</span><input type="text" @bind="ClientInput.Text" />
+<div class="blokInfo">
+    <h2>Новый комментарий:</h2><input type="text" size="40%" placeholder="Текст комментария" @bind="CommentInput.Text" />
     <button type="button" class="btn btn-outline-success" @onclick="AddComment">Добавить</button>
+    <div class="text_simple">
+        @if (_allComments.Count != 0)
+        {
+            <ul>
+                @foreach (var k in _allComments)
+                {
+                    <li><CommentsClientCard comment="k" btnDelete="DeleteComment"/></li>
+                }
+            </ul>   
+        }
+        else
+        {
+            <h5>Комментариев к клиенту пока нет!</h5>
+        }
+    </div>
 </div>
-<div>
-    @if (_allComments == null)
-    {
-        <h2>Комментариев пока нет!</h2>
-    }
-    else
-    {
-        <ul type="disc">
-            @for (int i = 0; i < _allComments.Count; i++)
-            {
-                    <li>@_allComments[i].Text</li>
-            }
-        </ul>
-    }
+<div class="blokInfo">
+
 </div>
 
 @code {
     [Parameter] public int Id { get; set; }
     private ClientService _clientServis;
     private ClientOutputModel ClientOutput;
-    CommentForClientInputModel ClientInput = new CommentForClientInputModel();
-
+    CommentForClientInputModel CommentInput = new CommentForClientInputModel();
     List<CommentForClientOutputModel> _allComments;
-
+    
     protected override void OnInitialized()
-    {
-        _clientServis = new ClientService();
-        ClientOutput = _clientServis.GetClientById(Id);
-        _allComments = _clientServis.GetAllCommentsForClientById(Id);
-    }
-
+        {
+            _clientServis = new ClientService();
+            ClientOutput = _clientServis.GetClientById(Id);
+            _allComments = _clientServis.GetAllCommentsForClientById(Id);
+        }
+        
     private void AddComment()
+        {
+            _clientServis.AddComment(CommentInput, Id);
+        }
+
+    private void DeleteComment(int a)
     {
-        _clientServis.AddComment(ClientInput, Id);
+        _clientServis.DeleteComment(a);
     }
 }

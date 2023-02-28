@@ -96,16 +96,8 @@ namespace OfferAggregator.Bll
             else
             {
                 _clientRepository.DeleteClient(id);
-
-                //if (_clientsWishesRepository.GetClientWishesByClientId(id) != null)
-                //{
-                //    _clientsWishesRepository.DeleteClientWishesById(id);
-                //}
-
-                //if(_commentForClientRepository.GetClientCommentsByClientId(id) != null)
-                //{
-                //    _commentForClientRepository.DeleteComment(id);
-                //}
+                _clientsWishesRepository.DeleteClientWishesById(id);
+                _commentForClientRepository.DeleteComment(id);
 
                 result = true;
             }
@@ -153,6 +145,13 @@ namespace OfferAggregator.Bll
             }
 
             return newComment.Id;
+        }
+
+        public bool DeleteComment(int commentId) 
+        {
+            _commentForClientRepository.DeleteComment(commentId);
+
+            return true;
         }
     }
 }
