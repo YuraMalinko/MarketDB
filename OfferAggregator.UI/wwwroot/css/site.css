@@ -215,10 +215,10 @@ a, .btn-link {
         border: 1px solid #696969;
     }
 
-        .table-get-scores-comments-on-product tr:hover {
-            background-color: #A9A9A9;
-            color: #FFFFF0;
-        }
+    .table-get-scores-comments-on-product tr:hover {
+        background-color: #A9A9A9;
+        color: #FFFFF0;
+    }
 
 .pop-up-success-message {
     font-family: Georgia, serif;
@@ -274,7 +274,16 @@ a, .btn-link {
     border-bottom: 1px solid #1d334a;
 }
 
+    .table-get-full-products a {
+        color: black;
+    }
+
     .table-get-full-products tr:hover td {
+        background-color: #A9A9A9;
+        color: #FFFFF0;
+    }
+
+    .table-get-full-products tr:hover a {
         background-color: #A9A9A9;
         color: #FFFFF0;
     }
