@@ -57,7 +57,6 @@
         _clientServis = new ClientService();
         ClientOutput = _clientServis.GetClientById(Id);
         _allComments = _clientServis.GetAllCommentsForClientById(Id);
-        _allOrders = _clientServis.GetAllOrderByClientId(Id);
     }
 
     private void AddComment()
