@@ -104,11 +104,11 @@
 @code {
     private ProductService _productService;
 
-    private List<FullProductModel> _fullProducts = new();
+    private List<FullProductOutputModel> _fullProducts = new();
 
     private Filter _filter = new();
 
-    private List<GroupModel> _groups = new List<GroupModel>();
+    private List<GroupOutputModel> _groups = new List<GroupOutputModel>();
 
     protected override void OnInitialized()
     {
@@ -140,7 +140,7 @@
         public string? ProductName { get; set; }
     }
 
-    private bool FilterPredicat(FullProductModel fullProduct)
+    private bool FilterPredicat(FullProductOutputModel fullProduct)
     {
         return (_filter.CountOverFilter is null || fullProduct.Amount >= _filter.CountOverFilter)
         && (_filter.CountUnderFilter is null || fullProduct.Amount <= _filter.CountUnderFilter)

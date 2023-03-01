@@ -311,11 +311,11 @@ namespace OfferAggregator.Bll.Tests
         }
 
         [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.GetFullProductByIdTestCaseSource))]
-        public void GetFullProductByIdTest(int productId, FullProductDto fullProductDto, FullProductModel expectedFullProductModel)
+        public void GetFullProductByIdTest(int productId, FullProductDto fullProductDto, FullProductOutputModel expectedFullProductModel)
         {
             _mockProductRepo.Setup(p => p.GetFullProductById(productId)).Returns(fullProductDto).Verifiable();
 
-            FullProductModel actualFullProductModel = _productService.GetFullProductById(productId);
+            FullProductOutputModel actualFullProductModel = _productService.GetFullProductById(productId);
 
             _mockProductRepo.VerifyAll();
 
@@ -323,11 +323,11 @@ namespace OfferAggregator.Bll.Tests
         }
 
         [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.GetFullProducsTestCaseSource))]
-        public void GetFullProducsTest(List<FullProductDto> fullProductDtos, List<FullProductModel> expectedFullProductModels)
+        public void GetFullProducsTest(List<FullProductDto> fullProductDtos, List<FullProductOutputModel> expectedFullProductModels)
         {
             _mockProductRepo.Setup(p => p.GetFullProducts()).Returns(fullProductDtos).Verifiable();
 
-            List<FullProductModel> actualFullProductModels = _productService.GetFullProducts();
+            List<FullProductOutputModel> actualFullProductModels = _productService.GetFullProducts();
 
             _mockProductRepo.VerifyAll();
 

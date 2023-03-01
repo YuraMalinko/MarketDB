@@ -36,17 +36,17 @@ namespace OfferAggregator.Bll.Tests
         }
 
         [TestCaseSource(typeof(MapperTestCaseSource), nameof(MapperTestCaseSource.MapFullProductDtosToFullProductModelsTestCaseSource))]
-        public void MapFullProductDtosToFullProductModelsTest(List<FullProductDto> fullProductDtos, List<FullProductModel> expectedFullProductModels)
+        public void MapFullProductDtosToFullProductModelsTest(List<FullProductDto> fullProductDtos, List<FullProductOutputModel> expectedFullProductModels)
         {
-            List<FullProductModel> actualFullProductModels = _mapper.MapFullProductDtosToFullProductModels(fullProductDtos);
+            List<FullProductOutputModel> actualFullProductModels = _mapper.MapFullProductDtosToFullProductModels(fullProductDtos);
 
             actualFullProductModels.Should().BeEquivalentTo(expectedFullProductModels);
         }
 
         [TestCaseSource(typeof(MapperTestCaseSource), nameof(MapperTestCaseSource.MapFullProductDtoToFullProductModelTestTestCaseSource))]
-        public void MapFullProductDtoToFullProductModelTest(FullProductDto fullProductDto, FullProductModel expectedFullProductModel)
+        public void MapFullProductDtoToFullProductModelTest(FullProductDto fullProductDto, FullProductOutputModel expectedFullProductModel)
         {
-            FullProductModel actualFullProductModel = _mapper.MapFullProductDtoToFullProductModel(fullProductDto);
+            FullProductOutputModel actualFullProductModel = _mapper.MapFullProductDtoToFullProductModel(fullProductDto);
 
             actualFullProductModel.Should().BeEquivalentTo(expectedFullProductModel);
         }
@@ -61,7 +61,7 @@ namespace OfferAggregator.Bll.Tests
 
 
         [TestCaseSource(typeof(MapperTestCaseSource), nameof(MapperTestCaseSource.MapCreatingOrderModelToCreatingOrderDtoTestCaseSource))]
-        public void MapCreatingOrderModelToCreatingOrderDtoTest(CreatingOrderModel creatingOrderModel, CreatingOrderDto expectedCreatingOrderDto)
+        public void MapCreatingOrderModelToCreatingOrderDtoTest(CreatingOrderInputModel creatingOrderModel, CreatingOrderDto expectedCreatingOrderDto)
         {
             CreatingOrderDto actualCreatingOrderDto = _mapper.MapCreatingOrderModelToCreatingOrderDto(creatingOrderModel);
 

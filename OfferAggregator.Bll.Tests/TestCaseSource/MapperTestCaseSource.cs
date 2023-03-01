@@ -112,7 +112,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             };
             List<FullProductDto> fullProductDtos = new List<FullProductDto> { fullProduct1 };
 
-            FullProductModel fullProductModel1 = new FullProductModel
+            FullProductOutputModel fullProductModel1 = new FullProductOutputModel
             {
                 Id = 1,
                 Name = "1",
@@ -125,12 +125,12 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 new TagOutputModel{ Id = 2, Name = "tag2"}
                 }
             };
-            List<FullProductModel> expectedFullProductModels = new List<FullProductModel> { fullProductModel1 };
+            List<FullProductOutputModel> expectedFullProductModels = new List<FullProductOutputModel> { fullProductModel1 };
 
             yield return new object[] { fullProductDtos, expectedFullProductModels };
 
             fullProductDtos = new List<FullProductDto>();
-            expectedFullProductModels = new List<FullProductModel>();
+            expectedFullProductModels = new List<FullProductOutputModel>();
 
             yield return new object[] { fullProductDtos, expectedFullProductModels };
 
@@ -162,7 +162,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             TagOutputModel tagModel2 = new TagOutputModel();
             List<TagOutputModel> tagModels = new List<TagOutputModel> { tagModel1, tagModel2 };
 
-            fullProductModel1 = new FullProductModel
+            fullProductModel1 = new FullProductOutputModel
             {
                 Id = 11,
                 Name = "11",
@@ -171,8 +171,8 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 AverageScore = 4.2f,
                 Tags = tagModels
             };
-            FullProductModel fullProductModel2 = new FullProductModel() { Tags = new() };
-            expectedFullProductModels = new List<FullProductModel> { fullProductModel1, fullProductModel2 };
+            FullProductOutputModel fullProductModel2 = new FullProductOutputModel() { Tags = new() };
+            expectedFullProductModels = new List<FullProductOutputModel> { fullProductModel1, fullProductModel2 };
 
             yield return new object[] { fullProductDtos, expectedFullProductModels };
         }
@@ -193,7 +193,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 }
             };
 
-            FullProductModel expectedFullProductModel = new FullProductModel
+            FullProductOutputModel expectedFullProductModel = new FullProductOutputModel
             {
                 Id = 7,
                 Name = "7",
@@ -219,7 +219,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Tags = new List<TagDto>()
             };
 
-            expectedFullProductModel = new FullProductModel
+            expectedFullProductModel = new FullProductOutputModel
             {
                 Id = 7,
                 Name = "7",
@@ -377,7 +377,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             DateTime complitionDate = new DateTime(2023, 01, 30, 10, 00, 00);
             OrderModel orderModel = new OrderModel
             {
-                Id = 4,
+                //Id = 4,
                 ManagerId = 6,
                 ClientId = 1,
                 DateCreate = date1,
@@ -390,25 +390,25 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                     PhoneNumber = "8800"
                 }
             };
-            ProductCountModel pr1 = new ProductCountModel
+            ProductCountInputModel pr1 = new ProductCountInputModel
             {
                 Id = 1,
                 Name = "Kurica 1",
                 Count = 10
             };
-            ProductCountModel pr2 = new ProductCountModel
+            ProductCountInputModel pr2 = new ProductCountInputModel
             {
                 Id = 2,
                 Name = "Sheep",
                 Count = 20
             };
-            ProductCountModel pr3 = new ProductCountModel
+            ProductCountInputModel pr3 = new ProductCountInputModel
             {
                 Id = 3,
                 Name = "Okuny 1",
                 Count = 30
             };
-            List<ProductCountModel> products = new List<ProductCountModel>
+            List<ProductCountInputModel> products = new List<ProductCountInputModel>
 {
 pr1, pr2, pr3
 };
@@ -425,14 +425,14 @@ pr1, pr2, pr3
               //  ClientId = 1
             };
             List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel> { com1Cl, com2Cl };
-            CommentForOrderModel comOr1 = new CommentForOrderModel
+            CommentForOrderOutputModel comOr1 = new CommentForOrderOutputModel
             {
                 Id = 1,
                 Text = "Доставить в полночь",
                 OrderId = 4
             };
-            List<CommentForOrderModel> comOrList = new List<CommentForOrderModel> { comOr1 };
-            CreatingOrderModel creatingOrderModel = new CreatingOrderModel
+            List<CommentForOrderOutputModel> comOrList = new List<CommentForOrderOutputModel> { comOr1 };
+            CreatingOrderInputModel creatingOrderModel = new CreatingOrderInputModel
             {
                 Order = orderModel,
                 Products = products,

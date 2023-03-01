@@ -533,7 +533,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 AverageScore = 2.7f
             };
 
-            FullProductModel expectedFullProductModel = new FullProductModel
+            FullProductOutputModel expectedFullProductModel = new FullProductOutputModel
             {
                 Id = 117,
                 Name = "117",
@@ -552,7 +552,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 
 
             fullProductDto = new FullProductDto();
-            expectedFullProductModel = new FullProductModel { Tags = new() };
+            expectedFullProductModel = new FullProductOutputModel { Tags = new() };
             productId = 9;
 
             yield return new object[] { productId, fullProductDto, expectedFullProductModel };
@@ -568,7 +568,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 AverageScore = 3
             };
 
-            expectedFullProductModel = new FullProductModel
+            expectedFullProductModel = new FullProductOutputModel
             {
                 Id = 1138,
                 Name = "1138",
@@ -590,7 +590,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Tags = new List<TagDto>()
             };
 
-            expectedFullProductModel = new FullProductModel
+            expectedFullProductModel = new FullProductOutputModel
             {
                 Id = 11386,
                 Name = "11386",
@@ -620,7 +620,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             };
             List<FullProductDto> fullProductDtos = new List<FullProductDto> { fullProduct1 };
 
-            FullProductModel fullProductModel1 = new FullProductModel
+            FullProductOutputModel fullProductModel1 = new FullProductOutputModel
             {
                 Id = 15,
                 Name = "15",
@@ -633,12 +633,12 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 new TagOutputModel{ Id = 25, Name = "tag25"}
                 }
             };
-            List<FullProductModel> expectedFullProductModels = new List<FullProductModel> { fullProductModel1 };
+            List<FullProductOutputModel> expectedFullProductModels = new List<FullProductOutputModel> { fullProductModel1 };
 
             yield return new object[] { fullProductDtos, expectedFullProductModels };
 
             fullProductDtos = new List<FullProductDto>();
-            expectedFullProductModels = new List<FullProductModel>();
+            expectedFullProductModels = new List<FullProductOutputModel>();
 
             yield return new object[] { fullProductDtos, expectedFullProductModels };
 
@@ -670,7 +670,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             TagOutputModel tagModel2 = new TagOutputModel();
             List<TagOutputModel> tagModels = new List<TagOutputModel> { tagModel1, tagModel2 };
 
-            fullProductModel1 = new FullProductModel
+            fullProductModel1 = new FullProductOutputModel
             {
                 Id = 116,
                 Name = "116",
@@ -679,8 +679,8 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 AverageScore = 3f,
                 Tags = tagModels
             };
-            FullProductModel fullProductModel2 = new FullProductModel() { Tags = new() };
-            expectedFullProductModels = new List<FullProductModel> { fullProductModel1, fullProductModel2 };
+            FullProductOutputModel fullProductModel2 = new FullProductOutputModel() { Tags = new() };
+            expectedFullProductModels = new List<FullProductOutputModel> { fullProductModel1, fullProductModel2 };
 
             yield return new object[] { fullProductDtos, expectedFullProductModels };
 
@@ -699,7 +699,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             fullProduct2 = new FullProductDto();
             fullProductDtos = new List<FullProductDto> { fullProduct1, fullProduct2 };
 
-            fullProductModel1 = new FullProductModel
+            fullProductModel1 = new FullProductOutputModel
             {
                 Id = 154,
                 Name = "154",
@@ -711,8 +711,8 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 new TagOutputModel{ Id = 254, Name = "tag254"}
                 }
             };
-            fullProductModel2 = new FullProductModel { Tags = new() };
-            expectedFullProductModels = new List<FullProductModel> { fullProductModel1, fullProductModel2 };
+            fullProductModel2 = new FullProductOutputModel { Tags = new() };
+            expectedFullProductModels = new List<FullProductOutputModel> { fullProductModel1, fullProductModel2 };
 
             yield return new object[] { fullProductDtos, expectedFullProductModels };
         }

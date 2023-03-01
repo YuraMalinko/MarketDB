@@ -4,7 +4,7 @@ namespace OfferAggregator.Bll.Models
 {
     public class OrderModel
     {
-        public int Id { get; set; }
+        //public int Id { get; set; }
 
         public DateTime? DateCreate { get; set; }
 

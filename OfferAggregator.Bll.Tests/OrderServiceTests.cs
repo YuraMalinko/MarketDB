@@ -52,8 +52,8 @@ namespace OfferAggregator.Bll.Tests
         }
 
         [TestCaseSource(typeof(OrderServiceTestCaseSource), nameof(OrderServiceTestCaseSource.CreateNewOrderWithOneProductTestCaseSource))]
-        public void CreateNewOrderWithOneProductTest(CreatingOrderModel creatingOrderModel, ClientsDto getClient, CreatingOrderDto creatingOrderDto,int addOrder, int addCommentForOrder, 
-                                               int addCommentForClient, ProductCountModel crntProductModel, ProductsDto getProductById,OrdersProductsDto ordersProductsDto, bool addProductToOrder, 
+        public void CreateNewOrderWithOneProductTest(CreatingOrderInputModel creatingOrderModel, ClientsDto getClient, CreatingOrderDto creatingOrderDto,int addOrder, int addCommentForOrder, 
+                                               int addCommentForClient, ProductCountInputModel crntProductModel, ProductsDto getProductById,OrdersProductsDto ordersProductsDto, bool addProductToOrder, 
                                                int expected, ManagerDto getManager, StocksDtoWithProductName getAmountProductOnStock, StocksDtoWithProductName stockProduct)
         {
             _mockClientRepo.Setup(c => c.GetClientById(creatingOrderModel.Order.ClientId)).Returns(getClient).Verifiable();
@@ -81,9 +81,9 @@ namespace OfferAggregator.Bll.Tests
         }
 
         [TestCaseSource(typeof(OrderServiceTestCaseSource), nameof(OrderServiceTestCaseSource.CreateNewOrderWithTwoProductTestCaseSource))]
-        public void CreateNewOrderWithTwoProductTest(CreatingOrderModel creatingOrderModel, ClientsDto getClient, CreatingOrderDto creatingOrderDto,
-                                       int addOrder, int addCommentForOrder, int addCommentForClient, ProductCountModel crntProductModel1,
-                                       ProductCountModel crntProductModel2, ProductsDto getProductById, OrdersProductsDto ordersProductsDto1,
+        public void CreateNewOrderWithTwoProductTest(CreatingOrderInputModel creatingOrderModel, ClientsDto getClient, CreatingOrderDto creatingOrderDto,
+                                       int addOrder, int addCommentForOrder, int addCommentForClient, ProductCountInputModel crntProductModel1,
+                                       ProductCountInputModel crntProductModel2, ProductsDto getProductById, OrdersProductsDto ordersProductsDto1,
                                        OrdersProductsDto ordersProductsDto2, bool addProductToOrder, int expected, ManagerDto getManager,
                                        StocksDtoWithProductName getAmountProductOnStock1, StocksDtoWithProductName getAmountProductOnStock2,
                                        StocksDtoWithProductName stockProduct1, StocksDtoWithProductName stockProduct2)
@@ -117,7 +117,7 @@ namespace OfferAggregator.Bll.Tests
         }
 
         [TestCaseSource(typeof(OrderServiceTestCaseSource), nameof(OrderServiceTestCaseSource.CreateNewOrderWithOneProduct_WhenManagerIsNotExistTestCaseSource))]
-        public void CreateNewOrderWithOneProduct_WhenManagerIsNotExistTest(CreatingOrderModel creatingOrderModel, ClientsDto getClient, ManagerDto getManager, int expected)
+        public void CreateNewOrderWithOneProduct_WhenManagerIsNotExistTest(CreatingOrderInputModel creatingOrderModel, ClientsDto getClient, ManagerDto getManager, int expected)
         {
             _mockManagerRepo.Setup(m => m.GetManagerById(creatingOrderModel.Order.ManagerId)).Returns(getManager).Verifiable();
 
@@ -135,7 +135,7 @@ namespace OfferAggregator.Bll.Tests
         }
 
         [TestCaseSource(typeof(OrderServiceTestCaseSource), nameof(OrderServiceTestCaseSource.CreateNewOrderWithOneProduct_WhenClientIsNotExistTestCaseSource))]
-        public void CreateNewOrderWithOneProduct_WhenClientIsNotExistTest(CreatingOrderModel creatingOrderModel, ClientsDto getClient, ManagerDto getManager, int expected)
+        public void CreateNewOrderWithOneProduct_WhenClientIsNotExistTest(CreatingOrderInputModel creatingOrderModel, ClientsDto getClient, ManagerDto getManager, int expected)
         {
             _mockClientRepo.Setup(c => c.GetClientById(creatingOrderModel.Order.ClientId)).Returns(getClient).Verifiable();
             _mockManagerRepo.Setup(m => m.GetManagerById(creatingOrderModel.Order.ManagerId)).Returns(getManager).Verifiable();
@@ -154,7 +154,7 @@ namespace OfferAggregator.Bll.Tests
         }
 
         [TestCaseSource(typeof(OrderServiceTestCaseSource), nameof(OrderServiceTestCaseSource.CreateNewOrderWithOneProduct_WhenComplitionDateEarlierThenDateCreateTestCaseSource))]
-        public void CreateNewOrderWithOneProduct_WhenComplitionDateEarlierThenDateCreateTest(CreatingOrderModel creatingOrderModel, ClientsDto getClient, ManagerDto getManager, int expected)
+        public void CreateNewOrderWithOneProduct_WhenComplitionDateEarlierThenDateCreateTest(CreatingOrderInputModel creatingOrderModel, ClientsDto getClient, ManagerDto getManager, int expected)
         {
             _mockClientRepo.Setup(c => c.GetClientById(creatingOrderModel.Order.ClientId)).Returns(getClient).Verifiable();
             _mockManagerRepo.Setup(m => m.GetManagerById(creatingOrderModel.Order.ManagerId)).Returns(getManager).Verifiable();
@@ -173,8 +173,8 @@ namespace OfferAggregator.Bll.Tests
         }
 
         [TestCaseSource(typeof(OrderServiceTestCaseSource), nameof(OrderServiceTestCaseSource.CreateNewOrderWithOneProduct_WhenCommentsForOrderIsNullTestCaseSource))]
-        public void CreateNewOrderWithOneProduct_WhenCommentsForOrderIsNullTest(CreatingOrderModel creatingOrderModel, ClientsDto getClient, CreatingOrderDto creatingOrderDto,
-                                       int addOrder, int addCommentForClient, ProductCountModel crntProductModel, ProductsDto getProductById, OrdersProductsDto ordersProductsDto,
+        public void CreateNewOrderWithOneProduct_WhenCommentsForOrderIsNullTest(CreatingOrderInputModel creatingOrderModel, ClientsDto getClient, CreatingOrderDto creatingOrderDto,
+                                       int addOrder, int addCommentForClient, ProductCountInputModel crntProductModel, ProductsDto getProductById, OrdersProductsDto ordersProductsDto,
                                        bool addProductToOrder, int expected, ManagerDto getManager, StocksDtoWithProductName getAmountProductOnStock, StocksDtoWithProductName stockProduct)
         {
             _mockClientRepo.Setup(c => c.GetClientById(creatingOrderModel.Order.ClientId)).Returns(getClient).Verifiable();
@@ -202,8 +202,8 @@ namespace OfferAggregator.Bll.Tests
         }
 
         [TestCaseSource(typeof(OrderServiceTestCaseSource), nameof(OrderServiceTestCaseSource.CreateNewOrderWithOneProduct_WhenCommentsForClientIsNullTestCaseSource))]
-        public void CreateNewOrderWithOneProduct_WhenCommentsForClientIsNullTest(CreatingOrderModel creatingOrderModel, ClientsDto getClient, CreatingOrderDto creatingOrderDto,
-                                       int addOrder, int addCommentForOrder, ProductCountModel crntProductModel,ProductsDto getProductById, OrdersProductsDto ordersProductsDto,
+        public void CreateNewOrderWithOneProduct_WhenCommentsForClientIsNullTest(CreatingOrderInputModel creatingOrderModel, ClientsDto getClient, CreatingOrderDto creatingOrderDto,
+                                       int addOrder, int addCommentForOrder, ProductCountInputModel crntProductModel,ProductsDto getProductById, OrdersProductsDto ordersProductsDto,
                                        bool addProductToOrder, int expected, ManagerDto getManager, StocksDtoWithProductName getAmountProductOnStock, StocksDtoWithProductName stockProduct)
         {
             _mockClientRepo.Setup(c => c.GetClientById(creatingOrderModel.Order.ClientId)).Returns(getClient).Verifiable();
@@ -230,8 +230,8 @@ namespace OfferAggregator.Bll.Tests
         }
 
         [TestCaseSource(typeof(OrderServiceTestCaseSource), nameof(OrderServiceTestCaseSource.CreateNewOrderWithOneProduct_WhenProductIsNotExistTestCaseSource))]
-        public void CreateNewOrderWithOneProduct_WhenProductIsNotExistTest(CreatingOrderModel creatingOrderModel, ClientsDto getClient, CreatingOrderDto creatingOrderDto,
-                                       int addOrder, int addCommentForClient, ProductCountModel crntProductModel, int addCommentForOrder,
+        public void CreateNewOrderWithOneProduct_WhenProductIsNotExistTest(CreatingOrderInputModel creatingOrderModel, ClientsDto getClient, CreatingOrderDto creatingOrderDto,
+                                       int addOrder, int addCommentForClient, ProductCountInputModel crntProductModel, int addCommentForOrder,
                                        ProductsDto getProductById, int expected, ManagerDto getManager)
         {
             _mockClientRepo.Setup(c => c.GetClientById(creatingOrderModel.Order.ClientId)).Returns(getClient).Verifiable();
@@ -252,8 +252,8 @@ namespace OfferAggregator.Bll.Tests
         }
 
         [TestCaseSource(typeof(OrderServiceTestCaseSource), nameof(OrderServiceTestCaseSource.CreateNewOrderWithOneProduct_WhenAmountOnStockLessThenAmountProductInOrderTestCaseSource))]
-        public void CreateNewOrderWithOneProduct_WhenAmountOnStockLessThenAmountProductInOrderTest(CreatingOrderModel creatingOrderModel, ClientsDto getClient, CreatingOrderDto creatingOrderDto,
-                                       int addOrder, int addCommentForClient, ProductCountModel crntProductModel, int addCommentForOrder,
+        public void CreateNewOrderWithOneProduct_WhenAmountOnStockLessThenAmountProductInOrderTest(CreatingOrderInputModel creatingOrderModel, ClientsDto getClient, CreatingOrderDto creatingOrderDto,
+                                       int addOrder, int addCommentForClient, ProductCountInputModel crntProductModel, int addCommentForOrder,
                                        ProductsDto getProductById, int expected, ManagerDto getManager, StocksDtoWithProductName getAmountProductOnStock)
         {
             _mockClientRepo.Setup(c => c.GetClientById(creatingOrderModel.Order.ClientId)).Returns(getClient).Verifiable();

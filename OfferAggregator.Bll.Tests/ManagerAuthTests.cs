@@ -21,7 +21,7 @@ namespace OfferAggregator.Bll.Tests
         }
 
         [TestCaseSource(typeof(ManagerAuthTestCaseSource), nameof(ManagerAuthTestCaseSource.AddManagerTestCaseSource))]
-        public void AddManagerTest(ManagerAuthInput managerAuthInput, ManagerDto managerDtoInput, ManagerDto requestManagerByLogin, int result, int expected)
+        public void AddManagerTest(ManagerAuthInputModel managerAuthInput, ManagerDto managerDtoInput, ManagerDto requestManagerByLogin, int result, int expected)
         {
             _mockManagerRepo.Setup(m => m.GetManagerByLogin(managerDtoInput.Login)).Returns(requestManagerByLogin).Verifiable();
             _mockManagerRepo.Setup(r => r.AddManager(It.Is<ManagerDto>(g => g.Equals(managerDtoInput)))).Returns(result).Verifiable();
@@ -32,7 +32,7 @@ namespace OfferAggregator.Bll.Tests
         }
 
         [TestCaseSource(typeof(ManagerAuthTestCaseSource), nameof(ManagerAuthTestCaseSource.AddManagerNegativeTestCaseSource))]
-        public void AddManagerNegativeTest(ManagerAuthInput managerAuthInput, ManagerDto managerDtoInput, ManagerDto requestManagerByLogin, int expected)
+        public void AddManagerNegativeTest(ManagerAuthInputModel managerAuthInput, ManagerDto managerDtoInput, ManagerDto requestManagerByLogin, int expected)
         {
             _mockManagerRepo.Setup(m => m.GetManagerByLogin(managerDtoInput.Login)).Returns(requestManagerByLogin).Verifiable();
             _mockManagerRepo.Setup(n => n.AddManager(It.Is<ManagerDto>(md => md.Equals(managerDtoInput)))).Throws<Exception>();
@@ -45,7 +45,7 @@ namespace OfferAggregator.Bll.Tests
         }
 
         [TestCaseSource(typeof(ManagerAuthTestCaseSource), nameof(ManagerAuthTestCaseSource.ManagerAuthenticationTestCaseSourse))]
-        public void ManagerAuthenticationTest(ManagerAuthInput managerAuthInput, ManagerDto managerDtoInput, ManagerDto managerDtoOutput, CurrentManager expected)
+        public void ManagerAuthenticationTest(ManagerAuthInputModel managerAuthInput, ManagerDto managerDtoInput, ManagerDto managerDtoOutput, CurrentManager expected)
         {
             _mockManagerRepo.Setup(m => m.GetSingleManager(It.Is<ManagerDto>(g => g.Equals(managerDtoInput)))).Returns(managerDtoOutput).Verifiable();
             CurrentManager actual = _managerAuth.ManagerAuthentication(managerAuthInput);

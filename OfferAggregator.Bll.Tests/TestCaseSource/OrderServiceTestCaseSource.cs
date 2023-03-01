@@ -26,25 +26,25 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                     PhoneNumber = "11111"
                 }
             };
-            ProductCountModel pr1 = new ProductCountModel
+            ProductCountInputModel pr1 = new ProductCountInputModel
             {
                 Id = 1,
                 Name = "product1",
                 Count = 10
             };
-            List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
+            List<ProductCountInputModel> products = new List<ProductCountInputModel> { pr1 };
             CommentForClientOutputModel com1Cl = new CommentForClientOutputModel
             {
                 Text = "commentClient"
             };
             List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel> { com1Cl };
-            CommentForOrderModel comOr1 = new CommentForOrderModel
+            CommentForOrderOutputModel comOr1 = new CommentForOrderOutputModel
             {
                 Text = "commentOrder",
                 OrderId = 100
             };
-            List<CommentForOrderModel> comOrList = new List<CommentForOrderModel> { comOr1 };
-            CreatingOrderModel creatingOrderModel = new CreatingOrderModel
+            List<CommentForOrderOutputModel> comOrList = new List<CommentForOrderOutputModel> { comOr1 };
+            CreatingOrderInputModel creatingOrderModel = new CreatingOrderInputModel
             {
                 Order = orderModel,
                 Products = products,
@@ -106,7 +106,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             };
             int addCommentForOrder = 99;
             int addCommentForClient = 98;
-            ProductCountModel crntProductModel = new ProductCountModel
+            ProductCountInputModel crntProductModel = new ProductCountInputModel
             {
                 Id = 1,
                 Name = "product1",
@@ -167,31 +167,31 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                     PhoneNumber = "111112"
                 }
             };
-            ProductCountModel pr1 = new ProductCountModel
+            ProductCountInputModel pr1 = new ProductCountInputModel
             {
                 Id = 12,
                 Name = "product12",
                 Count = 102
             };
-            ProductCountModel pr2 = new ProductCountModel
+            ProductCountInputModel pr2 = new ProductCountInputModel
             {
                 Id = 22,
                 Name = "product22",
                 Count = 22
             };
-            List<ProductCountModel> products = new List<ProductCountModel> { pr1, pr2 };
+            List<ProductCountInputModel> products = new List<ProductCountInputModel> { pr1, pr2 };
             CommentForClientOutputModel com1Cl = new CommentForClientOutputModel
             {
                 Text = "commentClient2"
             };
             List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel> { com1Cl };
-            CommentForOrderModel comOr1 = new CommentForOrderModel
+            CommentForOrderOutputModel comOr1 = new CommentForOrderOutputModel
             {
                 Text = "commentOrder2",
                 OrderId = 1002
             };
-            List<CommentForOrderModel> comOrList = new List<CommentForOrderModel> { comOr1 };
-            CreatingOrderModel creatingOrderModel = new CreatingOrderModel
+            List<CommentForOrderOutputModel> comOrList = new List<CommentForOrderOutputModel> { comOr1 };
+            CreatingOrderInputModel creatingOrderModel = new CreatingOrderInputModel
             {
                 Order = orderModel,
                 Products = products,
@@ -259,13 +259,13 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             };
             int addCommentForOrder = 992;
             int addCommentForClient = 982;
-            ProductCountModel crntProductModel1 = new ProductCountModel
+            ProductCountInputModel crntProductModel1 = new ProductCountInputModel
             {
                 Id = 12,
                 Name = "product12",
                 Count = 102
             };
-            ProductCountModel crntProductModel2 = new ProductCountModel
+            ProductCountInputModel crntProductModel2 = new ProductCountInputModel
             {
                 Id = 22,
                 Name = "product22",
@@ -346,25 +346,25 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                     PhoneNumber = "1111123"
                 }
             };
-            ProductCountModel pr1 = new ProductCountModel
+            ProductCountInputModel pr1 = new ProductCountInputModel
             {
                 Id = 123,
                 Name = "product123",
                 Count = 102
             };
-            List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
+            List<ProductCountInputModel> products = new List<ProductCountInputModel> { pr1 };
             CommentForClientOutputModel com1Cl = new CommentForClientOutputModel
             {
                 Text = "commentClient23"
             };
             List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel> { com1Cl };
-            CommentForOrderModel comOr1 = new CommentForOrderModel
+            CommentForOrderOutputModel comOr1 = new CommentForOrderOutputModel
             {
                 Text = "commentOrder23",
                 OrderId = 10023
             };
-            List<CommentForOrderModel> comOrList = new List<CommentForOrderModel> { comOr1 };
-            CreatingOrderModel creatingOrderModel = new CreatingOrderModel
+            List<CommentForOrderOutputModel> comOrList = new List<CommentForOrderOutputModel> { comOr1 };
+            CreatingOrderInputModel creatingOrderModel = new CreatingOrderInputModel
             {
                 Order = orderModel,
                 Products = products,
@@ -400,25 +400,25 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                     PhoneNumber = "11111234"
                 }
             };
-            ProductCountModel pr1 = new ProductCountModel
+            ProductCountInputModel pr1 = new ProductCountInputModel
             {
                 Id = 1234,
                 Name = "product1234",
                 Count = 1024
             };
-            List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
+            List<ProductCountInputModel> products = new List<ProductCountInputModel> { pr1 };
             CommentForClientOutputModel com1Cl = new CommentForClientOutputModel
             {
                 Text = "commentClient234"
             };
             List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel> { com1Cl };
-            CommentForOrderModel comOr1 = new CommentForOrderModel
+            CommentForOrderOutputModel comOr1 = new CommentForOrderOutputModel
             {
                 Text = "commentOrder234",
                 OrderId = 100234
             };
-            List<CommentForOrderModel> comOrList = new List<CommentForOrderModel> { comOr1 };
-            CreatingOrderModel creatingOrderModel = new CreatingOrderModel
+            List<CommentForOrderOutputModel> comOrList = new List<CommentForOrderOutputModel> { comOr1 };
+            CreatingOrderInputModel creatingOrderModel = new CreatingOrderInputModel
             {
                 Order = orderModel,
                 Products = products,
@@ -454,25 +454,25 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                     PhoneNumber = "111112345"
                 }
             };
-            ProductCountModel pr1 = new ProductCountModel
+            ProductCountInputModel pr1 = new ProductCountInputModel
             {
                 Id = 12345,
                 Name = "product12345",
                 Count = 10245
             };
-            List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
+            List<ProductCountInputModel> products = new List<ProductCountInputModel> { pr1 };
             CommentForClientOutputModel com1Cl = new CommentForClientOutputModel
             {
                 Text = "commentClient2345"
             };
             List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel> { com1Cl };
-            CommentForOrderModel comOr1 = new CommentForOrderModel
+            CommentForOrderOutputModel comOr1 = new CommentForOrderOutputModel
             {
                 Text = "commentOrder2345",
                 OrderId = 1002345
             };
-            List<CommentForOrderModel> comOrList = new List<CommentForOrderModel> { comOr1 };
-            CreatingOrderModel creatingOrderModel = new CreatingOrderModel
+            List<CommentForOrderOutputModel> comOrList = new List<CommentForOrderOutputModel> { comOr1 };
+            CreatingOrderInputModel creatingOrderModel = new CreatingOrderInputModel
             {
                 Order = orderModel,
                 Products = products,
@@ -513,13 +513,13 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                     PhoneNumber = "1111147"
                 }
             };
-            ProductCountModel pr1 = new ProductCountModel
+            ProductCountInputModel pr1 = new ProductCountInputModel
             {
                 Id = 147,
                 Name = "product147",
                 Count = 1047
             };
-            List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
+            List<ProductCountInputModel> products = new List<ProductCountInputModel> { pr1 };
             List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel>
             {
             new CommentForClientOutputModel
@@ -527,8 +527,8 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Text = "comment7"
             }
             };
-            List<CommentForOrderModel> comOrList = new List<CommentForOrderModel>();
-            CreatingOrderModel creatingOrderModel = new CreatingOrderModel
+            List<CommentForOrderOutputModel> comOrList = new List<CommentForOrderOutputModel>();
+            CreatingOrderInputModel creatingOrderModel = new CreatingOrderInputModel
             {
                 Order = orderModel,
                 Products = products,
@@ -587,7 +587,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             };
             int addCommentForOrder = 9947;
             int addCommentForClient = 9847;
-            ProductCountModel crntProductModel = new ProductCountModel
+            ProductCountInputModel crntProductModel = new ProductCountInputModel
             {
                 Id = 147,
                 Name = "product147",
@@ -648,23 +648,23 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                     PhoneNumber = "11111478"
                 }
             };
-            ProductCountModel pr1 = new ProductCountModel
+            ProductCountInputModel pr1 = new ProductCountInputModel
             {
                 Id = 1478,
                 Name = "product1478",
                 Count = 10478
             };
-            List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
+            List<ProductCountInputModel> products = new List<ProductCountInputModel> { pr1 };
             List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel>();
-            List<CommentForOrderModel> comOrList = new List<CommentForOrderModel>
+            List<CommentForOrderOutputModel> comOrList = new List<CommentForOrderOutputModel>
             {
-                new CommentForOrderModel
+                new CommentForOrderOutputModel
                 {
                 Text = "comment",
                 OrderId = 100478
                 }
             };
-            CreatingOrderModel creatingOrderModel = new CreatingOrderModel
+            CreatingOrderInputModel creatingOrderModel = new CreatingOrderInputModel
             {
                 Order = orderModel,
                 Products = products,
@@ -723,7 +723,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             };
             int addCommentForOrder = 99478;
             int addCommentForClient = 98478;
-            ProductCountModel crntProductModel = new ProductCountModel
+            ProductCountInputModel crntProductModel = new ProductCountInputModel
             {
                 Id = 1478,
                 Name = "product1478",
@@ -784,13 +784,13 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                     PhoneNumber = "111114787"
                 }
             };
-            ProductCountModel pr1 = new ProductCountModel
+            ProductCountInputModel pr1 = new ProductCountInputModel
             {
                 Id = 14787,
                 Name = "product14787",
                 Count = 104787
             };
-            List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
+            List<ProductCountInputModel> products = new List<ProductCountInputModel> { pr1 };
             List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel>
                 {
                 new CommentForClientOutputModel
@@ -798,15 +798,15 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Text = "comment7"
                 }
             };
-            List<CommentForOrderModel> comOrList = new List<CommentForOrderModel>
+            List<CommentForOrderOutputModel> comOrList = new List<CommentForOrderOutputModel>
             {
-                new CommentForOrderModel
+                new CommentForOrderOutputModel
                 {
                 Text = "comment7",
                 OrderId = 1004787
                 }
             };
-            CreatingOrderModel creatingOrderModel = new CreatingOrderModel
+            CreatingOrderInputModel creatingOrderModel = new CreatingOrderInputModel
             {
                 Order = orderModel,
                 Products = products,
@@ -872,7 +872,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             };
             int addCommentForOrder = 994787;
             int addCommentForClient = 984787;
-            ProductCountModel crntProductModel = new ProductCountModel
+            ProductCountInputModel crntProductModel = new ProductCountInputModel
             {
                 Id = 14787,
                 Name = "product14787",
@@ -909,13 +909,13 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                     PhoneNumber = "1111147870"
                 }
             };
-            ProductCountModel pr1 = new ProductCountModel
+            ProductCountInputModel pr1 = new ProductCountInputModel
             {
                 Id = 147870,
                 Name = "product147870",
                 Count = 1047870
             };
-            List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
+            List<ProductCountInputModel> products = new List<ProductCountInputModel> { pr1 };
             List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel>
                 {
                 new CommentForClientOutputModel
@@ -923,15 +923,15 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Text = "comment70"
                 }
             };
-            List<CommentForOrderModel> comOrList = new List<CommentForOrderModel>
+            List<CommentForOrderOutputModel> comOrList = new List<CommentForOrderOutputModel>
             {
-                new CommentForOrderModel
+                new CommentForOrderOutputModel
                 {
                 Text = "comment70",
                 OrderId = 10047870
                 }
             };
-            CreatingOrderModel creatingOrderModel = new CreatingOrderModel
+            CreatingOrderInputModel creatingOrderModel = new CreatingOrderInputModel
             {
                 Order = orderModel,
                 Products = products,
@@ -997,7 +997,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             };
             int addCommentForOrder = 9947870;
             int addCommentForClient = 9847870;
-            ProductCountModel crntProductModel = new ProductCountModel
+            ProductCountInputModel crntProductModel = new ProductCountInputModel
             {
                 Id = 147870,
                 Name = "product147870",

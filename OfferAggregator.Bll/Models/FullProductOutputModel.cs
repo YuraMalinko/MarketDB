@@ -2,7 +2,7 @@
 
 namespace OfferAggregator.Bll.Models
 {
-    public class FullProductModel
+    public class FullProductOutputModel
     {
         public int Id { get; set; }
 

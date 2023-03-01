@@ -18,7 +18,7 @@ namespace OfferAggregator.Bll
             OrderRepository = orderRepository;
         }
 
-        public int AddManager(ManagerAuthInput manager)
+        public int AddManager(ManagerAuthInputModel manager)
         {
             int result = -1;
 
@@ -40,7 +40,7 @@ namespace OfferAggregator.Bll
             return result;
         }
 
-        public CurrentManager ManagerAuthentication(ManagerAuthInput manager)
+        public CurrentManager ManagerAuthentication(ManagerAuthInputModel manager)
         {
             ManagerDto result = ManagerRep.GetSingleManager(
                 _instanceMapper.MapManagerAuthInputToManagerDto(manager));

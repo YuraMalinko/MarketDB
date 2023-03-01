@@ -128,7 +128,7 @@ namespace OfferAggregator.Bll
             return result;
         }
 
-        public FullProductModel GetFullProductById(int productId)
+        public FullProductOutputModel GetFullProductById(int productId)
         {
             var fullProductDto = _productsRepository.GetFullProductById(productId);
             var fullProductModel = _instanceMapper.MapFullProductDtoToFullProductModel(fullProductDto);
@@ -136,7 +136,7 @@ namespace OfferAggregator.Bll
             return fullProductModel;
         }
 
-        public List<FullProductModel> GetFullProducts()
+        public List<FullProductOutputModel> GetFullProducts()
         {
             var fullProductDtos = _productsRepository.GetFullProducts();
             var fullProductModels = _instanceMapper.MapFullProductDtosToFullProductModels(fullProductDtos);
@@ -152,7 +152,7 @@ namespace OfferAggregator.Bll
             return getProductsStatisticModels;
         }
 
-        public List<GroupModel> GetAllGroups()
+        public List<GroupOutputModel> GetAllGroups()
         {
             var getAllGroupsDtos = _groupRepository.GetAllGroups();
             var result = _instanceMapper.MapGroupDtosToGroupModels(getAllGroupsDtos);

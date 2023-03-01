@@ -20,10 +20,6 @@ namespace OfferAggregator.Bll
                 {
                     cfg.CreateMap<ProductsDto, ProductOutputModel>();
                     cfg.CreateMap<ProductInputModel, ProductsDto>();
-                    //cfg.CreateMap<ClientsDto, InfoAllClientsOutputModel>();
-                    //cfg.CreateMap<InfoAllClientsOutputModel, ClientsDto>();
-                    //cfg.CreateMap<CommentForClientDto, InfoAllClientsOutputModel>();
-                    //cfg.CreateMap<InfoAllClientsOutputModel, CommentForClientDto>();
                     cfg.CreateMap<StocksWithProductInputModel, StocksDtoWithProductName>();
                     cfg.CreateMap<StocksDtoWithProductName, StocksWithProductOutputModel>();
                     cfg.CreateMap<ProductsDto, ProductOutputModel>();
@@ -31,19 +27,19 @@ namespace OfferAggregator.Bll
                     cfg.CreateMap<CommentForClientDto, CommentForClientOutputModel>();
                     cfg.CreateMap<CommentForClientInputModel, CommentForClientDto>();
                     cfg.CreateMap<StocksWithProductInputModel, StocksDtoWithProductName>();
-                    cfg.CreateMap<FullProductDto, FullProductModel>();
+                    cfg.CreateMap<FullProductDto, FullProductOutputModel>();
                     cfg.CreateMap<TagDto, TagOutputModel>();
-                    cfg.CreateMap<ManagerAuthInput, ManagerDto>();
+                    cfg.CreateMap<ManagerAuthInputModel, ManagerDto>();
                     cfg.CreateMap<CurrentManager, ManagerDto>();
                     cfg.CreateMap<ManagerDto, CurrentManager>();
-                    cfg.CreateMap<CreatingOrderModel, CreatingOrderDto>();
+                    cfg.CreateMap<CreatingOrderInputModel, CreatingOrderDto>();
                     cfg.CreateMap<OrderModel, OrderDto>();
-                    cfg.CreateMap<ProductCountModel, ProductCountDto>();
+                    cfg.CreateMap<ProductCountInputModel, ProductCountDto>();
                     cfg.CreateMap<CurrentManager, ManagerDto>();
                     cfg.CreateMap<ClientInputModel, ClientsDto>();
-                    cfg.CreateMap<CommentForOrderModel, CommenForOrderDto>();
+                    cfg.CreateMap<CommentForOrderOutputModel, CommenForOrderDto>();
                     cfg.CreateMap<ProductsStatisticDto, ProductsStatisticOutputModel>();
-                    cfg.CreateMap<GroupDto, GroupModel>();
+                    cfg.CreateMap<GroupDto, GroupOutputModel>();
                     cfg.CreateMap<ClientsProductDto, ClientsProductOutputModel>();
                     cfg.CreateMap<ProductReviewInputModel, ProductReviewsDto>();
                     cfg.CreateMap<ProductWithScoresAndCommentsDto, ProductWithScoresAndCommentsOutputModel>();
@@ -107,17 +103,17 @@ namespace OfferAggregator.Bll
             return _mapper.Map<StocksDtoWithProductName>(stockProduct);
         }
 
-        public List<FullProductModel> MapFullProductDtosToFullProductModels(List<FullProductDto> fullProduct)
+        public List<FullProductOutputModel> MapFullProductDtosToFullProductModels(List<FullProductDto> fullProduct)
         {
-            return _mapper.Map<List<FullProductModel>>(fullProduct);
+            return _mapper.Map<List<FullProductOutputModel>>(fullProduct);
         }
 
-        public FullProductModel MapFullProductDtoToFullProductModel(FullProductDto fullProduct)
+        public FullProductOutputModel MapFullProductDtoToFullProductModel(FullProductDto fullProduct)
         {
-            return _mapper.Map<FullProductModel>(fullProduct);
+            return _mapper.Map<FullProductOutputModel>(fullProduct);
         }
 
-        public ManagerDto MapManagerAuthInputToManagerDto(ManagerAuthInput manager)
+        public ManagerDto MapManagerAuthInputToManagerDto(ManagerAuthInputModel manager)
         {
             return _mapper.Map<ManagerDto>(manager);
         }
@@ -125,11 +121,6 @@ namespace OfferAggregator.Bll
         public CurrentManager MapManagerDtoToCurrentManager(ManagerDto manager)
         {
             return _mapper.Map<CurrentManager>(manager);
-        }
-
-        public List<OutsideManager> MapManagersDtoToOutsideManagers(List<ManagerDto> manager)
-        {
-            return _mapper.Map<List<OutsideManager>>(manager);
         }
 
         public ManagerDto MapCurrentManagerToManagerDto(CurrentManager manager)
@@ -142,14 +133,14 @@ namespace OfferAggregator.Bll
             return _mapper.Map<List<ProductsStatisticOutputModel>>(productsStatistics);
         }
 
-        public CreatingOrderDto MapCreatingOrderModelToCreatingOrderDto(CreatingOrderModel creatingOrderModel)
+        public CreatingOrderDto MapCreatingOrderModelToCreatingOrderDto(CreatingOrderInputModel creatingOrderModel)
         {
             return _mapper.Map<CreatingOrderDto>(creatingOrderModel);
         }
 
-        public List<GroupModel> MapGroupDtosToGroupModels(List<GroupDto> groupsDtos)
+        public List<GroupOutputModel> MapGroupDtosToGroupModels(List<GroupDto> groupsDtos)
         {
-            return _mapper.Map<List<GroupModel>>(groupsDtos);
+            return _mapper.Map<List<GroupOutputModel>>(groupsDtos);
         }
 
         public ProductOutputModel MapProductDtoToProductOutputModel(ProductsDto productDto)
