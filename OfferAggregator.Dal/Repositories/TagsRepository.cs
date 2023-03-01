@@ -110,5 +110,31 @@ namespace OfferAggregator.Dal.Repositories
                 return result > 0;
             }
         }
+
+        public bool DeleteTagByProductIdAndTagId(int productId, int tagId)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                int result = sqlCnctn.Execute(
+                    StoredProcedures.DeleteTagByProductIdAndTagId,
+                    new { productId, tagId },
+                    commandType: CommandType.StoredProcedure);
+
+                return result > 0;
+            }
+        }
+
+        public TagDto GetTagById(int id)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                return sqlCnctn.Query<TagDto>(
+                    StoredProcedures.GetTagById,
+                    new { id},
+                    commandType: CommandType.StoredProcedure).FirstOrDefault();
+            }
+        }
     }
 }

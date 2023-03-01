@@ -148,6 +148,8 @@
     <Build Include="dbo\Stored Procedures\AddComment.sql" />
     <Build Include="dbo\Stored Procedures\UpdateScore.sql" />
     <Build Include="dbo\Stored Procedures\UpdateComment.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteTagByProductIdAndTagId.sql" />
+    <Build Include="dbo\Stored Procedures\GetTagById.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="MarketDB.refactorlog" />
@@ -155,6 +157,9 @@
   <ItemGroup>
     <None Include="..\OfferAggregator.UI\Shared\AddProduct.razor">
       <Link>AddProduct.razor</Link>
+    </None>
+    <None Include="..\OfferAggregator.UI\Pages\Stock\EditForm.razor">
+      <Link>EditForm.razor</Link>
     </None>
   </ItemGroup>
 </Project>

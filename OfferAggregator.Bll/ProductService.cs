@@ -511,18 +511,12 @@ namespace OfferAggregator.Bll
                 throw new ArgumentException("Product is not exist");
             }
 
-            //if (!CheckTagNameIsUnique(tagName))
-            //{
-            //    throw new ArgumentException("Name of tag already exists");
-            //}
+            var getAllTags = _tagsRepository.GetAllTagsByProductId(tagProduct.ProductId);
+            if (getAllTags.Any(t => t.Id == tagProduct.TagId))
+            {
+                throw new ArgumentException("Tne same tag already exists for product");
+            }
 
-            //TagDto tag = new TagDto { Name = tagName };
-            //var tagId = _tagsRepository.AddTag(tag);
-            //TagProductDto tagProduct = new TagProductDto
-            //{
-            //    ProductId = productId,
-            //    TagId = tagId
-            //};
             var tagProductDto = _instanceMapper.MapTagProductInputModelToTagProductDto(tagProduct);
             var result = _tagsRepository.AddTagProduct(tagProductDto);
 
@@ -533,6 +527,35 @@ namespace OfferAggregator.Bll
         {
             var getTagsDtos = _tagsRepository.GetAllTags();
             var result = _instanceMapper.MapTagDtosToTagOutputModels(getTagsDtos);
+
+            return result;
+        }
+
+        public bool DeleteTagByProductIdAndTagId(int productId, int tagId)
+        {
+            if (!CheckProductIsExist(productId))
+            {
+                throw new ArgumentException("Product is not exist");
+            }
+
+            if (!CheckTagIsExist(tagId))
+            {
+                throw new ArgumentException("Tag is not exist");
+            }
+
+            var result = _tagsRepository.DeleteTagByProductIdAndTagId(productId, tagId);
+
+            return result;
+        }
+
+        public bool DeleteTagsByProductId(int productId)
+        {
+            if (!CheckProductIsExist(productId))
+            {
+                throw new ArgumentException("Product is not exist");
+            }
+
+            var result = _tagsRepository.DeleteTagProductByProductId(productId);
 
             return result;
         }
@@ -589,6 +612,20 @@ namespace OfferAggregator.Bll
             var getClient = _clientRepository.GetClientById(clientId);
 
             if (getClient != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private bool CheckTagIsExist(int tagId)
+        {
+            var getTag = _tagsRepository.GetTagById(tagId);
+
+            if (getTag != null)
             {
                 return true;
             }

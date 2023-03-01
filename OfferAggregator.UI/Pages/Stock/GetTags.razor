@@ -8,7 +8,7 @@
     Список присвоенных тегов
 </div>
 
-@if (_tags.Count == 0)
+@if (_tags is null || _tags.Count == 0)
 {
     <div>У данного товара отсутствуют теги</div>
 }
@@ -27,7 +27,8 @@ else
     </div>
 }
 
-<AddTag ProductId="ProductId"/>
+<AddTag ProductId="ProductId" OnTagAdded="GetAllTagsByProductId" />
+<DeleteTagAtProduct ProductId="ProductId" OnTagDeleted="GetAllTagsByProductId" />
 
 @code {
     [Parameter]

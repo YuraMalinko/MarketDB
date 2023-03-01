@@ -145,5 +145,9 @@ namespace OfferAggregator.Dal
         public const string UpdateComment = "UpdateComment";
 
         public const string UpdateScore = "UpdateScore";
+
+        public const string DeleteTagByProductIdAndTagId = "DeleteTagByProductIdAndTagId";
+
+        public const string GetTagById = "GetTagById";
     }
 }

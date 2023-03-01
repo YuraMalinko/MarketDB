@@ -19,5 +19,9 @@ namespace OfferAggregator.Dal.Repositories
         public bool DeleteTagProduct(TagProductDto tagProduct);
 
         public bool DeleteTagProductByProductId(int productId);
+
+        public bool DeleteTagByProductIdAndTagId(int productId, int tagId);
+
+        public TagDto GetTagById(int tagId);
     }
 }

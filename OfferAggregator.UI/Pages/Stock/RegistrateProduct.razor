@@ -22,7 +22,7 @@
                 <InputSelect TValue="int" style="max-width: 210px" ValueExpression="@(()=>StockProduct.ProductId)"
                              Value="@StockProduct.ProductId"
                              ValueChanged="@OnProductValueChange">
-                    @foreach (var product in _products)
+                    @foreach (var product in _products.OrderBy( p => p.Name))
                     {
                         if (product != null)
                         {
@@ -58,7 +58,10 @@
         <div style=" width: 450px;">
             @if (_currentProduct != null)
             {
-                <span>Количество на складе: @_currentProduct.Amount</span>
+                <span>Количество на складе: @_currentProduct.Amount</span> <br/>
+                <a href="/product/@StockProduct.ProductId" style="padding-top: 10px; font-family: Georgia, serif; color: navy">
+                    <em>Карточка товара</em>
+                </a>
             }
         </div>
     </td>
