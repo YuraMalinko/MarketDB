@@ -92,43 +92,6 @@ a, .btn-link {
 .get-full-products {
     width: 750px;
 }
-/*
-.table-get-full-products {
-    margin-top: 1px;
-    border-left: 1px solid black;
-    border-right: 1px solid black;
-    border-bottom: 1px solid black;
-    border-top: 1px solid black;
-    background-color: #ffffe0;
-}*/
-
-/*.table-get-full-products th {
-        text-align: left;
-        border-bottom: 1px solid black;
-        font-size: 15px;
-        background-color: #cc9293;
-    }
-
-    .table-get-full-products tr {
-        border-bottom: 1px solid darkgray;
-        font-size: 15px;
-    }
-
-        .table-get-full-products tr:hover {
-            background-color: #ffcc99;
-            color: brown;
-        }
-
-    .table-get-full-products .nested-row {
-        border-left: 0px;
-        border-right: 0px;
-        border-bottom: 0px;
-        border-top: 0px;
-    }
-
-    .table-get-full-products td {
-        text-align: left;
-    }*/
 
 .update-product-get-statistic {
     width: 1170px;

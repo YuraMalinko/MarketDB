@@ -6,10 +6,7 @@
 <div class="stock-top-btns">
     <button @onclick="SetOrUnsetAddProductContent" class="btn">Добавить новый товар</button>
     <button @onclick="SetOrUnsetRegistrateProductContent" class="btn">Оприходывать товар</button>
-    <button  class="btn">Удалить товар</button>
-
-@*    <button @onclick="SetOrUnsetGetFullProductsContent" class="btn">Посмотреть все товары на складе</button>
-*@
+    <button class="btn">Удалить товар</button>
 </div>
 <div style="width: 500px; padding-bottom: 100px">
     @switch (_content)
@@ -26,10 +23,6 @@
     }
 </div>
 
-@*<div>
-    <GetFullProducts />
-</div>*@
-
 @code {
     private StockPageContent _content;
 
@@ -42,11 +35,6 @@
     {
         SetContent(StockPageContent.RegistrateProduct);
     }
-
-    //private void SetOrUnsetGetFullProductsContent()
-    //{
-    //    SetContent(StockPageContent.GetFullProducts);
-    //}
 
     private void SetContent(StockPageContent stockPageContent)
     {
@@ -64,7 +52,6 @@
     {
         None = 0,
         AddProduct = 1,
-        RegistrateProduct = 2,
-       // GetFullProducts = 3
+        RegistrateProduct = 2
     }
 }

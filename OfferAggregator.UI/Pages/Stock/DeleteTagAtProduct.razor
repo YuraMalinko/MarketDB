@@ -7,15 +7,19 @@
 @using System.Threading.Tasks
 
 
-<h3>DeleteTagAtProduct</h3>
+<div style="padding-top:10px; padding-bottom:10px; padding-left:5px; font-size:25px;">
+    Удаление тега
+</div>
 
-<div> Для удаления конкретного тега у товара выберите его из списка ниже и нажмите кнопку "Удалить"</div>
+<div style="width:400px; padding-bottom: 10px;">
+    Для удаления конкретного тега у товара выберите его из списка ниже и нажмите кнопку "Удалить"
+</div>
 
 <EditForm Model="@_tagProduct" OnValidSubmit="@DeleteTagByProduct">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
-    <InputSelect id="tagId" @bind-Value="_tagProduct.TagId">
+    <InputSelect id="tagId" style="width: 200px; height:30px;" @bind-Value="_tagProduct.TagId">
         @foreach (var tag in _tags.OrderBy(t => t.Name))
         {
             if (tag != null)
@@ -23,16 +27,9 @@
                 <option value="@tag.Id">@tag.Name</option>
             }
         }
-    </InputSelect>
+    </InputSelect><br />
 
-    <button class="button-submit" type="submit">Удалить тег у товара</button>
-
-    @* @if (!string.IsNullOrEmpty(_errorMessage))
-    {
-    <div class="error-message">
-    @_errorMessage
-    </div>
-    }*@
+    <button class="button-submit" style="margin-top: 10px; " type="submit">Удалить тег у товара</button>
 
 </EditForm>
 
@@ -44,7 +41,9 @@
 </div>
 
 
-<div> Для удаления всех тегов нажмите кнопку "Удалить все теги товара"</div>
+<div style="width:400px; padding-bottom: 5px;">
+    Для удаления всех тегов нажмите кнопку "Удалить все теги товара"
+</div>
 
 <button onclick="@DeleteAllTagsByProduct" class="button-submit" type="submit">Удалить все теги товара</button>
 
@@ -71,11 +70,7 @@
 
     private ProductService _productService;
 
-    // private List<TagProductInputModel> _tagProductList;
-
     private TagProductInputModel _tagProduct;
-
-    // private TagOutputModel _tag;
 
     private List<TagOutputModel> _tags;
 
@@ -99,7 +94,6 @@
         new ClientRepository()
         );
         _tagProduct = new TagProductInputModel { ProductId = ProductId };
-        //_tagProductList = new List<TagProductInputModel>();
         Update();
         _isDeleted = false;
         _timer = new Timer();

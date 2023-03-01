@@ -15,45 +15,6 @@
 
             @if (_fullProducts.Count > 0)
             {
-                @*<table class="table-get-full-products">
-            <th style="width:70px">№ товара</th>
-            <th style="width:165px">Наименование товара</th>
-            <th style="width:130px">Наименование группы</th>
-            <th style="width:120px">Кол-во товара на складе</th>
-            <th style="width:120px">Наименование тега</th>
-            <th style="width:120px">Средняя оценка товара</th>
-            @foreach (var fullProduct in _fullProducts.Where(FilterPredicat))
-            {
-            <tr>
-            <td>@fullProduct.Id</td>
-            <td>
-            <a href="/product/@fullProduct.Id">
-            @fullProduct.Name
-            </a>
-            </td>
-            <td>@fullProduct.GroupName</td>
-            <td>@fullProduct.Amount</td>
-            <td>
-            @foreach (var tag in fullProduct.Tags)
-            {
-            <tr class="nested-row">
-            <td>@tag.Name</td>
-            </tr>
-            }
-            </td>
-            @if (fullProduct.AverageScore != null)
-            {
-            <td>@Math.Round((double)fullProduct.AverageScore,1)</td>
-            }
-            else
-            {
-            <td>-</td>
-            }
-            </tr>
-            }
-            </table>*@
-
-
                 <div class="table-get-full-products">
                     <table>
                         <thead>
@@ -64,13 +25,8 @@
                         <th style="width:120px">Наименование тега</th>
                         <th style="width:120px">Средняя оценка товара</th>
                         </thead>
-                        @*</table>*@
 
-                        @*<div class="scroll-table-body">
-                    <table>
-                    <tbody>*@
                         <tbody>
-
                             @foreach (var fullProduct in _fullProducts.Where(FilterPredicat))
                             {
                                 <tr>
@@ -100,28 +56,18 @@
                                     }
                             </tr>
                             }
-
                         </tbody>
                     </table>
                 </div>
-
-
-
-
             }
             else
             {
                 <h4>В настоящий момент товары на складе отсутствуют</h4>
             }
         </div>
-
-        @*<a href="/Stock">
-        <button class="btn">Вернуться в главное меню Склада</button>
-        </a>*@
     </div>
 
     <div class="filters">
-        @* <div style="height: 50px;"> <span></span></div>*@
         <EditForm Model="@_filter">
             <div class="filters-row">Фильтр по количеству товара на складе</div>
             <InputNumber id="countOver" placeholder="Количество От" @bind-Value="_filter.CountOverFilter" />
@@ -132,8 +78,7 @@
             <InputNumber id="AverageScoreUnder" placeholder="Оценка До" @bind-Value="_filter.AverageScoreUnderFilter" />
 
             <div class="filters-row">Фильтр по группе товара</div>
-            @*<InputText id="Group" placeholder="Название группы" @bind-Value="_filter.GroupFilter" />*@
-           
+
             <InputSelect id="groupId" style="height: 30px; width: 200px; " @bind-Value="_filter.GroupFilter">
                 <option></option>
                 @foreach (var group in _groups.OrderBy(g => g.Name))
@@ -154,8 +99,6 @@
             <button @onclick="NullAllFilters" class="button-submit">Сбросить все фильтры</button>
         </EditForm>
     </div>
-
-
 </div>
 
 @code {

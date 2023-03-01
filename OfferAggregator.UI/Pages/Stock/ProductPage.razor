@@ -8,47 +8,22 @@
 
 @page "/product/{Id:int}"
 
-<div style ="display:flex; flex-direction:row;">
-<div>
-    @*<button @onclick="SetOrUnsetUpdateProductContent" class="btn">Изменить товар</button>
-    <button @onclick="SetOrUnsetUpdateAmountContent" class="btn">Изменить количество</button>*@
-
-    @*    <button @onclick="SetOrUnsetGetProductStatisticContent" class="btn">Посмотреть статитстику товара</button>*@
-
-    @*<button @onclick="SetOrUnsetAddScoreAndCommentContent" class="btn">Добавить оценку/комментарий</button>*@
-
-    <button @onclick="SetOrUnsetGetAllScoresAndCommentsByProductIdContent" class="btn">Оценки и комментарии</button>
-    <button @onclick="SetOrUnsetGetTagsContent" class="btn">Теги</button>
-
-    <a href="/Stock">
-        <button class="btn">Вернуться в меню Склада</button>
-    </a>
-</div>
+<div style="display:flex; flex-direction:row;">
+    <div>
+        <button @onclick="SetOrUnsetGetAllScoresAndCommentsByProductIdContent" class="btn">Оценки и комментарии</button>
+        <button @onclick="SetOrUnsetGetTagsContent" class="btn">Теги</button>
+        <a href="/Stock">
+            <button class="btn">Вернуться в меню Склада</button>
+        </a>
+    </div>
     <div class="in-product-card">
         <em>Вы внутри карточки<br /> товара: @_product.Name</em>
     </div>
 </div>
 
-
-<div style="width: 500px">
+<div style="width: 1000px">
     @switch (_content)
     {
-        @*  case ProductPageContent.UpdateProduct:
-    <UpdateProduct ProductId="Id" />
-    break;
-
-    case ProductPageContent.UpdateAmount:
-    <UpdateAmount ProductId="Id" />
-    break;*@
-
-        @*case ProductPageContent.AddScoreAndComment:
-    <AddScoreAndComment ProductId="Id" />
-    break;*@
-
-        @*  case ProductPageContent.GetProductStatistic:
-    <GetProductStatistic ProductId="Id" />
-    break;*@
-
         case ProductPageContent.GetAllScoresAndCommentsByProductId:
             <GetAllScoresAndCommentsByProductId ProductId="Id" />
             break;
@@ -61,10 +36,7 @@
             <GetTags ProductId="Id" />
             break;
     }
-
 </div>
-
-
 
 @code {
     [Parameter]
@@ -73,8 +45,6 @@
     private ProductOutputModel _product;
 
     private ProductService _productService;
-
-    //private string _errorMessage;
 
     protected override void OnInitialized()
     {
@@ -85,44 +55,9 @@
     new GroupRepository(),
     new ClientRepository());
         _product = _productService.GetProductById(Id);
-
-
-        //_updateProduct = new ProductInputModel();
-        //FillFormOfUpdateProduct();
-        //_timer = new Timer();
-        //_timer.Interval = 3000;
-        //_timer.Elapsed += StopShowing;
-
-
-
-        //_stockProduct = _productService.GetAmountByProductId(Id);
-        //FillFormOfUpdateStockProduct();
-        //_timer = new Timer();
-        //_timer.Interval = 2000;
-        //_timer.Elapsed += StopShowing;
     }
 
     private ProductPageContent _content;
-
-    //private void SetOrUnsetUpdateProductContent()
-    //{
-    //    SetContenet(ProductPageContent.UpdateProduct);
-    //}
-
-    //private void SetOrUnsetUpdateAmountContent()
-    //{
-    //    SetContenet(ProductPageContent.UpdateAmount);
-    //}
-
-    //private void SetOrUnsetAddScoreAndCommentContent()
-    //{
-    //    SetContenet(ProductPageContent.AddScoreAndComment);
-    //}
-
-    //private void SetOrUnsetGetProductStatisticContent()
-    //{
-    //    SetContenet(ProductPageContent.GetProductStatistic);
-    //}
 
     private void SetOrUnsetGetAllScoresAndCommentsByProductIdContent()
     {
@@ -149,146 +84,7 @@
     private enum ProductPageContent
     {
         None = 0,
-        //UpdateProduct = 1,
-        //UpdateAmount = 2,
-        //  AddScoreAndComment = 1,
-        // GetProductStatistic = 2,
         GetAllScoresAndCommentsByProductId = 1,
         GetTags = 2
     }
-
-
-
-    //private ProductInputModel _updateProduct;
-
-    ////private ProductService _productService;
-
-    ////private string _errorMessage;
-
-    //private List<GroupModel> _groups = new();
-
-    //private bool _isAdded;
-
-    //private Timer _timer;
-
-    //protected override void OnInitialized()
-    //{
-    //    _updateProduct = new ProductInputModel();
-    //    _productService = new ProductService(
-    //    new ProductsRepository(),
-    //    new ProductsReviewsAndStocksRepository(),
-    //    new TagsRepository(),
-    //    new GroupRepository(),
-    //    new ClientRepository()
-    //    );
-    //    FillFormOfUpdateProduct();
-    //    _timer = new Timer();
-    //    _timer.Interval = 3000;
-    //    _timer.Elapsed += StopShowing;
-    //}
-
-    //private void UpdateProductInStock()
-    //{
-    //    try
-    //    {
-    //        if (!string.IsNullOrEmpty(_updateProduct.Name) && _updateProduct.GroupId != 0)
-    //        {
-    //            _productService.UpdateProduct(_updateProduct);
-    //            FillFormOfUpdateProduct();
-    //            _isAdded = true;
-    //            _timer.Start();
-    //        }
-    //        _errorMessage = string.Empty;
-    //    }
-    //    catch (ArgumentException ex)
-    //    {
-    //        switch (ex.Message)
-    //        {
-    //            case "ProductId is not exist":
-    //                _errorMessage = "Такого товара не существует";
-    //                break;
-
-    //            case "Product is deleted":
-    //                _errorMessage = "Такой товар удален";
-    //                break;
-
-    //            case "GroupId is not exist":
-    //                _errorMessage = "Такой группы товаров не существует";
-    //                break;
-    //        }
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        _errorMessage = "Произошла ошибка";
-    //    }
-    //}
-
-    //private void FillFormOfUpdateProduct()
-    //{
-    //    var _product = _productService.GetProductById(Id);
-    //    _updateProduct.Id = _product.Id;
-    //    _updateProduct.Name = _product.Name;
-    //    _updateProduct.GroupId = _product.GroupId;
-    //    _groups = _productService.GetAllGroups();
-    //}
-
-    //private async void StopShowing(object sender, ElapsedEventArgs args)
-    //{
-    //    _isAdded = false;
-    //    await InvokeAsync(StateHasChanged);
-    //    _timer.Stop();
-    //}
-
-
-    //private ProductService _productService;
-
-    //private StocksWithProductInputModel _updateStockProduct;
-
-    //private StocksWithProductOutputModel _stockProduct;
-
-    //private bool _isAdded;
-
-    //private Timer _timer;
-
-    //protected override void OnInitialized()
-    //{
-    //    _productService = new ProductService(
-    //    new ProductsRepository(),
-    //    new ProductsReviewsAndStocksRepository(),
-    //    new TagsRepository(),
-    //    new GroupRepository(),
-    //    new ClientRepository()
-    //    );
-    //    _stockProduct = _productService.GetAmountByProductId(ProductId);
-    //    FillFormOfUpdateStockProduct();
-    //    _timer = new Timer();
-    //    _timer.Interval = 2000;
-    //    _timer.Elapsed += StopShowing;
-    //}
-
-    //private void FillFormOfUpdateStockProduct()
-    //{
-    //    _updateStockProduct = new StocksWithProductInputModel();
-    //    _updateStockProduct.ProductId = _stockProduct.ProductId;
-    //    _updateStockProduct.Name = _stockProduct.Name;
-    //    _updateStockProduct.Amount = _stockProduct.Amount;
-    //}
-
-    //private void UpdateAmountProductInStock()
-    //{
-    //    if (_updateStockProduct.Amount > 0)
-    //    {
-    //        _productService.UpdateAmountInStock(_updateStockProduct);
-    //        _stockProduct = _productService.GetAmountByProductId(Id);
-    //        _isAdded = true;
-    //        _timer.Start();
-    //    }
-    //}
-
-    //private async void StopShowing(object sender, ElapsedEventArgs args)
-    //{
-    //    _isAdded = false;
-    //    await InvokeAsync(StateHasChanged);
-    //    _timer.Stop();
-    //}
 }

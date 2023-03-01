@@ -6,9 +6,11 @@
 @using System.Timers
 @using System.Threading.Tasks
 
-<h3>AddTag</h3>
+<div style="padding-top:20px; padding-bottom:10px; padding-left:5px; font-size:25px;">
+    Добавление тега
+    </div>
 
-<div>
+<div style="width:400px; padding-bottom: 10px;">
     Для присвоения тега товару Вы можете выбрать существующий тег из выпадающего списка ниже.
 </div>
 
@@ -16,7 +18,7 @@
     <DataAnnotationsValidator />
     <ValidationSummary />
 
-    <InputSelect id="tagId" @bind-Value="_tagProductInputModel.TagId">
+    <InputSelect id="tagId"  style="height:30px;" @bind-Value="_tagProductInputModel.TagId">
         <option> </option>
         @foreach (var tag in _tags.OrderBy(t => t.Name))
         {
@@ -25,9 +27,9 @@
                 <option value="@tag.Id">@tag.Name</option>
             }
         }
-    </InputSelect>
+    </InputSelect> <br/>
 
-    <button class="button-submit" type="submit">Добавить тег товару</button>
+    <button class="button-submit" style="margin-top: 10px;" type="submit">Добавить тег товару</button>
 </EditForm>
 <div class="pop-up-success-message">
     @if (_isAdded)
@@ -36,7 +38,7 @@
     }
 </div>
 
-<div>
+<div style="width:400px;padding-bottom: 10px; margin-top: 10px;">
     Если в списке отсутствует подходящий тег, Вы можете добавить новый через форму ниже.
 </div>
 
@@ -44,16 +46,9 @@
     <DataAnnotationsValidator />
     <ValidationSummary />
 
-    <InputText id="addTag" @bind-Value="_addTag.Name" />
+    <InputText id="addTag" @bind-Value="_addTag.Name" /><br />
 
-    <button class="button-submit" type="submit">Создать и добавить тег товару</button>
-
-    @*  @if (!string.IsNullOrEmpty(_errorMessage))
-    {
-    <div class="error-message">
-    @_errorMessage
-    </div>
-    }*@
+    <button class="button-submit" style="margin-top: 10px;" type="submit">Создать и добавить тег товару</button>
 
 </EditForm>
 

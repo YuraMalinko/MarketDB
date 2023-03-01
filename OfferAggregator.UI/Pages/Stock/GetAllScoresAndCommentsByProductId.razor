@@ -5,12 +5,11 @@
 @using System.ComponentModel.DataAnnotations;
 
 <div style="width: 500px">
-    @*<UpdateReview ProductId="ProductId" />*@
     <AddScoreAndComment ProductId="ProductId" OnReviewAdded="GetAllScoresAndCommentsForProduct" />
 </div>
 
 <div>
-    <div class="header-pages-stock" style="padding-left: 0px;">
+    <div style="padding-top:20px; padding-bottom:10px; padding-left:5px; font-size:25px;">
         Оценки и комментарии на товар
     </div>
 
@@ -75,11 +74,8 @@
 
     private List<ProductReviewOutputModel> _productReviews = new();
 
-    //private ScoresAndCommentsContent _content;
-
     protected override void OnInitialized()
     {
-        //_productScoresComment = new ProductWithScoresAndCommentsOutputModel();
         _productService = new ProductService(
         new ProductsRepository(),
         new ProductsReviewsAndStocksRepository(),
@@ -88,8 +84,6 @@
         new ClientRepository()
         );
         GetAllScoresAndCommentsForProduct();
-        //_productScoresComment = _productScoresComment ?? new ProductWithScoresAndCommentsOutputModel();
-        //_productReviews = _productScoresComment?.ProductReviews ?? new List<ProductReviewOutputModel>();
     }
 
     private void GetAllScoresAndCommentsForProduct()
@@ -108,11 +102,4 @@
             _errorMessage = "Произошла ошибка";
         }
     }
-
-    //private enum ScoresAndCommentsContent
-    //{
-    //    None = 0,
-    //    UpdateReview = 1
-    //}
-
 }

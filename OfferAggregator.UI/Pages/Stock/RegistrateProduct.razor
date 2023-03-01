@@ -12,57 +12,57 @@
     <div class="table-registrate-product">
     <td>
         <div style=" width: 530px;">
-        <EditForm Model="@StockProduct" OnValidSubmit="@RegistrateProductInStock">
-            <DataAnnotationsValidator />
-            <ValidationSummary />
+            <EditForm Model="@StockProduct" OnValidSubmit="@RegistrateProductInStock">
+                <DataAnnotationsValidator />
+                <ValidationSummary />
 
-            <div class="edit-form-row">
-                <div class="left-part">Название товара:</div>
+                <div class="edit-form-row">
+                    <div class="left-part">Название товара:</div>
 
-                <InputSelect TValue="int" style="max-width: 210px" ValueExpression="@(()=>StockProduct.ProductId)"
-                             Value="@StockProduct.ProductId"
-                             ValueChanged="@OnProductValueChange">
-                    @foreach (var product in _products.OrderBy( p => p.Name))
+                    <InputSelect TValue="int" style="max-width: 210px" ValueExpression="@(()=>StockProduct.ProductId)"
+                                 Value="@StockProduct.ProductId"
+                                 ValueChanged="@OnProductValueChange">
+                            @foreach (var product in _products.OrderBy(p => p.Name))
+                            {
+                                if (product != null)
+                                {
+                                <option value="@product.Id">@product.Name</option>
+                                }
+                            }
+                    </InputSelect>
+                </div>
+
+                <div class="edit-form-row">
+                    <div class="left-part">Количество товара:</div>
+                    <InputNumber class="input-number" id="amount" @bind-Value="StockProduct.Amount" />
+                </div>
+
+                    @if (!string.IsNullOrEmpty(_errorMessage))
                     {
-                        if (product != null)
-                        {
-                            <option value="@product.Id">@product.Name</option>
-                        }
+                    <div class="error-message">@_errorMessage</div>
                     }
-                </InputSelect>
-            </div>
 
-            <div class="edit-form-row">
-                <div class="left-part">Количество товара:</div>
-                <InputNumber class="input-number" id="amount" @bind-Value="StockProduct.Amount" />
-            </div>
+                <button class="button-submit" type="submit">Оприходывать товар</button>
+            </EditForm>
 
-            @if (!string.IsNullOrEmpty(_errorMessage))
-            {
-                <div class="error-message">@_errorMessage</div>
-            }
-
-            <button class="button-submit" type="submit">Оприходывать товар</button>
-        </EditForm>
-
-        @if (_isAdded)
-        {
-            <div class="pop-up-success-message">
-                Товар успешно оприходаван
-            </div>
-        }
+                @if (_isAdded)
+                {
+                <div class="pop-up-success-message">
+                    Товар успешно оприходаван
+                </div>
+                }
         </div>
     </td>
 
     <td>
         <div style=" width: 450px;">
-            @if (_currentProduct != null)
-            {
-                <span>Количество на складе: @_currentProduct.Amount</span> <br/>
+                @if (_currentProduct != null)
+                {
+                <span>Количество на складе: @_currentProduct.Amount</span> <br />
                 <a href="/product/@StockProduct.ProductId" style="padding-top: 10px; font-family: Georgia, serif; color: navy">
                     <em>Карточка товара</em>
                 </a>
-            }
+                }
         </div>
     </td>
     </div>

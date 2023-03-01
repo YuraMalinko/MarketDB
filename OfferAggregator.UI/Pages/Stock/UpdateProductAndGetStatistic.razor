@@ -8,7 +8,7 @@
 
 <div class="update-product-get-statistic">
     <div>
-       <b>Товар</b>: @_stockProduct.Name
+        <b>Товар</b>: @_stockProduct.Name
     </div>
     <div>
         <b>Количество на складе</b>: @_stockProduct.Amount
@@ -23,7 +23,7 @@
 
                     <div>
                         <div style="width: 390px; padding-bottom: 10px; color:#161a1e; font-size: 18px;">
-                           <ins>Для изменения наименования или группы товара заполните форму ниже.</ins> 
+                            <ins>Для изменения наименования или группы товара заполните форму ниже.</ins>
                         </div>
                         <div>Название товара:</div>
                         <InputText id="name" @bind-Value="_updateProduct.Name" />
@@ -72,7 +72,7 @@
                     <ValidationSummary />
 
                     <div style="width: 390px; padding-bottom: 10px; color:#161a1e; font-size: 18px;">
-                        <ins>Для изменения количества товара на складе заполните форму ниже.</ins> 
+                        <ins>Для изменения количества товара на складе заполните форму ниже.</ins>
                     </div>
                     <div>
                         <div>Введите количество, на которое хотите изменить</div>
@@ -96,7 +96,7 @@
 
     <div class="get-statistic" style="padding-top: 10px; padding-bottom: 15px; ">
         <div style=" padding-bottom: 10px; color:#161a1e; font-size: 18px;">
-           <ins>Статистика по товару за все время:</ins> 
+            <ins>Статистика по товару за все время:</ins>
         </div>
         <div>
             <div class="div-row" style="padding-bottom: 4px;">
@@ -151,6 +151,26 @@
 
     private string _errorMessage;
 
+    private StocksWithProductInputModel _updateStockProduct;
+
+    private StocksWithProductOutputModel _stockProduct;
+
+    private ProductPageContent _content;
+
+    private ProductsStatisticOutputModel _productStatistic;
+
+    private ProductInputModel _updateProduct;
+
+    private List<GroupModel> _groups = new();
+
+    private bool _isAdded;
+
+    private bool _isAddedAmount;
+
+    private Timer _timer;
+
+    private Timer _timerAmount;
+
     protected override void OnInitialized()
     {
         _productStatistic = new ProductsStatisticOutputModel();
@@ -176,10 +196,6 @@
 
         GetProductStatisticById();
     }
-
-    private ProductPageContent _content;
-
-    private ProductsStatisticOutputModel _productStatistic;
 
     private void SetOrUnsetAddScoreAndCommentContent()
     {
@@ -215,38 +231,6 @@
         GetProductStatistic = 2,
         GetAllScoresAndCommentsByProductId = 3
     }
-
-    private ProductInputModel _updateProduct;
-
-    //private ProductService _productService;
-
-    //private string _errorMessage;
-
-    private List<GroupModel> _groups = new();
-
-    private bool _isAdded;
-
-    private bool _isAddedAmount;
-
-    private Timer _timer;
-
-    private Timer _timerAmount;
-
-    //protected override void OnInitialized()
-    //{
-    //    _updateProduct = new ProductInputModel();
-    //    _productService = new ProductService(
-    //    new ProductsRepository(),
-    //    new ProductsReviewsAndStocksRepository(),
-    //    new TagsRepository(),
-    //    new GroupRepository(),
-    //    new ClientRepository()
-    //    );
-    //    FillFormOfUpdateProduct();
-    //    _timer = new Timer();
-    //    _timer.Interval = 3000;
-    //    _timer.Elapsed += StopShowing;
-    //}
 
     private void UpdateProductInStock()
     {
@@ -318,33 +302,6 @@
         _timerAmount.Stop();
     }
 
-
-    //private ProductService _productService;
-
-    private StocksWithProductInputModel _updateStockProduct;
-
-    private StocksWithProductOutputModel _stockProduct;
-
-    //private bool _isAdded;
-
-    //private Timer _timer;
-
-    //protected override void OnInitialized()
-    //{
-    //    _productService = new ProductService(
-    //    new ProductsRepository(),
-    //    new ProductsReviewsAndStocksRepository(),
-    //    new TagsRepository(),
-    //    new GroupRepository(),
-    //    new ClientRepository()
-    //    );
-    //    _stockProduct = _productService.GetAmountByProductId(ProductId);
-    //    FillFormOfUpdateStockProduct();
-    //    _timer = new Timer();
-    //    _timer.Interval = 2000;
-    //    _timer.Elapsed += StopShowing;
-    //}
-
     private void FillFormOfUpdateStockProduct()
     {
         _updateStockProduct = new StocksWithProductInputModel();
@@ -352,10 +309,6 @@
         _updateStockProduct.Name = _stockProduct.Name;
         _updateStockProduct.Amount = _stockProduct.Amount;
     }
-
-
-
-
 
     private void GetProductStatisticById()
     {
