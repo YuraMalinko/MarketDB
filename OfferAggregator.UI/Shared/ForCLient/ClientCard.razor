@@ -22,14 +22,14 @@
             </Inside>
             <ButtomBot>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-        <button type="button" class="btn btn-primary" @onclick="ClickDelete">УДАЛИТЬ @client.Id</button>
+                <button type="button" class="btn btn-primary" @onclick="ClickDelete">УДАЛИТЬ @client.Id</button>
             </ButtomBot>
         </ModalWindow>
     </div>
 </div>
 
 @code {
-    [Parameter] public ClientOutputModel client {get; set;}
+    [Parameter] public ClientOutputModel client { get; set; }
     [Parameter] public EventCallback<ClientInputModel> btnUpdate { get; set; }
     ClientService _clientService = new ClientService();
 

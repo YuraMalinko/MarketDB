@@ -1,11 +1,10 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
 .blokInfo {
-    background-color: #F2FFF6;
-    margin: 2px;
-    padding: 4px;
-    text-align: center;
-    border-radius: 10px;
+    background-color: #fefbff;
     box-shadow: 0px 0px 8px 5px rgba(137, 150, 159, 0.1);
+    border-radius: 10px;
+    padding: 4px;
+    margin: 10px;
 }
 
 .blokVerx {
@@ -15,7 +14,6 @@
     text-align: center;
     border-radius: 10px;
     color: #0093c4;
-    text-shadow: -1px 0 1px white, 0 -1px 1px white, 0 1px 1px white, 1px 0 1px white, 0 0 8px white, 0 0 8px white, 0 0 8px white, 2px 2px 3px black;
 }
 
 .text_simple {
