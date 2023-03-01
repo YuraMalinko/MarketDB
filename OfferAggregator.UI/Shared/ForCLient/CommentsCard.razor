@@ -1,0 +1,16 @@
+﻿<div>
+    <div>
+        <a>@comment.Text</a>
+        <button type="button" class="btn btn-link btn-sm" @onclick="ClickDelete"> Удалить </button>
+    </div>
+</div>
+
+@code {
+    [Parameter] public CommentForClientOutputModel comment { get; set; }
+    [Parameter] public EventCallback<int> btnDelete { get; set; }
+
+    private void ClickDelete()
+    {
+        btnDelete.InvokeAsync(comment.Id);
+    }
+}

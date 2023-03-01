@@ -383,9 +383,8 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 DateCreate = date1,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(6, "Andrew", "qqq"),
-                Client = new ClientModel
+                Client = new ClientInputModel
                 {
-                    Id = 1,
                     Name = "Medvedev",
                     PhoneNumber = "8800"
                 }
@@ -412,19 +411,15 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 {
 pr1, pr2, pr3
 };
-            CommentForClientModel com1Cl = new CommentForClientModel
+            CommentForClientOutputModel com1Cl = new CommentForClientOutputModel
             {
-                Id = 1,
                 Text = "qqq",
-                ClientId = 1
             };
-            CommentForClientModel com2Cl = new CommentForClientModel
+            CommentForClientOutputModel com2Cl = new CommentForClientOutputModel
             {
-                Id = 2,
                 Text = "ppp",
-                ClientId = 1
             };
-            List<CommentForClientModel> comClList = new List<CommentForClientModel> { com1Cl, com2Cl };
+            List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel> { com1Cl, com2Cl };
             CommentForOrderModel comOr1 = new CommentForOrderModel
             {
                 Id = 1,

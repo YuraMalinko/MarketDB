@@ -143,8 +143,8 @@ namespace OfferAggregator.Dal.Repositories
         {
             using (var sqlConnect = new SqlConnection(Options.ConnectionString))
             {
-                sqlCnctn.Open();
-                return sqlCnctn.Query<ClientsDto>(
+                sqlConnect.Open();
+                return sqlConnect.Query<ClientsDto>(
                    StoredProcedures.GetClientById,
                    new { id },
                    commandType: CommandType.StoredProcedure).FirstOrDefault();

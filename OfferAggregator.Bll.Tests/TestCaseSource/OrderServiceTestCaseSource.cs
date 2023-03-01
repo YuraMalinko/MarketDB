@@ -20,9 +20,8 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(1, "OneMan", "111"),
-                Client = new ClientModel
+                Client = new ClientInputModel
                 {
-                    Id = 2,
                     Name = "OneClient",
                     PhoneNumber = "11111"
                 }
@@ -34,12 +33,11 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Count = 10
             };
             List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
-            CommentForClientModel com1Cl = new CommentForClientModel
+            CommentForClientOutputModel com1Cl = new CommentForClientOutputModel
             {
-                Text = "commentClient",
-                ClientId = 2
+                Text = "commentClient"
             };
-            List<CommentForClientModel> comClList = new List<CommentForClientModel> { com1Cl };
+            List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel> { com1Cl };
             CommentForOrderModel comOr1 = new CommentForOrderModel
             {
                 Text = "commentOrder",
@@ -163,9 +161,8 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(12, "OneMan2", "1112"),
-                Client = new ClientModel
+                Client = new ClientInputModel
                 {
-                    Id = 22,
                     Name = "OneClient2",
                     PhoneNumber = "111112"
                 }
@@ -183,12 +180,11 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Count = 22
             };
             List<ProductCountModel> products = new List<ProductCountModel> { pr1, pr2 };
-            CommentForClientModel com1Cl = new CommentForClientModel
+            CommentForClientOutputModel com1Cl = new CommentForClientOutputModel
             {
-                Text = "commentClient2",
-                ClientId = 22
+                Text = "commentClient2"
             };
-            List<CommentForClientModel> comClList = new List<CommentForClientModel> { com1Cl };
+            List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel> { com1Cl };
             CommentForOrderModel comOr1 = new CommentForOrderModel
             {
                 Text = "commentOrder2",
@@ -344,9 +340,8 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(123, "OneMan23", "11123"),
-                Client = new ClientModel
+                Client = new ClientInputModel
                 {
-                    Id = 223,
                     Name = "OneClient23",
                     PhoneNumber = "1111123"
                 }
@@ -358,12 +353,11 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Count = 102
             };
             List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
-            CommentForClientModel com1Cl = new CommentForClientModel
+            CommentForClientOutputModel com1Cl = new CommentForClientOutputModel
             {
-                Text = "commentClient23",
-                ClientId = 223
+                Text = "commentClient23"
             };
-            List<CommentForClientModel> comClList = new List<CommentForClientModel> { com1Cl };
+            List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel> { com1Cl };
             CommentForOrderModel comOr1 = new CommentForOrderModel
             {
                 Text = "commentOrder23",
@@ -400,9 +394,8 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(1234, "OneMan234", "111234"),
-                Client = new ClientModel
+                Client = new ClientInputModel
                 {
-                    Id = 2234,
                     Name = "OneClient234",
                     PhoneNumber = "11111234"
                 }
@@ -414,12 +407,11 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Count = 1024
             };
             List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
-            CommentForClientModel com1Cl = new CommentForClientModel
+            CommentForClientOutputModel com1Cl = new CommentForClientOutputModel
             {
-                Text = "commentClient234",
-                ClientId = 2234
+                Text = "commentClient234"
             };
-            List<CommentForClientModel> comClList = new List<CommentForClientModel> { com1Cl };
+            List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel> { com1Cl };
             CommentForOrderModel comOr1 = new CommentForOrderModel
             {
                 Text = "commentOrder234",
@@ -456,9 +448,8 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(12345, "OneMan2345", "1112345"),
-                Client = new ClientModel
+                Client = new ClientInputModel
                 {
-                    Id = 22345,
                     Name = "OneClient2345",
                     PhoneNumber = "111112345"
                 }
@@ -470,12 +461,11 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Count = 10245
             };
             List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
-            CommentForClientModel com1Cl = new CommentForClientModel
+            CommentForClientOutputModel com1Cl = new CommentForClientOutputModel
             {
-                Text = "commentClient2345",
-                ClientId = 22345
+                Text = "commentClient2345"
             };
-            List<CommentForClientModel> comClList = new List<CommentForClientModel> { com1Cl };
+            List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel> { com1Cl };
             CommentForOrderModel comOr1 = new CommentForOrderModel
             {
                 Text = "commentOrder2345",
@@ -517,9 +507,8 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(147, "OneMan47", "11147"),
-                Client = new ClientModel
+                Client = new ClientInputModel
                 {
-                    Id = 247,
                     Name = "OneClient47",
                     PhoneNumber = "1111147"
                 }
@@ -531,12 +520,11 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Count = 1047
             };
             List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
-            List<CommentForClientModel> comClList = new List<CommentForClientModel>
+            List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel>
             {
-            new CommentForClientModel
+            new CommentForClientOutputModel
             {
-                Text = "comment7",
-                ClientId = 247
+                Text = "comment7"
             }
             };
             List<CommentForOrderModel> comOrList = new List<CommentForOrderModel>();
@@ -654,9 +642,8 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(1478, "OneMan478", "111478"),
-                Client = new ClientModel
+                Client = new ClientInputModel
                 {
-                    Id = 2478,
                     Name = "OneClient478",
                     PhoneNumber = "11111478"
                 }
@@ -668,7 +655,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Count = 10478
             };
             List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
-            List<CommentForClientModel> comClList = new List<CommentForClientModel>();
+            List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel>();
             List<CommentForOrderModel> comOrList = new List<CommentForOrderModel>
             {
                 new CommentForOrderModel
@@ -791,9 +778,8 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(14787, "OneMan4787", "11147877"),
-                Client = new ClientModel
+                Client = new ClientInputModel
                 {
-                    Id = 24787,
                     Name = "OneClient4787",
                     PhoneNumber = "111114787"
                 }
@@ -805,12 +791,11 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Count = 104787
             };
             List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
-            List<CommentForClientModel> comClList = new List<CommentForClientModel>
+            List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel>
                 {
-                new CommentForClientModel
+                new CommentForClientOutputModel
                 {
-                Text = "comment7",
-                ClientId = 24787
+                Text = "comment7"
                 }
             };
             List<CommentForOrderModel> comOrList = new List<CommentForOrderModel>
@@ -918,9 +903,8 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(147870, "OneMan47870", "111478770"),
-                Client = new ClientModel
+                Client = new ClientInputModel
                 {
-                    Id = 247870,
                     Name = "OneClient47870",
                     PhoneNumber = "1111147870"
                 }
@@ -932,12 +916,11 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Count = 1047870
             };
             List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
-            List<CommentForClientModel> comClList = new List<CommentForClientModel>
+            List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel>
                 {
-                new CommentForClientModel
+                new CommentForClientOutputModel
                 {
-                Text = "comment70",
-                ClientId = 247870
+                Text = "comment70"
                 }
             };
             List<CommentForOrderModel> comOrList = new List<CommentForOrderModel>

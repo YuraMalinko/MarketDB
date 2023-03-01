@@ -1,6 +1,6 @@
 ﻿namespace OfferAggregator.Bll.Models
 {
-    public class ClientOutput
+    public class ClientOutputModel
     {
         public int Id { get; set; }
 
@@ -10,7 +10,7 @@
 
         public override bool Equals(object? obj)
         {
-            return obj is ClientOutput other &&
+            return obj is ClientOutputModel other &&
                 Id == other.Id &&
                 Name == other.Name &&
                 PhoneNumber == other.PhoneNumber;
