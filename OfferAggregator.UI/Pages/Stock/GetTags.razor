@@ -27,8 +27,8 @@ else
     </div>
 }
 
-<AddTag ProductId="ProductId" OnTagAdded="GetAllTagsByProductId" />
-<DeleteTagAtProduct ProductId="ProductId" OnTagDeleted="GetAllTagsByProductId" />
+<AddTag ProductId="ProductId" OnTagAdded="OnDataChanged" />
+<DeleteTagAtProduct ProductId="ProductId" OnTagDeleted="OnDataChanged" @ref="_deleteTagAtProduct" />
 
 @code {
     [Parameter]
@@ -41,6 +41,8 @@ else
     private ProductService _productService;
 
     private string _errorMessage;
+
+    private DeleteTagAtProduct _deleteTagAtProduct;
 
     protected override void OnInitialized()
     {
@@ -68,6 +70,12 @@ else
         catch (Exception ex)
         {
             _errorMessage = "Произошла ошибка";
-        }
+        }        
+    }
+
+    private void OnDataChanged()
+    {
+        GetAllTagsByProductId();
+        _deleteTagAtProduct?.Update();
     }
 }

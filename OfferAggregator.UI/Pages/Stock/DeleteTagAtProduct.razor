@@ -27,11 +27,11 @@
 
     <button class="button-submit" type="submit">Удалить тег у товара</button>
 
-   @* @if (!string.IsNullOrEmpty(_errorMessage))
+    @* @if (!string.IsNullOrEmpty(_errorMessage))
     {
-        <div class="error-message">
-            @_errorMessage
-        </div>
+    <div class="error-message">
+    @_errorMessage
+    </div>
     }*@
 
 </EditForm>
@@ -100,7 +100,7 @@
         );
         _tagProduct = new TagProductInputModel { ProductId = ProductId };
         //_tagProductList = new List<TagProductInputModel>();
-        _tags = _productService.GetAllTagsByProductId(ProductId);
+        Update();
         _isDeleted = false;
         _timer = new Timer();
         _timer.Interval = 3000;
@@ -109,6 +109,11 @@
         _timerAll = new Timer();
         _timerAll.Interval = 3000;
         _timerAll.Elapsed += StopShowingAll;
+    }
+
+    public void Update()
+    {
+        _tags = _productService.GetAllTagsByProductId(ProductId);
     }
 
     private void DeleteTagByProduct()

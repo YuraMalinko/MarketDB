@@ -184,24 +184,6 @@ namespace OfferAggregator.Bll
             return getAmountModel;
         }
 
-        //public bool AddScoreOrCommentToProductReview(ProductReviewInputModel productReviewModel)
-        //{
-        //    if (productReviewModel.Score != null && (productReviewModel.Score < 1 || productReviewModel.Score > 5))
-        //    {
-        //        throw new ArgumentException("This score not included in the range from 1 to 5");
-        //    }
-
-        //    if (!CheckClientOrderedProduct(productReviewModel.ProductId, productReviewModel.ClientId))
-        //    {
-        //        throw new ArgumentException("Client did not order product with this product");
-        //    }
-
-        //    var productReviewDto = _instanceMapper.MapProductReviewInputModelToProductReviewsDto(productReviewModel);
-        //    var result = _productsReviewsAndStocksRepository.AddScoreOrCommentToProductReview(productReviewDto);
-
-        //    return result;
-        //}
-
         public void AddScoreOrCommentToProductReview(ProductReviewInputModel productReviewModel)
         {
             if (productReviewModel.Score != null && (productReviewModel.Score < 1 || productReviewModel.Score > 5))
@@ -216,24 +198,6 @@ namespace OfferAggregator.Bll
 
             var productReviewDto = _instanceMapper.MapProductReviewInputModelToProductReviewsDto(productReviewModel);
             var getProductWithScoresAndComments = _productsReviewsAndStocksRepository.GetAllScoresAndCommentsForProductByProductIDAndClientId(productReviewModel.ProductId, productReviewModel.ClientId);
-
-            //if (productReviewModel.Score != null && CheckProductDoesNotHaveScoreByProductIdAndClientId(getProductWithScoresAndComments))
-            //{
-            //    _productsReviewsAndStocksRepository.AddScoreToProductReview(productReviewDto);
-            //}
-            //else if (productReviewModel.Score != null && !CheckProductDoesNotHaveScoreByProductIdAndClientId(getProductWithScoresAndComments))
-            //{
-            //    _productsReviewsAndStocksRepository.UpdateScoreOfProductReview(productReviewDto);
-            //}
-
-            //if (productReviewModel.Comment!=null && CheckProductDoesNotHaveCommentByProductIdAndClientId(getProductWithScoresAndComments))
-            //{
-            //    _productsReviewsAndStocksRepository.AddCommentToProductReview(productReviewDto);
-            //}
-            //else if(productReviewModel.Comment != null && !CheckProductDoesNotHaveCommentByProductIdAndClientId(getProductWithScoresAndComments))
-            //{
-            //    _productsReviewsAndStocksRepository.UpdateCommentOfProductReview(productReviewDto);
-            //}
 
             if (CheckProductDoesNotHaveScoreByProductIdAndClientId(getProductWithScoresAndComments))
             {
@@ -252,32 +216,16 @@ namespace OfferAggregator.Bll
                 {
                     if (CheckProductDoesNotHaveCommentByProductIdAndClientId(getProductWithScoresAndComments))
                     {
-                        //_productsReviewsAndStocksRepository.AddScoreToProductReview(productReviewDto);
-                        //_productsReviewsAndStocksRepository.AddCommentToProductReview(productReviewDto);
                         _productsReviewsAndStocksRepository.AddScoreOrCommentToProductReview(productReviewDto);
                     }
                     else
                     {
-                        //_productsReviewsAndStocksRepository.AddScoreToProductReview(productReviewDto);
-                        //_productsReviewsAndStocksRepository.UpdateCommentOfProductReview(productReviewDto);
                         _productsReviewsAndStocksRepository.UpdateScoreAndCommentOfProductsReviews(productReviewDto);
                     }
                 }
-                //else if (productReviewModel.Score == null && productReviewModel.Comment == null)
-                //{
-                //    if (CheckProductDoesNotHaveCommentByProductIdAndClientId(getProductWithScoresAndComments))
-                //    {
-                //        _productsReviewsAndStocksRepository.AddCommentToProductReview(productReviewDto);
-                //    }
-                //    else
-                //    {
-                //        _productsReviewsAndStocksRepository.UpdateCommentOfProductReview(productReviewDto);
-                //    }
-                //}
+                
                 else if (productReviewModel.Score != null && productReviewModel.Comment == null)
                 {
-                    // _productsReviewsAndStocksRepository.AddScoreToProductReview(productReviewDto);
-                    // _productsReviewsAndStocksRepository.UpdateScoreAndCommentOfProductsReviews(productReviewDto);
                     if (CheckProductDoesNotHaveCommentByProductIdAndClientId(getProductWithScoresAndComments))
                     {
                         _productsReviewsAndStocksRepository.AddScoreToProductReview(productReviewDto);
@@ -289,14 +237,12 @@ namespace OfferAggregator.Bll
                 }
             }
             else if (!CheckProductDoesNotHaveScoreByProductIdAndClientId(getProductWithScoresAndComments))
-            //if (!CheckProductDoesNotHaveScoreByProductIdAndClientId(getProductWithScoresAndComments) && productReviewModel.Score != null && productReviewModel.Comment != null)
             {
                 if (productReviewModel.Score == null && productReviewModel.Comment != null)
                 {
                     if (CheckProductDoesNotHaveCommentByProductIdAndClientId(getProductWithScoresAndComments))
                     {
-                        //_productsReviewsAndStocksRepository.AddCommentToProductReview(productReviewDto);
-                        _productsReviewsAndStocksRepository.UpdateCommentOfProductReview(productReviewDto);
+                         _productsReviewsAndStocksRepository.UpdateCommentOfProductReview(productReviewDto);
 
                     }
                     else
@@ -308,8 +254,6 @@ namespace OfferAggregator.Bll
                 {
                     if (CheckProductDoesNotHaveCommentByProductIdAndClientId(getProductWithScoresAndComments))
                     {
-                        //_productsReviewsAndStocksRepository.UpdateScoreOfProductReview(productReviewDto);
-                        //_productsReviewsAndStocksRepository.AddCommentToProductReview(productReviewDto);
                         _productsReviewsAndStocksRepository.UpdateScoreAndCommentOfProductsReviews(productReviewDto);
                     }
                     else
@@ -637,7 +581,6 @@ namespace OfferAggregator.Bll
 
         private bool CheckProductDoesNotHaveScoreByProductIdAndClientId(ProductWithScoresAndCommentsDto getProductWithScoresAndComments)
         {
-            //var getProductWithScoresAndComments = _productsReviewsAndStocksRepository.GetAllScoresAndCommentsForProductByProductIDAndClientId(productId, clientId);
             if (getProductWithScoresAndComments != null && getProductWithScoresAndComments.ProductReviews != null)
             {
                 var scoresAndComments = getProductWithScoresAndComments.ProductReviews;
@@ -658,7 +601,6 @@ namespace OfferAggregator.Bll
 
         private bool CheckProductDoesNotHaveCommentByProductIdAndClientId(ProductWithScoresAndCommentsDto getProductWithScoresAndComments)
         {
-            //var getProductWithScoresAndComments = _productsReviewsAndStocksRepository.GetAllScoresAndCommentsForProductByProductIDAndClientId(productId, clientId);
             if (getProductWithScoresAndComments != null && getProductWithScoresAndComments.ProductReviews != null)
             {
                 var scoresAndComments = getProductWithScoresAndComments.ProductReviews;
