@@ -20,17 +20,17 @@ namespace OfferAggregator.Bll
                 {
                     cfg.CreateMap<ProductsDto, ProductOutputModel>();
                     cfg.CreateMap<ProductInputModel, ProductsDto>();
-                    cfg.CreateMap<ClientsDto, InfoAllClientsOutputModel>();
-                    cfg.CreateMap<InfoAllClientsOutputModel, ClientsDto>();
-                    cfg.CreateMap<CommentForClientDto, InfoAllClientsOutputModel>();
-                    cfg.CreateMap<InfoAllClientsOutputModel, CommentForClientDto>();
+                    //cfg.CreateMap<ClientsDto, InfoAllClientsOutputModel>();
+                    //cfg.CreateMap<InfoAllClientsOutputModel, ClientsDto>();
+                    //cfg.CreateMap<CommentForClientDto, InfoAllClientsOutputModel>();
+                    //cfg.CreateMap<InfoAllClientsOutputModel, CommentForClientDto>();
                     cfg.CreateMap<StocksWithProductInputModel, StocksDtoWithProductName>();
                     cfg.CreateMap<StocksDtoWithProductName, StocksWithProductOutputModel>();
-                    cfg.CreateMap<ProductsDto, ProductModel>();
-                    cfg.CreateMap<ProductModel, ProductsDto>();
+                    cfg.CreateMap<ProductsDto, ProductOutputModel>();
+                    cfg.CreateMap<ProductInputModel, ProductsDto>();
                     cfg.CreateMap<CommentForClientDto, CommentForClientOutputModel>();
                     cfg.CreateMap<CommentForClientInputModel, CommentForClientDto>();
-                    cfg.CreateMap<StocksWithProductModel, StocksDtoWithProductName>();
+                    cfg.CreateMap<StocksWithProductInputModel, StocksDtoWithProductName>();
                     cfg.CreateMap<FullProductDto, FullProductModel>();
                     cfg.CreateMap<TagDto, TagOutputModel>();
                     cfg.CreateMap<ManagerAuthInput, ManagerDto>();
@@ -40,10 +40,8 @@ namespace OfferAggregator.Bll
                     cfg.CreateMap<OrderModel, OrderDto>();
                     cfg.CreateMap<ProductCountModel, ProductCountDto>();
                     cfg.CreateMap<CurrentManager, ManagerDto>();
-                    cfg.CreateMap<ClientModel, ClientsDto>().ReverseMap();
                     cfg.CreateMap<ClientInputModel, ClientsDto>();
                     cfg.CreateMap<CommentForOrderModel, CommenForOrderDto>();
-                    cfg.CreateMap<CommentForClientModel, CommentForClientDto>();
                     cfg.CreateMap<ProductsStatisticDto, ProductsStatisticOutputModel>();
                     cfg.CreateMap<GroupDto, GroupModel>();
                     cfg.CreateMap<ClientsProductDto, ClientsProductOutputModel>();
@@ -52,7 +50,7 @@ namespace OfferAggregator.Bll
                     cfg.CreateMap<ProductReviewsDto, ProductReviewOutputModel>();
                     cfg.CreateMap<TagProductInputModel, TagProductDto>();
                     cfg.CreateMap<CommentForClientOutputModel, CommentForClientDto>();
-                    cfg.CreateMap<ProductsStatisticDto, ProductsStatisticModel>();
+                    cfg.CreateMap<ProductsStatisticDto, ProductsStatisticOutputModel>();
                     cfg.CreateMap<ClientsDto, ClientOutputModel>();
                     cfg.CreateMap<OrderDto, OrderOutputModel>();
                 });

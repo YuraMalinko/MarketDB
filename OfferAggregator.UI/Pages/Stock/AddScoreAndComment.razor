@@ -63,7 +63,7 @@
 
     private ClientService _clientService;
 
-    private List<ClientModel> _clients = new();
+    private List<ClientOutputModel> _clients = new();
 
     private List<int> _scores = new List<int> { 1, 2, 3, 4, 5 };
 
@@ -86,12 +86,9 @@
         new GroupRepository(),
         new ClientRepository()
         );
-        _clientService = new ClientService(
-        new ClientRepository(),
-        new ProductsRepository()
-        );
+        _clientService = new ClientService();
         var getClients = _clientService.GetClientsWhoOrderedProductByProductId(ProductId);
-        _clients = getClients?.Clients ?? new List<ClientModel>();
+        //_clients = getClients?.Clients ?? new List<ClientModel>();
         _updateProductReview.ProductId = ProductId;
         _timer = new Timer();
         _timer.Interval = 2000;

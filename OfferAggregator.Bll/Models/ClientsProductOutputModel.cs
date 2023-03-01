@@ -4,7 +4,7 @@ namespace OfferAggregator.Bll.Models
 {
     public class ClientsProductOutputModel
     {
-        public List<ClientModel> Clients { get; set; }
+        public List<ClientOutputModel> Clients { get; set; }
 
         public int Id { get; set; }
 
