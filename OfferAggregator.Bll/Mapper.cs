@@ -1,4 +1,4 @@
-﻿using AutoMapper;
+using AutoMapper;
 using OfferAggregator.Bll.Models;
 using OfferAggregator.Dal;
 using OfferAggregator.Dal.Models;
@@ -26,6 +26,11 @@ namespace OfferAggregator.Bll
                     cfg.CreateMap<InfoAllClientsOutputModel, CommentForClientDto>();
                     cfg.CreateMap<StocksWithProductInputModel, StocksDtoWithProductName>();
                     cfg.CreateMap<StocksDtoWithProductName, StocksWithProductOutputModel>();
+                    cfg.CreateMap<ProductsDto, ProductModel>();
+                    cfg.CreateMap<ProductModel, ProductsDto>();
+                    cfg.CreateMap<CommentForClientDto, CommentForClientOutputModel>();
+                    cfg.CreateMap<CommentForClientInputModel, CommentForClientDto>();
+                    cfg.CreateMap<StocksWithProductModel, StocksDtoWithProductName>();
                     cfg.CreateMap<FullProductDto, FullProductModel>();
                     cfg.CreateMap<TagDto, TagOutputModel>();
                     cfg.CreateMap<ManagerAuthInput, ManagerDto>();
@@ -36,6 +41,7 @@ namespace OfferAggregator.Bll
                     cfg.CreateMap<ProductCountModel, ProductCountDto>();
                     cfg.CreateMap<CurrentManager, ManagerDto>();
                     cfg.CreateMap<ClientModel, ClientsDto>().ReverseMap();
+                    cfg.CreateMap<ClientInputModel, ClientsDto>();
                     cfg.CreateMap<CommentForOrderModel, CommenForOrderDto>();
                     cfg.CreateMap<CommentForClientModel, CommentForClientDto>();
                     cfg.CreateMap<ProductsStatisticDto, ProductsStatisticOutputModel>();
@@ -45,6 +51,10 @@ namespace OfferAggregator.Bll
                     cfg.CreateMap<ProductWithScoresAndCommentsDto, ProductWithScoresAndCommentsOutputModel>();
                     cfg.CreateMap<ProductReviewsDto, ProductReviewOutputModel>();
                     cfg.CreateMap<TagProductInputModel, TagProductDto>();
+                    cfg.CreateMap<CommentForClientOutputModel, CommentForClientDto>();
+                    cfg.CreateMap<ProductsStatisticDto, ProductsStatisticModel>();
+                    cfg.CreateMap<ClientsDto, ClientOutputModel>();
+                    cfg.CreateMap<OrderDto, OrderOutputModel>();
                 });
 
             _mapper = _configuration.CreateMapper();
@@ -69,14 +79,29 @@ namespace OfferAggregator.Bll
             return _mapper.Map<ProductsDto>(product);
         }
 
-        public List<InfoAllClientsOutputModel> MapClientsDtoToClientsOutputModel(List<ClientsDto> clients)
+        public ClientOutputModel MapClientDtoToClientOutputModel(ClientsDto clients)
         {
-            return _configuration.CreateMapper().Map<List<InfoAllClientsOutputModel>>(clients);
+            return _mapper.Map<ClientOutputModel>(clients);
         }
 
-        public ClientsDto MapClientsOutputModelToClientsDto(InfoAllClientsOutputModel clients)
+        public List<ClientOutputModel> MapClientsDtoToClientsOutputModel(List<ClientsDto> clients)
+        {
+            return _mapper.Map<List<ClientOutputModel>>(clients);
+        }
+
+        public ClientsDto MapClientsInputModelModelToClientsDto(ClientInputModel clients)
         {
             return _mapper.Map<ClientsDto>(clients);
+        }
+
+        public List<CommentForClientOutputModel> MapCommentForClientDtoToCommentForClientOutputModel(List<CommentForClientDto> comment)
+        {
+            return _mapper.Map<List<CommentForClientOutputModel>>(comment);
+        }
+
+        public CommentForClientDto MapCommentForClientInputModelToCommentForClientDto(CommentForClientInputModel comment)
+        {
+            return _mapper.Map<CommentForClientDto>(comment);
         }
 
         public StocksDtoWithProductName MapStocksWithProductInputModelToStocksDtoWithProductName(StocksWithProductInputModel stockProduct)
@@ -167,6 +192,11 @@ namespace OfferAggregator.Bll
         public TagProductDto MapTagProductInputModelToTagProductDto(TagProductInputModel tagProductModel)
         {
             return _mapper.Map<TagProductDto>(tagProductModel);
+        }
+
+        public List<OrderOutputModel> MapOrderDtoToOrderOutputModel(OrderDto order)
+        {
+            return _mapper.Map<List<OrderOutputModel>>(order);
         }
     }
 }

@@ -149,5 +149,11 @@ namespace OfferAggregator.Dal
         public const string DeleteTagByProductIdAndTagId = "DeleteTagByProductIdAndTagId";
 
         public const string GetTagById = "GetTagById";
+
+        public const string GetClientsByName = "GetClientsByName";
+
+        public const string GetClientByPhoneNumber = "GetClientByPhoneNumber";
+        
+        public const string GetCommentsForClientById = "GetCommentsForClientById";
     }
 }

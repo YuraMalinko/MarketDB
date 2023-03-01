@@ -1,4 +1,54 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+.blokInfo {
+    background-color: #fefbff;
+    box-shadow: 0px 0px 8px 5px rgba(137, 150, 159, 0.1);
+    border-radius: 10px;
+    padding: 4px;
+    margin: 10px;
+}
+
+.blokVerx {
+    background-color: lavender;
+    margin: 2px;
+    padding: 4px;
+    text-align: center;
+    border-radius: 10px;
+    color: #0093c4;
+}
+
+.text_simple {
+    color: black;
+    text-shadow: none;
+    text-align: left
+}
+
+.forma_input {
+    padding: 10px;
+    border: 0;
+    border-radius: 10px;
+    box-shadow: 0px 0px 19px 5px rgba(207, 139, 255, 0.28);
+    margin: 10px 0;
+}
+
+.client_card {
+    width: 350px;
+    background-color: #fefbff;
+    box-shadow: 0px 0px 8px 5px rgba(137, 150, 159, 0.1);
+    border-radius: 10px;
+    padding: 4px;
+    margin: 10px;
+    display: inline-flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+
+
+
+
+
+
+
 
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;

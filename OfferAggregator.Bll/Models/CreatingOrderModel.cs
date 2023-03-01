@@ -8,6 +8,6 @@
 
         public List<CommentForOrderModel> CommentsForOrder { get; set; }
 
-        public List<CommentForClientModel> CommentsForClient { get; set; }
+        public List<CommentForClientOutputModel> CommentsForClient { get; set; }
     }
 }

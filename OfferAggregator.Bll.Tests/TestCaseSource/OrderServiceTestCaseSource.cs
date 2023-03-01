@@ -20,9 +20,8 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(1, "OneMan", "111"),
-                Client = new ClientModel
+                Client = new ClientInputModel
                 {
-                    Id = 2,
                     Name = "OneClient",
                     PhoneNumber = "11111"
                 }
@@ -34,12 +33,11 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Count = 10
             };
             List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
-            CommentForClientModel com1Cl = new CommentForClientModel
+            CommentForClientOutputModel com1Cl = new CommentForClientOutputModel
             {
-                Text = "commentClient",
-                ClientId = 2
+                Text = "commentClient"
             };
-            List<CommentForClientModel> comClList = new List<CommentForClientModel> { com1Cl };
+            List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel> { com1Cl };
             CommentForOrderModel comOr1 = new CommentForOrderModel
             {
                 Text = "commentOrder",
@@ -135,9 +133,21 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             };
             bool addProductToOrder = true;
             int expected = 100;
+            StocksDtoWithProductName getAmountProductOnStock = new StocksDtoWithProductName
+            {
+                ProductId = 1,
+                Name = "product1",
+                Amount = 10
+            };
+            StocksDtoWithProductName stockProduct = new StocksDtoWithProductName
+            {
+                ProductId = 1,
+                Name = "product1",
+                Amount = 0
+            };
 
             yield return new object[] { creatingOrderModel, getClient, creatingOrderDto, addOrder, addCommentForOrder, addCommentForClient,
-                                       crntProductModel, getProductById, ordersProductsDto, addProductToOrder, expected, getManager };
+                                       crntProductModel, getProductById, ordersProductsDto, addProductToOrder, expected, getManager, getAmountProductOnStock, stockProduct };
         }
 
         public static IEnumerable CreateNewOrderWithTwoProductTestCaseSource()
@@ -151,9 +161,8 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(12, "OneMan2", "1112"),
-                Client = new ClientModel
+                Client = new ClientInputModel
                 {
-                    Id = 22,
                     Name = "OneClient2",
                     PhoneNumber = "111112"
                 }
@@ -171,12 +180,11 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Count = 22
             };
             List<ProductCountModel> products = new List<ProductCountModel> { pr1, pr2 };
-            CommentForClientModel com1Cl = new CommentForClientModel
+            CommentForClientOutputModel com1Cl = new CommentForClientOutputModel
             {
-                Text = "commentClient2",
-                ClientId = 22
+                Text = "commentClient2"
             };
-            List<CommentForClientModel> comClList = new List<CommentForClientModel> { com1Cl };
+            List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel> { com1Cl };
             CommentForOrderModel comOr1 = new CommentForOrderModel
             {
                 Text = "commentOrder2",
@@ -290,9 +298,35 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             };
             bool addProductToOrder = true;
             int expected = 1002;
+            StocksDtoWithProductName getAmountProductOnStock1 = new StocksDtoWithProductName
+            {
+                ProductId = 12,
+                Name = "product12",
+                Amount = 200
+            };
+            StocksDtoWithProductName getAmountProductOnStock2 = new StocksDtoWithProductName
+            {
+                ProductId = 22,
+                Name = "product22",
+                Amount = 101
+            };
+            StocksDtoWithProductName stockProduct1 = new StocksDtoWithProductName
+            {
+                ProductId = 12,
+                Name = "product12",
+                Amount = 98
+            };
+            StocksDtoWithProductName stockProduct2 = new StocksDtoWithProductName
+            {
+                ProductId = 22,
+                Name = "product22",
+                Amount = 79
+            };
 
-            yield return new object[] { creatingOrderModel, getClient, creatingOrderDto, addOrder, addCommentForOrder, addCommentForClient,
-                                       crntProductModel1, crntProductModel2, getProductById, ordersProductsDto1, ordersProductsDto2, addProductToOrder, expected, getManager };
+
+            yield return new object[] { creatingOrderModel, getClient, creatingOrderDto, addOrder, addCommentForOrder, addCommentForClient,crntProductModel1, crntProductModel2,
+                                          getProductById, ordersProductsDto1, ordersProductsDto2, addProductToOrder, expected, getManager, getAmountProductOnStock1, 
+                                          getAmountProductOnStock2, stockProduct1, stockProduct2 };
         }
 
         public static IEnumerable CreateNewOrderWithOneProduct_WhenManagerIsNotExistTestCaseSource()
@@ -306,9 +340,8 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(123, "OneMan23", "11123"),
-                Client = new ClientModel
+                Client = new ClientInputModel
                 {
-                    Id = 223,
                     Name = "OneClient23",
                     PhoneNumber = "1111123"
                 }
@@ -320,12 +353,11 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Count = 102
             };
             List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
-            CommentForClientModel com1Cl = new CommentForClientModel
+            CommentForClientOutputModel com1Cl = new CommentForClientOutputModel
             {
-                Text = "commentClient23",
-                ClientId = 223
+                Text = "commentClient23"
             };
-            List<CommentForClientModel> comClList = new List<CommentForClientModel> { com1Cl };
+            List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel> { com1Cl };
             CommentForOrderModel comOr1 = new CommentForOrderModel
             {
                 Text = "commentOrder23",
@@ -362,9 +394,8 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(1234, "OneMan234", "111234"),
-                Client = new ClientModel
+                Client = new ClientInputModel
                 {
-                    Id = 2234,
                     Name = "OneClient234",
                     PhoneNumber = "11111234"
                 }
@@ -376,12 +407,11 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Count = 1024
             };
             List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
-            CommentForClientModel com1Cl = new CommentForClientModel
+            CommentForClientOutputModel com1Cl = new CommentForClientOutputModel
             {
-                Text = "commentClient234",
-                ClientId = 2234
+                Text = "commentClient234"
             };
-            List<CommentForClientModel> comClList = new List<CommentForClientModel> { com1Cl };
+            List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel> { com1Cl };
             CommentForOrderModel comOr1 = new CommentForOrderModel
             {
                 Text = "commentOrder234",
@@ -418,9 +448,8 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(12345, "OneMan2345", "1112345"),
-                Client = new ClientModel
+                Client = new ClientInputModel
                 {
-                    Id = 22345,
                     Name = "OneClient2345",
                     PhoneNumber = "111112345"
                 }
@@ -432,12 +461,11 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Count = 10245
             };
             List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
-            CommentForClientModel com1Cl = new CommentForClientModel
+            CommentForClientOutputModel com1Cl = new CommentForClientOutputModel
             {
-                Text = "commentClient2345",
-                ClientId = 22345
+                Text = "commentClient2345"
             };
-            List<CommentForClientModel> comClList = new List<CommentForClientModel> { com1Cl };
+            List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel> { com1Cl };
             CommentForOrderModel comOr1 = new CommentForOrderModel
             {
                 Text = "commentOrder2345",
@@ -479,9 +507,8 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(147, "OneMan47", "11147"),
-                Client = new ClientModel
+                Client = new ClientInputModel
                 {
-                    Id = 247,
                     Name = "OneClient47",
                     PhoneNumber = "1111147"
                 }
@@ -493,12 +520,11 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Count = 1047
             };
             List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
-            List<CommentForClientModel> comClList = new List<CommentForClientModel>
+            List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel>
             {
-            new CommentForClientModel
+            new CommentForClientOutputModel
             {
-                Text = "comment7",
-                ClientId = 247
+                Text = "comment7"
             }
             };
             List<CommentForOrderModel> comOrList = new List<CommentForOrderModel>();
@@ -588,9 +614,21 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             };
             bool addProductToOrder = true;
             int expected = 10047;
+            StocksDtoWithProductName getAmountProductOnStock = new StocksDtoWithProductName
+            {
+                ProductId = 147,
+                Name = "product147",
+                Amount = 2000
+            };
+            StocksDtoWithProductName stockProduct = new StocksDtoWithProductName
+            {
+                ProductId = 147,
+                Name = "product147",
+                Amount = 953
+            };
 
-            yield return new object[] { creatingOrderModel, getClient, creatingOrderDto, addOrder, addCommentForClient,
-                                       crntProductModel, getProductById, ordersProductsDto, addProductToOrder, expected, getManager };
+            yield return new object[] { creatingOrderModel, getClient, creatingOrderDto, addOrder, addCommentForClient,crntProductModel, getProductById, 
+                                         ordersProductsDto, addProductToOrder, expected, getManager, getAmountProductOnStock, stockProduct };
         }
 
         public static IEnumerable CreateNewOrderWithOneProduct_WhenCommentsForClientIsNullTestCaseSource()
@@ -604,9 +642,8 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(1478, "OneMan478", "111478"),
-                Client = new ClientModel
+                Client = new ClientInputModel
                 {
-                    Id = 2478,
                     Name = "OneClient478",
                     PhoneNumber = "11111478"
                 }
@@ -618,7 +655,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Count = 10478
             };
             List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
-            List<CommentForClientModel> comClList = new List<CommentForClientModel>();
+            List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel>();
             List<CommentForOrderModel> comOrList = new List<CommentForOrderModel>
             {
                 new CommentForOrderModel
@@ -713,9 +750,21 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             };
             bool addProductToOrder = true;
             int expected = 100478;
+            StocksDtoWithProductName getAmountProductOnStock = new StocksDtoWithProductName
+            {
+                ProductId = 1478,
+                Name = "product1478",
+                Amount = 10500
+            };
+            StocksDtoWithProductName stockProduct = new StocksDtoWithProductName
+            {
+                ProductId = 1478,
+                Name = "product1478",
+                Amount = 22
+            };
 
-            yield return new object[] { creatingOrderModel, getClient, creatingOrderDto, addOrder, addCommentForClient,
-                                       crntProductModel, getProductById, ordersProductsDto, addProductToOrder, expected, getManager };
+            yield return new object[] { creatingOrderModel, getClient, creatingOrderDto, addOrder, addCommentForClient,crntProductModel, getProductById,
+                                         ordersProductsDto, addProductToOrder, expected, getManager, getAmountProductOnStock, stockProduct };
         }
 
         public static IEnumerable CreateNewOrderWithOneProduct_WhenProductIsNotExistTestCaseSource()
@@ -729,9 +778,8 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(14787, "OneMan4787", "11147877"),
-                Client = new ClientModel
+                Client = new ClientInputModel
                 {
-                    Id = 24787,
                     Name = "OneClient4787",
                     PhoneNumber = "111114787"
                 }
@@ -743,12 +791,11 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Count = 104787
             };
             List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
-            List<CommentForClientModel> comClList = new List<CommentForClientModel>
+            List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel>
                 {
-                new CommentForClientModel
+                new CommentForClientOutputModel
                 {
-                Text = "comment7",
-                ClientId = 24787
+                Text = "comment7"
                 }
             };
             List<CommentForOrderModel> comOrList = new List<CommentForOrderModel>
@@ -843,6 +890,141 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             yield return new object[] { creatingOrderModel, getClient, creatingOrderDto,
                                        addOrder, addCommentForClient, crntProductModel, addCommentForOrder,
                                        getProductById, expected, getManager };
+        }
+
+        public static IEnumerable CreateNewOrderWithOneProduct_WhenAmountOnStockLessThenAmountProductInOrderTestCaseSource()
+        {
+            DateTime dateCreate = new DateTime(2023, 11, 01, 05, 11, 11);
+            DateTime complitionDate = new DateTime(2023, 12, 01, 02, 17, 00);
+            OrderModel orderModel = new OrderModel
+            {
+                ManagerId = 147870,
+                ClientId = 247870,
+                DateCreate = dateCreate,
+                ComplitionDate = complitionDate,
+                Manager = new CurrentManager(147870, "OneMan47870", "111478770"),
+                Client = new ClientInputModel
+                {
+                    Name = "OneClient47870",
+                    PhoneNumber = "1111147870"
+                }
+            };
+            ProductCountModel pr1 = new ProductCountModel
+            {
+                Id = 147870,
+                Name = "product147870",
+                Count = 1047870
+            };
+            List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
+            List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel>
+                {
+                new CommentForClientOutputModel
+                {
+                Text = "comment70"
+                }
+            };
+            List<CommentForOrderModel> comOrList = new List<CommentForOrderModel>
+            {
+                new CommentForOrderModel
+                {
+                Text = "comment70",
+                OrderId = 10047870
+                }
+            };
+            CreatingOrderModel creatingOrderModel = new CreatingOrderModel
+            {
+                Order = orderModel,
+                Products = products,
+                CommentsForOrder = comOrList,
+                CommentsForClient = comClList
+            };
+
+            OrderDto orderDto = new OrderDto
+            {
+                ManagerId = 147870,
+                ClientId = 247870,
+                DateCreate = dateCreate,
+                ComplitionDate = complitionDate,
+                Manager = new ManagerDto
+                {
+                    Id = 147870,
+                    Login = "OneMan47870",
+                    Password = "111478770"
+                },
+                Client = new ClientsDto
+                {
+                    Id = 247870,
+                    Name = "OneClient47870",
+                    PhoneNumber = "1111147870"
+                }
+            };
+            ProductCountDto pr1Dto = new ProductCountDto
+            {
+                Id = 147870,
+                Name = "product147870",
+                Count = 104787
+            };
+            List<ProductCountDto> productsDto = new List<ProductCountDto> { pr1Dto };
+            List<CommentForClientDto> comClListDto = new List<CommentForClientDto>
+                 {
+            new CommentForClientDto
+                {
+                Text = "comment70",
+                ClientId = 247870
+                }
+            };
+            List<CommenForOrderDto> comOrListDto = new List<CommenForOrderDto>
+            {
+            new CommenForOrderDto
+                {
+                Text = "comment70",
+                OrderId = 10047870
+                }
+            };
+            CreatingOrderDto creatingOrderDto = new CreatingOrderDto
+            {
+                Order = orderDto,
+                Products = productsDto,
+                CommentsForOrder = comOrListDto,
+                CommentsForClient = comClListDto
+            };
+            int addOrder = 10047870;
+            ClientsDto getClient = new ClientsDto
+            {
+                Id = 247870,
+                Name = "OneClient7870",
+                PhoneNumber = "1111147870"
+            };
+            int addCommentForOrder = 9947870;
+            int addCommentForClient = 9847870;
+            ProductCountModel crntProductModel = new ProductCountModel
+            {
+                Id = 147870,
+                Name = "product147870",
+                Count = 1047870
+            };
+            ProductsDto getProductById = new ProductsDto
+            {
+                Id = 147870,
+                Name = "product147870"
+            };
+            ManagerDto getManager = new ManagerDto
+            {
+                Id = 147870,
+                Login = "OneMan47870",
+                Password = "111478770"
+            };
+            int expected = -1;
+            StocksDtoWithProductName getAmountProductOnStock = new StocksDtoWithProductName
+            {
+                ProductId = 147870,
+                Name = "product147870",
+                Amount = 1000
+            };
+
+            yield return new object[] { creatingOrderModel, getClient, creatingOrderDto,
+                                       addOrder, addCommentForClient, crntProductModel, addCommentForOrder,
+                                       getProductById, expected, getManager, getAmountProductOnStock };
         }
     }
 }

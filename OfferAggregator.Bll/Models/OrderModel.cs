@@ -16,6 +16,6 @@ namespace OfferAggregator.Bll.Models
 
         public CurrentManager Manager { get; set; }
 
-        public ClientModel Client { get; set; }
+        public ClientInputModel Client { get; set; }
     }
 }

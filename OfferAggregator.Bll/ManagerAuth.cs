@@ -8,9 +8,9 @@ namespace OfferAggregator.Bll
     {
         private Mapper _instanceMapper = Mapper.GetInstance();
 
-        public IManagerRepository ManagerRep { get; set; } = new ManagerRepository();
+        public IManagerRepository ManagerRep { get; set; }
 
-        public IOrderRepository OrderRepository { get; set; } = new OrderRepository();
+        public IOrderRepository OrderRepository { get; set; } 
 
         public ManagerAuth(IManagerRepository managerRep=null,IOrderRepository orderRepository=null)
         {

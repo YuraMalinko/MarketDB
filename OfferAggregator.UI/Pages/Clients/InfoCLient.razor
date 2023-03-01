@@ -1,0 +1,71 @@
+﻿@page "/clients/{Id:int}"
+@inject NavigationManager _navigationManager
+
+<div class="blokInfo">
+    <h2>Новый комментарий:</h2><input type="text" size="40%" placeholder="Текст комментария" @bind="CommentInput.Text" />
+    <button type="button" class="btn btn-outline-success" @onclick="AddComment">Добавить</button>
+    <div class="text_simple">
+        @if (_allComments.Count != 0)
+        {
+            <ul>
+                @foreach (var k in _allComments)
+                {
+                    <li><CommentsCard comment="k" btnDelete="DeleteComment" /></li>
+                }
+            </ul>
+        }
+        else
+        {
+            <h5>Комментариев к клиенту пока нет!</h5>
+        }
+    </div>
+</div>
+<div class="blokInfo">
+    <table>
+        <caption>Все заказы клиента @ClientOutput.Id</caption>
+        <thead>
+            <tr>
+                <th>Модель</th>
+                <th>Цена</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!--  Данные по iPhone  -->
+        </tbody>
+        <tbody>
+            <!-- Данные по Xiaomi -->
+        </tbody>
+        <tfoot>
+            <tr>
+                <td>Средняя цена:</td>
+                <td>$758.8</td>
+            </tr>
+        </tfoot>
+    </table>
+</div>
+
+@code {
+    [Parameter] public int Id { get; set; }
+    private ClientService _clientServis;
+    private ClientOutputModel ClientOutput;
+    CommentForClientInputModel CommentInput = new CommentForClientInputModel();
+    List<CommentForClientOutputModel> _allComments;
+    List<OrderOutputModel> _allOrders;
+
+    protected override void OnInitialized()
+    {
+        _clientServis = new ClientService();
+        ClientOutput = _clientServis.GetClientById(Id);
+        _allComments = _clientServis.GetAllCommentsForClientById(Id);
+    }
+
+    private void AddComment()
+    {
+        _clientServis.AddComment(CommentInput, Id);
+    }
+
+    private void DeleteComment(int a)
+    {
+        _clientServis.DeleteComment(a);
+    }
+}

@@ -134,6 +134,7 @@
     <Build Include="dbo\Stored Procedures\AddCommentForOrder.sql" />
     <Build Include="dbo\Stored Procedures\DeleteCommentForOrder.sql" />
     <Build Include="dbo\Stored Procedures\UpdateCommentForOrder.sql" />
+    <Build Include="dbo\Stored Procedures\GetClientByPhoneNumber.sql" />
     <Build Include="dbo\Stored Procedures\GetFullProductById.sql" />
     <Build Include="dbo\Stored Procedures\GetFullProducts.sql" />
     <Build Include="dbo\Stored Procedures\GetManagerByLogin.sql" />
@@ -150,6 +151,8 @@
     <Build Include="dbo\Stored Procedures\UpdateComment.sql" />
     <Build Include="dbo\Stored Procedures\DeleteTagByProductIdAndTagId.sql" />
     <Build Include="dbo\Stored Procedures\GetTagById.sql" />
+    <Build Include="dbo\Stored Procedures\GetClientsByName.sql" />
+    <Build Include="dbo\Stored Procedures\GetCommentsForClientById.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="MarketDB.refactorlog" />

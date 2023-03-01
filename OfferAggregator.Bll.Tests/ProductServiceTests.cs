@@ -1,8 +1,8 @@
-﻿using OfferAggregator.Bll.Models;
+﻿using FluentAssertions;
+using Moq;
+using OfferAggregator.Bll.Models;
 using OfferAggregator.Bll.Tests.TestCaseSource;
 using OfferAggregator.Dal.Models;
-using FluentAssertions;
-using Moq;
 using OfferAggregator.Dal.Repositories;
 using System.Text.RegularExpressions;
 using Microsoft.Data.SqlClient;

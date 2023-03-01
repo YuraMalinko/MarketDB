@@ -424,7 +424,7 @@ pr1, pr2, pr3
                 Text = "ppp",
                 ClientId = 1
             };
-            List<CommentForClientModel> comClList = new List<CommentForClientModel> { com1Cl, com2Cl };
+            List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel> { com1Cl, com2Cl };
             CommentForOrderModel comOr1 = new CommentForOrderModel
             {
                 Id = 1,
