@@ -375,7 +375,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
         {
             DateTime date1 = new DateTime(2023, 01, 29, 10, 00, 00);
             DateTime complitionDate = new DateTime(2023, 01, 30, 10, 00, 00);
-            OrderModel orderModel = new OrderModel
+            OrderInputModel orderModel = new OrderInputModel
             {
                 //Id = 4,
                 ManagerId = 6,
@@ -383,9 +383,9 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 DateCreate = date1,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(6, "Andrew", "qqq"),
-                Client = new ClientInputModel
+                Client = new ClientOutputModel
                 {
-                    //Id = 1,
+                    Id = 1,
                     Name = "Medvedev",
                     PhoneNumber = "8800"
                 }
@@ -412,26 +412,26 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 {
 pr1, pr2, pr3
 };
-            CommentForClientOutputModel com1Cl = new CommentForClientOutputModel
+            CommentForClientInputModel com1Cl = new CommentForClientInputModel
             {
-                Id = 1,
+                // Id = 1,
                 Text = "qqq",
-                //ClientId = 1
+                ClientId = 1
             };
-            CommentForClientOutputModel com2Cl = new CommentForClientOutputModel
+            CommentForClientInputModel com2Cl = new CommentForClientInputModel
             {
-                Id = 2,
+               // Id = 2,
                 Text = "ppp",
-              //  ClientId = 1
+                ClientId = 1
             };
-            List<CommentForClientOutputModel> comClList = new List<CommentForClientOutputModel> { com1Cl, com2Cl };
-            CommentForOrderOutputModel comOr1 = new CommentForOrderOutputModel
+            List<CommentForClientInputModel> comClList = new List<CommentForClientInputModel> { com1Cl, com2Cl };
+            CommentForOrderInputModel comOr1 = new CommentForOrderInputModel
             {
-                Id = 1,
+                //Id = 1,
                 Text = "Доставить в полночь",
                 OrderId = 4
             };
-            List<CommentForOrderOutputModel> comOrList = new List<CommentForOrderOutputModel> { comOr1 };
+            List<CommentForOrderInputModel> comOrList = new List<CommentForOrderInputModel> { comOr1 };
             CreatingOrderInputModel creatingOrderModel = new CreatingOrderInputModel
             {
                 Order = orderModel,
@@ -442,7 +442,7 @@ pr1, pr2, pr3
 
             OrderDto orderDto = new OrderDto
             {
-                Id = 4,
+                //Id = 4,
                 ManagerId = 6,
                 ClientId = 1,
                 DateCreate = date1,
@@ -484,20 +484,20 @@ pr1Dto, pr2Dto, pr3Dto
 };
             CommentForClientDto com1ClDto = new CommentForClientDto
             {
-                Id = 1,
+                //Id = 1,
                 Text = "qqq",
                 ClientId = 1
             };
             CommentForClientDto com2ClDto = new CommentForClientDto
             {
-                Id = 2,
+                //Id = 2,
                 Text = "ppp",
                 ClientId = 1
             };
             List<CommentForClientDto> comClListDto = new List<CommentForClientDto> { com1ClDto, com2ClDto };
             CommenForOrderDto comOr1Dto = new CommenForOrderDto
             {
-                Id = 1,
+                //Id = 1,
                 Text = "Доставить в полночь",
                 OrderId = 4
             };

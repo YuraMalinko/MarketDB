@@ -33,11 +33,11 @@ namespace OfferAggregator.Bll
                     cfg.CreateMap<CurrentManager, ManagerDto>();
                     cfg.CreateMap<ManagerDto, CurrentManager>();
                     cfg.CreateMap<CreatingOrderInputModel, CreatingOrderDto>();
-                    cfg.CreateMap<OrderModel, OrderDto>();
+                    cfg.CreateMap<OrderInputModel, OrderDto>();
                     cfg.CreateMap<ProductCountInputModel, ProductCountDto>();
                     cfg.CreateMap<CurrentManager, ManagerDto>();
                     cfg.CreateMap<ClientInputModel, ClientsDto>();
-                    cfg.CreateMap<CommentForOrderOutputModel, CommenForOrderDto>();
+                    cfg.CreateMap<CommentForOrderInputModel, CommenForOrderDto>();
                     cfg.CreateMap<ProductsStatisticDto, ProductsStatisticOutputModel>();
                     cfg.CreateMap<GroupDto, GroupOutputModel>();
                     cfg.CreateMap<ClientsProductDto, ClientsProductOutputModel>();
@@ -49,6 +49,7 @@ namespace OfferAggregator.Bll
                     cfg.CreateMap<ProductsStatisticDto, ProductsStatisticOutputModel>();
                     cfg.CreateMap<ClientsDto, ClientOutputModel>();
                     cfg.CreateMap<OrderDto, OrderOutputModel>();
+                    cfg.CreateMap<ClientOutputModel, ClientsDto>();
                 });
 
             _mapper = _configuration.CreateMapper();

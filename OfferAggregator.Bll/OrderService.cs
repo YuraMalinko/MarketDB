@@ -58,7 +58,6 @@ namespace OfferAggregator.Bll
                 {
                     CreatingOrderDto creatingOrderDto = _instanceMapper.MapCreatingOrderModelToCreatingOrderDto(creatingOrderModel);
                     int addOrder = _orderRepository.AddOrder(creatingOrderDto.Order);
-                   // creatingOrderModel.Order.Id = addOrder;
 
                     if (creatingOrderDto.CommentsForOrder != null)
                     {
@@ -76,7 +75,6 @@ namespace OfferAggregator.Bll
                         {
                             UpdateAmountProductOnStock(crnt.Count, crnt.Id, crnt.Name);
                             AddProductDto(addOrder, crnt.Id, crnt.Count);
-
                         }
                     }
 

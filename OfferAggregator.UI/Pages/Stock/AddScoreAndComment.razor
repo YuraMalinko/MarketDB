@@ -88,7 +88,7 @@
         );
         _clientService = new ClientService();
         var getClients = _clientService.GetClientsWhoOrderedProductByProductId(ProductId);
-        //_clients = getClients?.Clients ?? new List<ClientModel>();
+        _clients = getClients?.Clients ?? new List<ClientOutputModel>();
         _updateProductReview.ProductId = ProductId;
         _timer = new Timer();
         _timer.Interval = 2000;

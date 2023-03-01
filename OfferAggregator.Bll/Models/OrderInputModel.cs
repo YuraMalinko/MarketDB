@@ -2,10 +2,8 @@
 
 namespace OfferAggregator.Bll.Models
 {
-    public class OrderModel
+    public class OrderInputModel
     {
-        //public int Id { get; set; }
-
         public DateTime? DateCreate { get; set; }
 
         public DateTime? ComplitionDate { get; set; }
@@ -16,6 +14,6 @@ namespace OfferAggregator.Bll.Models
 
         public CurrentManager Manager { get; set; }
 
-        public ClientInputModel Client { get; set; }
+        public ClientOutputModel Client { get; set; }
     }
 }
