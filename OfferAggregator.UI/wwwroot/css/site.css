@@ -33,6 +33,7 @@
 }
 
 .client_card {
+    width: 350px;
     background-color: #fefbff;
     box-shadow: 0px 0px 8px 5px rgba(137, 150, 159, 0.1);
     border-radius: 10px;
