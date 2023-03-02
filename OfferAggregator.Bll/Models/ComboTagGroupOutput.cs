@@ -8,7 +8,7 @@ namespace OfferAggregator.Bll.Models
 
         public GroupOutput Group { get; set; }
 
-        public TagDto Tag { get; set; }
+        public TagOutputModel Tag { get; set; }
 
         public override bool Equals(object? obj)
         {

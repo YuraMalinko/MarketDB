@@ -1,7 +1,7 @@
 ﻿using OfferAggregator.Dal.Repositories;
 
 
-namespace OfferAggregator.Bll.Models
+namespace OfferAggregator.Bll
 {
     public class AggregatorService
     {
