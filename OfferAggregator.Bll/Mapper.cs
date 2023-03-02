@@ -56,11 +56,11 @@ namespace OfferAggregator.Bll
             _mapper = _configuration.CreateMapper();
         }
 
-        private int CalcPointForAvgScore(ComboTagGroupDto combo)
+        private int CalcPointForAvgScore(ComboTagGroupDto combo,int pointForCombo)
         {
             double[] limitScoreForCombo = new double[] { 1.9, 2.9, 3.5, 4.5, 5 };
-            int[] pointsForComboWithTag = new int[] { -30, -20, 0, 10, 20 };
-            int[] pointsForComboWithoutTag = new int[] { -20, -10, 0, 5, 10 };
+            int[] insertsForComboWithTag = new int[] { -30, -20, 0, 10, 20 };
+            int[] insertsForComboWithoutTag = new int[] { -20, -10, 0, 5, 10 };
             int result = -100;
             int j = 0;
 
@@ -71,7 +71,7 @@ namespace OfferAggregator.Bll
                 {
                     if (combo.AvgScore <= limitScoreForCombo[i])
                     {
-                        result = pointsForComboWithoutTag[j];
+                        result = (pointForCombo * insertsForComboWithoutTag[j]) / 100;
                         break;
                     }
 
@@ -86,7 +86,7 @@ namespace OfferAggregator.Bll
                 {
                     if (combo.AvgScore <= limitScoreForCombo[i])
                     {
-                        result = pointsForComboWithTag[j];
+                        result = (pointForCombo * insertsForComboWithoutTag[j]) / 100;
                         break;
                     }
 
