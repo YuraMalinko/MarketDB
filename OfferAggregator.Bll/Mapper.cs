@@ -49,8 +49,6 @@ namespace OfferAggregator.Bll
                     cfg.CreateMap<ClientsDto, ClientOutputModel>();
                     cfg.CreateMap<OrderDto, OrderOutputModel>();
                     cfg.CreateMap<ClientOutputModel, ClientsDto>();
-                    cfg.CreateMap<GroupDto, GroupOutput>();
-                    //cfg.CreateMap<ComboTagGroupDto, ComboTagGroupOutputModel>();
                     cfg.CreateMap<ComboTagGroupDto, ComboTagGroupOutputModel>()
                     .ForMember(output => output.PointForCombo, otp => otp.MapFrom(dto => +CalcPointForAvgScore(dto)));
                 });

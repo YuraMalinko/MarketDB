@@ -6,7 +6,7 @@ namespace OfferAggregator.Bll.Models
     {
         public int PointForCombo { get; set; }
 
-        public GroupOutput Group { get; set; }
+        public GroupOutputModel Group { get; set; }
 
         public TagOutputModel Tag { get; set; }
 
