@@ -1,6 +1,5 @@
 using AutoMapper;
 using OfferAggregator.Bll.Models;
-using OfferAggregator.Dal;
 using OfferAggregator.Dal.Models;
 
 namespace OfferAggregator.Bll
@@ -50,9 +49,52 @@ namespace OfferAggregator.Bll
                     cfg.CreateMap<ClientsDto, ClientOutputModel>();
                     cfg.CreateMap<OrderDto, OrderOutputModel>();
                     cfg.CreateMap<ClientOutputModel, ClientsDto>();
+                    cfg.CreateMap<ComboTagGroupDto, ComboTagGroupOutputModel>()
+                    .ForMember(output => output.PointForCombo, otp => otp.MapFrom(dto => +CalcPointForAvgScore(dto)));
                 });
 
             _mapper = _configuration.CreateMapper();
+        }
+
+        private int CalcPointForAvgScore(ComboTagGroupDto combo)
+        {
+            double[] limitScoreForCombo = new double[] { 1.9, 2.9, 3.5, 4.5, 5 };
+            int[] pointsForComboWithTag = new int[] { -30, -20, 0, 10, 20 };
+            int[] pointsForComboWithoutTag = new int[] { -20, -10, 0, 5, 10 };
+            int result = -100;
+            int j = 0;
+
+            if (combo.Tag is null)
+            {
+
+                for (int i = 0; i <= limitScoreForCombo.Length; i++)
+                {
+                    if (combo.AvgScore <= limitScoreForCombo[i])
+                    {
+                        result = pointsForComboWithoutTag[j];
+                        break;
+                    }
+
+                    j += 1;
+                }
+
+                return result;
+            }
+            else
+            {
+                for (int i = 0; i <= limitScoreForCombo.Length; i++)
+                {
+                    if (combo.AvgScore <= limitScoreForCombo[i])
+                    {
+                        result = pointsForComboWithTag[j];
+                        break;
+                    }
+
+                    j += 1;
+                }
+
+                return result;
+            }
         }
 
         public static Mapper GetInstance()
@@ -188,5 +230,11 @@ namespace OfferAggregator.Bll
         {
             return _mapper.Map<List<OrderOutputModel>>(order);
         }
+
+        public List<ComboTagGroupOutputModel> MapComboTagGroupDtoToComboTagGroupOutputModel(List<ComboTagGroupDto> combinations)
+        {
+            return _mapper.Map<List<ComboTagGroupOutputModel>>(combinations);
+        }
+
     }
 }

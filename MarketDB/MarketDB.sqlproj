@@ -152,6 +152,7 @@
     <Build Include="dbo\Stored Procedures\DeleteTagByProductIdAndTagId.sql" />
     <Build Include="dbo\Stored Procedures\GetTagById.sql" />
     <Build Include="dbo\Stored Procedures\GetClientsByName.sql" />
+    <Build Include="dbo\Stored Procedures\GetAvgScoreGroupeAndTagOnProductsReviewsByClientId_1.sql" />
     <Build Include="dbo\Stored Procedures\GetCommentsForClientById.sql" />
     <Build Include="dbo\Stored Procedures\GetGroupTagCountProductsCountOrders.sql" />
   </ItemGroup>

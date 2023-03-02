@@ -153,6 +153,8 @@ namespace OfferAggregator.Dal
         public const string GetClientsByName = "GetClientsByName";
 
         public const string GetClientByPhoneNumber = "GetClientByPhoneNumber";
+
+        public const string GetAvgScoreGroupeAndTagOnProductsReviewsByClientId = "GetAvgScoreGroupeAndTagOnProductsReviewsByClientId";
         
         public const string GetCommentsForClientById = "GetCommentsForClientById";
 
