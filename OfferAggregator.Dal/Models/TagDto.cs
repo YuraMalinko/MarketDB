@@ -12,5 +12,12 @@ namespace OfferAggregator.Dal.Models
 
         public string Name { get; set; }
 
+        public override bool Equals(object? obj)
+        {
+            return obj is TagDto tag &&
+                Id==tag.Id &&
+                Name==tag.Name;
+        }
+
     }
 }

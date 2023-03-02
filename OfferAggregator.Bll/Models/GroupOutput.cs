@@ -1,6 +1,6 @@
 ﻿namespace OfferAggregator.Bll.Models
 {
-    public class TagModel
+    public class GroupOutput
     {
         public int Id { get; set; }
 
@@ -8,9 +8,9 @@
 
         public override bool Equals(object? obj)
         {
-            return obj is TagModel tag &&
-                Id == tag.Id &&
-                Name == tag.Name;
+            return obj is GroupOutput group &&
+                Id == group.Id &&
+                Name == group.Name;
         }
     }
 }

@@ -1,6 +1,5 @@
 using AutoMapper;
 using OfferAggregator.Bll.Models;
-using OfferAggregator.Dal;
 using OfferAggregator.Dal.Models;
 
 namespace OfferAggregator.Bll
@@ -37,9 +36,54 @@ namespace OfferAggregator.Bll
                     cfg.CreateMap<CommentForClientModel, CommentForClientDto>();
                     cfg.CreateMap<ProductsStatisticDto, ProductsStatisticModel>();
                     cfg.CreateMap<ClientsDto, ClientOutput>();
+                    cfg.CreateMap<GroupDto, GroupOutput>();
+                    //cfg.CreateMap<ComboTagGroupDto, ComboTagGroupOutputModel>();
+                    cfg.CreateMap<ComboTagGroupDto, ComboTagGroupOutputModel>()
+                    .ForMember(output => output.PointForCombo, otp => otp.MapFrom(dto => +CalcPointForAvgScore(dto)));
                 });
 
             _mapper = _configuration.CreateMapper();
+        }
+
+        private int CalcPointForAvgScore(ComboTagGroupDto combo)
+        {
+            double[] limitScoreForCombo = new double[] { 1.9, 2.9, 3.5, 4.5, 5 };
+            int[] pointsFor—omboWithTag = new int[] { -30, -20, 0, 10, 20 };
+            int[] pointsFor—omboWithoutTag = new int[] { -20, -10, 0, 5, 10 };
+            int result = -100;
+            int j = 0;
+
+            if (combo.Tag is null)
+            {
+
+                for (int i = 0; i <= limitScoreForCombo.Length; i++)
+                {
+                    if (combo.AvgScore <= limitScoreForCombo[i])
+                    {
+                        result = pointsFor—omboWithoutTag[j];
+                        break;
+                    }
+
+                    j += 1;
+                }
+
+                return result;
+            }
+            else
+            {
+                for (int i = 0; i <= limitScoreForCombo.Length; i++)
+                {
+                    if (combo.AvgScore <= limitScoreForCombo[i])
+                    {
+                        result = pointsFor—omboWithTag[j];
+                        break;
+                    }
+
+                    j += 1;
+                }
+
+                return result;
+            }
         }
 
         public static Mapper GetInstance()
@@ -115,5 +159,11 @@ namespace OfferAggregator.Bll
         {
             return _mapper.Map<CreatingOrderDto>(creatingOrderModel);
         }
+
+        public List<ComboTagGroupOutputModel> MapComboTagGroupDtoToComboTagGroupOutputModel(List<ComboTagGroupDto> combinations)
+        {
+            return _mapper.Map<List<ComboTagGroupOutputModel>>(combinations);
+        }
+
     }
 }
