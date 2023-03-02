@@ -13,40 +13,39 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 
             DateTime dateCreate = new DateTime(2023, 02, 14, 11, 00, 00);
             DateTime complitionDate = new DateTime(2023, 02, 27, 19, 45, 00);
-            OrderModel orderModel = new OrderModel
+            OrderInputModel orderModel = new OrderInputModel
             {
                 ManagerId = 1,
                 ClientId = 2,
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(1, "OneMan", "111"),
-                Client = new ClientModel
+                Client = new ClientOutputModel
                 {
-                    Id = 2,
                     Name = "OneClient",
-                    PhoneNumber = "11111"
+                    PhoneNumber = "11111",
+                    Id = 2
                 }
             };
-            ProductCountModel pr1 = new ProductCountModel
+            ProductCountInputModel pr1 = new ProductCountInputModel
             {
                 Id = 1,
                 Name = "product1",
                 Count = 10
             };
-            List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
-            CommentForClientModel com1Cl = new CommentForClientModel
+            List<ProductCountInputModel> products = new List<ProductCountInputModel> { pr1 };
+            CommentForClientInputModel com1Cl = new CommentForClientInputModel
             {
-                Text = "commentClient",
-                ClientId = 2
+                Text = "commentClient"
             };
-            List<CommentForClientModel> comClList = new List<CommentForClientModel> { com1Cl };
-            CommentForOrderModel comOr1 = new CommentForOrderModel
+            List<CommentForClientInputModel> comClList = new List<CommentForClientInputModel> { com1Cl };
+            CommentForOrderInputModel comOr1 = new CommentForOrderInputModel
             {
                 Text = "commentOrder",
                 OrderId = 100
             };
-            List<CommentForOrderModel> comOrList = new List<CommentForOrderModel> { comOr1 };
-            CreatingOrderModel creatingOrderModel = new CreatingOrderModel
+            List<CommentForOrderInputModel> comOrList = new List<CommentForOrderInputModel> { comOr1 };
+            CreatingOrderInputModel creatingOrderModel = new CreatingOrderInputModel
             {
                 Order = orderModel,
                 Products = products,
@@ -108,7 +107,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             };
             int addCommentForOrder = 99;
             int addCommentForClient = 98;
-            ProductCountModel crntProductModel = new ProductCountModel
+            ProductCountInputModel crntProductModel = new ProductCountInputModel
             {
                 Id = 1,
                 Name = "product1",
@@ -156,46 +155,45 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
         {
             DateTime dateCreate = new DateTime(2023, 03, 14, 22, 10, 00);
             DateTime complitionDate = new DateTime(2023, 09, 27, 10, 31, 00);
-            OrderModel orderModel = new OrderModel
+            OrderInputModel orderModel = new OrderInputModel
             {
                 ManagerId = 12,
                 ClientId = 22,
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(12, "OneMan2", "1112"),
-                Client = new ClientModel
+                Client = new ClientOutputModel
                 {
-                    Id = 22,
                     Name = "OneClient2",
-                    PhoneNumber = "111112"
+                    PhoneNumber = "111112",
+                    Id = 22
                 }
             };
-            ProductCountModel pr1 = new ProductCountModel
+            ProductCountInputModel pr1 = new ProductCountInputModel
             {
                 Id = 12,
                 Name = "product12",
                 Count = 102
             };
-            ProductCountModel pr2 = new ProductCountModel
+            ProductCountInputModel pr2 = new ProductCountInputModel
             {
                 Id = 22,
                 Name = "product22",
                 Count = 22
             };
-            List<ProductCountModel> products = new List<ProductCountModel> { pr1, pr2 };
-            CommentForClientModel com1Cl = new CommentForClientModel
+            List<ProductCountInputModel> products = new List<ProductCountInputModel> { pr1, pr2 };
+            CommentForClientInputModel com1Cl = new CommentForClientInputModel
             {
-                Text = "commentClient2",
-                ClientId = 22
+                Text = "commentClient2"
             };
-            List<CommentForClientModel> comClList = new List<CommentForClientModel> { com1Cl };
-            CommentForOrderModel comOr1 = new CommentForOrderModel
+            List<CommentForClientInputModel> comClList = new List<CommentForClientInputModel> { com1Cl };
+            CommentForOrderInputModel comOr1 = new CommentForOrderInputModel
             {
                 Text = "commentOrder2",
                 OrderId = 1002
             };
-            List<CommentForOrderModel> comOrList = new List<CommentForOrderModel> { comOr1 };
-            CreatingOrderModel creatingOrderModel = new CreatingOrderModel
+            List<CommentForOrderInputModel> comOrList = new List<CommentForOrderInputModel> { comOr1 };
+            CreatingOrderInputModel creatingOrderModel = new CreatingOrderInputModel
             {
                 Order = orderModel,
                 Products = products,
@@ -263,13 +261,13 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             };
             int addCommentForOrder = 992;
             int addCommentForClient = 982;
-            ProductCountModel crntProductModel1 = new ProductCountModel
+            ProductCountInputModel crntProductModel1 = new ProductCountInputModel
             {
                 Id = 12,
                 Name = "product12",
                 Count = 102
             };
-            ProductCountModel crntProductModel2 = new ProductCountModel
+            ProductCountInputModel crntProductModel2 = new ProductCountInputModel
             {
                 Id = 22,
                 Name = "product22",
@@ -337,40 +335,39 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
         {
             DateTime dateCreate = new DateTime(2023, 11, 01, 11, 10, 00);
             DateTime complitionDate = new DateTime(2023, 12, 02, 12, 45, 00);
-            OrderModel orderModel = new OrderModel
+            OrderInputModel orderModel = new OrderInputModel
             {
                 ManagerId = 123,
                 ClientId = 223,
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(123, "OneMan23", "11123"),
-                Client = new ClientModel
+                Client = new ClientOutputModel
                 {
-                    Id = 223,
                     Name = "OneClient23",
-                    PhoneNumber = "1111123"
+                    PhoneNumber = "1111123",
+                    Id = 223
                 }
             };
-            ProductCountModel pr1 = new ProductCountModel
+            ProductCountInputModel pr1 = new ProductCountInputModel
             {
                 Id = 123,
                 Name = "product123",
                 Count = 102
             };
-            List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
-            CommentForClientModel com1Cl = new CommentForClientModel
+            List<ProductCountInputModel> products = new List<ProductCountInputModel> { pr1 };
+            CommentForClientInputModel com1Cl = new CommentForClientInputModel
             {
-                Text = "commentClient23",
-                ClientId = 223
+                Text = "commentClient23"
             };
-            List<CommentForClientModel> comClList = new List<CommentForClientModel> { com1Cl };
-            CommentForOrderModel comOr1 = new CommentForOrderModel
+            List<CommentForClientInputModel> comClList = new List<CommentForClientInputModel> { com1Cl };
+            CommentForOrderInputModel comOr1 = new CommentForOrderInputModel
             {
                 Text = "commentOrder23",
                 OrderId = 10023
             };
-            List<CommentForOrderModel> comOrList = new List<CommentForOrderModel> { comOr1 };
-            CreatingOrderModel creatingOrderModel = new CreatingOrderModel
+            List<CommentForOrderInputModel> comOrList = new List<CommentForOrderInputModel> { comOr1 };
+            CreatingOrderInputModel creatingOrderModel = new CreatingOrderInputModel
             {
                 Order = orderModel,
                 Products = products,
@@ -393,40 +390,39 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
         {
             DateTime dateCreate = new DateTime(2020, 07, 15, 11, 10, 49);
             DateTime complitionDate = new DateTime(2021, 01, 01, 12, 00, 00);
-            OrderModel orderModel = new OrderModel
+            OrderInputModel orderModel = new OrderInputModel
             {
                 ManagerId = 1234,
                 ClientId = 2234,
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(1234, "OneMan234", "111234"),
-                Client = new ClientModel
+                Client = new ClientOutputModel
                 {
-                    Id = 2234,
                     Name = "OneClient234",
-                    PhoneNumber = "11111234"
+                    PhoneNumber = "11111234",
+                    Id = 2234
                 }
             };
-            ProductCountModel pr1 = new ProductCountModel
+            ProductCountInputModel pr1 = new ProductCountInputModel
             {
                 Id = 1234,
                 Name = "product1234",
                 Count = 1024
             };
-            List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
-            CommentForClientModel com1Cl = new CommentForClientModel
+            List<ProductCountInputModel> products = new List<ProductCountInputModel> { pr1 };
+            CommentForClientInputModel com1Cl = new CommentForClientInputModel
             {
-                Text = "commentClient234",
-                ClientId = 2234
+                Text = "commentClient234"
             };
-            List<CommentForClientModel> comClList = new List<CommentForClientModel> { com1Cl };
-            CommentForOrderModel comOr1 = new CommentForOrderModel
+            List<CommentForClientInputModel> comClList = new List<CommentForClientInputModel> { com1Cl };
+            CommentForOrderInputModel comOr1 = new CommentForOrderInputModel
             {
                 Text = "commentOrder234",
                 OrderId = 100234
             };
-            List<CommentForOrderModel> comOrList = new List<CommentForOrderModel> { comOr1 };
-            CreatingOrderModel creatingOrderModel = new CreatingOrderModel
+            List<CommentForOrderInputModel> comOrList = new List<CommentForOrderInputModel> { comOr1 };
+            CreatingOrderInputModel creatingOrderModel = new CreatingOrderInputModel
             {
                 Order = orderModel,
                 Products = products,
@@ -449,40 +445,39 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
         {
             DateTime dateCreate = new DateTime(2022, 07, 15, 12, 15, 49);
             DateTime complitionDate = new DateTime(2022, 07, 05, 12, 00, 00);
-            OrderModel orderModel = new OrderModel
+            OrderInputModel orderModel = new OrderInputModel
             {
                 ManagerId = 12345,
                 ClientId = 22345,
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(12345, "OneMan2345", "1112345"),
-                Client = new ClientModel
+                Client = new ClientOutputModel
                 {
-                    Id = 22345,
                     Name = "OneClient2345",
-                    PhoneNumber = "111112345"
+                    PhoneNumber = "111112345",
+                    Id = 22345
                 }
             };
-            ProductCountModel pr1 = new ProductCountModel
+            ProductCountInputModel pr1 = new ProductCountInputModel
             {
                 Id = 12345,
                 Name = "product12345",
                 Count = 10245
             };
-            List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
-            CommentForClientModel com1Cl = new CommentForClientModel
+            List<ProductCountInputModel> products = new List<ProductCountInputModel> { pr1 };
+            CommentForClientInputModel com1Cl = new CommentForClientInputModel
             {
-                Text = "commentClient2345",
-                ClientId = 22345
+                Text = "commentClient2345"
             };
-            List<CommentForClientModel> comClList = new List<CommentForClientModel> { com1Cl };
-            CommentForOrderModel comOr1 = new CommentForOrderModel
+            List<CommentForClientInputModel> comClList = new List<CommentForClientInputModel> { com1Cl };
+            CommentForOrderInputModel comOr1 = new CommentForOrderInputModel
             {
                 Text = "commentOrder2345",
                 OrderId = 1002345
             };
-            List<CommentForOrderModel> comOrList = new List<CommentForOrderModel> { comOr1 };
-            CreatingOrderModel creatingOrderModel = new CreatingOrderModel
+            List<CommentForOrderInputModel> comOrList = new List<CommentForOrderInputModel> { comOr1 };
+            CreatingOrderInputModel creatingOrderModel = new CreatingOrderInputModel
             {
                 Order = orderModel,
                 Products = products,
@@ -510,37 +505,36 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
         {
             DateTime dateCreate = new DateTime(2022, 11, 11, 11, 11, 11);
             DateTime complitionDate = new DateTime(2023, 11, 27, 09, 36, 00);
-            OrderModel orderModel = new OrderModel
+            OrderInputModel orderModel = new OrderInputModel
             {
                 ManagerId = 147,
                 ClientId = 247,
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(147, "OneMan47", "11147"),
-                Client = new ClientModel
+                Client = new ClientOutputModel
                 {
-                    Id = 247,
                     Name = "OneClient47",
-                    PhoneNumber = "1111147"
+                    PhoneNumber = "1111147",
+                    Id = 247
                 }
             };
-            ProductCountModel pr1 = new ProductCountModel
+            ProductCountInputModel pr1 = new ProductCountInputModel
             {
                 Id = 147,
                 Name = "product147",
                 Count = 1047
             };
-            List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
-            List<CommentForClientModel> comClList = new List<CommentForClientModel>
+            List<ProductCountInputModel> products = new List<ProductCountInputModel> { pr1 };
+            List<CommentForClientInputModel> comClList = new List<CommentForClientInputModel>
             {
-            new CommentForClientModel
+            new CommentForClientInputModel
             {
-                Text = "comment7",
-                ClientId = 247
+                Text = "comment7"
             }
             };
-            List<CommentForOrderModel> comOrList = new List<CommentForOrderModel>();
-            CreatingOrderModel creatingOrderModel = new CreatingOrderModel
+            List<CommentForOrderInputModel> comOrList = new List<CommentForOrderInputModel>();
+            CreatingOrderInputModel creatingOrderModel = new CreatingOrderInputModel
             {
                 Order = orderModel,
                 Products = products,
@@ -599,7 +593,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             };
             int addCommentForOrder = 9947;
             int addCommentForClient = 9847;
-            ProductCountModel crntProductModel = new ProductCountModel
+            ProductCountInputModel crntProductModel = new ProductCountInputModel
             {
                 Id = 147,
                 Name = "product147",
@@ -647,37 +641,37 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
         {
             DateTime dateCreate = new DateTime(2023, 11, 01, 19, 11, 11);
             DateTime complitionDate = new DateTime(2023, 11, 27, 15, 17, 00);
-            OrderModel orderModel = new OrderModel
+            OrderInputModel orderModel = new OrderInputModel
             {
                 ManagerId = 1478,
                 ClientId = 2478,
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(1478, "OneMan478", "111478"),
-                Client = new ClientModel
+                Client = new ClientOutputModel
                 {
-                    Id = 2478,
                     Name = "OneClient478",
-                    PhoneNumber = "11111478"
+                    PhoneNumber = "11111478",
+                    Id = 2478
                 }
             };
-            ProductCountModel pr1 = new ProductCountModel
+            ProductCountInputModel pr1 = new ProductCountInputModel
             {
                 Id = 1478,
                 Name = "product1478",
                 Count = 10478
             };
-            List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
-            List<CommentForClientModel> comClList = new List<CommentForClientModel>();
-            List<CommentForOrderModel> comOrList = new List<CommentForOrderModel>
+            List<ProductCountInputModel> products = new List<ProductCountInputModel> { pr1 };
+            List<CommentForClientInputModel> comClList = new List<CommentForClientInputModel>();
+            List<CommentForOrderInputModel> comOrList = new List<CommentForOrderInputModel>
             {
-                new CommentForOrderModel
+                new CommentForOrderInputModel
                 {
                 Text = "comment",
                 OrderId = 100478
                 }
             };
-            CreatingOrderModel creatingOrderModel = new CreatingOrderModel
+            CreatingOrderInputModel creatingOrderModel = new CreatingOrderInputModel
             {
                 Order = orderModel,
                 Products = products,
@@ -736,7 +730,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             };
             int addCommentForOrder = 99478;
             int addCommentForClient = 98478;
-            ProductCountModel crntProductModel = new ProductCountModel
+            ProductCountInputModel crntProductModel = new ProductCountInputModel
             {
                 Id = 1478,
                 Name = "product1478",
@@ -784,44 +778,43 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
         {
             DateTime dateCreate = new DateTime(2022, 11, 01, 00, 11, 11);
             DateTime complitionDate = new DateTime(2023, 12, 27, 02, 17, 00);
-            OrderModel orderModel = new OrderModel
+            OrderInputModel orderModel = new OrderInputModel
             {
                 ManagerId = 14787,
                 ClientId = 24787,
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(14787, "OneMan4787", "11147877"),
-                Client = new ClientModel
+                Client = new ClientOutputModel
                 {
-                    Id = 24787,
                     Name = "OneClient4787",
-                    PhoneNumber = "111114787"
+                    PhoneNumber = "111114787",
+                    Id = 24787
                 }
             };
-            ProductCountModel pr1 = new ProductCountModel
+            ProductCountInputModel pr1 = new ProductCountInputModel
             {
                 Id = 14787,
                 Name = "product14787",
                 Count = 104787
             };
-            List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
-            List<CommentForClientModel> comClList = new List<CommentForClientModel>
+            List<ProductCountInputModel> products = new List<ProductCountInputModel> { pr1 };
+            List<CommentForClientInputModel> comClList = new List<CommentForClientInputModel>
                 {
-                new CommentForClientModel
+                new CommentForClientInputModel
                 {
-                Text = "comment7",
-                ClientId = 24787
+                Text = "comment7"
                 }
             };
-            List<CommentForOrderModel> comOrList = new List<CommentForOrderModel>
+            List<CommentForOrderInputModel> comOrList = new List<CommentForOrderInputModel>
             {
-                new CommentForOrderModel
+                new CommentForOrderInputModel
                 {
                 Text = "comment7",
                 OrderId = 1004787
                 }
             };
-            CreatingOrderModel creatingOrderModel = new CreatingOrderModel
+            CreatingOrderInputModel creatingOrderModel = new CreatingOrderInputModel
             {
                 Order = orderModel,
                 Products = products,
@@ -887,7 +880,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             };
             int addCommentForOrder = 994787;
             int addCommentForClient = 984787;
-            ProductCountModel crntProductModel = new ProductCountModel
+            ProductCountInputModel crntProductModel = new ProductCountInputModel
             {
                 Id = 14787,
                 Name = "product14787",
@@ -911,44 +904,43 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
         {
             DateTime dateCreate = new DateTime(2023, 11, 01, 05, 11, 11);
             DateTime complitionDate = new DateTime(2023, 12, 01, 02, 17, 00);
-            OrderModel orderModel = new OrderModel
+            OrderInputModel orderModel = new OrderInputModel
             {
                 ManagerId = 147870,
                 ClientId = 247870,
                 DateCreate = dateCreate,
                 ComplitionDate = complitionDate,
                 Manager = new CurrentManager(147870, "OneMan47870", "111478770"),
-                Client = new ClientModel
+                Client = new ClientOutputModel
                 {
-                    Id = 247870,
                     Name = "OneClient47870",
-                    PhoneNumber = "1111147870"
+                    PhoneNumber = "1111147870",
+                    Id = 247870
                 }
             };
-            ProductCountModel pr1 = new ProductCountModel
+            ProductCountInputModel pr1 = new ProductCountInputModel
             {
                 Id = 147870,
                 Name = "product147870",
                 Count = 1047870
             };
-            List<ProductCountModel> products = new List<ProductCountModel> { pr1 };
-            List<CommentForClientModel> comClList = new List<CommentForClientModel>
+            List<ProductCountInputModel> products = new List<ProductCountInputModel> { pr1 };
+            List<CommentForClientInputModel> comClList = new List<CommentForClientInputModel>
                 {
-                new CommentForClientModel
+                new CommentForClientInputModel
                 {
-                Text = "comment70",
-                ClientId = 247870
+                Text = "comment70"
                 }
             };
-            List<CommentForOrderModel> comOrList = new List<CommentForOrderModel>
+            List<CommentForOrderInputModel> comOrList = new List<CommentForOrderInputModel>
             {
-                new CommentForOrderModel
+                new CommentForOrderInputModel
                 {
                 Text = "comment70",
                 OrderId = 10047870
                 }
             };
-            CreatingOrderModel creatingOrderModel = new CreatingOrderModel
+            CreatingOrderInputModel creatingOrderModel = new CreatingOrderInputModel
             {
                 Order = orderModel,
                 Products = products,
@@ -1014,7 +1006,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             };
             int addCommentForOrder = 9947870;
             int addCommentForClient = 9847870;
-            ProductCountModel crntProductModel = new ProductCountModel
+            ProductCountInputModel crntProductModel = new ProductCountInputModel
             {
                 Id = 147870,
                 Name = "product147870",

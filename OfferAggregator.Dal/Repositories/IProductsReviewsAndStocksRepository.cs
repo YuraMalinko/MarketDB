@@ -6,11 +6,11 @@ namespace OfferAggregator.Dal.Repositories
     {
         public bool AddAmountToStocks(StocksDtoWithProductName stock);
 
-        public int AddScoreAndCommentToProductReview(ProductReviewsDto prReview);
+        public bool AddScoreOrCommentToProductReview(ProductReviewsDto prReview);
 
-        public List<ProductWithScoresAndCommentsDto> GetAllScoresAndCommentsForProductByProductId(int productId);
+        public ProductWithScoresAndCommentsDto GetAllScoresAndCommentsForProductByProductId(int productId);
 
-        public List<ProductWithScoresAndCommentsDto> GetAllScoresAndCommentsForProductByProductIDAndClientId(int productId, int clientId);
+        public ProductWithScoresAndCommentsDto GetAllScoresAndCommentsForProductByProductIDAndClientId(int productId, int clientId);
 
         public List<ProductWithScoresAndCommentsDto> GetAllScoresAndCommentsForProducts();
 
@@ -25,5 +25,13 @@ namespace OfferAggregator.Dal.Repositories
         public bool UpdateScoreAndCommentOfProductsReviews(ProductReviewsDto productReviews);
 
         public bool DeleteProductReviewsByProductId(int productId);
+
+        public bool AddScoreToProductReview(ProductReviewsDto prReview);
+
+        public bool AddCommentToProductReview(ProductReviewsDto prReview);
+
+        public bool UpdateScoreOfProductReview(ProductReviewsDto productReviews);
+
+        public bool UpdateCommentOfProductReview(ProductReviewsDto productReviews);
     }
 }

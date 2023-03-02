@@ -1,0 +1,88 @@
+﻿@using OfferAggregator.Bll.Models;
+@using OfferAggregator.Bll;
+@using OfferAggregator.Dal.Models;
+@using OfferAggregator.Dal.Repositories;
+@using System.ComponentModel.DataAnnotations;
+
+<div style="display:flex; flex-direction:row;">
+    <div>
+        <AddTag ProductId="ProductId" OnTagAdded="OnDataChanged" />
+        <DeleteTagAtProduct ProductId="ProductId" OnTagDeleted="OnDataChanged" @ref="_deleteTagAtProduct" />
+    </div>
+
+    <div style="padding-left:200px;">
+        <div style=" font-size: 25px; padding-top: 20px; padding-bottom: 10px; padding-left: 5px;">
+            Список присвоенных тегов:
+        </div>
+
+        @if (_tags is null || _tags.Count == 0)
+        {
+            <div style="font-size: 16px; padding-left: 10px;">
+                У данного товара отсутствуют теги
+            </div>
+        }
+        else
+        {
+            @foreach (var tag in _tags.OrderBy(t => t.Name))
+            {
+                <div style="font-size: 18px; padding-left: 10px;">
+                    <li>@tag.Name</li>
+                </div>
+            }
+        }
+        @if (!string.IsNullOrEmpty(_errorMessage))
+        {
+            <div class="error-message">
+                @_errorMessage
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+    [Parameter]
+    public int ProductId { get; set; }
+
+    private List<TagOutputModel> _tags;
+
+    private ProductService _productService;
+
+    private string _errorMessage;
+
+    private DeleteTagAtProduct _deleteTagAtProduct;
+
+    protected override void OnInitialized()
+    {
+        _productService = new ProductService(
+        new ProductsRepository(),
+        new ProductsReviewsAndStocksRepository(),
+        new TagsRepository(),
+        new GroupRepository(),
+        new ClientRepository()
+        );
+        GetAllTagsByProductId();
+    }
+
+    private void GetAllTagsByProductId()
+    {
+        try
+        {
+            _tags = _productService.GetAllTagsByProductId(ProductId);
+            _errorMessage = string.Empty;
+        }
+        catch (ArgumentException ex)
+        {
+            _errorMessage = "Такого продукта не существует";
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = "Произошла ошибка";
+        }
+    }
+
+    private void OnDataChanged()
+    {
+        GetAllTagsByProductId();
+        _deleteTagAtProduct?.Update();
+    }
+}

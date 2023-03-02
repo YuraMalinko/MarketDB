@@ -132,10 +132,30 @@ namespace OfferAggregator.Dal
 
         public const string GetProductsStatistic = "GetProductsStatistic";
 
+        public const string GetAllGroups = "GetAllGroups";
+
+        public const string GetClientsWhoOrderedProductByProductId = "GetClientsWhoOrderedProductByProductId";
+
+        public const string GetProductStatisticById = "GetProductStatisticById";
+
+        public const string AddComment = "AddComment";
+
+        public const string AddScore = "AddScore";
+
+        public const string UpdateComment = "UpdateComment";
+
+        public const string UpdateScore = "UpdateScore";
+
+        public const string DeleteTagByProductIdAndTagId = "DeleteTagByProductIdAndTagId";
+
+        public const string GetTagById = "GetTagById";
+
         public const string GetClientsByName = "GetClientsByName";
 
         public const string GetClientByPhoneNumber = "GetClientByPhoneNumber";
 
         public const string GetAvgScoreGroupeAndTagOnProductsReviewsByClientId = "GetAvgScoreGroupeAndTagOnProductsReviewsByClientId";
+        
+        public const string GetCommentsForClientById = "GetCommentsForClientById";
     }
 }

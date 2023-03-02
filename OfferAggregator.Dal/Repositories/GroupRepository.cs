@@ -18,5 +18,16 @@ namespace OfferAggregator.Dal.Repositories
                     commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
         }
+
+        public List<GroupDto> GetAllGroups()
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                return sqlCnctn.Query<GroupDto>(
+                    StoredProcedures.GetAllGroups,
+                    commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
     }
 }

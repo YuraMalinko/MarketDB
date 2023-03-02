@@ -8,7 +8,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
     {
         public static IEnumerable AddManagerTestCaseSource()
         {
-            ManagerAuthInput managerAuthInput = new ManagerAuthInput("Gera", "xxx");
+            ManagerAuthInputModel managerAuthInput = new ManagerAuthInputModel("Gera", "xxx");
             ManagerDto managerDtoInput = new ManagerDto()
             {
                 Login = "Gera",
@@ -23,7 +23,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 
         public static IEnumerable AddManagerNegativeTestCaseSource()
         {
-            ManagerAuthInput managerAuthInput = new ManagerAuthInput("Gera", "xxx");
+            ManagerAuthInputModel managerAuthInput = new ManagerAuthInputModel("Gera", "xxx");
             ManagerDto managerDtoInput = new ManagerDto()
             {
                 Login = "Gera",
@@ -53,7 +53,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 
         public static IEnumerable ManagerAuthenticationTestCaseSourse()
         {
-            ManagerAuthInput managerAuthInput = new ManagerAuthInput("Gera", "xxx");
+            ManagerAuthInputModel managerAuthInput = new ManagerAuthInputModel("Gera", "xxx");
             ManagerDto managerDtoInput = new ManagerDto()
             {
                 Login = "Gera",
@@ -93,7 +93,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 
             yield return new object[] { managerAuthInput, managerDtoInput, managerDtoOutput, expected };
 
-            managerAuthInput = new ManagerAuthInput("Gera", "");
+            managerAuthInput = new ManagerAuthInputModel("Gera", "");
             managerDtoInput = new ManagerDto()
             {
                 Login = "Gera",

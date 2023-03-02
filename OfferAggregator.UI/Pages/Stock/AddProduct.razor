@@ -1,0 +1,121 @@
+﻿@using OfferAggregator.Bll.Models; 
+@using OfferAggregator.Bll;
+@using OfferAggregator.Dal.Models;
+@using OfferAggregator.Dal.Repositories;
+@using System.ComponentModel.DataAnnotations;
+@using System.Timers
+@using System.Threading.Tasks
+
+<div class="header-pages-stock">
+    Добавить новый товар на склад
+</div>
+
+<EditForm Model="@Product" OnValidSubmit="@AddProductToStock">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <div class="edit-form-row">
+        <div class="left-part">Название товара:</div>
+        <InputText id="name" @bind-Value="Product.Name" />
+    </div>
+
+    <div class="edit-form-row">
+        <div class="left-part">Группа товара:</div>
+
+        <InputSelect TValue="int" @bind-Value="Product.GroupId">
+            @foreach (var group in _groups)
+            {
+                if (group != null)
+                {
+                    <option value="@group.Id">@group.Name</option>
+                }
+            }
+        </InputSelect>
+    </div>
+
+    <button class="button-submit" type="submit">Добавить новый товар</button>
+    @if (!string.IsNullOrEmpty(_errorMessage))
+    {
+        <div class="error-message">
+            @_errorMessage
+        </div>
+    }
+</EditForm>
+
+
+    <div class="pop-up-success-message" >
+@if (_isAdded)
+{
+        <span>Товар успешно добавлен на склад!</span>
+}
+    </div>
+
+@if (_addedProductId > 0)
+{
+    <a href="/product/@_addedProductId" style="padding-top: 10px; font-family: Georgia, serif; color: navy">
+        Вы можете перейти на страницу созданного товара
+        </a>
+}
+
+@code {
+    private ProductInputModel Product { get; set; }
+
+    private int _addedProductId;
+
+    private ProductService _productService;
+
+    private string _errorMessage;
+
+    private List<GroupOutputModel> _groups = new();
+
+    private bool _isAdded;
+
+    private Timer _timer;
+
+    protected override void OnInitialized()
+    {
+        Product = new ProductInputModel();
+        _productService = new ProductService(
+        new ProductsRepository(),
+        new ProductsReviewsAndStocksRepository(),
+        new TagsRepository(),
+        new GroupRepository(),
+        new ClientRepository()
+        );
+        _groups = _productService.GetAllGroups();
+        _isAdded = false;
+        _timer = new Timer();
+        _timer.Interval = 3000;
+        _timer.Elapsed += StopShowing;
+    }
+
+    private void AddProductToStock()
+    {
+        try
+        {
+            if (!string.IsNullOrEmpty(Product.Name) && Product.GroupId != null)
+            {
+                _addedProductId = _productService.AddProduct(Product);
+                Product = new ProductInputModel();
+                _isAdded = true;
+                _timer.Start();
+            }
+            _errorMessage = string.Empty;
+        }
+        catch (ArgumentException ex)
+        {
+            _errorMessage = "Проверьте группу товара";
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = "Произошла ошибка";
+        }
+    }
+
+    private async void StopShowing(object sender, ElapsedEventArgs args)
+    {
+        _isAdded = false;
+        await InvokeAsync(StateHasChanged);
+        _timer.Stop();
+    }
+}

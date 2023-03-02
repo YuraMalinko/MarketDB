@@ -142,10 +142,28 @@
     <Build Include="dbo\Stored Procedures\GetOrderById.sql" />
     <Build Include="dbo\Stored Procedures\GetManagerById.sql" />
     <Build Include="dbo\Stored Procedures\GetProductsStatistic.sql" />
+    <Build Include="dbo\Stored Procedures\GetAllGroups.sql" />
+    <Build Include="dbo\Stored Procedures\GetClientsWhoOrderedProductByProductId.sql" />
+    <Build Include="dbo\Stored Procedures\GetProductStatisticById.sql" />
+    <Build Include="dbo\Stored Procedures\AddScore.sql" />
+    <Build Include="dbo\Stored Procedures\AddComment.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateScore.sql" />
+    <Build Include="dbo\Stored Procedures\UpdateComment.sql" />
+    <Build Include="dbo\Stored Procedures\DeleteTagByProductIdAndTagId.sql" />
+    <Build Include="dbo\Stored Procedures\GetTagById.sql" />
     <Build Include="dbo\Stored Procedures\GetClientsByName.sql" />
     <Build Include="dbo\Stored Procedures\GetAvgScoreGroupeAndTagOnProductsReviewsByClientId_1.sql" />
+    <Build Include="dbo\Stored Procedures\GetCommentsForClientById.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="MarketDB.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\OfferAggregator.UI\Shared\AddProduct.razor">
+      <Link>AddProduct.razor</Link>
+    </None>
+    <None Include="..\OfferAggregator.UI\Pages\Stock\EditForm.razor">
+      <Link>EditForm.razor</Link>
+    </None>
   </ItemGroup>
 </Project>

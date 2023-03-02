@@ -1,6 +1,7 @@
 using OfferAggregator.Bll.Models;
 using OfferAggregator.Dal.Models;
 using OfferAggregator.Dal.Repositories;
+using OfferAggregator.Dal;
 using System.Net;
 
 namespace OfferAggregator.Bll
@@ -10,8 +11,10 @@ namespace OfferAggregator.Bll
         private Mapper _instanceMapper = Mapper.GetInstance();
 
         public IClientRepository _clientRepository { get; set; }
-        public IClientsWishesRepository _clientsWishesRepository { get; set; }
-        public ICommentForClientRepository _commentForClientRepository { get; set; }
+        public IClientsWishesRepository _clientsWishesRepository = new ClientsWishesRepository();
+        public ICommentForClientRepository _commentForClientRepository = new CommentForClientRepository();
+        public IOrderRepository _orderRepository = new OrderRepository();
+        public IProductsRepository _productsRepository = new ProductsRepository();
 
         public ClientService(IClientRepository clientRepository = null)
         {
@@ -25,15 +28,29 @@ namespace OfferAggregator.Bll
             }
         }
 
-        public List<ClientOutput> GetAllClients()
+        public List<ClientOutputModel> GetAllClients()
         {
             List<ClientsDto> clientsAll = _clientRepository.GetAllClients();
-            var result = _instanceMapper.MapClientsDtoToClientsOutput(clientsAll);
+            var result = _instanceMapper.MapClientsDtoToClientsOutputModel(clientsAll);
 
             return result;
         }
 
-        public List<ClientOutput> GetClientByName(string name)
+        public ClientsProductOutputModel GetClientsWhoOrderedProductByProductId(int productId)
+        {
+            var getProduct = _productsRepository.GetProductById(productId);
+
+            if (getProduct == null)
+            {
+                throw new ArgumentException($"Product with productId {productId} is not exist");
+            }
+                var getClientsDto = _clientRepository.GetClientsWhoOrderedProductByProductId(productId);
+                var getClientsModel = _instanceMapper.MapClientsProductDtoToClientsProductOutpetModel(getClientsDto);
+
+                return getClientsModel;
+        }
+
+        public List<ClientOutputModel> GetClientByName(string name)
         {
             if (name == null || name == "" || name == " ")
             {
@@ -47,12 +64,19 @@ namespace OfferAggregator.Bll
                 throw new Exception("There are no clients with this name or they were deleted");
             }
 
-            return _instanceMapper.MapClientsDtoToClientsOutput(clients);
+            return _instanceMapper.MapClientsDtoToClientsOutputModel(clients);
         }
 
-        public int AddClient (ClientOutput client)
+        public ClientOutputModel GetClientById(int id)
         {
-            var newClient = _instanceMapper.MapClientsOutputModelToClientsDto(client);
+            ClientsDto clients = _clientRepository.GetClientById(id);
+
+            return _instanceMapper.MapClientDtoToClientOutputModel(clients);
+        }
+
+        public int AddClient (ClientInputModel client)
+        {
+            var newClient = _instanceMapper.MapClientsInputModelModelToClientsDto(client);
 
             if (client.Name == null || client.PhoneNumber == null)
             {
@@ -90,13 +114,14 @@ namespace OfferAggregator.Bll
                 _clientRepository.DeleteClient(id);
                 _clientsWishesRepository.DeleteClientWishesById(id);
                 _commentForClientRepository.DeleteComment(id);
-                result = false;
+
+                result = true;
             }
 
             return result;
         }
 
-        public bool UpdateCLient(ClientOutput client)
+        public bool UpdateCLient(ClientInputModel client)
         {
             bool result = false;
 
@@ -106,11 +131,43 @@ namespace OfferAggregator.Bll
             }
             else
             {
-                var newClient = _instanceMapper.MapClientsOutputModelToClientsDto(client);
+                var newClient = _instanceMapper.MapClientsInputModelModelToClientsDto(client);
                 _clientRepository.UpdateClient(newClient);
             }
 
             return result;
+        }
+
+        public List<CommentForClientOutputModel> GetAllCommentsForClientById(int id) 
+        { 
+            List<CommentForClientDto> comment = _commentForClientRepository.GetClientCommentsByClientId(id);
+            var result = _instanceMapper.MapCommentForClientDtoToCommentForClientOutputModel(comment);
+
+            return result;
+        }
+
+        public int AddComment(CommentForClientInputModel comment, int clientId)
+        {
+            comment.ClientId = clientId;
+            var newComment = _instanceMapper.MapCommentForClientInputModelToCommentForClientDto(comment);
+            
+            if(newComment.Text != null && newComment.ClientId != null) 
+            {
+                _commentForClientRepository.AddComment(newComment);
+            }
+            else
+            {
+                throw new ArgumentException("Текст комментария не может быть пустым!");
+            }
+
+            return newComment.Id;
+        }
+
+        public bool DeleteComment(int commentId) 
+        {
+            _commentForClientRepository.DeleteComment(commentId);
+
+            return true;
         }
     }
 }

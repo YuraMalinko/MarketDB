@@ -1,4 +1,4 @@
-﻿namespace OfferAggregator.Dal.Models
+namespace OfferAggregator.Dal.Models
 {
     public class GroupDto
     {

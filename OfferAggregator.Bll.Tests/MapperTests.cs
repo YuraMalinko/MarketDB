@@ -10,16 +10,16 @@ namespace OfferAggregator.Bll.Tests
         private Mapper _mapper = Mapper.GetInstance();
 
 
-        [TestCaseSource(typeof(MapperTestCaseSource), nameof(MapperTestCaseSource.MapProductsDtosToProductModelsTestCaseSource))]
-        public void MapProductsDtosToProductModelsTest(List<ProductsDto> baseProductsDto, List<ProductModel> expectedProductModel)
+        [TestCaseSource(typeof(MapperTestCaseSource), nameof(MapperTestCaseSource.MapProductsDtosToProductOutputModelsTestCaseSource))]
+        public void MapProductsDtosToProductOutputModelsTest(List<ProductsDto> baseProductsDto, List<ProductOutputModel> expectedProductModel)
         {
-            List<ProductModel> actualProductModel = _mapper.MapProductsDtosToProductModels(baseProductsDto);
+            List<ProductOutputModel> actualProductModel = _mapper.MapProductsDtosToProductOutputModels(baseProductsDto);
 
             actualProductModel.Should().BeEquivalentTo(expectedProductModel);
         }
 
         [TestCaseSource(typeof(MapperTestCaseSource), nameof(MapperTestCaseSource.MapProductModelToProductsDtoTestCaseSource))]
-        public void MapProductModelToProductsDtoTest(ProductModel baseProductModel, ProductsDto expectedProductsDto)
+        public void MapProductModelToProductsDtoTest(ProductInputModel baseProductModel, ProductsDto expectedProductsDto)
         {
             ProductsDto actualProductsDto = _mapper.MapProductModelToProductsDto(baseProductModel);
 
@@ -28,40 +28,40 @@ namespace OfferAggregator.Bll.Tests
 
         [TestCaseSource(typeof(MapperTestCaseSource), nameof(MapperTestCaseSource.MapStocksWithProductModelToStocksWithProductModelTestCaseSource))]
 
-        public void MapStocksWithProductModelToStocksDtoWithProductNameTest(StocksWithProductModel baseStockModel, StocksDtoWithProductName exepectedStockDto)
+        public void MapStocksWithProductModelToStocksDtoWithProductNameTest(StocksWithProductInputModel baseStockModel, StocksDtoWithProductName exepectedStockDto)
         {
-            StocksDtoWithProductName actualStockDto = _mapper.MapStocksWithProductModelToStocksWithProductModel(baseStockModel);
+            StocksDtoWithProductName actualStockDto = _mapper.MapStocksWithProductInputModelToStocksDtoWithProductName(baseStockModel);
 
             actualStockDto.Should().BeEquivalentTo(exepectedStockDto);
         }
 
         [TestCaseSource(typeof(MapperTestCaseSource), nameof(MapperTestCaseSource.MapFullProductDtosToFullProductModelsTestCaseSource))]
-        public void MapFullProductDtosToFullProductModelsTest(List<FullProductDto> fullProductDtos, List<FullProductModel> expectedFullProductModels)
+        public void MapFullProductDtosToFullProductModelsTest(List<FullProductDto> fullProductDtos, List<FullProductOutputModel> expectedFullProductModels)
         {
-            List<FullProductModel> actualFullProductModels = _mapper.MapFullProductDtosToFullProductModels(fullProductDtos);
+            List<FullProductOutputModel> actualFullProductModels = _mapper.MapFullProductDtosToFullProductModels(fullProductDtos);
 
             actualFullProductModels.Should().BeEquivalentTo(expectedFullProductModels);
         }
 
         [TestCaseSource(typeof(MapperTestCaseSource), nameof(MapperTestCaseSource.MapFullProductDtoToFullProductModelTestTestCaseSource))]
-        public void MapFullProductDtoToFullProductModelTest(FullProductDto fullProductDto, FullProductModel expectedFullProductModel)
+        public void MapFullProductDtoToFullProductModelTest(FullProductDto fullProductDto, FullProductOutputModel expectedFullProductModel)
         {
-            FullProductModel actualFullProductModel = _mapper.MapFullProductDtoToFullProductModel(fullProductDto);
+            FullProductOutputModel actualFullProductModel = _mapper.MapFullProductDtoToFullProductModel(fullProductDto);
 
             actualFullProductModel.Should().BeEquivalentTo(expectedFullProductModel);
         }
 
         [TestCaseSource(typeof(MapperTestCaseSource), nameof(MapperTestCaseSource.MapProductsStatisticDtosToProductsStatisticModelsTestCaseSource))]
-        public void MapProductsStatisticDtosToProductsStatisticModelsTest(List<ProductsStatisticDto> productsStatisticDtos, List<ProductsStatisticModel> expectedProductsStatisticModels)
+        public void MapProductsStatisticDtosToProductsStatisticModelsTest(List<ProductsStatisticDto> productsStatisticDtos, List<ProductsStatisticOutputModel> expectedProductsStatisticModels)
         {
-            List<ProductsStatisticModel> actualProductsStatisticModels = _mapper.MapProductsStatisticDtosToProductsStatisticModels(productsStatisticDtos);
+            List<ProductsStatisticOutputModel> actualProductsStatisticModels = _mapper.MapProductsStatisticDtosToProductsStatisticOutputModels(productsStatisticDtos);
 
             actualProductsStatisticModels.Should().BeEquivalentTo(expectedProductsStatisticModels);
         }
 
 
         [TestCaseSource(typeof(MapperTestCaseSource), nameof(MapperTestCaseSource.MapCreatingOrderModelToCreatingOrderDtoTestCaseSource))]
-        public void MapCreatingOrderModelToCreatingOrderDtoTest(CreatingOrderModel creatingOrderModel, CreatingOrderDto expectedCreatingOrderDto)
+        public void MapCreatingOrderModelToCreatingOrderDtoTest(CreatingOrderInputModel creatingOrderModel, CreatingOrderDto expectedCreatingOrderDto)
         {
             CreatingOrderDto actualCreatingOrderDto = _mapper.MapCreatingOrderModelToCreatingOrderDto(creatingOrderModel);
 

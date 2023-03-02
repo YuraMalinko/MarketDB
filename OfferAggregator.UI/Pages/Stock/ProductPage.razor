@@ -1,0 +1,91 @@
+﻿@using OfferAggregator.Bll.Models;
+@using OfferAggregator.Bll;
+@using OfferAggregator.Dal.Models;
+@using OfferAggregator.Dal.Repositories;
+@using System.ComponentModel.DataAnnotations;
+@using System.Timers
+@using System.Threading.Tasks
+
+@page "/product/{Id:int}"
+
+<div style="display:flex; flex-direction:row;">
+    <div>
+        <button @onclick="SetOrUnsetGetAllScoresAndCommentsByProductIdContent" class="btn">Оценки и комментарии</button>
+        <button @onclick="SetOrUnsetGetTagsContent" class="btn">Теги</button>
+        <button class="btn">Удалить товар</button>
+        <a href="/Stock">
+            <button class="btn">Вернуться в меню Склада</button>
+        </a>
+    </div>
+    <div class="in-product-card">
+        <em>Вы внутри карточки<br /> товара: @_product.Name</em>
+    </div>
+</div>
+
+<div style="width: 1000px">
+    @switch (_content)
+    {
+        case ProductPageContent.GetAllScoresAndCommentsByProductId:
+            <GetAllScoresAndCommentsByProductId ProductId="Id" />
+            break;
+
+        case ProductPageContent.None:
+            <UpdateProductAndGetStatistic ProductId="Id" />
+            break;
+
+        case ProductPageContent.GetTags:
+            <GetTags ProductId="Id" />
+            break;
+    }
+</div>
+
+@code {
+    [Parameter]
+    public int Id { get; set; }
+
+    private ProductOutputModel _product;
+
+    private ProductService _productService;
+
+    protected override void OnInitialized()
+    {
+        _productService = new ProductService(
+    new ProductsRepository(),
+    new ProductsReviewsAndStocksRepository(),
+    new TagsRepository(),
+    new GroupRepository(),
+    new ClientRepository());
+        _product = _productService.GetProductById(Id);
+    }
+
+    private ProductPageContent _content;
+
+    private void SetOrUnsetGetAllScoresAndCommentsByProductIdContent()
+    {
+        SetContenet(ProductPageContent.GetAllScoresAndCommentsByProductId);
+    }
+
+    private void SetOrUnsetGetTagsContent()
+    {
+        SetContenet(ProductPageContent.GetTags);
+    }
+
+    private void SetContenet(ProductPageContent productPageContent)
+    {
+        if (_content == productPageContent)
+        {
+            _content = ProductPageContent.None;
+        }
+        else
+        {
+            _content = productPageContent;
+        }
+    }
+
+    private enum ProductPageContent
+    {
+        None = 0,
+        GetAllScoresAndCommentsByProductId = 1,
+        GetTags = 2
+    }
+}

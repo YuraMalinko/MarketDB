@@ -1,0 +1,141 @@
+﻿@using OfferAggregator.Bll.Models;
+@using OfferAggregator.Bll;
+@using OfferAggregator.Dal.Models;
+@using OfferAggregator.Dal.Repositories;
+@using System.ComponentModel.DataAnnotations;
+@using System.Timers
+@using System.Threading.Tasks
+
+<div class="header-pages-stock" style="padding-left: 0px; width: 600px;">
+    Добавить оценку и/или комментарий товару
+</div>
+
+<EditForm Model="@_updateProductReview" OnValidSubmit="@AddScoreOrCommentForProduct">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+    <div>
+        <div>Список всех клиентов, которые заказывали данный товар</div>
+        <InputSelect TValue="int" @bind-Value="_updateProductReview.ClientId">
+            @foreach (var client in _clients)
+            {
+                if (client != null)
+                {
+                    <option value="@client.Id">@client.Name</option>
+                }
+            }
+        </InputSelect>
+
+        <div style="margin-top: 7px;">Поставьте оценку клиента от 1 до 5</div>
+        <InputSelect TValue="int?" @bind-Value="_updateProductReview.Score">
+            <option value="">   </option>
+            @foreach (var score in _scores)
+            {
+                <option value="@score">@score</option>
+            }
+        </InputSelect>
+
+        <div style="margin-top: 7px;">Напишите комментарий клиента о товаре</div>
+        <InputTextArea id="comment" style="width: 600px; height: 150px; " @bind-Value="_updateProductReview.Comment" />
+    </div>
+
+    <button class="button-submit" type="submit">Добавить ревью на товар</button>
+
+    @if (!string.IsNullOrEmpty(_errorMessage))
+    {
+        <div>@_errorMessage</div>
+    }
+</EditForm>
+
+@if (_isAdded)
+{
+    <div class="pop-up-success-message">
+        Ревью клиента на товар успешно добавлено!
+    </div>
+}
+
+@code {
+    [Parameter]
+    public int ProductId { get; set; }
+
+    private ProductReviewInputModel _updateProductReview;
+
+    private ProductService _productService;
+
+    private ClientService _clientService;
+
+    private List<ClientOutputModel> _clients = new();
+
+    private List<int> _scores = new List<int> { 1, 2, 3, 4, 5 };
+
+    private string _errorMessage;
+
+    private bool _isAdded;
+
+    private Timer _timer;
+
+    [Parameter]
+    public EventCallback OnReviewAdded { get; set; }
+
+    protected override void OnInitialized()
+    {
+        _updateProductReview = new ProductReviewInputModel();
+        _productService = new ProductService(
+        new ProductsRepository(),
+        new ProductsReviewsAndStocksRepository(),
+        new TagsRepository(),
+        new GroupRepository(),
+        new ClientRepository()
+        );
+        _clientService = new ClientService();
+        var getClients = _clientService.GetClientsWhoOrderedProductByProductId(ProductId);
+        _clients = getClients?.Clients ?? new List<ClientOutputModel>();
+        _updateProductReview.ProductId = ProductId;
+        _timer = new Timer();
+        _timer.Interval = 2000;
+        _timer.Elapsed += StopShowing;
+    }
+
+    private void AddScoreOrCommentForProduct()
+    {
+        try
+        {
+            if (_updateProductReview.ClientId != 0 && (_updateProductReview.Score != null || !string.IsNullOrEmpty(_updateProductReview.Comment)))
+            {
+                _productService.AddScoreOrCommentToProductReview(_updateProductReview);
+                _errorMessage = string.Empty;
+                _updateProductReview = new() { ProductId = ProductId };
+                _isAdded = true;
+                _timer.Start();
+                OnReviewAdded.InvokeAsync();
+            }
+
+            else if (_updateProductReview.Score == null && string.IsNullOrEmpty(_updateProductReview.Comment))
+            {
+                _errorMessage = "Необходимо ввести хотя бы одно значение: оценку или комментарий";
+            }
+        }
+        catch (ArgumentException ex)
+        {
+            switch (ex.Message)
+            {
+                case "Client did not order product with this product":
+                    _errorMessage = "Клиент не может оценить товар, поскольку его еще не заказывал.";
+                    break;
+                case "This score not included in the range from 1 to 5":
+                    _errorMessage = "Необходимо ввести оценку от 1 до 5";
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = "Произошла ошибка";
+        }
+    }
+
+    private async void StopShowing(object sender, ElapsedEventArgs args)
+    {
+        _isAdded = false;
+        await InvokeAsync(StateHasChanged);
+        _timer.Stop();
+    }
+}

@@ -13,25 +13,27 @@ namespace OfferAggregator.Dal.Repositories
             {
                 sqlCnct.Open();
 
-               int result = sqlCnct.Execute(
-                    StoredProcedures.AddAmountToStocks,
-                    new { stock.Amount, stock.ProductId },
-                                    commandType: CommandType.StoredProcedure);
+                int result = sqlCnct.Execute(
+                     StoredProcedures.AddAmountToStocks,
+                     new { stock.Amount, stock.ProductId },
+                                     commandType: CommandType.StoredProcedure);
 
                 return result > 0;
             }
         }
 
-        public int AddScoreAndCommentToProductReview(ProductReviewsDto prReview)
+        public bool AddScoreOrCommentToProductReview(ProductReviewsDto prReview)
         {
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
             {
                 sqlCnctn.Open();
 
-                return sqlCnctn.Execute(
+                int result = sqlCnctn.Execute(
                     StoredProcedures.AddScoreAndCommentToProductReview,
-                    prReview,
+                    new { prReview.ProductId, prReview .ClientId, prReview.Score, prReview.Comment },
                     commandType: CommandType.StoredProcedure);
+
+                return result > 0;
             }
         }
 
@@ -141,83 +143,67 @@ namespace OfferAggregator.Dal.Repositories
             }
         }
 
-        public List<ProductWithScoresAndCommentsDto> GetAllScoresAndCommentsForProductByProductId(int productId)
+        public ProductWithScoresAndCommentsDto GetAllScoresAndCommentsForProductByProductId(int productId)
         {
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
             {
-                List<ProductWithScoresAndCommentsDto> result = new List<ProductWithScoresAndCommentsDto>();
+                ProductWithScoresAndCommentsDto result = null;
                 sqlCnctn.Open();
                 sqlCnctn.Query<ProductWithScoresAndCommentsDto, ProductReviewsDto, ProductWithScoresAndCommentsDto>(
                     StoredProcedures.GetAllScoresAndCommentsForProductByProductId,
                     (scoresAndComments, reviews) =>
                     {
-                        reviews.ProductId = scoresAndComments.ProductId;
-                        ProductWithScoresAndCommentsDto crnt = null;
-
-                        foreach (var product in result)
+                        if (result == null)
                         {
-                            if (product.ProductId == scoresAndComments.ProductId)
-                            {
-                                crnt = product;
-                            }
+                            result = scoresAndComments;
+                            result.ProductReviews = new List<ProductReviewsDto>();
                         }
 
-                        if (crnt is null)
+                        if (reviews != null)
                         {
-                            crnt = scoresAndComments;
-                            result.Add(crnt);
-                            crnt.ProductReviews = new List<ProductReviewsDto>();
+                            result.ProductReviews.Add(reviews);
+                            reviews.ProductId = scoresAndComments.ProductId;
                         }
-
-                        crnt.ProductReviews.Add(reviews);
 
                         return scoresAndComments;
                     },
                     new { productId },
-                    splitOn: "Score",
+                    splitOn: "ClientId",
                     commandType: CommandType.StoredProcedure
-                    ).ToList();
+                    );
 
                 return result;
             }
         }
 
-        public List<ProductWithScoresAndCommentsDto> GetAllScoresAndCommentsForProductByProductIDAndClientId(int productId, int clientId)
+        public ProductWithScoresAndCommentsDto GetAllScoresAndCommentsForProductByProductIDAndClientId(int productId, int clientId)
         {
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
             {
-                List<ProductWithScoresAndCommentsDto> result = new List<ProductWithScoresAndCommentsDto>();
+                ProductWithScoresAndCommentsDto result = null;
                 sqlCnctn.Open();
                 sqlCnctn.Query<ProductWithScoresAndCommentsDto, ProductReviewsDto, ProductWithScoresAndCommentsDto>(
                     StoredProcedures.GetAllScoresAndCommentsForProductByProductIDAndClientId,
                     (scoresAndComments, reviews) =>
                     {
-                        reviews.ProductId = scoresAndComments.ProductId;
-                        ProductWithScoresAndCommentsDto crnt = null;
-
-                        foreach (var product in result)
+                        if (result == null)
                         {
-                            if (product.ProductId == scoresAndComments.ProductId)
-                            {
-                                crnt = product;
-                            }
+                            result = scoresAndComments;
+                            result.ProductReviews = new List<ProductReviewsDto>();
                         }
 
-                        if (crnt is null)
+                        if (reviews != null)
                         {
-                            crnt = scoresAndComments;
-                            result.Add(crnt);
-                            crnt.ProductReviews = new List<ProductReviewsDto>();
-                        }
-
-                        crnt.ProductReviews.Add(reviews);
+                            result.ProductReviews.Add(reviews);
+                            reviews.ProductId = result.ProductId;
+                        }                                              
 
                         return scoresAndComments;
                     },
                     new { clientId, productId },
-                    splitOn: "Score",
+                    splitOn: "ClientId",
                     commandType: CommandType.StoredProcedure
-                    ).ToList();
+                    );
 
                 return result;
             }
@@ -258,7 +244,7 @@ namespace OfferAggregator.Dal.Repositories
                 sqlCnctn.Open();
                 int result = sqlCnctn.Execute(
                     StoredProcedures.DeleteProductsReviews,
-                    new { productReview.ProductId, productReview.ClientId},
+                    new { productReview.ProductId, productReview.ClientId },
                     commandType: CommandType.StoredProcedure);
 
                 return result > 0;
@@ -268,8 +254,8 @@ namespace OfferAggregator.Dal.Repositories
         public bool DeleteStock(StocksDtoWithProductName stock)
         {
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
-            { 
-            sqlCnctn.Open();
+            {
+                sqlCnctn.Open();
                 int result = sqlCnctn.Execute(
                     StoredProcedures.DeleteStock,
                     new { stock.Amount, stock.ProductId },
@@ -287,6 +273,64 @@ namespace OfferAggregator.Dal.Repositories
                 int result = sqlCnctn.Execute(
                     StoredProcedures.DeleteProductReviewsByProductId,
                     new { productId },
+                    commandType: CommandType.StoredProcedure);
+
+                return result > 0;
+            }
+        }
+
+        public bool AddScoreToProductReview(ProductReviewsDto prReview)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+
+                int result = sqlCnctn.Execute(
+                    StoredProcedures.AddScore,
+                    new { prReview.ProductId, prReview.ClientId, prReview.Score },
+                    commandType: CommandType.StoredProcedure);
+
+                return result > 0;
+            }
+        }
+
+        public bool AddCommentToProductReview(ProductReviewsDto prReview)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+
+                int result = sqlCnctn.Execute(
+                    StoredProcedures.AddComment,
+                    new { prReview.ProductId, prReview.ClientId, prReview.Comment },
+                    commandType: CommandType.StoredProcedure);
+
+                return result > 0;
+            }
+        }
+
+        public bool UpdateScoreOfProductReview(ProductReviewsDto productReviews)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                int result = sqlCnctn.Execute(
+                    StoredProcedures.UpdateScore,
+                    new { productReviews.ProductId, productReviews.ClientId, productReviews.Score },
+                    commandType: CommandType.StoredProcedure);
+
+                return result > 0;
+            }
+        }
+
+        public bool UpdateCommentOfProductReview(ProductReviewsDto productReviews)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                int result = sqlCnctn.Execute(
+                    StoredProcedures.UpdateComment,
+                    new { productReviews.ProductId, productReviews.ClientId, productReviews.Comment },
                     commandType: CommandType.StoredProcedure);
 
                 return result > 0;

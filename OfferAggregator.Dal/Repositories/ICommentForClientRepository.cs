@@ -9,5 +9,7 @@ namespace OfferAggregator.Dal.Repositories
         public bool UpdateComment(CommentForClientDto comment);
 
         public bool DeleteComment(int id);
+
+        public List<CommentForClientDto> GetClientCommentsByClientId(int clientId);
     }
 }

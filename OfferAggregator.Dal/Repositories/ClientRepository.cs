@@ -176,5 +176,33 @@ namespace OfferAggregator.Dal.Repositories
                     commandType: CommandType.StoredProcedure).FirstOrDefault();
             }
         }
+
+        public ClientsProductDto GetClientsWhoOrderedProductByProductId(int productId)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                List<ClientsDto> clientsList = new List<ClientsDto>();
+                ClientsProductDto result = null;
+                sqlCnctn.Open();
+                sqlCnctn.Query< ClientsDto, ClientsProductDto, ClientsProductDto >(
+                    StoredProcedures.GetClientsWhoOrderedProductByProductId,
+                    (client, clientsProduct ) =>
+                    {
+                        if (result is null)
+                        {
+                            result = clientsProduct;
+                            result.Clients= clientsList;
+                        }
+                        clientsList.Add(client);
+
+                        return clientsProduct;
+                    },
+                    new { productId},
+                    splitOn: "Id",
+                    commandType: CommandType.StoredProcedure);
+
+                return result;
+            }
+        }
     }
 }

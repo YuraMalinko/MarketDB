@@ -46,7 +46,7 @@ namespace OfferAggregator.Bll
             _productsReviewsAndStocksRepository = productsReviewsAndStocksRepository;
         }
 
-        public int CreateNewOrder(CreatingOrderModel creatingOrderModel)
+        public int CreateNewOrder(CreatingOrderInputModel creatingOrderModel)
         {
             try
             {
@@ -58,7 +58,6 @@ namespace OfferAggregator.Bll
                 {
                     CreatingOrderDto creatingOrderDto = _instanceMapper.MapCreatingOrderModelToCreatingOrderDto(creatingOrderModel);
                     int addOrder = _orderRepository.AddOrder(creatingOrderDto.Order);
-                    creatingOrderModel.Order.Id = addOrder;
 
                     if (creatingOrderDto.CommentsForOrder != null)
                     {
@@ -75,8 +74,7 @@ namespace OfferAggregator.Bll
                         foreach (var crnt in creatingOrderModel.Products)
                         {
                             UpdateAmountProductOnStock(crnt.Count, crnt.Id, crnt.Name);
-                            AddProductDto(creatingOrderModel.Order.Id, crnt.Id, crnt.Count);
-
+                            AddProductDto(addOrder, crnt.Id, crnt.Count);
                         }
                     }
 
@@ -107,7 +105,7 @@ namespace OfferAggregator.Bll
             return getClient != null;
         }
 
-        private bool CheckProduct(List<ProductCountModel> productsCounts)
+        private bool CheckProduct(List<ProductCountInputModel> productsCounts)
         {
             if (productsCounts != null)
             {
@@ -172,7 +170,7 @@ namespace OfferAggregator.Bll
             return _ordersProductsRepository.AddProductToOrders(ordersProductsDto);
         }
 
-        private bool CheckAmountsListProducts(List<ProductCountModel> productsCounts)
+        private bool CheckAmountsListProducts(List<ProductCountInputModel> productsCounts)
         {
             if (productsCounts != null)
             {
@@ -204,13 +202,13 @@ namespace OfferAggregator.Bll
             return _productsReviewsAndStocksRepository.UpdateAmountOfStocks(stockProduct);
         }
 
-        private List<ProductCountModel> AggregateProductCountModels(List<ProductCountModel> productCountModels)
+        private List<ProductCountInputModel> AggregateProductCountModels(List<ProductCountInputModel> productCountModels)
         {
             var distinctProducts = productCountModels
                 .GroupBy(p => p.Id)
                 .Select(g =>
                 {
-                    var aggreagatedProductCountModel = new ProductCountModel
+                    var aggreagatedProductCountModel = new ProductCountInputModel
                     {
                         Id = g.Key,
                         Count = g.Sum(pr => pr.Count)

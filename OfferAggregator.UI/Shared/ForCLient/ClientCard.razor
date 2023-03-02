@@ -1,0 +1,41 @@
+﻿@inject NavigationManager _navigationManager
+
+<div class="client_card">
+    <div>
+        <h4>
+            <b>ID:</b> @client.Id <br />
+            <b>Имя:</b> @client.Name <br />
+            <b>Телефон:</b> @client.PhoneNumber <br />
+        </h4>
+    </div>
+    <div class="d-grid gap-2">
+        <a class="btn btn-outline-info" href="/clients/@client.Id" role="button">Информация</a>
+        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#Modal"> Удалить @client.Id </button>
+        <!-- Модальное окно -->
+
+        <ModalWindow>
+            <NameWindow>
+                Удаление клиента
+            </NameWindow>
+            <Inside>
+                Вы точно хотите удалить данного пользователся ??????
+            </Inside>
+            <ButtomBot>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                <button type="button" class="btn btn-primary" @onclick="ClickDelete">УДАЛИТЬ @client.Id</button>
+            </ButtomBot>
+        </ModalWindow>
+    </div>
+</div>
+
+@code {
+    [Parameter] public ClientOutputModel client { get; set; }
+    [Parameter] public EventCallback<ClientInputModel> btnUpdate { get; set; }
+    ClientService _clientService = new ClientService();
+
+    private void ClickDelete()
+    {
+        _clientService.DeleteClient(client.Id);
+        _navigationManager.NavigateTo("/clients", true);
+    }
+}

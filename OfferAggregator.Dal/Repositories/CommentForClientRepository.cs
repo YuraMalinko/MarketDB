@@ -51,5 +51,17 @@ namespace OfferAggregator.Dal.Repositories
                     commandType: CommandType.StoredProcedure) > 0;
             }
         }
+
+        public List<CommentForClientDto> GetClientCommentsByClientId(int clientId)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                return sqlCnctn.Query<CommentForClientDto>(
+                    StoredProcedures.GetCommentsForClientById,
+                    new { clientId },
+                    commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
     }
 }

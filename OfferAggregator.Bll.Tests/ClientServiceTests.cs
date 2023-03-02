@@ -21,10 +21,10 @@ namespace OfferAggregator.Bll.Tests
         }
 
         [TestCaseSource(typeof(ClientServiceTestCaseSource), nameof(ClientServiceTestCaseSource.GetCLientsByNameTestCaseSource))]
-        public void GetCLientsByNameTest(string name, List<ClientsDto> clientsDto, List<ClientOutput> expected)
+        public void GetCLientsByNameTest(string name, List<ClientsDto> clientsDto, List<ClientOutputModel> expected)
         {
             _mockClientRepo.Setup(c => c.GetClientsByName(name)).Returns(clientsDto).Verifiable();
-            List<ClientOutput> actual = _clientService.GetClientByName(name);
+            List<ClientOutputModel> actual = _clientService.GetClientByName(name);
 
             _mockClientRepo.VerifyAll();
 

@@ -162,5 +162,17 @@ namespace OfferAggregator.Dal.Repositories
                     commandType: CommandType.StoredProcedure).ToList();
             }
         }
+
+        public ProductsStatisticDto GetProductStatisticById(int productId)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                return sqlCnctn.Query<ProductsStatisticDto>(
+                    StoredProcedures.GetProductStatisticById,
+                    new { productId},
+                    commandType: CommandType.StoredProcedure).FirstOrDefault();
+            }
+        }
     }
 }

@@ -4,6 +4,8 @@ using OfferAggregator.Bll.Models;
 using OfferAggregator.Bll.Tests.TestCaseSource;
 using OfferAggregator.Dal.Models;
 using OfferAggregator.Dal.Repositories;
+using System.Text.RegularExpressions;
+using Microsoft.Data.SqlClient;
 
 namespace OfferAggregator.Bll.Tests
 {
@@ -19,6 +21,8 @@ namespace OfferAggregator.Bll.Tests
 
         private Mock<IGroupRepository> _mockGroupRepo;
 
+        private Mock<IClientRepository> _mockClientRepo;
+
 
         [SetUp]
 
@@ -28,15 +32,17 @@ namespace OfferAggregator.Bll.Tests
             _mockProductReviewsAndStocksRepo = new Mock<IProductsReviewsAndStocksRepository>();
             _mockTagRepo = new Mock<ITagsRepository>();
             _mockGroupRepo = new Mock<IGroupRepository>();
+            _mockClientRepo = new Mock<IClientRepository>();
             _productService = new ProductService(
                 _mockProductRepo.Object,
                 _mockProductReviewsAndStocksRepo.Object,
                 _mockTagRepo.Object,
-                _mockGroupRepo.Object);
+                _mockGroupRepo.Object,
+                _mockClientRepo.Object);
         }
 
         [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.AddProductTestCaseSource))]
-        public void AddProductTest(int groupId, GroupDto getGroup, ProductsDto addProduct, int result, ProductModel product, int expectedProductId)
+        public void AddProductTest(int groupId, GroupDto getGroup, ProductsDto addProduct, int result, ProductInputModel product, int expectedProductId)
         {
             _mockGroupRepo.Setup(g => g.GetGroupById(groupId)).Returns(getGroup).Verifiable();
             _mockProductRepo.Setup(p => p.AddProduct(It.Is<ProductsDto>(pr => pr.Equals(addProduct)))).Returns(result).Verifiable();
@@ -50,7 +56,7 @@ namespace OfferAggregator.Bll.Tests
         }
 
         [Test]
-        public void AddProductTest_WhenGroupIsNotExist_ShouldException()
+        public void AddProductTest_WhenGroupIsNotExist_ShouldArgumentException()
         {
             GroupDto getGroup = null;
             ProductsDto addProduct = new ProductsDto
@@ -59,22 +65,19 @@ namespace OfferAggregator.Bll.Tests
                 GroupId = 11,
                 IsDeleted = false
             };
-            ProductModel product = new ProductModel
+            ProductInputModel product = new ProductInputModel
             {
                 Name = "one2",
                 GroupId = 11,
                 IsDeleted = false
             };
-            int expectedProductId = -1;
 
             _mockGroupRepo.Setup(g => g.GetGroupById(11)).Returns(getGroup).Verifiable();
 
-            int actualProductId = _productService.AddProduct(product);
+            Assert.Throws<ArgumentException>(() => _productService.AddProduct(product));
 
             _mockGroupRepo.VerifyAll();
             _mockProductRepo.Verify(p => p.AddProduct(It.IsAny<ProductsDto>()), Times.Never);
-
-            Assert.AreEqual(expectedProductId, actualProductId);
         }
 
         [Test]
@@ -91,31 +94,29 @@ namespace OfferAggregator.Bll.Tests
                 GroupId = 102,
                 IsDeleted = false
             };
-            ProductModel product = new ProductModel
+            ProductInputModel product = new ProductInputModel
             {
                 Name = "two",
                 GroupId = 102,
                 IsDeleted = false
             };
-            int expectedProductId = -1;
 
             _mockGroupRepo.Setup(g => g.GetGroupById(102)).Returns(getGroup).Verifiable();
             _mockProductRepo.Setup(p => p.AddProduct(It.Is<ProductsDto>(pr => pr.Name == addProduct.Name))).Throws<Exception>();
 
-            int actualProductId = _productService.AddProduct(product);
+            Assert.Throws<Exception>(() => _productService.AddProduct(product));
 
             _mockGroupRepo.VerifyAll();
             _mockProductRepo.VerifyAll();
 
-            Assert.AreEqual(expectedProductId, actualProductId);
         }
 
         [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.GetAllProductsTestCaseSource))]
-        public void GetAllProductsTest(List<ProductsDto> allProducts, List<ProductModel> expectedProductModels)
+        public void GetAllProductsTest(List<ProductsDto> allProducts, List<ProductOutputModel> expectedProductModels)
         {
             _mockProductRepo.Setup(p => p.GetAllProducts()).Returns(allProducts).Verifiable();
 
-            List<ProductModel> actualProductModels = _productService.GetAllProducts();
+            List<ProductOutputModel> actualProductModels = _productService.GetAllProducts();
 
             _mockProductRepo.VerifyAll();
 
@@ -123,11 +124,11 @@ namespace OfferAggregator.Bll.Tests
         }
 
         [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.GetAllProductsByGroupIdTestCaseSource))]
-        public void GetAllProductsByGroupIdTest(List<ProductsDto> allProducts, List<ProductModel> expectedProductModels, int groupId)
+        public void GetAllProductsByGroupIdTest(List<ProductsDto> allProducts, List<ProductOutputModel> expectedProductModels, int groupId)
         {
             _mockProductRepo.Setup(p => p.GetAllProductsByGroupId(groupId)).Returns(allProducts).Verifiable();
 
-            List<ProductModel> actualProductModels = _productService.GetAllProductsByGroupId(groupId);
+            List<ProductOutputModel> actualProductModels = _productService.GetAllProductsByGroupId(groupId);
 
             _mockProductRepo.VerifyAll();
 
@@ -136,7 +137,7 @@ namespace OfferAggregator.Bll.Tests
 
 
         [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.UpdateProductTestCaseSource))]
-        public void UpdateProductTest(GroupDto getGroup, ProductsDto getProductDto, ProductsDto productDto, ProductModel product, bool expected, bool result)
+        public void UpdateProductTest(GroupDto getGroup, ProductsDto getProductDto, ProductsDto productDto, ProductInputModel product, bool expected, bool result)
         {
             _mockGroupRepo.Setup(g => g.GetGroupById(productDto.GroupId)).Returns(getGroup).Verifiable();
             _mockProductRepo.Setup(p => p.GetProductById(productDto.Id)).Returns(getProductDto).Verifiable();
@@ -151,63 +152,53 @@ namespace OfferAggregator.Bll.Tests
         }
 
         [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.UpdateProductTest_WhenProductIsNotExistTestCaseSource))]
-        public void UpdateProductTest_WhenProductIsNotExist(GroupDto getGroup, ProductsDto getProductDto, ProductsDto productDto, ProductModel product, bool expected)
+        public void UpdateProductTest_WhenProductIsNotExist(GroupDto getGroup, ProductsDto getProductDto, ProductsDto productDto, ProductInputModel product, bool expected)
         {
-            _mockGroupRepo.Setup(g => g.GetGroupById(productDto.GroupId)).Returns(getGroup).Verifiable();
             _mockProductRepo.Setup(p => p.GetProductById(productDto.Id)).Returns(getProductDto).Verifiable();
 
-            bool actual = _productService.UpdateProduct(product);
+            Assert.Throws<ArgumentException>(() => _productService.UpdateProduct(product));
 
-            _mockGroupRepo.VerifyAll();
+            _mockGroupRepo.Verify(g => g.GetGroupById(It.IsAny<int>()), Times.Never);
             _mockProductRepo.VerifyAll();
             _mockProductRepo.Verify(p => p.UpdateProduct(It.IsAny<ProductsDto>()), Times.Never);
-
-            Assert.AreEqual(expected, actual);
         }
 
         [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.UpdateProductTest_WhenProductIsDeletedTestCaseSource))]
-        public void UpdateProductTest_WhenProductIsDeleted(GroupDto getGroup, ProductsDto getProductDto, ProductsDto productDto, ProductModel product, bool expected)
+        public void UpdateProductTest_WhenProductIsDeleted(GroupDto getGroup, ProductsDto getProductDto, ProductsDto productDto, ProductInputModel product, bool expected)
         {
-            _mockGroupRepo.Setup(g => g.GetGroupById(productDto.GroupId)).Returns(getGroup).Verifiable();
             _mockProductRepo.Setup(p => p.GetProductById(productDto.Id)).Returns(getProductDto).Verifiable();
 
-            bool actual = _productService.UpdateProduct(product);
+            Assert.Throws<ArgumentException>(() => _productService.UpdateProduct(product));
 
-            _mockGroupRepo.VerifyAll();
+            _mockGroupRepo.Verify(g => g.GetGroupById(It.IsAny<int>()), Times.Never);
             _mockProductRepo.VerifyAll();
             _mockProductRepo.Verify(p => p.UpdateProduct(It.IsAny<ProductsDto>()), Times.Never);
-
-            Assert.AreEqual(expected, actual);
         }
 
         [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.UpdateProductTest_WhenGroupIsNotExistTestCaseSource))]
-        public void UpdateProductTest_WhenGroupIsNotExist(GroupDto getGroup, ProductsDto getProductDto, ProductsDto productDto, ProductModel product, bool expected)
+        public void UpdateProductTest_WhenGroupIsNotExist(GroupDto getGroup, ProductsDto getProductDto, ProductsDto productDto, ProductInputModel product, bool expected)
         {
             _mockGroupRepo.Setup(g => g.GetGroupById(productDto.GroupId)).Returns(getGroup).Verifiable();
             _mockProductRepo.Setup(p => p.GetProductById(productDto.Id)).Returns(getProductDto).Verifiable();
 
-            bool actual = _productService.UpdateProduct(product);
+            Assert.Throws<ArgumentException>(() => _productService.UpdateProduct(product));
 
             _mockGroupRepo.VerifyAll();
             _mockProductRepo.VerifyAll();
             _mockProductRepo.Verify(p => p.UpdateProduct(It.IsAny<ProductsDto>()), Times.Never);
-
-            Assert.AreEqual(expected, actual);
         }
 
         [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.UpdateProductTest_WhenNameNotUnigue_ShouldExceptionTestCaseSource))]
-        public void UpdateProductTest_WhenNameNotUnigue_ShouldException(GroupDto getGroup, ProductsDto getProductDto, ProductsDto productDto, ProductModel product, bool expected)
+        public void UpdateProductTest_WhenNameNotUnigue_ShouldException(GroupDto getGroup, ProductsDto getProductDto, ProductsDto productDto, ProductInputModel product, bool expected)
         {
             _mockGroupRepo.Setup(g => g.GetGroupById(productDto.GroupId)).Returns(getGroup).Verifiable();
             _mockProductRepo.Setup(p => p.GetProductById(productDto.Id)).Returns(getProductDto).Verifiable();
             _mockProductRepo.Setup(p => p.UpdateProduct(It.Is<ProductsDto>(pr => pr.Name == productDto.Name))).Throws<Exception>();
 
-            bool actual = _productService.UpdateProduct(product);
-
+            Assert.Throws<Exception>(() => _productService.UpdateProduct(product));
+            
             _mockGroupRepo.VerifyAll();
             _mockProductRepo.VerifyAll();
-
-            Assert.AreEqual(expected, actual);
         }
 
         [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.DeleteProductTestCaseSource))]
@@ -242,13 +233,13 @@ namespace OfferAggregator.Bll.Tests
 
         [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.RegistrateProductInStockTest_WhenAddNewProductTestCaseSource))]
         public void RegistrateProductInStockTest_WhenAddNewProduct(StocksDtoWithProductName stockProductDto, ProductsDto getProductDto, StocksDtoWithProductName getAmountByProductId,
-                                                  bool resultOfAdd, bool expected, StocksWithProductModel stockProductModel)
+                                                  bool resultOfUpdate, bool expected, StocksWithProductInputModel stockProductModel)
         {
             _mockProductRepo.Setup(p => p.GetProductById(stockProductDto.ProductId)).Returns(getProductDto).Verifiable();
             _mockProductReviewsAndStocksRepo.Setup(rs => rs.GetAmountByProductId(stockProductDto.ProductId)).Returns(getAmountByProductId).Verifiable();
-            _mockProductReviewsAndStocksRepo.Setup(rs => rs.AddAmountToStocks(
+            _mockProductReviewsAndStocksRepo.Setup(rs => rs.UpdateAmountOfStocks(
                                                    It.Is<StocksDtoWithProductName>(sp => sp.Equals(stockProductDto))))
-                                                   .Returns(resultOfAdd).Verifiable();
+                                                   .Returns(resultOfUpdate).Verifiable();
             bool actual = _productService.RegistrateProductInStock(stockProductModel);
 
             _mockProductRepo.VerifyAll();
@@ -259,7 +250,7 @@ namespace OfferAggregator.Bll.Tests
 
         [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.RegistrateProductInStockTest_WhenUpdateExistProductTestCaseSource))]
         public void RegistrateProductInStockTest_WhenUpdateExistProduct(StocksDtoWithProductName stockProductDto, ProductsDto getProductDto, StocksDtoWithProductName getAmountByProductId,
-                                                  bool resultUpdate, bool expected, StocksWithProductModel stockProductModel, StocksDtoWithProductName stockUpdateProductDto)
+                                                  bool resultUpdate, bool expected, StocksWithProductInputModel stockProductModel, StocksDtoWithProductName stockUpdateProductDto)
         {
             _mockProductRepo.Setup(p => p.GetProductById(stockProductDto.ProductId)).Returns(getProductDto).Verifiable();
             _mockProductReviewsAndStocksRepo.Setup(rs => rs.GetAmountByProductId(stockProductDto.ProductId)).Returns(getAmountByProductId).Verifiable();
@@ -276,7 +267,7 @@ namespace OfferAggregator.Bll.Tests
 
         [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.RegistrateProductInStockTest_WhenProductIsNotExistTestCaseSource))]
         public void RegistrateProductInStockTest_WhenProductIsNotExist(StocksDtoWithProductName stockProductDto, ProductsDto getProductDto,
-                                                                       StocksWithProductModel stockProductModel, bool expected)
+                                                                       StocksWithProductInputModel stockProductModel, bool expected)
         {
             _mockProductRepo.Setup(p => p.GetProductById(stockProductDto.ProductId)).Returns(getProductDto).Verifiable();
 
@@ -290,7 +281,7 @@ namespace OfferAggregator.Bll.Tests
 
         [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.RegistrateProductInStockTest_WhenAmountLessZeroTestCaseSource))]
         public void RegistrateProductInStockTest_WhenAmountLessZero(StocksDtoWithProductName stockProductDto, ProductsDto getProductDto,
-                                                                       StocksWithProductModel stockProductModel, bool expected)
+                                                                       StocksWithProductInputModel stockProductModel, bool expected)
         {
             _mockProductRepo.Setup(p => p.GetProductById(stockProductDto.ProductId)).Returns(getProductDto).Verifiable();
 
@@ -306,7 +297,7 @@ namespace OfferAggregator.Bll.Tests
         public void RegistrateProductInStockTest_WhenProductIsDeleted(
             StocksDtoWithProductName stockProductDto,
             ProductsDto getProductDto,
-            StocksWithProductModel stockProductModel,
+            StocksWithProductInputModel stockProductModel,
             bool expected)
         {
             _mockProductRepo.Setup(p => p.GetProductById(stockProductDto.ProductId)).Returns(getProductDto).Verifiable();
@@ -320,11 +311,11 @@ namespace OfferAggregator.Bll.Tests
         }
 
         [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.GetFullProductByIdTestCaseSource))]
-        public void GetFullProductByIdTest(int productId, FullProductDto fullProductDto, FullProductModel expectedFullProductModel)
+        public void GetFullProductByIdTest(int productId, FullProductDto fullProductDto, FullProductOutputModel expectedFullProductModel)
         {
             _mockProductRepo.Setup(p => p.GetFullProductById(productId)).Returns(fullProductDto).Verifiable();
 
-            FullProductModel actualFullProductModel = _productService.GetFullProductById(productId);
+            FullProductOutputModel actualFullProductModel = _productService.GetFullProductById(productId);
 
             _mockProductRepo.VerifyAll();
 
@@ -332,11 +323,11 @@ namespace OfferAggregator.Bll.Tests
         }
 
         [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.GetFullProducsTestCaseSource))]
-        public void GetFullProducsTest(List<FullProductDto> fullProductDtos, List<FullProductModel> expectedFullProductModels)
+        public void GetFullProducsTest(List<FullProductDto> fullProductDtos, List<FullProductOutputModel> expectedFullProductModels)
         {
             _mockProductRepo.Setup(p => p.GetFullProducts()).Returns(fullProductDtos).Verifiable();
 
-            List<FullProductModel> actualFullProductModels = _productService.GetFullProducts();
+            List<FullProductOutputModel> actualFullProductModels = _productService.GetFullProducts();
 
             _mockProductRepo.VerifyAll();
 
@@ -344,11 +335,11 @@ namespace OfferAggregator.Bll.Tests
         }
 
         [TestCaseSource(typeof(ProductServiceTestCaseSource), nameof(ProductServiceTestCaseSource.GetProductsStatisticTestCaseSource))]
-        public void GetProductsStatisticTest(List<ProductsStatisticDto> productsStatisticDtos, List<ProductsStatisticModel> expectedProductsStaticModels)
+        public void GetProductsStatisticTest(List<ProductsStatisticDto> productsStatisticDtos, List<ProductsStatisticOutputModel> expectedProductsStaticModels)
         {
             _mockProductRepo.Setup(p => p.GetProductsStatistic()).Returns(productsStatisticDtos).Verifiable();
 
-            List<ProductsStatisticModel> actualProductsStaticModels = _productService.GetProductsStatistic();
+            List<ProductsStatisticOutputModel> actualProductsStaticModels = _productService.GetProductsStatistic();
 
             _mockProductRepo.VerifyAll();
 

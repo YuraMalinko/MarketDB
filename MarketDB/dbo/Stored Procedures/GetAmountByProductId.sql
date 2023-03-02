@@ -1,10 +1,10 @@
 ﻿CREATE PROCEDURE GetAmountByProductId
 @productId int
 AS
-SELECT S.[ProductId],P.[Name] ,S.[Amount]
-FROM [dbo].[Stocks] as S
-LEFT JOIN [dbo].[Products] as P ON
+SELECT P.[Id] AS [ProductId],P.[Name] , ISNULL (S.[Amount], 0) AS [Amount]
+FROM [dbo].[Products] as P 
+LEFT JOIN [dbo].[Stocks] as S ON
 P.Id = S.ProductId
 WHERE
-S.[ProductId]=@productId AND
+P.[Id]=@productId AND
 P.[IsDeleted] = 0

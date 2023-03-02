@@ -1,0 +1,197 @@
+﻿@using OfferAggregator.Bll.Models;
+@using OfferAggregator.Bll;
+@using OfferAggregator.Dal.Models;
+@using OfferAggregator.Dal.Repositories;
+@using System.ComponentModel.DataAnnotations;
+@using System.Timers
+@using System.Threading.Tasks
+
+<div style="padding-top:20px; padding-bottom:10px; padding-left:5px; font-size:25px;">
+    Добавление тега
+    </div>
+
+<div style="width:400px; padding-bottom: 10px;">
+    Для присвоения тега товару Вы можете выбрать существующий тег из выпадающего списка ниже.
+</div>
+
+<EditForm Model="@_tagProductInputModel" OnValidSubmit="@AddExistTagToProduct">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <InputSelect id="tagId"  style="height:30px;" @bind-Value="_tagProductInputModel.TagId">
+        <option> </option>
+        @foreach (var tag in _tags.OrderBy(t => t.Name))
+        {
+            if (tag != null)
+            {
+                <option value="@tag.Id">@tag.Name</option>
+            }
+        }
+    </InputSelect> <br/>
+
+    <button class="button-submit" style="margin-top: 10px;" type="submit">Добавить тег товару</button>
+</EditForm>
+<div class="pop-up-success-message">
+    @if (_isAdded)
+    {
+        <span>Тег присвоен товару</span>
+    }
+</div>
+
+<div style="width:400px;padding-bottom: 10px; margin-top: 10px;">
+    Если в списке отсутствует подходящий тег, Вы можете добавить новый через форму ниже.
+</div>
+
+<EditForm Model="@_addTag" OnValidSubmit="@CreateAndAddNewTagToProduct">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <InputText id="addTag" @bind-Value="_addTag.Name" /><br />
+
+    <button class="button-submit" style="margin-top: 10px;" type="submit">Создать и добавить тег товару</button>
+
+</EditForm>
+
+<div class="pop-up-success-message">
+    @if (_isCreated)
+    {
+        <span>Тег создан и присвоен товару</span>
+    }
+</div>
+
+
+@if (!string.IsNullOrEmpty(_errorMessage))
+{
+    <div class="error-message">
+        @_errorMessage
+    </div>
+}
+
+@code {
+    [Parameter]
+    public int ProductId { get; set; }
+
+    [Parameter]
+    public EventCallback OnTagAdded { get; set; }
+
+    private TagOutputModel _addTag;
+
+    private TagProductInputModel _tagProductInputModel;
+
+    private ProductService _productService;
+
+    private string _errorMessage;
+
+    private List<TagOutputModel> _tags;
+
+    private bool _isCreated;
+
+    private Timer _timerCreated;
+
+    private bool _isAdded;
+
+    private Timer _timerAdded;
+
+    protected override void OnInitialized()
+    {
+        _productService = new ProductService(
+        new ProductsRepository(),
+        new ProductsReviewsAndStocksRepository(),
+        new TagsRepository(),
+        new GroupRepository(),
+        new ClientRepository()
+        );
+        _addTag = new TagOutputModel();
+        _tags = _productService.GetAllTags();
+        _tagProductInputModel = new TagProductInputModel { ProductId = ProductId };
+        _isCreated = false;
+        _timerCreated = new Timer();
+        _timerCreated.Interval = 3000;
+        _timerCreated.Elapsed += StopShowingCreated;
+        _isAdded = false;
+        _timerAdded = new Timer();
+        _timerAdded.Interval = 3000;
+        _timerAdded.Elapsed += StopShowingAdded;
+    }
+
+    private void CreateAndAddNewTagToProduct()
+    {
+        try
+        {
+            if (!string.IsNullOrEmpty(_addTag.Name))
+            {
+                _productService.AddNewTagToProduct(_addTag.Name, ProductId);
+                _errorMessage = string.Empty;
+                _isCreated = true;
+                _timerCreated.Start();
+                OnTagAdded.InvokeAsync();
+            }
+            _errorMessage = string.Empty;
+        }
+        catch (ArgumentException ex)
+        {
+            switch (ex.Message)
+            {
+                case "Product is not exist":
+                    _errorMessage = "Такого продукта не существует";
+                    break;
+
+                case "Name of tag already exists":
+                    _errorMessage = "Тег с таким именем уже есть, выберите из выпадающего списка";
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = "Произошла ошибка";
+        }
+    }
+
+    private async void StopShowingCreated(object sender, ElapsedEventArgs args)
+    {
+        _isCreated = false;
+        await InvokeAsync(StateHasChanged);
+        _timerCreated.Stop();
+    }
+
+    private void AddExistTagToProduct()
+    {
+        try
+        {
+            if (_tagProductInputModel != null && _tagProductInputModel.TagId != 0)
+            {
+                _productService.AddExistTagToProduct(_tagProductInputModel);
+                _errorMessage = string.Empty;
+                _isAdded = true;
+                _timerAdded.Start();
+                OnTagAdded.InvokeAsync();
+            }
+            _errorMessage = string.Empty;
+        }
+        catch (ArgumentException ex)
+        {
+            switch (ex.Message)
+            {
+                case "Product is not exist":
+                    _errorMessage = "Такого продукта не существует";
+                    break;
+
+                case "Tne same tag already exists for product":
+                    _errorMessage = "Продукту уже присвоен такой тег, выберите другой";
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = "Произошла ошибка";
+        }
+    }
+
+    private async void StopShowingAdded(object sender, ElapsedEventArgs args)
+    {
+        _isAdded = false;
+        await InvokeAsync(StateHasChanged);
+        _timerAdded.Stop();
+    }
+
+}

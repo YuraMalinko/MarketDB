@@ -8,7 +8,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
     {
         public static IEnumerable AddProductTestCaseSource()
         {
-            ProductModel product = new ProductModel
+            ProductInputModel product = new ProductInputModel
             {
                 Name = "one",
                 GroupId = 10,
@@ -49,19 +49,19 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 };
                 List<ProductsDto> allProducts = new List<ProductsDto> { productsDto1, productsDto2 };
 
-                ProductModel productsModel1 = new ProductModel
+                ProductOutputModel productsModel1 = new ProductOutputModel
                 {
                     Id = 100,
                     Name = "100",
                     GroupId = 11
                 };
-                ProductModel productsModel2 = new ProductModel
+                ProductOutputModel productsModel2 = new ProductOutputModel
                 {
                     Id = 200,
                     Name = "200",
                     GroupId = 22
                 };
-                List<ProductModel> expectedProductModels = new List<ProductModel> { productsModel1, productsModel2 };
+                List<ProductOutputModel> expectedProductModels = new List<ProductOutputModel> { productsModel1, productsModel2 };
 
                 yield return new object[] { allProducts, expectedProductModels };
 
@@ -74,14 +74,14 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 };
                 allProducts = new List<ProductsDto> { productsDto1, productsDto2 };
 
-                productsModel1 = new ProductModel();
-                productsModel2 = new ProductModel
+                productsModel1 = new ProductOutputModel();
+                productsModel2 = new ProductOutputModel
                 {
                     Id = 2002,
                     Name = "2002",
                     GroupId = 222
                 };
-                expectedProductModels = new List<ProductModel> { productsModel1, productsModel2 };
+                expectedProductModels = new List<ProductOutputModel> { productsModel1, productsModel2 };
 
                 yield return new object[] { allProducts, expectedProductModels };
 
@@ -89,15 +89,15 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 productsDto2 = new ProductsDto();
                 allProducts = new List<ProductsDto> { productsDto1, productsDto2 };
 
-                productsModel1 = new ProductModel();
-                productsModel2 = new ProductModel();
-                expectedProductModels = new List<ProductModel> { productsModel1, productsModel2 };
+                productsModel1 = new ProductOutputModel();
+                productsModel2 = new ProductOutputModel();
+                expectedProductModels = new List<ProductOutputModel> { productsModel1, productsModel2 };
 
                 yield return new object[] { allProducts, expectedProductModels };
 
                 allProducts = new List<ProductsDto>();
 
-                expectedProductModels = new List<ProductModel>();
+                expectedProductModels = new List<ProductOutputModel>();
 
                 yield return new object[] { allProducts, expectedProductModels };
             }
@@ -119,20 +119,20 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             };
             List<ProductsDto> allProducts = new List<ProductsDto> { productsDto1, productsDto2 };
 
-            ProductModel productsModel1 = new ProductModel
+            ProductOutputModel productsModel1 = new ProductOutputModel
             {
                 Id = 11,
                 Name = "11",
                 GroupId = 10
             };
-            ProductModel productsModel2 = new ProductModel
+            ProductOutputModel productsModel2 = new ProductOutputModel
             {
                 Id = 12,
                 Name = "12",
                 GroupId = 10
             };
             int groupId = 10;
-            List<ProductModel> expectedProductModels = new List<ProductModel> { productsModel1, productsModel2 };
+            List<ProductOutputModel> expectedProductModels = new List<ProductOutputModel> { productsModel1, productsModel2 };
 
             yield return new object[] { allProducts, expectedProductModels, groupId };
 
@@ -145,28 +145,28 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             productsDto2 = new ProductsDto();
             allProducts = new List<ProductsDto> { productsDto1, productsDto2 };
 
-            productsModel1 = new ProductModel
+            productsModel1 = new ProductOutputModel
             {
                 Id = 112,
                 Name = "112",
                 GroupId = 102
             };
-            productsModel2 = new ProductModel();
+            productsModel2 = new ProductOutputModel();
             groupId = 102;
-            expectedProductModels = new List<ProductModel> { productsModel1, productsModel2 };
+            expectedProductModels = new List<ProductOutputModel> { productsModel1, productsModel2 };
 
             yield return new object[] { allProducts, expectedProductModels, groupId };
 
             allProducts = new List<ProductsDto>();
             groupId = 1023;
-            expectedProductModels = new List<ProductModel>();
+            expectedProductModels = new List<ProductOutputModel>();
 
             yield return new object[] { allProducts, expectedProductModels, groupId };
         }
 
         public static IEnumerable UpdateProductTestCaseSource()
         {
-            ProductModel product = new ProductModel
+            ProductInputModel product = new ProductInputModel
             {
                 Id = 111,
                 Name = "111",
@@ -200,7 +200,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 
         public static IEnumerable UpdateProductTest_WhenProductIsNotExistTestCaseSource()
         {
-            ProductModel product = new ProductModel
+            ProductInputModel product = new ProductInputModel
             {
                 Id = 1112,
                 Name = "1112",
@@ -228,7 +228,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 
         public static IEnumerable UpdateProductTest_WhenProductIsDeletedTestCaseSource()
         {
-            ProductModel product = new ProductModel
+            ProductInputModel product = new ProductInputModel
             {
                 Id = 11123,
                 Name = "11123",
@@ -262,7 +262,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 
         public static IEnumerable UpdateProductTest_WhenGroupIsNotExistTestCaseSource()
         {
-            ProductModel product = new ProductModel
+            ProductInputModel product = new ProductInputModel
             {
                 Id = 111234,
                 Name = "111234",
@@ -292,7 +292,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 
         public static IEnumerable UpdateProductTest_WhenNameNotUnigue_ShouldExceptionTestCaseSource()
         {
-            ProductModel product = new ProductModel
+            ProductInputModel product = new ProductInputModel
             {
                 Id = 1112345,
                 Name = "1112345",
@@ -375,7 +375,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 
         public static IEnumerable RegistrateProductInStockTest_WhenAddNewProductTestCaseSource()
         {
-            StocksWithProductModel stockProductModel = new StocksWithProductModel
+            StocksWithProductInputModel stockProductModel = new StocksWithProductInputModel
             {
                 Name = "one",
                 ProductId = 1,
@@ -394,16 +394,21 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 GroupId = 10,
                 IsDeleted = false
             };
-            StocksDtoWithProductName getAmountByProductId = null;
-            bool resultOfAdd = true;
+            StocksDtoWithProductName getAmountByProductId = new StocksDtoWithProductName
+            {
+                Amount = 0,
+                Name = "one",
+                ProductId = 1
+            };
+            bool resultOfUpdate = true;
             bool expected = true;
 
-            yield return new object[] { stockProductDto, getProductDto, getAmountByProductId, resultOfAdd, expected, stockProductModel };
+            yield return new object[] { stockProductDto, getProductDto, getAmountByProductId, resultOfUpdate, expected, stockProductModel };
         }
 
         public static IEnumerable RegistrateProductInStockTest_WhenUpdateExistProductTestCaseSource()
         {
-            StocksWithProductModel stockProductModel = new StocksWithProductModel
+            StocksWithProductInputModel stockProductModel = new StocksWithProductInputModel
             {
                 Name = "two",
                 ProductId = 2,
@@ -442,7 +447,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 
         public static IEnumerable RegistrateProductInStockTest_WhenProductIsNotExistTestCaseSource()
         {
-            StocksWithProductModel stockProductModel = new StocksWithProductModel
+            StocksWithProductInputModel stockProductModel = new StocksWithProductInputModel
             {
                 Name = "one3",
                 ProductId = 13,
@@ -462,7 +467,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 
         public static IEnumerable RegistrateProductInStockTest_WhenAmountLessZeroTestCaseSource()
         {
-            StocksWithProductModel stockProductModel = new StocksWithProductModel
+            StocksWithProductInputModel stockProductModel = new StocksWithProductInputModel
             {
                 Name = "one34",
                 ProductId = 134,
@@ -488,7 +493,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 
         public static IEnumerable RegistrateProductInStockTest_WhenProductIsDeletedTestCaseSource()
         {
-            StocksWithProductModel stockProductModel = new StocksWithProductModel
+            StocksWithProductInputModel stockProductModel = new StocksWithProductInputModel
             {
                 Name = "one345",
                 ProductId = 1345,
@@ -528,16 +533,16 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 AverageScore = 2.7f
             };
 
-            FullProductModel expectedFullProductModel = new FullProductModel
+            FullProductOutputModel expectedFullProductModel = new FullProductOutputModel
             {
                 Id = 117,
                 Name = "117",
                 GroupId = 1107,
                 Amount = 1007,
-                Tags = new List<TagModel>
+                Tags = new List<TagOutputModel>
             {
-            new TagModel{ Id = 17, Name = "17"},
-            new TagModel{ Id = 27, Name = "27"}
+            new TagOutputModel{ Id = 17, Name = "17"},
+            new TagOutputModel{ Id = 27, Name = "27"}
             },
                 AverageScore = 2.7f
             };
@@ -547,7 +552,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 
 
             fullProductDto = new FullProductDto();
-            expectedFullProductModel = new FullProductModel { Tags = new ()} ;
+            expectedFullProductModel = new FullProductOutputModel { Tags = new() };
             productId = 9;
 
             yield return new object[] { productId, fullProductDto, expectedFullProductModel };
@@ -563,13 +568,13 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 AverageScore = 3
             };
 
-            expectedFullProductModel = new FullProductModel
+            expectedFullProductModel = new FullProductOutputModel
             {
                 Id = 1138,
                 Name = "1138",
                 GroupId = 11038,
                 Amount = 10038,
-                Tags = new List<TagModel>(),
+                Tags = new List<TagOutputModel>(),
                 AverageScore = 3
             };
             productId = 1138;
@@ -585,13 +590,13 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Tags = new List<TagDto>()
             };
 
-            expectedFullProductModel = new FullProductModel
+            expectedFullProductModel = new FullProductOutputModel
             {
                 Id = 11386,
                 Name = "11386",
                 GroupId = 110386,
                 Amount = 100386,
-                Tags = new List<TagModel>()
+                Tags = new List<TagOutputModel>()
             };
             productId = 11386;
 
@@ -615,25 +620,25 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             };
             List<FullProductDto> fullProductDtos = new List<FullProductDto> { fullProduct1 };
 
-            FullProductModel fullProductModel1 = new FullProductModel
+            FullProductOutputModel fullProductModel1 = new FullProductOutputModel
             {
                 Id = 15,
                 Name = "15",
                 GroupId = 105,
                 Amount = 1005,
                 AverageScore = 4.6f,
-                Tags = new List<TagModel>
+                Tags = new List<TagOutputModel>
                 {
-                new TagModel{ Id = 15, Name = "tag15"},
-                new TagModel{ Id = 25, Name = "tag25"}
+                new TagOutputModel{ Id = 15, Name = "tag15"},
+                new TagOutputModel{ Id = 25, Name = "tag25"}
                 }
             };
-            List<FullProductModel> expectedFullProductModels = new List<FullProductModel> { fullProductModel1 };
+            List<FullProductOutputModel> expectedFullProductModels = new List<FullProductOutputModel> { fullProductModel1 };
 
             yield return new object[] { fullProductDtos, expectedFullProductModels };
 
             fullProductDtos = new List<FullProductDto>();
-            expectedFullProductModels = new List<FullProductModel>();
+            expectedFullProductModels = new List<FullProductOutputModel>();
 
             yield return new object[] { fullProductDtos, expectedFullProductModels };
 
@@ -657,15 +662,15 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             FullProductDto fullProduct2 = new FullProductDto();
             fullProductDtos = new List<FullProductDto> { fullProduct1, fullProduct2 };
 
-            TagModel tagModel1 = new TagModel
+            TagOutputModel tagModel1 = new TagOutputModel
             {
                 Id = 116,
                 Name = "116"
             };
-            TagModel tagModel2 = new TagModel();
-            List<TagModel> tagModels = new List<TagModel> { tagModel1, tagModel2 };
+            TagOutputModel tagModel2 = new TagOutputModel();
+            List<TagOutputModel> tagModels = new List<TagOutputModel> { tagModel1, tagModel2 };
 
-            fullProductModel1 = new FullProductModel
+            fullProductModel1 = new FullProductOutputModel
             {
                 Id = 116,
                 Name = "116",
@@ -674,8 +679,8 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 AverageScore = 3f,
                 Tags = tagModels
             };
-            FullProductModel fullProductModel2 = new FullProductModel() { Tags = new() };
-            expectedFullProductModels = new List<FullProductModel> { fullProductModel1, fullProductModel2 };
+            FullProductOutputModel fullProductModel2 = new FullProductOutputModel() { Tags = new() };
+            expectedFullProductModels = new List<FullProductOutputModel> { fullProductModel1, fullProductModel2 };
 
             yield return new object[] { fullProductDtos, expectedFullProductModels };
 
@@ -694,20 +699,20 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             fullProduct2 = new FullProductDto();
             fullProductDtos = new List<FullProductDto> { fullProduct1, fullProduct2 };
 
-            fullProductModel1 = new FullProductModel
+            fullProductModel1 = new FullProductOutputModel
             {
                 Id = 154,
                 Name = "154",
                 GroupId = 1054,
                 Amount = 10054,
-                Tags = new List<TagModel>
+                Tags = new List<TagOutputModel>
                 {
-                new TagModel{ Id = 154, Name = "tag154"},
-                new TagModel{ Id = 254, Name = "tag254"}
+                new TagOutputModel{ Id = 154, Name = "tag154"},
+                new TagOutputModel{ Id = 254, Name = "tag254"}
                 }
             };
-            fullProductModel2 = new FullProductModel { Tags = new() };
-            expectedFullProductModels = new List<FullProductModel> { fullProductModel1, fullProductModel2 };
+            fullProductModel2 = new FullProductOutputModel { Tags = new() };
+            expectedFullProductModels = new List<FullProductOutputModel> { fullProductModel1, fullProductModel2 };
 
             yield return new object[] { fullProductDtos, expectedFullProductModels };
         }
@@ -734,7 +739,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             };
             List<ProductsStatisticDto> productsStatisticDtos = new List<ProductsStatisticDto> { productsStatistiDto1, productsStatistiDto2 };
 
-            ProductsStatisticModel productsStatisticModel1 = new ProductsStatisticModel
+            ProductsStatisticOutputModel productsStatisticModel1 = new ProductsStatisticOutputModel
             {
                 Id = 19,
                 Name = "19",
@@ -743,7 +748,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 CountOfClients = 7,
                 AverageScore = 3.5f
             };
-            ProductsStatisticModel productsStatisticModel2 = new ProductsStatisticModel
+            ProductsStatisticOutputModel productsStatisticModel2 = new ProductsStatisticOutputModel
             {
                 Id = 29,
                 Name = "29",
@@ -752,18 +757,18 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 CountOfClients = 5,
                 AverageScore = 4f
             };
-            List<ProductsStatisticModel> expectedProductsStatisticModels = new List<ProductsStatisticModel> { productsStatisticModel1, productsStatisticModel2 };
+            List<ProductsStatisticOutputModel> expectedProductsStatisticModels = new List<ProductsStatisticOutputModel> { productsStatisticModel1, productsStatisticModel2 };
 
             yield return new object[] { productsStatisticDtos, expectedProductsStatisticModels };
 
-            
+
             productsStatisticDtos = new List<ProductsStatisticDto>();
 
-            expectedProductsStatisticModels = new List<ProductsStatisticModel>();
+            expectedProductsStatisticModels = new List<ProductsStatisticOutputModel>();
 
             yield return new object[] { productsStatisticDtos, expectedProductsStatisticModels };
 
-            
+
             productsStatistiDto1 = new ProductsStatisticDto
             {
                 Id = 137,
@@ -776,7 +781,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             productsStatistiDto2 = new ProductsStatisticDto();
             productsStatisticDtos = new List<ProductsStatisticDto> { productsStatistiDto1, productsStatistiDto2 };
 
-            productsStatisticModel1 = new ProductsStatisticModel
+            productsStatisticModel1 = new ProductsStatisticOutputModel
             {
                 Id = 137,
                 Name = "137",
@@ -785,8 +790,8 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 CountOfClients = 130,
                 AverageScore = 3.9f
             };
-            productsStatisticModel2 = new ProductsStatisticModel();
-            expectedProductsStatisticModels = new List<ProductsStatisticModel> { productsStatisticModel1, productsStatisticModel2 };
+            productsStatisticModel2 = new ProductsStatisticOutputModel();
+            expectedProductsStatisticModels = new List<ProductsStatisticOutputModel> { productsStatisticModel1, productsStatisticModel2 };
 
             yield return new object[] { productsStatisticDtos, expectedProductsStatisticModels };
 
@@ -802,8 +807,8 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             };
             productsStatisticDtos = new List<ProductsStatisticDto> { productsStatistiDto1, productsStatistiDto2 };
 
-            productsStatisticModel1 = new ProductsStatisticModel();
-            productsStatisticModel2 = new ProductsStatisticModel
+            productsStatisticModel1 = new ProductsStatisticOutputModel();
+            productsStatisticModel2 = new ProductsStatisticOutputModel
             {
                 Id = 246,
                 Name = "246",
@@ -812,7 +817,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 CountOfClients = 246,
                 AverageScore = null
             };
-            expectedProductsStatisticModels = new List<ProductsStatisticModel> { productsStatisticModel1, productsStatisticModel2 };
+            expectedProductsStatisticModels = new List<ProductsStatisticOutputModel> { productsStatisticModel1, productsStatisticModel2 };
 
             yield return new object[] { productsStatisticDtos, expectedProductsStatisticModels };
 
@@ -823,12 +828,12 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             };
             productsStatisticDtos = new List<ProductsStatisticDto> { productsStatistiDto1 };
 
-            productsStatisticModel1 = new ProductsStatisticModel
+            productsStatisticModel1 = new ProductsStatisticOutputModel
             {
                 Id = 152,
                 Name = "152"
             };
-            expectedProductsStatisticModels = new List<ProductsStatisticModel> { productsStatisticModel1 };
+            expectedProductsStatisticModels = new List<ProductsStatisticOutputModel> { productsStatisticModel1 };
 
             yield return new object[] { productsStatisticDtos, expectedProductsStatisticModels };
         }

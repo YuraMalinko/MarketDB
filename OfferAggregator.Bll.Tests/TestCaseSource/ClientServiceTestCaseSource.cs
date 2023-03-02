@@ -26,15 +26,15 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 }
             };
 
-            List<ClientOutput> expected = new List<ClientOutput>()
+            List<ClientOutputModel> expected = new List<ClientOutputModel>()
             {
-                new ClientOutput()
+                new ClientOutputModel()
                 {
                 Id = 13,
                 Name = "Kevin",
                 PhoneNumber = "38286387"
                 },
-                new ClientOutput()
+                new ClientOutputModel()
                 {
                 Id = 13,
                 Name = "Kevin",
