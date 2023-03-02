@@ -49,11 +49,6 @@ namespace OfferAggregator.Bll
                     cfg.CreateMap<ClientsDto, ClientOutputModel>();
                     cfg.CreateMap<OrderDto, OrderOutputModel>();
                     cfg.CreateMap<ClientOutputModel, ClientsDto>();
-                    cfg.CreateMap<ClientModel, ClientsDto>();
-                    cfg.CreateMap<CommentForOrderModel, CommenForOrderDto>();
-                    cfg.CreateMap<CommentForClientModel, CommentForClientDto>();
-                    cfg.CreateMap<ProductsStatisticDto, ProductsStatisticModel>();
-                    cfg.CreateMap<ClientsDto, ClientOutput>();
                     cfg.CreateMap<GroupDto, GroupOutput>();
                     //cfg.CreateMap<ComboTagGroupDto, ComboTagGroupOutputModel>();
                     cfg.CreateMap<ComboTagGroupDto, ComboTagGroupOutputModel>()
@@ -66,8 +61,8 @@ namespace OfferAggregator.Bll
         private int CalcPointForAvgScore(ComboTagGroupDto combo)
         {
             double[] limitScoreForCombo = new double[] { 1.9, 2.9, 3.5, 4.5, 5 };
-            int[] pointsFor�omboWithTag = new int[] { -30, -20, 0, 10, 20 };
-            int[] pointsFor�omboWithoutTag = new int[] { -20, -10, 0, 5, 10 };
+            int[] pointsForComboWithTag = new int[] { -30, -20, 0, 10, 20 };
+            int[] pointsForComboWithoutTag = new int[] { -20, -10, 0, 5, 10 };
             int result = -100;
             int j = 0;
 
@@ -78,7 +73,7 @@ namespace OfferAggregator.Bll
                 {
                     if (combo.AvgScore <= limitScoreForCombo[i])
                     {
-                        result = pointsFor�omboWithoutTag[j];
+                        result = pointsForComboWithoutTag[j];
                         break;
                     }
 
@@ -93,7 +88,7 @@ namespace OfferAggregator.Bll
                 {
                     if (combo.AvgScore <= limitScoreForCombo[i])
                     {
-                        result = pointsFor�omboWithTag[j];
+                        result = pointsForComboWithTag[j];
                         break;
                     }
 

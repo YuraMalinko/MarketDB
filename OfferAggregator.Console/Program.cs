@@ -11,9 +11,9 @@ ClientsWishesRepository _clientsWishesRepository = new ClientsWishesRepository()
 CommentForClientRepository _commentForClientRepository = new CommentForClientRepository();
 OrderRepository _orderRepository = new OrderRepository();
 
-ClientService clt = new ClientService(_clientRepository, _clientsWishesRepository, _commentForClientRepository, _orderRepository);
+ClientService clt = new ClientService(_clientRepository);
 
-ClientsOutputModel newclt = new ClientsOutputModel() { Id = 352, Name = "Kevin", PhoneNumber = "38286387" };
+ClientOutputModel newclt = new ClientOutputModel() { Id = 352, Name = "Kevin", PhoneNumber = "38286387" };
 
 //var ccc = clt.AddClient(newclt);
 
