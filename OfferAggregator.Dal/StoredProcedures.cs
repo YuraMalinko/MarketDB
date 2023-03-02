@@ -155,5 +155,7 @@ namespace OfferAggregator.Dal
         public const string GetClientByPhoneNumber = "GetClientByPhoneNumber";
         
         public const string GetCommentsForClientById = "GetCommentsForClientById";
+
+        public const string GetGroupTagCountProductsCountOrders = "GetGroupTagCountProductsCountOrders";
     }
 }
