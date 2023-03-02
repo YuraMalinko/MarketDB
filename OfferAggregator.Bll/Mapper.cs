@@ -1,6 +1,7 @@
 using AutoMapper;
 using OfferAggregator.Bll.Models;
 using OfferAggregator.Dal.Models;
+using OfferAggregator.Dal.Repositories;
 using System.Text.RegularExpressions;
 
 namespace OfferAggregator.Bll
@@ -52,18 +53,17 @@ namespace OfferAggregator.Bll
                     cfg.CreateMap<ClientsDto, ClientOutputModel>();
                     cfg.CreateMap<OrderDto, OrderOutputModel>();
                     cfg.CreateMap<ClientOutputModel, ClientsDto>();
-                    cfg.CreateMap<ComboTagGroupDto, ComboTagGroupOutputModel>()
-                    .ForMember(output => output.PointForCombo, otp => otp.MapFrom(dto => +CalcPointForAvgScore(dto)));
+                    cfg.CreateMap<ComboTagGroupDto, ComboTagGroupOutputModel>();
                 });
 
             _mapper = _configuration.CreateMapper();
         }
 
-        private int CalcPointForAvgScore(ComboTagGroupDto combo)
+        private int CalcPointForAvgScore(ComboTagGroupDto combo, int pointForCombo)
         {
             double[] limitScoreForCombo = new double[] { 1.9, 2.9, 3.5, 4.5, 5 };
-            int[] pointsForComboWithTag = new int[] { -30, -20, 0, 10, 20 };
-            int[] pointsForComboWithoutTag = new int[] { -20, -10, 0, 5, 10 };
+            int[] insertsForComboWithTag = new int[] { -30, -20, 0, 10, 20 };
+            int[] insertsForComboWithoutTag = new int[] { -20, -10, 0, 5, 10 };
             int result = -100;
             int j = 0;
 
@@ -74,7 +74,7 @@ namespace OfferAggregator.Bll
                 {
                     if (combo.AvgScore <= limitScoreForCombo[i])
                     {
-                        result = pointsForComboWithoutTag[j];
+                        result = (pointForCombo * insertsForComboWithoutTag[j]) / 100;
                         break;
                     }
 
@@ -89,7 +89,7 @@ namespace OfferAggregator.Bll
                 {
                     if (combo.AvgScore <= limitScoreForCombo[i])
                     {
-                        result = pointsForComboWithTag[j];
+                        result = (pointForCombo * insertsForComboWithTag[j]) / 100;
                         break;
                     }
 
@@ -98,6 +98,13 @@ namespace OfferAggregator.Bll
 
                 return result;
             }
+        }
+
+
+
+        public int CalcPointForOrders()
+        {
+            return 100;
         }
 
         public static Mapper GetInstance()
@@ -236,7 +243,14 @@ namespace OfferAggregator.Bll
 
         public List<ComboTagGroupOutputModel> MapComboTagGroupDtoToComboTagGroupOutputModel(List<ComboTagGroupDto> combinations)
         {
-            return _mapper.Map<List<ComboTagGroupOutputModel>>(combinations);
+            List<ComboTagGroupOutputModel> result = _mapper.Map<List<ComboTagGroupOutputModel>>(combinations);
+
+            for (int i = 0; i < combinations.Count; i++)
+            {
+                result[i].PointForCombo += CalcPointForAvgScore(combinations[i], result[i].PointForCombo);
+            }
+
+            return result;
         }
     }
 }
