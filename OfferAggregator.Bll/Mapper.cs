@@ -1,6 +1,7 @@
 using AutoMapper;
 using OfferAggregator.Bll.Models;
 using OfferAggregator.Dal.Models;
+using System.Text.RegularExpressions;
 
 namespace OfferAggregator.Bll
 {
@@ -9,6 +10,8 @@ namespace OfferAggregator.Bll
         private MapperConfiguration _configuration;
 
         private IMapper _mapper;
+
+        public IMapper IMapper => _mapper;
 
         private static Mapper _instanceMapper;
 
@@ -235,6 +238,5 @@ namespace OfferAggregator.Bll
         {
             return _mapper.Map<List<ComboTagGroupOutputModel>>(combinations);
         }
-
     }
 }

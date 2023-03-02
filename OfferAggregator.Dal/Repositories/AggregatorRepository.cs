@@ -5,7 +5,7 @@ using System.Data;
 
 namespace OfferAggregator.Dal.Repositories
 {
-    public class AggregatorRepository:IAggregatorRepository
+    public class AggregatorRepository : IAggregatorRepository
     {
         public List<ComboTagGroupDto> GetAvgScoreGroupeAndTagOnProductsReviewsByClientId(int id)
         {
@@ -38,7 +38,7 @@ namespace OfferAggregator.Dal.Repositories
 
                         return combo;
                     },
-                    new {id},
+                    new { id },
                     splitOn: "Id",
                     commandType: CommandType.StoredProcedure).ToList();
 
@@ -46,5 +46,30 @@ namespace OfferAggregator.Dal.Repositories
             }
         }
 
+        public List<ComboTagGroupCountProductCountOrderDto> GetGroupTagCountProductsCountOrdersByClientId(int clientId)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                List<ComboTagGroupCountProductCountOrderDto> result = new();
+                ComboTagGroupCountProductCountOrderDto row = new();
+                sqlCnctn.Open();
+                sqlCnctn.Query<ComboTagGroupCountProductCountOrderDto, GroupDto, TagDto, ComboTagGroupCountProductCountOrderDto>(
+                    StoredProcedures.GetGroupTagCountProductsCountOrdersByClientId,
+                    (combo, group, tag) =>
+                    {
+                        row = combo;
+                        row.Group = group;
+                        row.Tag = tag;
+                        result.Add(row);
+
+                        return combo;
+                    },
+                    new { clientId},
+                    splitOn: "Id",
+                    commandType: CommandType.StoredProcedure);
+
+                return result;
+            }
+        }
     }
 }

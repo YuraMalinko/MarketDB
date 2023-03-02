@@ -10,5 +10,7 @@ namespace OfferAggregator.Dal.Repositories
     public interface IAggregatorRepository
     {
         public List<ComboTagGroupDto> GetAvgScoreGroupeAndTagOnProductsReviewsByClientId(int id);
+
+        public List<ComboTagGroupCountProductCountOrderDto> GetGroupTagCountProductsCountOrdersByClientId(int clientId);
     }
 }

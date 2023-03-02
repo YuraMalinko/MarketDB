@@ -1,8 +1,10 @@
-﻿  CREATE PROCEDURE [dbo].[GetGroupTagCountProductsCountOrders]						
+﻿CREATE PROCEDURE [dbo].[GetGroupTagCountProductsCountOrdersByClientId]
+@clientId int
   AS						
   SELECT 
-  T.[Id], T.[Name], G.[Id], G.[Name], 
-  SUM(OP.[CountProduct]) AS CountProduct, COUNT(DISTINCT OP.[OrderId]) AS CountOrder
+  SUM(OP.[CountProduct]) AS CountProducts, 
+  COUNT(DISTINCT OP.[OrderId]) AS CountOrders,
+  T.[Id], T.[Name], G.[Id], G.[Name]
   FROM [dbo].[TagsProducts] AS TP						
   INNER JOIN [dbo].[Tags] AS T ON						
   TP.[TagId] = T.[Id] AND T.[IsDeleted] = 0						
@@ -14,4 +16,7 @@
   OP.[ProductId] = P.[Id]
   INNER JOIN  [dbo].[Orders] AS O ON
   O.[Id] = OP.[OrderId] AND O.[IsDeleted] = 0
+  INNER JOIN [dbo].[Clients] AS C ON
+  O.[ClientId]=C.[Id] AND C.[IsDeleted] =0
+  WHERE O.[ClientId] = @clientId
   GROUP BY T.[Id], T.[Name], G.[Id], G.[Name]
