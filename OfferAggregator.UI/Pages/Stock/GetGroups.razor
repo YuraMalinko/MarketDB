@@ -11,7 +11,7 @@
 <div style="display:flex; flex-direction:row; width: 800px;">
     <div style="width: 800px;">
         <div>
-            <AddGroup OnGroupCreated="OnDataChange" />
+            <AddGroup OnGroupCreated="OnDataChanged"/>
         </div>
 
         <div>
@@ -34,7 +34,7 @@
     </div>
 
     <div style="padding-left:50px;">
-        <UpdateAndDeleteGroup OnGroupUpdated="OnDataChange" OnGroupDeleted="OnDataDeletedChange" />
+        <UpdateAndDeleteGroup OnDataChanged="OnDataChanged" @ref="_updateAndDeleteGroup" />
     </div>
 </div>
 
@@ -43,7 +43,9 @@
 
     private List<GroupOutputModel> _groups = new();
 
-    private List<GroupOutputModel> _groupsWithoutProducts = new();
+   // private AddGroup _addGroup;
+
+    private UpdateAndDeleteGroup _updateAndDeleteGroup;
 
     protected override void OnInitialized()
     {
@@ -57,13 +59,9 @@
         _groups = _productService.GetAllGroups();
     }
 
-    private void OnDataChange()
+    private void OnDataChanged()
     {
         _groups = _productService.GetAllGroups();
-    }
-
-    private void OnDataDeletedChange()
-    {
-        _groupsWithoutProducts = _productService.GetGroupsWithoutProducts();
+        _updateAndDeleteGroup.Update();
     }
 }

@@ -54,11 +54,11 @@
     Выберите такую группу из списка ниже и нажмите кнопку "Удалить"
 </div>
 
-<EditForm Model="@_deleteGroup" OnValidSubmit="@DeleteGroup">
+<EditForm Model="@_deleteGroupId" OnValidSubmit="@DeleteGroup">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
-    <InputSelect id="groupId" @bind-Value="_deleteGroup.Id">
+    <InputSelect id="groupId" @bind-Value="_deleteGroupId">
         @foreach (var group in _groupsWithoutProducts.OrderBy(g => g.Name))
         {
             if (group != null)
@@ -71,7 +71,7 @@
     <button class="button-submit" style="margin-top: 10px; " type="submit">Удалить группу</button>
 
     <div class="pop-up-success-message">
-        @if (_isUpdated)
+        @if (_isDeleted)
         {
             <span>Группа удалена</span>
         }
@@ -87,13 +87,9 @@
 }
 
 @code {
-    // public int _deleteGroupId;
 
     [Parameter]
-    public EventCallback OnGroupUpdated { get; set; }
-
-    [Parameter]
-    public EventCallback OnGroupDeleted { get; set; }
+    public EventCallback OnDataChanged { get; set; }
 
     private ProductService _productService;
 
@@ -103,9 +99,7 @@
 
     private GroupInputModel _updateGroup;
 
-    private GroupInputModel _deleteGroup;
-
-    //private List<ProductOutputModel> _productsInGroup = new();
+    private int _deleteGroupId;
 
     private string _errorMessage;
 
@@ -113,24 +107,35 @@
 
     private Timer _timerUpdated;
 
+    private bool _isDeleted;
+
+    private Timer _timerDeleted;
 
     protected override void OnInitialized()
     {
         _productService = new ProductService(
-            new ProductsRepository(),
+        new ProductsRepository(),
         new ProductsReviewsAndStocksRepository(),
         new TagsRepository(),
         new GroupRepository(),
         new ClientRepository());
 
-        _groups = _productService.GetAllGroups();
-        _groupsWithoutProducts = _productService.GetGroupsWithoutProducts();
+        Update();
         _updateGroup = new();
-        _deleteGroup = new();
         _isUpdated = false;
         _timerUpdated = new Timer();
         _timerUpdated.Interval = 3000;
         _timerUpdated.Elapsed += StopShowingUpdated;
+        _isDeleted = false;
+        _timerDeleted = new Timer();
+        _timerDeleted.Interval = 3000;
+        _timerDeleted.Elapsed += StopShowingDeleted;
+    }
+
+    public void Update()
+    {
+        _groups = _productService.GetAllGroups();
+        _groupsWithoutProducts = _productService.GetGroupsWithoutProducts();
     }
 
     private void UpdateGroup()
@@ -143,7 +148,7 @@
                 _errorMessage = string.Empty;
                 _isUpdated = true;
                 _timerUpdated.Start();
-                OnGroupUpdated.InvokeAsync();
+                OnDataChanged.InvokeAsync();
             }
         }
         catch (ArgumentException ex)
@@ -169,10 +174,12 @@
     {
         try
         {
-            if (_deleteGroup != null && _deleteGroup.Id != 0)
+            if (_deleteGroupId != 0)
             {
-                _productService.DeleteGroup(_deleteGroup.Id);
-                OnGroupDeleted.InvokeAsync();
+                _productService.DeleteGroup(_deleteGroupId);
+                _isDeleted = true;
+                _timerDeleted.Start();
+                OnDataChanged.InvokeAsync();
             }
         }
         catch (Exception ex)
@@ -188,28 +195,10 @@
         _timerUpdated.Stop();
     }
 
-    //private void OnGroupValueChange(int value)
-    //{
-    //    _deleteGroup.Id = value;
-    //    GetProductsByGroupId();
-    //}
-
-    //private void GetProductsByGroupId()
-    //{
-    //    try
-    //    {
-    //        if (_deleteGroup != null && _deleteGroup.Id != 0)
-    //        {
-    //            _productsInGroup = _productService.GetAllProductsByGroupId(_deleteGroup.Id);
-    //        }
-    //        else
-    //        {
-    //            _deleteGroup = null;
-    //        }
-    //    }
-    //    catch (Exception ex)
-    //    {
-    //        _deleteGroup = null;
-    //    }
-    //}
+    private async void StopShowingDeleted(object sender, ElapsedEventArgs args)
+    {
+        _isDeleted = false;
+        await InvokeAsync(StateHasChanged);
+        _timerDeleted.Stop();
+    }
 }

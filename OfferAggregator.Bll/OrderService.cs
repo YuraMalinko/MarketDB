@@ -46,52 +46,6 @@ namespace OfferAggregator.Bll
             _productsReviewsAndStocksRepository = productsReviewsAndStocksRepository;
         }
 
-        //public int CreateNewOrder(CreatingOrderInputModel creatingOrderModel)
-        //{
-        //    try
-        //    {
-        //        if (CheckManager(creatingOrderModel.Order.ManagerId)
-        //             && CheckClient(creatingOrderModel.Order.ClientId)
-        //             && creatingOrderModel.Order.DateCreate < creatingOrderModel.Order.ComplitionDate
-        //             && CheckProduct(creatingOrderModel.Products)
-        //             && CheckAmountsListProducts(creatingOrderModel.Products))
-        //        {
-        //            CreatingOrderDto creatingOrderDto = _instanceMapper.MapCreatingOrderModelToCreatingOrderDto(creatingOrderModel);
-        //            int addOrder = _orderRepository.AddOrder(creatingOrderDto.Order);
-
-        //            if (creatingOrderDto.CommentsForOrder != null)
-        //            {
-        //                AddCommentsForOrder(creatingOrderDto.CommentsForOrder, addOrder);
-        //            }
-
-        //            if (creatingOrderDto.CommentsForClient != null)
-        //            {
-        //                AddCommentsForClient(creatingOrderDto.CommentsForClient);
-        //            }
-
-        //            if (creatingOrderModel.Products != null)
-        //            {
-        //                foreach (var crnt in creatingOrderModel.Products)
-        //                {
-        //                    UpdateAmountProductOnStock(crnt.Count, crnt.Id, crnt.Name);
-        //                    AddProductDto(addOrder, crnt.Id, crnt.Count);
-        //                }
-        //            }
-
-        //            return addOrder;
-        //        }
-        //        else
-        //        {
-        //            return -1;
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return -1;
-        //    }
-        //}
-
-
         public int CreateNewOrder(CreatingOrderInputModel creatingOrderModel)
         {
             if (!CheckManager(creatingOrderModel.Order.ManagerId))

@@ -40,6 +40,9 @@
 </div>
 
 @code {
+    [Parameter]
+    public EventCallback OnGroupCreated { get; set; }
+
     private ProductService _productService;
 
     private GroupInputModel _addGroup;
@@ -49,9 +52,6 @@
     private bool _isCreated;
 
     private Timer _timer;
-
-    [Parameter]
-    public EventCallback OnGroupCreated { get; set; }
 
     protected override void OnInitialized()
     {
