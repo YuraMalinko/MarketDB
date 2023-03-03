@@ -51,6 +51,7 @@
     }
 </EditForm>
 
+<br />
 <div style="padding-top:10px; padding-bottom:10px; padding-left:5px; font-size:25px;">
     Удаление группы
 </div>
@@ -75,7 +76,7 @@
         }
     </InputSelect>
 
-    @if (_productsInGroup.Count > 0)
+    @if (_productsInGroup != null && _productsInGroup.Count > 0)
     {
         <table>
             @foreach (var product in _productsInGroup.OrderBy(p => p.Name))
@@ -89,6 +90,12 @@
             }
         </table>
     }
+    else if (_productsInGroup != null && _productsInGroup.Count == 0)
+    {
+        <div>У выбранной группы отсутствуют товары, Вы можете ее удалить</div>
+    }
+
+    <button class="button-submit" style="margin-top: 10px; " type="submit">Удалить группу</button>
 
 </EditForm>
 
@@ -98,6 +105,9 @@
 
     [Parameter]
     public EventCallback OnGroupUpdated { get; set; }
+
+    [Parameter]
+    public EventCallback OnGroupDeleted { get; set; }
 
     private ProductService _productService;
 
@@ -149,7 +159,16 @@
         }
         catch (ArgumentException ex)
         {
-            _errorMessage = "";
+            switch (ex.Message)
+            {
+                case "Group is not exist":
+                    _errorMessage = "Такой группы не существует";
+                    break;
+
+                case "The same group is already exists":
+                    _errorMessage = "Группа с введенным Вами названием уже существует";
+                    break;
+            }
         }
         catch (Exception ex)
         {
@@ -159,10 +178,22 @@
 
     private void DeleteGroup()
     {
-        //try
-        //{
-        //    _productService.DeleteGroup();
-        //}
+        try
+        {
+            if ((_productsInGroup != null && _productsInGroup.Count == 0))
+            {
+                _productService.DeleteGroup(_deleteGroup.Id);
+                OnGroupDeleted.InvokeAsync();
+            }
+            else
+            {
+                _errorMessage = "Вы не можете удалить выбранную группу, поскольку она привязана к товарам";
+            }
+        }
+        catch (ArgumentException ex)
+        {
+            
+        }
     }
 
     private async void StopShowingUpdated(object sender, ElapsedEventArgs args)

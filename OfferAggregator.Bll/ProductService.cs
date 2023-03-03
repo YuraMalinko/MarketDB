@@ -518,6 +518,16 @@ namespace OfferAggregator.Bll
 
         public bool UpdateGroup(GroupInputModel groupModel)
         {
+            if (!CheckGroupIsExist(groupModel.Id))
+            {
+                throw new ArgumentException("Group is not exist");
+            }
+
+            if (!CheckGroupNameIsUnique(groupModel.Name))
+            {
+                throw new ArgumentException("The same group is already exists");
+            }
+
             var groupDto = _instanceMapper.MapGroupInputModelToGroupDto(groupModel);
             var result = _groupRepository.UpdateGroup(groupDto);
 
