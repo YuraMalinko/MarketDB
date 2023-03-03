@@ -327,11 +327,11 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 
 
             yield return new object[] { creatingOrderModel, getClient, creatingOrderDto, addOrder, addCommentForOrder, addCommentForClient,crntProductModel1, crntProductModel2,
-                                          getProductById, ordersProductsDto1, ordersProductsDto2, addProductToOrder, expected, getManager, getAmountProductOnStock1, 
+                                          getProductById, ordersProductsDto1, ordersProductsDto2, addProductToOrder, expected, getManager, getAmountProductOnStock1,
                                           getAmountProductOnStock2, stockProduct1, stockProduct2 };
         }
 
-        public static IEnumerable CreateNewOrderWithOneProduct_WhenManagerIsNotExistTestCaseSource()
+        public static IEnumerable CreateNewOrderWithOneProduct_WhenManagerIsNotExist_ShouldBeArgumentExceptionTestCaseSource()
         {
             DateTime dateCreate = new DateTime(2023, 11, 01, 11, 10, 00);
             DateTime complitionDate = new DateTime(2023, 12, 02, 12, 45, 00);
@@ -386,7 +386,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             yield return new object[] { creatingOrderModel, getClient, getManager, expected };
         }
 
-        public static IEnumerable CreateNewOrderWithOneProduct_WhenClientIsNotExistTestCaseSource()
+        public static IEnumerable CreateNewOrderWithOneProduct_WhenClientIsNotExist_ShouldBeArgumentExceptionTestCaseSource()
         {
             DateTime dateCreate = new DateTime(2020, 07, 15, 11, 10, 49);
             DateTime complitionDate = new DateTime(2021, 01, 01, 12, 00, 00);
@@ -441,7 +441,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
             yield return new object[] { creatingOrderModel, getClient, getManager, expected };
         }
 
-        public static IEnumerable CreateNewOrderWithOneProduct_WhenComplitionDateEarlierThenDateCreateTestCaseSource()
+        public static IEnumerable CreateNewOrderWithOneProduct_WhenComplitionDateEarlierThenDateCreate_ShouldBeArgumentExceptionTestCaseSource()
         {
             DateTime dateCreate = new DateTime(2022, 07, 15, 12, 15, 49);
             DateTime complitionDate = new DateTime(2022, 07, 05, 12, 00, 00);
@@ -496,9 +496,27 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Login = "OneMan2345",
                 Password = "1112345"
             };
-            int expected = -1;
 
-            yield return new object[] { creatingOrderModel, getClient, getManager, expected };
+            StocksDtoWithProductName stockProduct = new StocksDtoWithProductName
+            {
+                Amount = 130000,
+                Name = "product12345",
+                ProductId = 12345
+            };
+
+            ProductInputModel crntProductModel = new ProductInputModel
+            {
+                Id = 12345,
+                Name = "product12345"
+            };
+
+            ProductsDto getProductById = new ProductsDto
+            {
+                Id = 12345,
+                Name = "product12345"
+            };
+
+            yield return new object[] { creatingOrderModel, getClient, getManager, stockProduct, crntProductModel, getProductById };
         }
 
         public static IEnumerable CreateNewOrderWithOneProduct_WhenCommentsForOrderIsNullTestCaseSource()
@@ -633,7 +651,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Amount = 953
             };
 
-            yield return new object[] { creatingOrderModel, getClient, creatingOrderDto, addOrder, addCommentForClient,crntProductModel, getProductById, 
+            yield return new object[] { creatingOrderModel, getClient, creatingOrderDto, addOrder, addCommentForClient,crntProductModel, getProductById,
                                          ordersProductsDto, addProductToOrder, expected, getManager, getAmountProductOnStock, stockProduct };
         }
 
@@ -774,7 +792,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                                          ordersProductsDto, addProductToOrder, expected, getManager, getAmountProductOnStock, stockProduct };
         }
 
-        public static IEnumerable CreateNewOrderWithOneProduct_WhenProductIsNotExistTestCaseSource()
+        public static IEnumerable CreateNewOrderWithOneProduct_WhenProductIsNotExist_ShouldBeArgumentExceptionTestCaseSource()
         {
             DateTime dateCreate = new DateTime(2022, 11, 01, 00, 11, 11);
             DateTime complitionDate = new DateTime(2023, 12, 27, 02, 17, 00);
@@ -893,14 +911,13 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Login = "OneMan4787",
                 Password = "11147877"
             };
-            int expected = -1;
 
             yield return new object[] { creatingOrderModel, getClient, creatingOrderDto,
                                        addOrder, addCommentForClient, crntProductModel, addCommentForOrder,
-                                       getProductById, expected, getManager };
+                                       getProductById, getManager };
         }
 
-        public static IEnumerable CreateNewOrderWithOneProduct_WhenAmountOnStockLessThenAmountProductInOrderTestCaseSource()
+        public static IEnumerable CreateNewOrderWithOneProduct_WhenAmountOnStockLessThenAmountProductInOrder_ShouldBeArgumentExceptionTestCaseSource()
         {
             DateTime dateCreate = new DateTime(2023, 11, 01, 05, 11, 11);
             DateTime complitionDate = new DateTime(2023, 12, 01, 02, 17, 00);
@@ -1023,7 +1040,6 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
                 Login = "OneMan47870",
                 Password = "111478770"
             };
-            int expected = -1;
             StocksDtoWithProductName getAmountProductOnStock = new StocksDtoWithProductName
             {
                 ProductId = 147870,
@@ -1033,7 +1049,7 @@ namespace OfferAggregator.Bll.Tests.TestCaseSource
 
             yield return new object[] { creatingOrderModel, getClient, creatingOrderDto,
                                        addOrder, addCommentForClient, crntProductModel, addCommentForOrder,
-                                       getProductById, expected, getManager, getAmountProductOnStock };
+                                       getProductById, getManager, getAmountProductOnStock };
         }
     }
 }

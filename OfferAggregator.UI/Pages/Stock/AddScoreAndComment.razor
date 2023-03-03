@@ -57,6 +57,9 @@
     [Parameter]
     public int ProductId { get; set; }
 
+    [Parameter]
+    public EventCallback OnReviewAdded { get; set; }
+
     private ProductReviewInputModel _updateProductReview;
 
     private ProductService _productService;
@@ -73,8 +76,6 @@
 
     private Timer _timer;
 
-    [Parameter]
-    public EventCallback OnReviewAdded { get; set; }
 
     protected override void OnInitialized()
     {

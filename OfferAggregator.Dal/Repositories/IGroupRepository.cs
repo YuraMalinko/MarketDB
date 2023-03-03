@@ -14,6 +14,6 @@ namespace OfferAggregator.Dal.Repositories
 
         public bool DeleteGroup(int id);
 
-        public List<ProductsDto> GetAllProductsByGroupIdWitchExist(int groupId);
+        public List<GroupDto> GetGroupsWithoutProducts();
     }
 }

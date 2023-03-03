@@ -546,14 +546,10 @@ namespace OfferAggregator.Bll
             return result;
         }
 
-        public List<ProductOutputModel> GetAllProductsByGroupIdWitchExist(int groupId)
+        public List<GroupOutputModel> GetGroupsWithoutProducts()
         {
-            if (!CheckGroupIsExist(groupId))
-            {
-                throw new ArgumentException("Group is not exist");
-            }
-            List<ProductsDto> allProducts = _groupRepository.GetAllProductsByGroupIdWitchExist(groupId);
-            var result = _instanceMapper.MapProductsDtosToProductOutputModels(allProducts);
+            var groups = _groupRepository.GetGroupsWithoutProducts();
+            var result = _instanceMapper.MapGroupDtosToGroupModels(groups);
 
             return result;
         }

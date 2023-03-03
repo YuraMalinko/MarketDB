@@ -34,7 +34,7 @@
     </div>
 
     <div style="padding-left:50px;">
-        <UpdateAndDeleteGroup OnGroupUpdated="OnDataChange" OnGroupDeleted="OnDataChange" />
+        <UpdateAndDeleteGroup OnGroupUpdated="OnDataChange" OnGroupDeleted="OnDataDeletedChange" />
     </div>
 </div>
 
@@ -42,6 +42,8 @@
     private ProductService _productService;
 
     private List<GroupOutputModel> _groups = new();
+
+    private List<GroupOutputModel> _groupsWithoutProducts = new();
 
     protected override void OnInitialized()
     {
@@ -58,5 +60,10 @@
     private void OnDataChange()
     {
         _groups = _productService.GetAllGroups();
+    }
+
+    private void OnDataDeletedChange()
+    {
+        _groupsWithoutProducts = _productService.GetGroupsWithoutProducts();
     }
 }

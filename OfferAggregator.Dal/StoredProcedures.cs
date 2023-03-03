@@ -164,6 +164,6 @@ namespace OfferAggregator.Dal
 
         public const string DeleteGroup = "DeleteGroup";
 
-        public const string GetAllProductsByGroupIdWitchExist = "GetAllProductsByGroupIdWitchExist";
+        public const string GetGroupsWithoutProducts = "GetGroupsWithoutProducts";
     }
 }

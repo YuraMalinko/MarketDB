@@ -42,13 +42,7 @@
             <span>Наименование группы изменено</span>
         }
     </div>
-
-    @if (!string.IsNullOrEmpty(_errorMessage))
-    {
-        <div class="error-message">
-            @_errorMessage
-        </div>
-    }
+     
 </EditForm>
 
 <br />
@@ -57,17 +51,15 @@
 </div>
 <div style="width:400px; padding-bottom: 10px;">
     Группу можно удалить только в том случае, если к ней не привязан ни один товар.
-    Выберите группу из списка ниже и посмотрите количество связанных товаров.
-    Если товары отсутствуют, то нажмите кнопку "Удалить"
+    Выберите такую группу из списка ниже и нажмите кнопку "Удалить"
 </div>
+
 <EditForm Model="@_deleteGroup" OnValidSubmit="@DeleteGroup">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
-    <InputSelect TValue="int" ValueExpression="@(() => _deleteGroup.Id)"
-                 Value="@_deleteGroup.Id"
-                 ValueChanged="@OnGroupValueChange">
-        @foreach (var group in _groups.OrderBy(g => g.Name))
+    <InputSelect id="groupId" @bind-Value="_deleteGroup.Id">
+        @foreach (var group in _groupsWithoutProducts.OrderBy(g => g.Name))
         {
             if (group != null)
             {
@@ -76,29 +68,23 @@
         }
     </InputSelect>
 
-    @if (_productsInGroup != null && _productsInGroup.Count > 0)
-    {
-        <table>
-            @foreach (var product in _productsInGroup.OrderBy(p => p.Name))
-            {
-                if (product != null)
-                {
-                    <tr>
-                        <td>@product.Name</td>
-                    </tr>
-                }
-            }
-        </table>
-    }
-    else if (_productsInGroup != null && _productsInGroup.Count == 0)
-    {
-        <div>У выбранной группы отсутствуют товары, Вы можете ее удалить</div>
-    }
-
     <button class="button-submit" style="margin-top: 10px; " type="submit">Удалить группу</button>
+
+    <div class="pop-up-success-message">
+        @if (_isUpdated)
+        {
+            <span>Группа удалена</span>
+        }
+    </div>
 
 </EditForm>
 
+@if (!string.IsNullOrEmpty(_errorMessage))
+{
+    <div class="error-message">
+        @_errorMessage
+    </div>
+}
 
 @code {
     // public int _deleteGroupId;
@@ -113,11 +99,13 @@
 
     private List<GroupOutputModel> _groups;
 
+    private List<GroupOutputModel> _groupsWithoutProducts;
+
     private GroupInputModel _updateGroup;
 
     private GroupInputModel _deleteGroup;
 
-    private List<ProductOutputModel> _productsInGroup = new();
+    //private List<ProductOutputModel> _productsInGroup = new();
 
     private string _errorMessage;
 
@@ -136,6 +124,7 @@
         new ClientRepository());
 
         _groups = _productService.GetAllGroups();
+        _groupsWithoutProducts = _productService.GetGroupsWithoutProducts();
         _updateGroup = new();
         _deleteGroup = new();
         _isUpdated = false;
@@ -180,19 +169,15 @@
     {
         try
         {
-            if ((_productsInGroup != null && _productsInGroup.Count == 0))
+            if (_deleteGroup != null && _deleteGroup.Id != 0)
             {
                 _productService.DeleteGroup(_deleteGroup.Id);
                 OnGroupDeleted.InvokeAsync();
             }
-            else
-            {
-                _errorMessage = "Вы не можете удалить выбранную группу, поскольку она привязана к товарам";
-            }
         }
-        catch (ArgumentException ex)
+        catch (Exception ex)
         {
-            
+            _errorMessage = "Произошла ошибка";
         }
     }
 
@@ -203,28 +188,28 @@
         _timerUpdated.Stop();
     }
 
-    private void OnGroupValueChange(int value)
-    {
-        _deleteGroup.Id = value;
-        GetProductsByGroupId();
-    }
+    //private void OnGroupValueChange(int value)
+    //{
+    //    _deleteGroup.Id = value;
+    //    GetProductsByGroupId();
+    //}
 
-    private void GetProductsByGroupId()
-    {
-        try
-        {
-            if (_deleteGroup != null && _deleteGroup.Id != 0)
-            {
-                _productsInGroup = _productService.GetAllProductsByGroupId(_deleteGroup.Id);
-            }
-            else
-            {
-                _deleteGroup = null;
-            }
-        }
-        catch (Exception ex)
-        {
-            _deleteGroup = null;
-        }
-    }
+    //private void GetProductsByGroupId()
+    //{
+    //    try
+    //    {
+    //        if (_deleteGroup != null && _deleteGroup.Id != 0)
+    //        {
+    //            _productsInGroup = _productService.GetAllProductsByGroupId(_deleteGroup.Id);
+    //        }
+    //        else
+    //        {
+    //            _deleteGroup = null;
+    //        }
+    //    }
+    //    catch (Exception ex)
+    //    {
+    //        _deleteGroup = null;
+    //    }
+    //}
 }

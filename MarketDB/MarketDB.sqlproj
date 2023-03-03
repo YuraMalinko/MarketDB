@@ -157,7 +157,7 @@
     <Build Include="dbo\Stored Procedures\AddGroup.sql" />
     <Build Include="dbo\Stored Procedures\DeleteGroup.sql" />
     <Build Include="dbo\Stored Procedures\UpdateGroup.sql" />
-    <Build Include="dbo\Stored Procedures\GetAllProductsByGroupIdWitchExist.sql" />
+    <Build Include="dbo\Stored Procedures\GetGroupsWithoutProducts.sql" />
   </ItemGroup>
   <ItemGroup>
     <RefactorLog Include="MarketDB.refactorlog" />

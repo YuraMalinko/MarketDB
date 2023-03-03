@@ -70,13 +70,13 @@ namespace OfferAggregator.Dal.Repositories
             }
         }
 
-        public List<ProductsDto> GetAllProductsByGroupIdWitchExist(int groupId)
+        public List<GroupDto> GetGroupsWithoutProducts()
         {
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
             {
                 sqlCnctn.Open();
-                return sqlCnctn.Query<ProductsDto>(
-                    StoredProcedures.GetAllProductsByGroupIdWitchExist,
+                return sqlCnctn.Query<GroupDto>(
+                    StoredProcedures.GetGroupsWithoutProducts,
                     commandType: CommandType.StoredProcedure).ToList();
             }
         }

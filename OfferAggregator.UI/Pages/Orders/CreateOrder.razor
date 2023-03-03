@@ -1,7 +1,88 @@
-﻿@page "/CreateOrder"
+﻿@using OfferAggregator.Bll.Models;
+@using OfferAggregator.Bll;
+@using OfferAggregator.Dal.Models;
+@using OfferAggregator.Dal.Repositories;
+@using System.ComponentModel.DataAnnotations;
+@using System.Timers
+@using System.Threading.Tasks
+
+@page "/CreateOrder"
 
 <h3>CreateOrder</h3>
 
-@code {
 
+
+@code {
+    CreatingOrderInputModel _creatingOrder;
+
+    private OrderService _orderService;
+
+    private string _errorMessage;
+
+    private bool _isAdded;
+
+    private Timer _timer;
+
+    protected override void OnInitialized()
+    {
+        _creatingOrder = new();
+        _orderService = new OrderService(
+        new ManagerRepository(),
+        new ClientRepository(),
+        new OrderRepository(),
+        new OrdersProductsRepository(),
+        new ProductsRepository(),
+        new CommentForOrderRepository(),
+        new CommentForClientRepository(),
+        new ProductsReviewsAndStocksRepository());
+
+        _isAdded = false;
+        _timer = new Timer();
+        _timer.Interval = 3000;
+        _timer.Elapsed += StopShowing;
+    }
+
+    private void CreateNewOrder()
+    {
+        try
+        {
+
+        }
+        catch (ArgumentException ex)
+        {
+            switch (ex.Message)
+            {
+                case "Manager is not exists":
+                    _errorMessage = "Такого менеджера не существует.";
+                    break;
+
+                case "Client is not exists":
+                    _errorMessage = "Такого клиента не существует.";
+                    break;
+
+                case "One or more products is not exist":
+                    _errorMessage = "Хотя бы один из продуктов не существует.";
+                    break;
+
+                case "Amount of products on Stock less then count of products in order":
+                    _errorMessage = "Количество товаров на складе недостаточно для заказа";
+                    break;
+
+                case "DateCreate should be earlier then ComplitionDate":
+                    _errorMessage = "Дата доставки должна быть позже даты создания заказа";
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = "Произошла ошибка";
+        }
+    }
+
+    private async void StopShowing(object sender, ElapsedEventArgs args)
+    {
+        _isAdded = false;
+        await InvokeAsync(StateHasChanged);
+        _timer.Stop();
+    }
 }
