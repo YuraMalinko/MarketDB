@@ -29,5 +29,56 @@ namespace OfferAggregator.Dal.Repositories
                     commandType: CommandType.StoredProcedure).ToList();
             }
         }
+
+        public int AddGroup(string name)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                return sqlCnctn.QuerySingle<int>(
+                    StoredProcedures.AddGroup,
+                    new { name},
+                    commandType: CommandType.StoredProcedure);
+            }
+        }
+
+        public bool UpdateGroup(GroupDto group)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                int result = sqlCnctn.Execute(
+                    StoredProcedures.UpdateGroup,
+                    new { group.Id, group.Name},
+                    commandType: CommandType.StoredProcedure);
+
+                return result > 0;
+            }
+        }
+
+        public bool DeleteGroup(int id)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                int result = sqlCnctn.Execute(
+                    StoredProcedures.DeleteGroup,
+                    new { id },
+                    commandType: CommandType.StoredProcedure);
+
+                return result > 0;
+            }
+        }
+
+        public List<ProductsDto> GetAllProductsByGroupIdWitchExist(int groupId)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                sqlCnctn.Open();
+                return sqlCnctn.Query<ProductsDto>(
+                    StoredProcedures.GetAllProductsByGroupIdWitchExist,
+                    commandType: CommandType.StoredProcedure).ToList();
+            }
+        }
     }
 }

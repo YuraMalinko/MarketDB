@@ -223,7 +223,7 @@ namespace OfferAggregator.Bll
                         _productsReviewsAndStocksRepository.UpdateScoreAndCommentOfProductsReviews(productReviewDto);
                     }
                 }
-                
+
                 else if (productReviewModel.Score != null && productReviewModel.Comment == null)
                 {
                     if (CheckProductDoesNotHaveCommentByProductIdAndClientId(getProductWithScoresAndComments))
@@ -242,7 +242,7 @@ namespace OfferAggregator.Bll
                 {
                     if (CheckProductDoesNotHaveCommentByProductIdAndClientId(getProductWithScoresAndComments))
                     {
-                         _productsReviewsAndStocksRepository.UpdateCommentOfProductReview(productReviewDto);
+                        _productsReviewsAndStocksRepository.UpdateCommentOfProductReview(productReviewDto);
 
                     }
                     else
@@ -504,11 +504,62 @@ namespace OfferAggregator.Bll
             return result;
         }
 
+        public int AddGroup(string groupName)
+        {
+            if (!CheckGroupNameIsUnique(groupName))
+            {
+                throw new ArgumentException("The same group is already exists.");
+            }
+
+            int groupId = _groupRepository.AddGroup(groupName);
+
+            return groupId;
+        }
+
+        public bool UpdateGroup(GroupInputModel groupModel)
+        {
+            var groupDto = _instanceMapper.MapGroupInputModelToGroupDto(groupModel);
+            var result = _groupRepository.UpdateGroup(groupDto);
+
+            return result;
+        }
+
+        public bool DeleteGroup(int groupId)
+        {
+            if (!CheckGroupIsExist(groupId))
+            {
+                throw new ArgumentException("Group is not exist");
+            }
+
+            var result = _groupRepository.DeleteGroup(groupId);
+
+            return result;
+        }
+
+        public List<ProductOutputModel> GetAllProductsByGroupIdWitchExist(int groupId)
+        {
+            if (!CheckGroupIsExist(groupId))
+            {
+                throw new ArgumentException("Group is not exist");
+            }
+            List<ProductsDto> allProducts = _groupRepository.GetAllProductsByGroupIdWitchExist(groupId);
+            var result = _instanceMapper.MapProductsDtosToProductOutputModels(allProducts);
+
+            return result;
+        }
+
         private bool CheckTagNameIsUnique(string tagName)
         {
             var getAllTags = _tagsRepository.GetAllTags();
 
             return !getAllTags.Any(t => t.Name == tagName);
+        }
+
+        private bool CheckGroupNameIsUnique(string groupName)
+        {
+            var getAllGroups = _groupRepository.GetAllGroups();
+
+            return !getAllGroups.Any(g => g.Name == groupName);
         }
 
         private bool CheckClientOrderedProduct(int productId, int clientId)

@@ -157,5 +157,13 @@ namespace OfferAggregator.Dal
         public const string GetAvgScoreGroupeAndTagOnProductsReviewsByClientId = "GetAvgScoreGroupeAndTagOnProductsReviewsByClientId";
         
         public const string GetCommentsForClientById = "GetCommentsForClientById";
+
+        public const string AddGroup = "AddGroup";
+
+        public const string UpdateGroup = "UpdateGroup";
+
+        public const string DeleteGroup = "DeleteGroup";
+
+        public const string GetAllProductsByGroupIdWitchExist = "GetAllProductsByGroupIdWitchExist";
     }
 }

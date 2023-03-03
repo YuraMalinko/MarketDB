@@ -1,0 +1,199 @@
+﻿@using OfferAggregator.Bll.Models;
+@using OfferAggregator.Bll;
+@using OfferAggregator.Dal.Models;
+@using OfferAggregator.Dal.Repositories;
+@using System.ComponentModel.DataAnnotations;
+@using System.Timers
+@using System.Threading.Tasks
+
+<h3>UpdateAndDeleteGroup</h3>
+
+<div style="padding-top:10px; padding-bottom:10px; padding-left:5px; font-size:25px;">
+    Изменение группы
+</div>
+<div style="width:400px; padding-bottom: 10px;">
+    Для изменения конкретной группы выберите ее из списка ниже
+</div>
+
+<EditForm Model="@_updateGroup" OnValidSubmit="@UpdateGroup">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <InputSelect id="groupId" @bind-Value="_updateGroup.Id">
+        @foreach (var group in _groups.OrderBy(g => g.Name))
+        {
+            if (group != null)
+            {
+                <option value="@group.Id">@group.Name</option>
+            }
+        }
+    </InputSelect>
+
+    <div style="width:400px; padding-bottom: 10px;">
+        Укажите новое наименование группы и нажмите кнопку "Изменить"
+    </div>
+    <InputText id="updateGroup" @bind-Value="_updateGroup.Name" />
+
+    <button class="button-submit" style="margin-top: 10px; " type="submit">Изменить группу</button>
+
+    <div class="pop-up-success-message">
+        @if (_isUpdated)
+        {
+            <span>Наименование группы изменено</span>
+        }
+    </div>
+
+    @if (!string.IsNullOrEmpty(_errorMessage))
+    {
+        <div class="error-message">
+            @_errorMessage
+        </div>
+    }
+</EditForm>
+
+<div style="padding-top:10px; padding-bottom:10px; padding-left:5px; font-size:25px;">
+    Удаление группы
+</div>
+<div style="width:400px; padding-bottom: 10px;">
+    Группу можно удалить только в том случае, если к ней не привязан ни один товар.
+    Выберите группу из списка ниже и посмотрите количество связанных товаров.
+    Если товары отсутствуют, то нажмите кнопку "Удалить"
+</div>
+<EditForm Model="@_deleteGroup" OnValidSubmit="@DeleteGroup">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <InputSelect TValue="int" ValueExpression="@(() => _deleteGroup.Id)"
+                 Value="@_deleteGroup.Id"
+                 ValueChanged="@OnGroupValueChange">
+        @foreach (var group in _groups.OrderBy(g => g.Name))
+        {
+            if (group != null)
+            {
+                <option value="@group.Id">@group.Name</option>
+            }
+        }
+    </InputSelect>
+
+    @if (_productsInGroup.Count > 0)
+    {
+        <table>
+            @foreach (var product in _productsInGroup.OrderBy(p => p.Name))
+            {
+                if (product != null)
+                {
+                    <tr>
+                        <td>@product.Name</td>
+                    </tr>
+                }
+            }
+        </table>
+    }
+
+</EditForm>
+
+
+@code {
+    // public int _deleteGroupId;
+
+    [Parameter]
+    public EventCallback OnGroupUpdated { get; set; }
+
+    private ProductService _productService;
+
+    private List<GroupOutputModel> _groups;
+
+    private GroupInputModel _updateGroup;
+
+    private GroupInputModel _deleteGroup;
+
+    private List<ProductOutputModel> _productsInGroup = new();
+
+    private string _errorMessage;
+
+    private bool _isUpdated;
+
+    private Timer _timerUpdated;
+
+
+    protected override void OnInitialized()
+    {
+        _productService = new ProductService(
+            new ProductsRepository(),
+        new ProductsReviewsAndStocksRepository(),
+        new TagsRepository(),
+        new GroupRepository(),
+        new ClientRepository());
+
+        _groups = _productService.GetAllGroups();
+        _updateGroup = new();
+        _deleteGroup = new();
+        _isUpdated = false;
+        _timerUpdated = new Timer();
+        _timerUpdated.Interval = 3000;
+        _timerUpdated.Elapsed += StopShowingUpdated;
+    }
+
+    private void UpdateGroup()
+    {
+        try
+        {
+            if (_updateGroup != null && _updateGroup.Id != 0)
+            {
+                _productService.UpdateGroup(_updateGroup);
+                _errorMessage = string.Empty;
+                _isUpdated = true;
+                _timerUpdated.Start();
+                OnGroupUpdated.InvokeAsync();
+            }
+        }
+        catch (ArgumentException ex)
+        {
+            _errorMessage = "";
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = "Произошла ошибка";
+        }
+    }
+
+    private void DeleteGroup()
+    {
+        //try
+        //{
+        //    _productService.DeleteGroup();
+        //}
+    }
+
+    private async void StopShowingUpdated(object sender, ElapsedEventArgs args)
+    {
+        _isUpdated = false;
+        await InvokeAsync(StateHasChanged);
+        _timerUpdated.Stop();
+    }
+
+    private void OnGroupValueChange(int value)
+    {
+        _deleteGroup.Id = value;
+        GetProductsByGroupId();
+    }
+
+    private void GetProductsByGroupId()
+    {
+        try
+        {
+            if (_deleteGroup != null && _deleteGroup.Id != 0)
+            {
+                _productsInGroup = _productService.GetAllProductsByGroupId(_deleteGroup.Id);
+            }
+            else
+            {
+                _deleteGroup = null;
+            }
+        }
+        catch (Exception ex)
+        {
+            _deleteGroup = null;
+        }
+    }
+}

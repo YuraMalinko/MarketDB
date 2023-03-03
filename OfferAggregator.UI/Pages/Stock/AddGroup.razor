@@ -1,0 +1,102 @@
+﻿@using OfferAggregator.Bll.Models;
+@using OfferAggregator.Bll;
+@using OfferAggregator.Dal.Models;
+@using OfferAggregator.Dal.Repositories;
+@using System.ComponentModel.DataAnnotations;
+@using System.Timers
+@using System.Threading.Tasks
+
+<div style="padding-top:20px; padding-bottom:10px; padding-left:5px; font-size:25px;">
+    Добавить группу
+</div>
+
+<div style="width:400px; padding-bottom: 10px;">
+    Для создания новой группы введите ее название в поле ниже:
+</div>
+
+<EditForm Model="@_addGroup" OnValidSubmit="@CreateGroup">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <InputText id="addGroup" style="width: 220px;" @bind-Value="_addGroup.Name" /><br />
+
+    <button class="button-submit" style="margin-top: 10px;" type="submit">Создать и добавить группу</button>
+</EditForm>
+
+<div class="pop-up-success-message">
+    @if (_isCreated)
+    {
+        <span>Новая группа успешно добавлена!</span>
+    }
+</div>
+
+<div style="height:20px">
+    @if (!string.IsNullOrEmpty(_errorMessage))
+    {
+        <div class="error-message">
+            @_errorMessage
+        </div>
+    }
+</div>
+
+@code {
+    private ProductService _productService;
+
+    private GroupInputModel _addGroup;
+
+    private string _errorMessage;
+
+    private bool _isCreated;
+
+    private Timer _timer;
+
+    [Parameter]
+    public EventCallback OnGroupCreated { get; set; }
+
+    protected override void OnInitialized()
+    {
+        _productService = new ProductService(
+        new ProductsRepository(),
+        new ProductsReviewsAndStocksRepository(),
+        new TagsRepository(),
+        new GroupRepository(),
+        new ClientRepository()
+        );
+
+        _addGroup = new();
+        _isCreated = false;
+        _timer = new Timer();
+        _timer.Interval = 3000;
+        _timer.Elapsed += StopShowing;
+    }
+
+    private void CreateGroup()
+    {
+        try
+        {
+            if (!string.IsNullOrEmpty(_addGroup.Name))
+            {
+                int groupId = _productService.AddGroup(_addGroup.Name);
+                _errorMessage = string.Empty;
+                _isCreated = true;
+                _timer.Start();
+                OnGroupCreated.InvokeAsync();
+            }
+        }
+        catch (ArgumentException ex)
+        {
+            _errorMessage = "Группа с таким именем уже существует";
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = "Произошла ошибка";
+        }
+    }
+
+    private async void StopShowing(object sender, ElapsedEventArgs args)
+    {
+        _isCreated = false;
+        await InvokeAsync(StateHasChanged);
+        _timer.Stop();
+    }
+}

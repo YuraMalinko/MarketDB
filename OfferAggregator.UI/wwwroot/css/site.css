@@ -1,4 +1,5 @@
 @import url('open-iconic/font/css/open-iconic-bootstrap.min.css');
+
 .blokInfo {
     background-color: #fefbff;
     box-shadow: 0px 0px 8px 5px rgba(137, 150, 159, 0.1);
@@ -182,6 +183,16 @@ a, .btn-link {
     margin-right: 15px;
 }
 
+.btn-create-order {
+    background-color: #DDA0DD;
+    color: #2F4F4F;
+    border: 2px solid #2F4F4F;
+    margin-right: 15px;
+    border-radius: 7px;
+    height: 40px;
+    font-size: 18px;
+}
+
 .header-pages-stock {
     padding-top: 20px;
     padding-bottom: 10px;
@@ -244,6 +255,7 @@ a, .btn-link {
     font-family: Georgia, serif;
     color: darkred;
     font-weight: 600;
+    height: 20px;
 }
 
 .table-registrate-product {
@@ -315,3 +327,22 @@ a, .btn-link {
         border-bottom: 0px;
         border-top: 0px;
     }
+
+.table-get-groups {
+    overflow: auto;
+    height: 300px;
+    width: 220px;
+    border: 1px solid #1d334a;
+}
+
+    .table-get-groups td {
+        border-bottom: 1px solid #b0b7c6;
+        width: 200px;
+        background-color: #F5F5F5;
+        padding: 2px;
+    }
+
+        .table-get-groups td:hover {
+            background-color: #A9A9A9;
+            color: #FFFFF0;
+        }

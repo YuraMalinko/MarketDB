@@ -5,9 +5,10 @@
 @using System.ComponentModel.DataAnnotations;
 @using System.Timers
 @using System.Threading.Tasks
+@inject NavigationManager _navigationManager
 
 
-<div style="padding-top:10px; padding-bottom:10px; padding-left:5px; font-size:25px;">
+@*<div style="padding-top:10px; padding-bottom:10px; padding-left:5px; font-size:25px;">
     Удаление тега
 </div>
 
@@ -59,6 +60,199 @@
     {
         <span>Все теги товара удалены</span>
     }
+</div>*@
+
+@*@code {
+    [Parameter]
+    public int ProductId { get; set; }
+
+    [Parameter]
+    public EventCallback OnTagDeleted { get; set; }
+
+    private ProductService _productService;
+
+    private TagProductInputModel _tagProduct;
+
+    private List<TagOutputModel> _tags;
+
+    private string _errorMessage;
+
+    private bool _isDeleted;
+
+    private bool _isDeletedAll;
+
+    private Timer _timer;
+
+    private Timer _timerAll;
+
+    protected override void OnInitialized()
+    {
+        _productService = new ProductService(
+            new ProductsRepository(),
+        new ProductsReviewsAndStocksRepository(),
+        new TagsRepository(),
+        new GroupRepository(),
+        new ClientRepository()
+        );
+        _tagProduct = new TagProductInputModel { ProductId = ProductId };
+        Update();
+        _isDeleted = false;
+        _timer = new Timer();
+        _timer.Interval = 3000;
+        _timer.Elapsed += StopShowing;
+        _isDeletedAll = false;
+        _timerAll = new Timer();
+        _timerAll.Interval = 3000;
+        _timerAll.Elapsed += StopShowingAll;
+    }
+
+    public void Update()
+    {
+        _tags = _productService.GetAllTagsByProductId(ProductId);
+    }
+
+    private void DeleteTagByProduct()
+    {
+        try
+        {
+            if (_tagProduct != null && _tagProduct.TagId != 0)
+            {
+                _productService.DeleteTagByProductIdAndTagId(_tagProduct.ProductId, _tagProduct.TagId);
+                _tags = _productService.GetAllTagsByProductId(ProductId);
+                _isDeleted = true;
+                _timer.Start();
+                OnTagDeleted.InvokeAsync();
+            }
+            _errorMessage = string.Empty;
+        }
+        catch (ArgumentException ex)
+        {
+            switch (ex.Message)
+            {
+                case "Product is not exist":
+                    _errorMessage = "Такого продукта не существует";
+                    break;
+
+                case "Tag is not exist":
+                    _errorMessage = "Такого тега не существует";
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = "Произошла ошибка";
+        }
+    }
+
+    private async void StopShowing(object sender, ElapsedEventArgs args)
+    {
+        _isDeleted = false;
+        await InvokeAsync(StateHasChanged);
+        _timer.Stop();
+    }
+
+    private void DeleteAllTagsByProduct()
+    {
+        try
+        {
+            if (_tagProduct != null && _tags != null)
+            {
+                _productService.DeleteTagsByProductId(ProductId);
+                _tags = _productService.GetAllTagsByProductId(ProductId);
+                _isDeletedAll = true;
+                _timerAll.Start();
+                OnTagDeleted.InvokeAsync();
+            }
+            _errorMessage = string.Empty;
+        }
+        catch (ArgumentException ex)
+        {
+            _errorMessage = "Такого продукта не существует";
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = "Произошла ошибка";
+        }
+    }
+
+    private async void StopShowingAll(object sender, ElapsedEventArgs args)
+    {
+        _isDeletedAll = false;
+        await InvokeAsync(StateHasChanged);
+        _timerAll.Stop();
+    }
+}*@
+
+
+
+
+<div style="padding-top:10px; padding-bottom:10px; padding-left:5px; font-size:25px;">
+    Удаление тега
+</div>
+
+<div style="width:400px; padding-bottom: 10px;">
+    Для удаления конкретного тега у товара выберите его из списка ниже и нажмите кнопку "Удалить"
+</div>
+
+<EditForm Model="@_tagProduct">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <InputSelect id="tagId" style="width: 200px; height:30px;" @bind-Value="_tagProduct.TagId">
+        @foreach (var tag in _tags.OrderBy(t => t.Name))
+        {
+            if (tag != null)
+            {
+                <option value="@tag.Id">@tag.Name</option>
+            }
+        }
+    </InputSelect><br />
+
+    <button class="button-submit" style="margin-top: 10px;" data-bs-toggle="modal" data-bs-target="#Modal">Удалить тег у товара</button>
+
+</EditForm>
+
+<div class="pop-up-success-message">
+    @if (_isDeleted)
+    {
+        <span>Тег удален у товара</span>
+    }
+</div>
+
+
+<div style="width:400px; padding-bottom: 5px;">
+    Для удаления всех тегов нажмите кнопку "Удалить все теги товара"
+</div>
+
+<button onclick="@DeleteAllTagsByProduct" class="button-submit" type="submit">Удалить все теги товара</button>
+
+@if (!string.IsNullOrEmpty(_errorMessage))
+{
+    <div class="error-message">
+        @_errorMessage
+    </div>
+}
+
+<div class="pop-up-success-message">
+    @if (_isDeletedAll)
+    {
+        <span>Все теги товара удалены</span>
+    }
+</div>
+
+<div>
+    <ModalWindow>
+        <NameWindow>
+            Удаление клиента
+        </NameWindow>
+        <Inside>
+            Вы точно хотите удалить выбранный тег?
+        </Inside>
+        <ButtomBot>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+            <button type="button" class="btn btn-primary" @onclick="ClickDelete">Удалить</button>
+        </ButtomBot>
+    </ModalWindow>
 </div>
 
 @code {
@@ -179,5 +373,11 @@
         _isDeletedAll = false;
         await InvokeAsync(StateHasChanged);
         _timerAll.Stop();
+    }
+
+    private void ClickDelete()
+    {
+        DeleteTagByProduct();
+        _navigationManager.NavigateTo("/product/ProductId", true);
     }
 }

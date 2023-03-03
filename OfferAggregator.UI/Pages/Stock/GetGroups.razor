@@ -1,0 +1,62 @@
+﻿@using OfferAggregator.Bll.Models;
+@using OfferAggregator.Bll;
+@using OfferAggregator.Dal.Models;
+@using OfferAggregator.Dal.Repositories;
+@using System.ComponentModel.DataAnnotations;
+
+@page "/groups"
+
+<h3>GetGroups</h3>
+
+<div style="display:flex; flex-direction:row; width: 800px;">
+    <div style="width: 800px;">
+        <div>
+            <AddGroup OnGroupCreated="OnDataChange" />
+        </div>
+
+        <div>
+            <div>Список всех существующих групп</div>
+            <div class="table-get-groups">
+                <table>
+                    @foreach (var group in _groups.OrderBy(g => g.Name))
+                    {
+                        if (group != null)
+                        {
+                            <tr>
+                                <td>@group.Name</td>
+                            </tr>
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <div style="padding-left:50px;">
+        <UpdateAndDeleteGroup OnGroupUpdated="OnDataChange" />
+    </div>
+</div>
+
+@code {
+    private ProductService _productService;
+
+    private List<GroupOutputModel> _groups = new();
+
+    protected override void OnInitialized()
+    {
+        _productService = new ProductService(
+        new ProductsRepository(),
+        new ProductsReviewsAndStocksRepository(),
+        new TagsRepository(),
+        new GroupRepository(),
+        new ClientRepository());
+
+        _groups = _productService.GetAllGroups();
+    }
+
+    private void OnDataChange()
+    {
+        _groups = _productService.GetAllGroups();
+    }
+}

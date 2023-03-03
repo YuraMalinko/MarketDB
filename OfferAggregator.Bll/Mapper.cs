@@ -51,6 +51,7 @@ namespace OfferAggregator.Bll
                     cfg.CreateMap<ClientOutputModel, ClientsDto>();
                     cfg.CreateMap<ComboTagGroupDto, ComboTagGroupOutputModel>()
                     .ForMember(output => output.PointForCombo, otp => otp.MapFrom(dto => +CalcPointForAvgScore(dto)));
+                    cfg.CreateMap<GroupInputModel, GroupDto>();
                 });
 
             _mapper = _configuration.CreateMapper();
@@ -236,5 +237,9 @@ namespace OfferAggregator.Bll
             return _mapper.Map<List<ComboTagGroupOutputModel>>(combinations);
         }
 
+        public GroupDto MapGroupInputModelToGroupDto(GroupInputModel groupModel)
+        {
+            return _mapper.Map<GroupDto>(groupModel);
+        }
     }
 }
