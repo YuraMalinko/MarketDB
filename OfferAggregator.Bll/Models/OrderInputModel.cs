@@ -1,4 +1,5 @@
 ﻿using OfferAggregator.Dal.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace OfferAggregator.Bll.Models
 {
