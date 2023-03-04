@@ -6,9 +6,9 @@ namespace OfferAggregator.Bll.Models
     {
         public int PointForCombo { get; set; }
 
-        public GroupOutputModel Group { get; set; }
+        public GroupOutputModel? Group { get; set; }
 
-        public TagOutputModel Tag { get; set; }
+        public TagOutputModel? Tag { get; set; }
 
         public override bool Equals(object? obj)
         {
