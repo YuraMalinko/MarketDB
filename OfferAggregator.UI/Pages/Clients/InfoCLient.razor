@@ -62,6 +62,7 @@
     private void AddComment()
     {
         _clientServis.AddComment(CommentInput, Id);
+        _navigationManager.NavigateTo($"/clients/{Id}", true);
     }
 
     private void DeleteComment(int a)
