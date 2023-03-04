@@ -159,5 +159,7 @@ namespace OfferAggregator.Dal
         public const string GetCommentsForClientById = "GetCommentsForClientById";
 
         public const string GetGroupTagCountProductsCountOrdersByClientId = "GetGroupTagCountProductsCountOrdersByClientId";
+
+        public const string GetComboTagGroupOfLikeOrDislikeByClientId = "GetComboTagGroupOfLikeOrDislikeByClientId";
     }
 }

@@ -7,7 +7,7 @@ namespace OfferAggregator.Dal.Repositories
 {
     public class AggregatorRepository : IAggregatorRepository
     {
-        public List<ComboTagGroupDto> GetAvgScoreGroupeAndTagOnProductsReviewsByClientId(int id)
+        public List<ComboTagGroupDto> GetAvgScoreGroupeAndTagOnProductsReviewsByClientId(int clientId)
         {
             using (SqlConnection sqlConnection = new SqlConnection(Options.ConnectionString))
             {
@@ -29,7 +29,9 @@ namespace OfferAggregator.Dal.Repositories
                             result.Add(tmp);
                         }
 
+
                         tmp.Group = group;
+
 
                         if (tag != null)
                         {
@@ -38,7 +40,7 @@ namespace OfferAggregator.Dal.Repositories
 
                         return combo;
                     },
-                    new { id },
+                    new { clientId },
                     splitOn: "Id",
                     commandType: CommandType.StoredProcedure).ToList();
 
@@ -46,14 +48,56 @@ namespace OfferAggregator.Dal.Repositories
             }
         }
 
-        public List<ComboTagGroupCountProductCountOrderDto> GetGroupTagCountProductsCountOrdersByClientId(int clientId)
+        public List<ComboTagGroupDto> GetComboTagGroupOfLikeOrDislikeByClientId(int clientId)
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(Options.ConnectionString))
+            {
+                List<ComboTagGroupDto> result = new List<ComboTagGroupDto>();
+                sqlConnection.Open();
+                sqlConnection.Query<ComboTagGroupDto, GroupDto, TagDto, ComboTagGroupDto>(
+                    StoredProcedures.GetComboTagGroupOfLikeOrDislikeByClientId,
+                    (combo, group, tag) =>
+                    {
+                        ComboTagGroupDto tmp = null;
+
+                        if (result.Exists(c => c.Equals(combo)))
+                        {
+                            tmp = result.Find(c => c.Equals(combo));
+                        }
+                        else
+                        {
+                            tmp = combo;
+                            result.Add(tmp);
+                        }
+
+                        if (group != null)
+                        {
+                            tmp.Group = group;
+                        }
+
+                        if (tag != null)
+                        {
+                            tmp.Tag = tag;
+                        }
+
+                        return combo;
+                    },
+                    new { clientId },
+                    splitOn: "Id",
+                    commandType: CommandType.StoredProcedure).ToList();
+
+                return result;
+            }
+        }
+
+        public List<ComboTagGroupDto> GetGroupTagCountProductsCountOrdersByClientId(int clientId)
         {
             using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
             {
-                List<ComboTagGroupCountProductCountOrderDto> result = new();
-                ComboTagGroupCountProductCountOrderDto row = new();
+                List<ComboTagGroupDto> result = new();
+                ComboTagGroupDto row = new();
                 sqlCnctn.Open();
-                sqlCnctn.Query<ComboTagGroupCountProductCountOrderDto, GroupDto, TagDto, ComboTagGroupCountProductCountOrderDto>(
+                sqlCnctn.Query<ComboTagGroupDto, GroupDto, TagDto, ComboTagGroupDto>(
                     StoredProcedures.GetGroupTagCountProductsCountOrdersByClientId,
                     (combo, group, tag) =>
                     {
@@ -64,7 +108,7 @@ namespace OfferAggregator.Dal.Repositories
 
                         return combo;
                     },
-                    new { clientId},
+                    new { clientId },
                     splitOn: "Id",
                     commandType: CommandType.StoredProcedure);
 
