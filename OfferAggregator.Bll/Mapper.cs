@@ -59,54 +59,6 @@ namespace OfferAggregator.Bll
             _mapper = _configuration.CreateMapper();
         }
 
-        private int CalcPointForAvgScore(ComboTagGroupDto combo, int pointForCombo)
-        {
-            double[] limitScoreForCombo = new double[] { 1.9, 2.9, 3.5, 4.5, 5 };
-            int[] insertsForComboWithTag = new int[] { -30, -20, 0, 10, 20 };
-            int[] insertsForComboWithoutTag = new int[] { -20, -10, 0, 5, 10 };
-            int result = -100;
-            int j = 0;
-
-            if (combo.Tag is null)
-            {
-
-                for (int i = 0; i <= limitScoreForCombo.Length; i++)
-                {
-                    if (combo.AvgScore <= limitScoreForCombo[i])
-                    {
-                        result = (pointForCombo * insertsForComboWithoutTag[j]) / 100;
-                        break;
-                    }
-
-                    j += 1;
-                }
-
-                return result;
-            }
-            else
-            {
-                for (int i = 0; i <= limitScoreForCombo.Length; i++)
-                {
-                    if (combo.AvgScore <= limitScoreForCombo[i])
-                    {
-                        result = (pointForCombo * insertsForComboWithTag[j]) / 100;
-                        break;
-                    }
-
-                    j += 1;
-                }
-
-                return result;
-            }
-        }
-
-
-
-        public int CalcPointForOrders()
-        {
-            return 100;
-        }
-
         public static Mapper GetInstance()
         {
             if (_instanceMapper is null)
@@ -243,14 +195,7 @@ namespace OfferAggregator.Bll
 
         public List<ComboTagGroupOutputModel> MapComboTagGroupDtoToComboTagGroupOutputModel(List<ComboTagGroupDto> combinations)
         {
-            List<ComboTagGroupOutputModel> result = _mapper.Map<List<ComboTagGroupOutputModel>>(combinations);
-
-            for (int i = 0; i < combinations.Count; i++)
-            {
-                result[i].PointForCombo += CalcPointForAvgScore(combinations[i], result[i].PointForCombo);
-            }
-
-            return result;
+            return _mapper.Map<List<ComboTagGroupOutputModel>>(combinations);
         }
     }
 }

@@ -6,9 +6,10 @@ using OfferAggregator.Bll;
 using OfferAggregator.Bll.Models;
 using System.Net.Http.Headers;
 
-Console.WriteLine( );
-
 AggregatorRepository AR = new AggregatorRepository();
+
+var tmp = AR.GetComboTagGroupOfLikeOrDislikeByClientId(18);
+
 
 //var t = AR.GetAvgScoreGroupeAndTagOnProductsReviewsByClientId(18);
 
@@ -16,10 +17,10 @@ AggregatorRepository AR = new AggregatorRepository();
 
 //var get4 = AR.GetGroupTagCountProductsCountOrdersByClientId(2000);
 
-AggregatorService service = new AggregatorService();
+//AggregatorService service = new AggregatorService();
 
+//var getMap = service.
 
-var getMap = service.GetGroupTagCountProductsCountOrdersByClientId(2);
+//var getMap = service.GetGroupTagCountProductsCountOrdersByClientId(2);
 
 Console.WriteLine();
-
