@@ -346,3 +346,89 @@ a, .btn-link {
             background-color: #A9A9A9;
             color: #FFFFF0;
         }
+
+.table-get-products-for-create-order {
+    overflow: auto;
+    height: 400px;
+    border: 1px solid #1d334a;
+}
+
+    .table-get-products-for-create-order thead th {
+        font-weight: bold;
+        text-align: left;
+        font-size: 13px;
+        background: #D3D3D3;
+        padding: 5px;
+        border-right: 1px solid #1d334a;
+        border-bottom: 1px solid #1d334a;
+    }
+
+    .table-get-products-for-create-order tbody td {
+        text-align: left;
+        border-right: 1px solid #1d334a;
+        border-bottom: 1px solid #b0b7c6;
+        padding: 3px;
+        font-size: 13px;
+        vertical-align: top;
+        background-color: #F5F5F5;
+    }
+
+    .table-get-products-for-create-order tr:hover td {
+        background-color: #A9A9A9;
+        color: #FFFFF0;
+    }
+
+    .table-get-products-for-create-order tr th {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+.table-add-products-to-order th {
+    font-weight: bold;
+    text-align: left;
+    font-size: 13px;
+    background: #D3D3D3;
+    padding: 5px;
+    border: 1px solid #1d334a;
+}
+
+.table-add-products-to-order td {
+    text-align: left;
+    border: 1px solid #1d334a;
+    border-bottom: 1px solid #b0b7c6;
+    padding: 3px;
+    font-size: 13px;
+    vertical-align: top;
+    background-color: #F5F5F5;
+}
+
+.button-submit-create-order {
+    border-radius: 8px;
+    margin-top: 7px;
+    background-color: #b5b8b1;
+    color: #101047;
+    font-size: 19px;
+}
+
+    .button-submit-create-order:hover {
+        cursor: alias;
+    }
+
+.button-minus {
+    border-radius: 8px;
+    border-bottom-color: black;
+    background-color: #efb9b6;
+    opacity: 0.8;
+    font-size: 11px;
+    color: black;
+}
+
+.button-plus {
+    border-radius: 8px;
+    border-bottom-color: black;
+    background-color: #c9fdc9;
+    opacity: 0.8;
+    font-size: 11px;
+    color: black;
+}
