@@ -7,5 +7,13 @@
         public string Name { get; set; }
 
         public List<ProductReviewsDto> ProductReviews { get; set; }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is ProductWithScoresAndCommentsDto p &&
+                ProductId == p.ProductId &&
+                Name == p.Name &&
+                ProductReviews.SequenceEqual(p.ProductReviews);
+        }
     }
 }

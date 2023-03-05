@@ -4,15 +4,15 @@
     {
         public double? AvgScore { get; set; }
 
-        public int CountProducts { get; set; }
+        public double CountProducts { get; set; }
 
-        public int CountOrders { get; set; }
+        public double CountOrders { get; set; }
 
         public bool? IsLiked { get; set; }
 
-        public GroupDto? Group { get; set; }
+        public int? GroupId { get; set; }
 
-        public TagDto? Tag { get; set; }
+        public int? TagId { get; set; }
 
         public override bool Equals(object? obj)
         {
@@ -21,8 +21,8 @@
                 CountProducts == tg.CountProducts &&
                 CountOrders == tg.CountOrders &&
                 IsLiked == tg.IsLiked &&
-                Group == tg.Group &&
-                Tag == tg.Tag;
+                GroupId == tg.GroupId &&
+                TagId == tg.TagId;
         }
     }
 }
