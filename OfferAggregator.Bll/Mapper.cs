@@ -1,8 +1,6 @@
 using AutoMapper;
 using OfferAggregator.Bll.Models;
 using OfferAggregator.Dal.Models;
-using OfferAggregator.Dal.Repositories;
-using System.Text.RegularExpressions;
 
 namespace OfferAggregator.Bll
 {
@@ -54,6 +52,7 @@ namespace OfferAggregator.Bll
                     cfg.CreateMap<OrderDto, OrderOutputModel>();
                     cfg.CreateMap<ClientOutputModel, ClientsDto>();
                     cfg.CreateMap<ComboTagGroupDto, ComboTagGroupOutputModel>();
+                    cfg.CreateMap<FullProductDto, SelectProductForClientOutputModel>();
                 });
 
             _mapper = _configuration.CreateMapper();
@@ -196,6 +195,11 @@ namespace OfferAggregator.Bll
         public List<ComboTagGroupOutputModel> MapComboTagGroupDtoToComboTagGroupOutputModel(List<ComboTagGroupDto> combinations)
         {
             return _mapper.Map<List<ComboTagGroupOutputModel>>(combinations);
+        }
+
+        public List<SelectProductForClientOutputModel> MapFullProductDtoToSelectProductForClientOutputModel(List<FullProductDto> products)
+        {
+            return _mapper.Map<List<SelectProductForClientOutputModel>>(products);
         }
     }
 }
