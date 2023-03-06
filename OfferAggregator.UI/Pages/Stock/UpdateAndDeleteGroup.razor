@@ -45,32 +45,6 @@
     Выберите такую группу из списка ниже и нажмите кнопку "Удалить"
 </div>
 
-@*<EditForm Model="@_deleteGroupId" OnValidSubmit="@DeleteGroup">
-    <DataAnnotationsValidator />
-    <ValidationSummary />
-
-    <InputSelect id="groupId" style="width: 260px; height:30px;" @bind-Value="_deleteGroupId">
-        @foreach (var group in _groupsWithoutProducts.OrderBy(g => g.Name))
-        {
-            if (group != null)
-            {
-                <option value="@group.Id">@group.Name</option>
-            }
-        }
-    </InputSelect>
-
-    <br/>
-    <button class="button-submit" style="margin-top: 10px; " type="submit">Удалить группу</button>
-
-    <div class="pop-up-success-message">
-        @if (_isDeleted)
-        {
-            <span>Группа удалена</span>
-        }
-    </div>
-
-</EditForm>*@
-
 <EditForm Model="@_deleteGroupId">
     <DataAnnotationsValidator />
     <ValidationSummary />

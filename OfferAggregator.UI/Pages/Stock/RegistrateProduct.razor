@@ -7,14 +7,14 @@
         <div style=" width: 530px;">
             <EditForm Model="@StockProduct" OnValidSubmit="@RegistrateProductInStock">
                 <DataAnnotationsValidator />
-                
+
                 <div class="edit-form-row">
                     <div class="left-part">Название товара:</div>
 
-                    <InputSelect TValue="int" style="max-width: 210px" ValueExpression="@(()=>StockProduct.ProductId)"
+                    <InputSelect TValue="int" style="max-width: 210px; width:200px;" ValueExpression="@(()=>StockProduct.ProductId)"
                                  Value="@StockProduct.ProductId"
                                  ValueChanged="@OnProductValueChange">
-                            @foreach (var product in _products.OrderBy(p => p.Name))
+                            @foreach (var product in _products.OrderBy(p => p.Name).Where(FilterPredicat))
                             {
                                 if (product != null)
                                 {
@@ -24,12 +24,9 @@
                     </InputSelect>
                 </div>
 
-                <div style="display:flex; flex-direction:row; width:900px;">
                 <div class="edit-form-row">
                     <div class="left-part">Количество товара:</div>
                     <InputNumber class="input-number" id="amount" @bind-Value="StockProduct.Amount" />
-                </div>
-                <ValidationSummary />
                 </div>
 
                     @if (!string.IsNullOrEmpty(_errorMessage))
@@ -38,6 +35,7 @@
                     }
 
                 <button class="button-submit" type="submit">Оприходывать товар</button>
+                <ValidationSummary style="padding-left:270px;" />
             </EditForm>
 
                 @if (_isAdded)
@@ -46,6 +44,17 @@
                     Товар успешно оприходаван
                 </div>
                 }
+        </div>
+    </td>
+
+    <td>
+        <div class="filters" style="margin:0px; width:300px; padding:0px; padding-top: 15px;">
+            <EditForm Model="@_filter">
+                <div class="filters-row">Фильтр по наименованию товара</div>
+                <InputText id="productNameReg" placeholder="Название товара" @bind-Value="_filter.ProductNameFilter" /><br />
+
+                <button @onclick="NullAllFilters" class="button-submit">Сбросить фильтр</button>
+            </EditForm>
         </div>
     </td>
 
@@ -63,8 +72,11 @@
     </div>
 </table>
 
+
+
+
 @code {
-    private StocksWithProductInputModel StockProduct { get; set; }
+    public StocksWithProductInputModel StockProduct { get; set; }
 
     private StocksWithProductOutputModel _currentProduct;
 
@@ -73,6 +85,8 @@
     private string _errorMessage;
 
     private List<ProductOutputModel> _products = new();
+
+    private Filter _filter = new();
 
     private bool _isAdded;
 
@@ -146,4 +160,20 @@
             _currentProduct = null;
         }
     }
+
+    private class Filter
+    {
+        public string? ProductNameFilter { get; set; }
+    }
+
+    private bool FilterPredicat(ProductOutputModel product)
+    {
+        return (string.IsNullOrEmpty(_filter.ProductNameFilter) || product.Name.Contains(_filter.ProductNameFilter, StringComparison.InvariantCultureIgnoreCase));
+    }
+
+    private void NullAllFilters()
+    {
+        _filter = new Filter();
+    }
 }
+

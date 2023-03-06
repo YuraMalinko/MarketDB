@@ -14,8 +14,9 @@
     }
     else if (_productScoresComment.ProductReviews.Count > 0)
     {
-        <table class="table-get-scores-comments-on-product">
-            <th style="width:160px;">Клиент</th>
+        <div class="table-get-scores-comments-on-product">
+        <table>
+            <th style="width:250px;">Клиент</th>
             <th>Оценка</th>
             <th style="width:550px;">Комментарий</th>
             @foreach (var productReview in _productScoresComment.ProductReviews)
@@ -43,6 +44,7 @@
                 </tr>
             }
         </table>
+        </div>
     }
     else
     {

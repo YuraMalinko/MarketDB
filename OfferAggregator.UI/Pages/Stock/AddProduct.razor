@@ -16,7 +16,7 @@
         <div class="left-part">Группа товара:</div>
 
         <InputSelect TValue="int" @bind-Value="Product.GroupId">
-            @foreach (var group in _groups)
+            @foreach (var group in _groups.OrderBy(g => g.Name))
             {
                 if (group != null)
                 {

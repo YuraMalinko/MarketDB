@@ -43,14 +43,6 @@
     height: 100%;
 }
 
-
-
-
-
-
-
-
-
 html, body {
     font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
@@ -221,14 +213,14 @@ a, .btn-link {
     border-bottom: 1px solid black;
     border-top: 1px solid black;
     background-color: #F5F5F5;
-    width: 595px;
+    width: 600px;
 }
 
-/*.table-get-scores-comments-on-product {
+    .table-get-scores-comments-on-product {
     overflow: auto;
-    height: 200px;
+    max-height: 300px;
     border-bottom: 1px solid #1d334a;
-}*/
+}
 
     .table-get-scores-comments-on-product th {
         text-align: center;
@@ -319,7 +311,6 @@ a, .btn-link {
         color: #FFFFF0;
     }
 
-
     .table-get-full-products thead tr th {
         position: sticky;
         top: 0;
@@ -396,36 +387,36 @@ a, .btn-link {
     width: 380px;
 }
 
-.table-add-products-to-order th {
-    font-weight: bold;
-    text-align: left;
-    font-size: 13px;
-    background: #D3D3D3;
-    padding: 5px;
-    border: 1px solid #1d334a;
-}
+    .table-add-products-to-order th {
+        font-weight: bold;
+        text-align: left;
+        font-size: 13px;
+        background: #D3D3D3;
+        padding: 5px;
+        border: 1px solid #1d334a;
+    }
 
-.table-add-products-to-order td {
-    text-align: left;
-    border: 1px solid #1d334a;
-    border-bottom: 1px solid #b0b7c6;
-    padding: 3px;
-    font-size: 13px;
-    vertical-align: top;
-    background-color: #F5F5F5;
-}
+    .table-add-products-to-order td {
+        text-align: left;
+        border: 1px solid #1d334a;
+        border-bottom: 1px solid #b0b7c6;
+        padding: 3px;
+        font-size: 13px;
+        vertical-align: top;
+        background-color: #F5F5F5;
+    }
 
-.table-add-products-to-order tr:hover td {
-    background-color: #A9A9A9;
-    color: #FFFFF0;
-    border: 1px solid #1d334a;
-}
+    .table-add-products-to-order tr:hover td {
+        background-color: #A9A9A9;
+        color: #FFFFF0;
+        border: 1px solid #1d334a;
+    }
 
-.table-add-products-to-order tr th {
-    position: sticky;
-    top: 0;
-    z-index: 1;
-}
+    .table-add-products-to-order th {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
 
 .button-submit-create-order {
     border-radius: 8px;
@@ -445,7 +436,7 @@ a, .btn-link {
     background-color: #efb9b6;
     opacity: 0.8;
     font-size: 11px;
-    color: black;    
+    color: black;
 }
 
     .button-minus:hover {
@@ -482,8 +473,8 @@ a, .btn-link {
     }
 
 .pop-up-success-message-about-creating-order {
-width:500px;
-padding-top: 10px;
-padding-left: 5px;
-color:saddlebrown;
+    width: 500px;
+    padding-top: 10px;
+    padding-left: 5px;
+    color: saddlebrown;
 }

@@ -36,48 +36,48 @@
             </div>
 
             <div style="padding-bottom:7px;"><em>Дата доставки:</em></div>
-            <InputDate @bind-Value="_creatingOrder.Order.ComplitionDate" />  
+            <InputDate @bind-Value="_creatingOrder.Order.ComplitionDate" />
 
             <div style="display:flex; flex-direction:row;">
-            <div>
-                <div style="padding-bottom:7px; margin-top: 10px;"><em> Добавление товаров в заказ:</em></div>
-                <div class="table-add-products-to-order">
-                    <table>
-                        <th style="width:165px; text-align:center">Наименование<br /> товара</th>
-                        <th style="width:138px; text-align:center">Количество<br /> товара</th>
-                        <th style="width:60px"> </th>
-                        @if (_creatingOrder.Products.Count == 0)
-                        {
-                            <tr style="height:30px;">
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                        }
-                        else
-                        {
-                            @foreach (var (addProduct, i) in _creatingOrder.Products.Select((p, i) => (p, i)))
+                <div>
+                    <div style="padding-bottom:7px; margin-top: 10px;"><em> Добавление товаров в заказ:</em></div>
+                    <div class="table-add-products-to-order">
+                        <table>
+                            <th style="width:165px; text-align:center">Наименование<br /> товара</th>
+                            <th style="width:138px; text-align:center">Количество<br /> товара</th>
+                            <th style="width:60px"> </th>
+                            @if (_creatingOrder.Products.Count == 0)
                             {
-                                if (_creatingOrder.Products[i] != null)
+                                <tr style="height:30px;">
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            }
+                            else
+                            {
+                                @foreach (var (addProduct, i) in _creatingOrder.Products.Select((p, i) => (p, i)))
                                 {
-                                    <tr>
-                                        <td>@_creatingOrder.Products[i].Name</td>
-                                        <td>
-                                            <InputNumber style="width:130px" @bind-Value="_creatingOrder.Products[i].Count" />
-                                        </td>
-                                        <td style="text-align:center">
-                                            <button class="button-minus" type="button" @onclick="() => RemoveProductFromOrder(_creatingOrder.Products[i])">
-                                                <b>-</b>
-                                            </button>
-                                        </td>
-                                    </tr>
+                                    if (_creatingOrder.Products[i] != null)
+                                    {
+                                        <tr>
+                                            <td>@_creatingOrder.Products[i].Name</td>
+                                            <td>
+                                                <InputNumber style="width:130px" @bind-Value="_creatingOrder.Products[i].Count" />
+                                            </td>
+                                            <td style="text-align:center">
+                                                <button class="button-minus" type="button" @onclick="() => RemoveProductFromOrder(_creatingOrder.Products[i])">
+                                                    <b>-</b>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    }
                                 }
                             }
-                        }
-                    </table>
+                        </table>
+                    </div>
                 </div>
-            </div>
-            <ValidationSummary style="padding-top:80px;"/>
+                <ValidationSummary style="padding-top:80px;" />
             </div>
 
             <div style="padding-bottom:7px; margin-top: 10px;">
@@ -87,17 +87,22 @@
                 <InputTextArea id="commentForOrder" style="width:364px; height:100px;" @bind-Value="_commentForOrder.Text " />
             </div>
 
-            <button class="button-submit-create-order" type="submit"><b>Создать заказ</b></button>
-
-            @if (_isAdded)
-            {
-                <div class="pop-up-success-message-about-creating-order">
-                    <b>Создан заказ №:</b> @_currentOrder.Id<br />
-                    <b>Клиент:</b> @_currentOrder.Client.Name<br />
-                    <b>Дата заказа:</b> @DateTime.Now<br />
-                    <b>Дата доставки:</b> @_currentOrder.ComplitionDate<br />
+            <div style="display:flex; flex-direction:row; width: 800px;">
+                <div>
+                    <button class="button-submit-create-order" type="submit"><b>Создать заказ</b></button>
                 </div>
-            }
+                <div style="padding-left:20px;">
+                    @if (_isAdded)
+                    {
+                        <div class="pop-up-success-message-about-creating-order">
+                            <b>Создан заказ №:</b> @_currentOrder.Id<br />
+                            <b>Клиент:</b> @_currentOrder.Client.Name<br />
+                            <b>Дата заказа:</b> @DateTime.Now<br />
+                            <b>Дата доставки:</b> @_currentOrder.ComplitionDate<br />
+                        </div>
+                    }
+                </div>
+            </div>
 
             @if (_creatingOrder.Order != null)
             {
@@ -238,57 +243,10 @@
         _commentForOrder = new();
 
         _isAdded = false;
-        //_timer = new Timer();
-        //_timer.Interval = 3000;
-        //_timer.Elapsed += StopShowing;
     }
 
     private void CreateNewOrder()
     {
-        //try
-        //{
-        //    if (_creatingOrder != null && _creatingOrder.Order.ClientId != 0
-        //        && _creatingOrder.Products.Count > 0 && _creatingOrder.Order.ComplitionDate != null
-        //        && !_creatingOrder.Products.Any(p => p.Count <= 0))
-        //    {
-        //        _creatingOrder.Order.Client = new() { Id = _creatingOrder.Order.ClientId };
-        //        _creatingOrder.Order.DateCreate = DateTime.Now;
-
-        //        AddCommentForOrder();
-        //        int orderId = _orderService.CreateNewOrder(_creatingOrder);
-        //        _isAdded = true;
-        //        _currentOrder = new OrderOutputModel
-        //            {
-        //                Id = orderId,
-        //                Client = new ClientInputModel
-        //                {
-        //                    Name = _clients.FirstOrDefault(c => c.Id == _creatingOrder.Order.ClientId)?.Name
-        //                },
-        //                ComplitionDate = _creatingOrder.Order.ComplitionDate
-        //            };
-        //        ResetOrder();
-        //        _fullProducts = _productService.GetFullProducts();
-        //        _errorMessage = string.Empty;
-        //    }
-        //    else if (_creatingOrder.Order.ClientId == 0)
-        //    {
-        //        _errorMessage = "Необходимо выбрать клиента";
-        //    }
-        //    else if (_creatingOrder.Products.Count == 0)
-        //    {
-        //        _errorMessage = "Необходимо добавить хотя бы один товар";
-        //    }
-        //    else if (_creatingOrder.Order.ComplitionDate == null)
-        //    {
-        //        _errorMessage = "Необходимо заполнить планируемую дату доставки";
-        //    }
-        //    else if (_creatingOrder.Products.Any(p => p.Count <= 0))
-        //    {
-        //        _errorMessage = "Количество каждого выбранного товара должно быть > 0";
-        //    }
-        //}
-
-
         try
         {
             if (_creatingOrder.Order.ClientId == 0)
@@ -358,13 +316,6 @@
             _errorMessage = "Произошла ошибка";
         }
     }
-
-    //private async void StopShowing(object sender, ElapsedEventArgs args)
-    //{
-    //    _isAdded = false;
-    //    await InvokeAsync(StateHasChanged);
-    //   // _timer.Stop();
-    //}
 
     private class Filter
     {
@@ -448,7 +399,6 @@
     {
         if (_commentForOrder != null && !string.IsNullOrEmpty(_commentForOrder.Text))
         {
-            //_commentsForOrder.Add(commentForOrder);
             _creatingOrder.CommentsForOrder.Add(_commentForOrder);
         }
     }
@@ -459,8 +409,8 @@
             {
                 Order = new OrderInputModel
                 {
-                    ManagerId = 6,
-                    Manager = new CurrentManager(6)
+                    ManagerId = 1009,
+                    Manager = new CurrentManager(1009)
                 },
                 Products = new(),
                 CommentsForClient = new(),
