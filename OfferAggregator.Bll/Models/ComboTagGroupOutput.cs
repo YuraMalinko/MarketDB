@@ -1,21 +1,19 @@
-﻿using OfferAggregator.Dal.Models;
-
-namespace OfferAggregator.Bll.Models
+﻿namespace OfferAggregator.Bll.Models
 {
     public class ComboTagGroupOutputModel
     {
-        public int PointForCombo { get; set; }
+        public double PointForCombo { get; set; }
 
-        public GroupOutputModel Group { get; set; }
+        public int? GroupId { get; set; }
 
-        public TagOutputModel Tag { get; set; }
+        public int? TagId { get; set; }
 
         public override bool Equals(object? obj)
         {
             return obj is ComboTagGroupOutputModel tg &&
                 PointForCombo == tg.PointForCombo &&
-                Group == tg.Group &&
-                Tag == tg.Tag;
+                GroupId == tg.GroupId &&
+                TagId == tg.TagId;
         }
     }
 }

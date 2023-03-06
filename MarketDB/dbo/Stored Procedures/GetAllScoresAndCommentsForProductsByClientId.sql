@@ -1,7 +1,7 @@
 ﻿CREATE PROCEDURE GetAllScoresAndCommentsForProductsByClientId
 @clientId int
 AS
-SELECT  PR.ProductId, P.Name,PR.Score, PR.Comment, PR.ClientId
+SELECT P.Name, PR.ProductId,PR.ClientId,PR.Comment,PR.Score
 FROM [dbo].[ProductsReviews] AS PR
 LEFT JOIN [dbo].[Products] AS P ON
 PR.ProductId=P.Id

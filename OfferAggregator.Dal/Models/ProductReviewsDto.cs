@@ -11,5 +11,15 @@
         public string Name { get; set; }
 
         public int ProductId { get; set; }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is ProductReviewsDto p &&
+                Score==p.Score &&
+                Comment==p.Comment && 
+                ClientId==p.ClientId && 
+                Name==p.Name && 
+                ProductId==p.ProductId;
+        }
     }
 }

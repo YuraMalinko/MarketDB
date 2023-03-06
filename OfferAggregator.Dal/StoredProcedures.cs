@@ -165,5 +165,9 @@ namespace OfferAggregator.Dal
         public const string DeleteGroup = "DeleteGroup";
 
         public const string GetGroupsWithoutProducts = "GetGroupsWithoutProducts";
+
+        public const string GetGroupTagCountProductsCountOrdersByClientId = "GetGroupTagCountProductsCountOrdersByClientId";
+
+        public const string GetComboTagGroupOfLikeOrDislikeByClientId = "GetComboTagGroupOfLikeOrDislikeByClientId";
     }
 }

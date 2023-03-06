@@ -1,7 +1,6 @@
 using AutoMapper;
 using OfferAggregator.Bll.Models;
 using OfferAggregator.Dal.Models;
-using OfferAggregator.Dal.Repositories;
 
 namespace OfferAggregator.Bll
 {
@@ -11,6 +10,8 @@ namespace OfferAggregator.Bll
 
         private IMapper _mapper;
 
+        public IMapper IMapper => _mapper;
+
         private static Mapper _instanceMapper;
 
         private Mapper()
@@ -18,15 +19,12 @@ namespace OfferAggregator.Bll
             _configuration = new MapperConfiguration(
                 cfg =>
                 {
-                    cfg.CreateMap<ProductsDto, ProductOutputModel>();
                     cfg.CreateMap<ProductInputModel, ProductsDto>();
                     cfg.CreateMap<StocksWithProductInputModel, StocksDtoWithProductName>();
                     cfg.CreateMap<StocksDtoWithProductName, StocksWithProductOutputModel>();
                     cfg.CreateMap<ProductsDto, ProductOutputModel>();
-                    cfg.CreateMap<ProductInputModel, ProductsDto>();
                     cfg.CreateMap<CommentForClientDto, CommentForClientOutputModel>();
                     cfg.CreateMap<CommentForClientInputModel, CommentForClientDto>();
-                    cfg.CreateMap<StocksWithProductInputModel, StocksDtoWithProductName>();
                     cfg.CreateMap<FullProductDto, FullProductOutputModel>();
                     cfg.CreateMap<TagDto, TagOutputModel>();
                     cfg.CreateMap<ManagerAuthInputModel, ManagerDto>();
@@ -51,57 +49,10 @@ namespace OfferAggregator.Bll
                     cfg.CreateMap<OrderDto, OrderOutputModel>();
                     cfg.CreateMap<ClientOutputModel, ClientsDto>();
                     cfg.CreateMap<ComboTagGroupDto, ComboTagGroupOutputModel>();
+                    cfg.CreateMap<FullProductDto, SelectProductForClientOutputModel>();
                 });
 
             _mapper = _configuration.CreateMapper();
-        }
-
-        private int CalcPointForAvgScore(ComboTagGroupDto combo, int pointForCombo)
-        {
-            double[] limitScoreForCombo = new double[] { 1.9, 2.9, 3.5, 4.5, 5 };
-            int[] insertsForComboWithTag = new int[] { -30, -20, 0, 10, 20 };
-            int[] insertsForComboWithoutTag = new int[] { -20, -10, 0, 5, 10 };
-            int result = -100;
-            int j = 0;
-
-            if (combo.Tag is null)
-            {
-
-                for (int i = 0; i <= limitScoreForCombo.Length; i++)
-                {
-                    if (combo.AvgScore <= limitScoreForCombo[i])
-                    {
-                        result = (pointForCombo * insertsForComboWithoutTag[j]) / 100;
-                        break;
-                    }
-
-                    j += 1;
-                }
-
-                return result;
-            }
-            else
-            {
-                for (int i = 0; i <= limitScoreForCombo.Length; i++)
-                {
-                    if (combo.AvgScore <= limitScoreForCombo[i])
-                    {
-                        result = (pointForCombo * insertsForComboWithTag[j]) / 100;
-                        break;
-                    }
-
-                    j += 1;
-                }
-
-                return result;
-            }
-        }
-
-
-
-        public int CalcPointForOrders()
-        {
-            return 100;
         }
 
         public static Mapper GetInstance()
@@ -240,14 +191,12 @@ namespace OfferAggregator.Bll
 
         public List<ComboTagGroupOutputModel> MapComboTagGroupDtoToComboTagGroupOutputModel(List<ComboTagGroupDto> combinations)
         {
-            List<ComboTagGroupOutputModel> result = _mapper.Map<List<ComboTagGroupOutputModel>>(combinations);
+            return _mapper.Map<List<ComboTagGroupOutputModel>>(combinations);
+        }
 
-            for (int i = 0; i < combinations.Count; i++)
-            {
-                result[i].PointForCombo += CalcPointForAvgScore(combinations[i], result[i].PointForCombo);
-            }
-
-            return result;
+        public List<SelectProductForClientOutputModel> MapFullProductDtoToSelectProductForClientOutputModel(List<FullProductDto> products)
+        {
+            return _mapper.Map<List<SelectProductForClientOutputModel>>(products);
         }
         public GroupDto MapGroupInputModelToGroupDto(GroupInputModel groupModel)
         {

@@ -5,46 +5,51 @@ using System.Data;
 
 namespace OfferAggregator.Dal.Repositories
 {
-    public class AggregatorRepository:IAggregatorRepository
+    public class AggregatorRepository : IAggregatorRepository
     {
-        public List<ComboTagGroupDto> GetAvgScoreGroupeAndTagOnProductsReviewsByClientId(int id)
+        public List<ComboTagGroupDto> GetAvgScoreGroupeAndTagOnProductsReviewsByClientId(int clientId)
         {
             using (SqlConnection sqlConnection = new SqlConnection(Options.ConnectionString))
             {
                 List<ComboTagGroupDto> result = new List<ComboTagGroupDto>();
                 sqlConnection.Open();
-                sqlConnection.Query<ComboTagGroupDto, GroupDto, TagDto, ComboTagGroupDto>(
+                sqlConnection.Query<ComboTagGroupDto>(
                     StoredProcedures.GetAvgScoreGroupeAndTagOnProductsReviewsByClientId,
-                    (combo, group, tag) =>
-                    {
-                        ComboTagGroupDto tmp = null;
-
-                        if (result.Exists(c => c.Equals(combo)))
-                        {
-                            tmp = result.Find(c => c.Equals(combo));
-                        }
-                        else
-                        {
-                            tmp = combo;
-                            result.Add(tmp);
-                        }
-
-                        tmp.Group = group;
-
-                        if (tag != null)
-                        {
-                            tmp.Tag = tag;
-                        }
-
-                        return combo;
-                    },
-                    new {id},
-                    splitOn: "Id",
+                    new { clientId },
                     commandType: CommandType.StoredProcedure).ToList();
 
                 return result;
             }
         }
 
+        public List<ComboTagGroupDto> GetComboTagGroupOfLikeOrDislikeByClientId(int clientId)
+        {
+            using (SqlConnection sqlConnection = new SqlConnection(Options.ConnectionString))
+            {
+                List<ComboTagGroupDto> result = new List<ComboTagGroupDto>();
+                sqlConnection.Open();
+                result = sqlConnection.Query<ComboTagGroupDto>(
+                    StoredProcedures.GetComboTagGroupOfLikeOrDislikeByClientId,
+                    new { clientId },
+                    commandType: CommandType.StoredProcedure).ToList();
+
+                return result;
+            }
+        }
+
+        public List<ComboTagGroupDto> GetGroupTagCountProductsCountOrdersByClientId(int clientId)
+        {
+            using (var sqlCnctn = new SqlConnection(Options.ConnectionString))
+            {
+                List<ComboTagGroupDto> result = new List<ComboTagGroupDto>();
+                sqlCnctn.Open();
+                result = sqlCnctn.Query<ComboTagGroupDto>(
+                    StoredProcedures.GetGroupTagCountProductsCountOrdersByClientId,
+                    new { clientId },
+                    commandType: CommandType.StoredProcedure).ToList();
+
+                return result;
+            }
+        }
     }
 }
