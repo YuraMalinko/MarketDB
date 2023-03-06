@@ -1,9 +1,59 @@
 ﻿@page "/"
+@inject NavigationManager _navigationManager
+@layout EmptyPage
 
-<PageTitle>Index</PageTitle>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#LoginModal">
+    LogIn
+</button>
 
-<h1>Hello, world!</h1>
+<!-- Modal -->
+<div class="modal fade" id="LoginModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel"> Авторизация </h5>
+            </div>
+            <div class="modal-body">
+                <form>
+    <div class="mb-3">
+        <label for="exampleInputEmail1" class="form-label">Логин</label>
+        <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" @bind="newManager.Login">
+    </div>
+    <div class="mb-3">
+        <label for="exampleInputPassword1" class="form-label">Пароль</label>
+        <input type="password" class="form-control" id="exampleInputPassword1" @bind="newManager.Password">
+    </div>
+</form>
+            </div>
+            <div class="modal-footer">
+                <button type="submit" class="btn btn-primary" @onclick="LogIn">LogIn</button>
+            </div>
+        </div>
+    </div>
+</div>
 
-Welcome to your new app.
+@code{
+    ManagerAuth _manager = new ManagerAuth();
+    public ManagerAuthInputModel newManager = new ManagerAuthInputModel();
+    public CurrentManager NowManager;
+    [Parameter] public int IdManager { get; set; }
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+    private void LogIn()
+    {
+        NowManager = _manager.ManagerAuthentication(newManager);
+        if (NowManager != null)
+        {
+            IdManager = NowManager.Id;
+            _navigationManager.NavigateTo($"/{IdManager}", true);
+        }
+        else
+        {
+            _navigationManager.NavigateTo("/", true);
+        }
+    }
+
+    protected override void OnInitialized()
+    {
+    }
+
+}

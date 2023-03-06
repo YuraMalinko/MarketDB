@@ -9,5 +9,5 @@ AS
 	M.[Login]
 from [Orders] as OS
 	inner join Managers as M on OS.ManagerId=M.Id
-Where OS.IsDeleted!=1 and OS.ClientId=@ClientId
+Where OS.IsDeleted<>1 and OS.ClientId=@ClientId
 order by [DateCreate] DESC

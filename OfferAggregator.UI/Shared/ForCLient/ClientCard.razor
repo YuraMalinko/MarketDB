@@ -10,32 +10,24 @@
     </div>
     <div class="d-grid gap-2">
         <a class="btn btn-outline-info" href="/clients/@client.Id" role="button">Информация</a>
-        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="#Modal"> Удалить @client.Id </button>
-        <!-- Модальное окно -->
-
-        <ModalWindow>
-            <NameWindow>
-                Удаление клиента
-            </NameWindow>
-            <Inside>
-                Вы точно хотите удалить данного пользователся ??????
-            </Inside>
-            <ButtomBot>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-                <button type="button" class="btn btn-primary" @onclick="ClickDelete">УДАЛИТЬ @client.Id</button>
-            </ButtomBot>
-        </ModalWindow>
+        <button type="button" class="btn btn-outline-danger" data-bs-toggle="modal" data-bs-target="@_goToModal"> Удалить </button>
+        
+        <ModalWindowDELETE Id="client.Id" IdModal="@_idModal">
+        </ModalWindowDELETE>
+        
     </div>
 </div>
 
 @code {
     [Parameter] public ClientOutputModel client { get; set; }
     [Parameter] public EventCallback<ClientInputModel> btnUpdate { get; set; }
+    private string _idModal;
+    private string _goToModal;
     ClientService _clientService = new ClientService();
 
-    private void ClickDelete()
+    protected override void OnInitialized()
     {
-        _clientService.DeleteClient(client.Id);
-        _navigationManager.NavigateTo("/clients", true);
+        _idModal = "Modal" + client.Id;
+        _goToModal = "#" + _idModal;
     }
 }

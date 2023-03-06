@@ -14,8 +14,8 @@ namespace OfferAggregator.Bll
 
         public ManagerAuth(IManagerRepository managerRep=null,IOrderRepository orderRepository=null)
         {
-            ManagerRep = managerRep;
-            OrderRepository = orderRepository;
+            ManagerRep =  managerRep == null? new ManagerRepository(): managerRep;
+            OrderRepository = orderRepository == null ? new OrderRepository() : orderRepository;
         }
 
         public int AddManager(ManagerAuthInputModel manager)
@@ -42,10 +42,11 @@ namespace OfferAggregator.Bll
 
         public CurrentManager ManagerAuthentication(ManagerAuthInputModel manager)
         {
-            ManagerDto result = ManagerRep.GetSingleManager(
-                _instanceMapper.MapManagerAuthInputToManagerDto(manager));
+            ManagerDto managerDto = _instanceMapper.MapManagerAuthInputToManagerDto(manager);
+            managerDto = ManagerRep.GetSingleManager(managerDto);
+            var result = _instanceMapper.MapManagerDtoToCurrentManager(managerDto);
 
-            return _instanceMapper.MapManagerDtoToCurrentManager(result);
+            return result;
         }
 
         public bool UpdateManager(CurrentManager manager)
