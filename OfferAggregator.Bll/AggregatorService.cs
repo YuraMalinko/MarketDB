@@ -201,7 +201,7 @@ namespace OfferAggregator.Bll
                 }
             }
 
-            for (int j = 0; j > reviews.Count; j++)
+            for (int j = 0; j < reviews.Count; j++)
             {
                 ProductReviewsDto badScore = reviews[j].ProductReviews.Find(s => s.Score < 3);
                 if (badScore != null)
