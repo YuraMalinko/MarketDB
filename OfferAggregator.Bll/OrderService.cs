@@ -48,48 +48,56 @@ namespace OfferAggregator.Bll
 
         public int CreateNewOrder(CreatingOrderInputModel creatingOrderModel)
         {
-            try
+            if (!CheckManager(creatingOrderModel.Order.ManagerId))
             {
-                if (CheckManager(creatingOrderModel.Order.ManagerId)
-                     && CheckClient(creatingOrderModel.Order.ClientId)
-                     && creatingOrderModel.Order.DateCreate < creatingOrderModel.Order.ComplitionDate
-                     && CheckProduct(creatingOrderModel.Products)
-                     && CheckAmountsListProducts(creatingOrderModel.Products))
+                throw new ArgumentException("Manager is not exists");
+            }
+
+            if (!CheckClient(creatingOrderModel.Order.ClientId))
+            {
+                throw new ArgumentException("Client is not exists");
+            }
+
+            if (!CheckProduct(creatingOrderModel.Products))
+            {
+                throw new ArgumentException("One or more products is not exist");
+            }
+
+            if (!CheckAmountsListProducts(creatingOrderModel.Products))
+            {
+                throw new ArgumentException("Amount of products on Stock less then count of products in order");
+            }
+
+            if (creatingOrderModel.Order.DateCreate > creatingOrderModel.Order.ComplitionDate)
+            {
+                throw new ArgumentException("DateCreate should be earlier then ComplitionDate");
+            }
+
+            CreatingOrderDto creatingOrderDto = _instanceMapper.MapCreatingOrderModelToCreatingOrderDto(creatingOrderModel);
+            int addOrder = _orderRepository.AddOrder(creatingOrderDto.Order);
+
+            if (creatingOrderDto.CommentsForOrder != null)
+            {
+                AddCommentsForOrder(creatingOrderDto.CommentsForOrder, addOrder);
+            }
+
+            if (creatingOrderDto.CommentsForClient != null)
+            {
+                AddCommentsForClient(creatingOrderDto.CommentsForClient);
+            }
+
+            if (creatingOrderModel.Products != null)
+            {
+                foreach (var crnt in creatingOrderModel.Products)
                 {
-                    CreatingOrderDto creatingOrderDto = _instanceMapper.MapCreatingOrderModelToCreatingOrderDto(creatingOrderModel);
-                    int addOrder = _orderRepository.AddOrder(creatingOrderDto.Order);
-
-                    if (creatingOrderDto.CommentsForOrder != null)
-                    {
-                        AddCommentsForOrder(creatingOrderDto.CommentsForOrder, addOrder);
-                    }
-
-                    if (creatingOrderDto.CommentsForClient != null)
-                    {
-                        AddCommentsForClient(creatingOrderDto.CommentsForClient);
-                    }
-
-                    if (creatingOrderModel.Products != null)
-                    {
-                        foreach (var crnt in creatingOrderModel.Products)
-                        {
-                            UpdateAmountProductOnStock(crnt.Count, crnt.Id, crnt.Name);
-                            AddProductDto(addOrder, crnt.Id, crnt.Count);
-                        }
-                    }
-
-                    return addOrder;
-                }
-                else
-                {
-                    return -1;
+                    UpdateAmountProductOnStock(crnt.Count, crnt.Id, crnt.Name);
+                    AddProductDto(addOrder, crnt.Id, crnt.Count);
                 }
             }
-            catch (Exception ex)
-            {
-                return -1;
-            }
+
+            return addOrder;
         }
+
 
         private bool CheckManager(int managerId)
         {

@@ -1,10 +1,4 @@
-﻿@using OfferAggregator.Bll.Models;
-@using OfferAggregator.Bll;
-@using OfferAggregator.Dal.Models;
-@using OfferAggregator.Dal.Repositories;
-@using System.ComponentModel.DataAnnotations;
-@using System.Timers
-@using System.Threading.Tasks
+@inject NavigationManager _navigationManager
 
 <div style="padding-top:10px; padding-bottom:10px; padding-left:5px; font-size:25px;">
     Удаление тега
@@ -14,7 +8,7 @@
     Для удаления конкретного тега у товара выберите его из списка ниже и нажмите кнопку "Удалить"
 </div>
 
-<EditForm Model="@_tagProduct" OnValidSubmit="@DeleteTagByProduct">
+<EditForm Model="@_tagProduct">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
@@ -28,7 +22,7 @@
         }
     </InputSelect><br />
 
-    <button class="button-submit" style="margin-top: 10px; " type="submit">Удалить тег у товара</button>
+    <button class="button-submit" style="margin-top: 10px;" data-bs-toggle="modal" data-bs-target="#delete-tag-modal">Удалить тег у товара</button>
 
 </EditForm>
 
@@ -39,12 +33,11 @@
     }
 </div>
 
-
 <div style="width:400px; padding-bottom: 5px;">
     Для удаления всех тегов нажмите кнопку "Удалить все теги товара"
 </div>
 
-<button onclick="@DeleteAllTagsByProduct" class="button-submit" type="submit">Удалить все теги товара</button>
+<button class="button-submit" data-bs-toggle="modal" data-bs-target="#delete-all-tags-modal">Удалить все теги товара</button>
 
 @if (!string.IsNullOrEmpty(_errorMessage))
 {
@@ -58,6 +51,36 @@
     {
         <span>Все теги товара удалены</span>
     }
+</div>
+
+<div>
+    <ModalWindow IdModal="delete-tag-modal">
+        <NameWindow>
+            Удаление тега
+        </NameWindow>
+        <Inside>
+            Вы точно хотите удалить выбранный тег у товара?
+        </Inside>
+        <ButtomBot>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+            <button type="button" class="btn btn-primary" @onclick="ClickDeleteTag">Удалить</button>
+        </ButtomBot>
+    </ModalWindow>
+</div>
+
+<div>
+    <ModalWindow IdModal="delete-all-tags-modal">
+        <NameWindow>
+            Удаление тегов
+        </NameWindow>
+        <Inside>
+            Вы точно хотите удалить все теги товара?
+        </Inside>
+        <ButtomBot>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+            <button type="button" class="btn btn-primary" @onclick="ClickDeleteAllTag">Удалить</button>
+        </ButtomBot>
+    </ModalWindow>
 </div>
 
 @code {
@@ -178,5 +201,17 @@
         _isDeletedAll = false;
         await InvokeAsync(StateHasChanged);
         _timerAll.Stop();
+    }
+
+    private void ClickDeleteTag()
+    {
+        DeleteTagByProduct();
+        _navigationManager.NavigateTo($"/product/{ProductId}", true);
+    }
+
+    private void ClickDeleteAllTag()
+    {
+        DeleteAllTagsByProduct();
+        _navigationManager.NavigateTo($"/product/{ProductId}", true);
     }
 }

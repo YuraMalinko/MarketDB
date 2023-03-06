@@ -15,7 +15,7 @@
     <ValidationSummary />
     <div>
         <div>Список всех клиентов, которые заказывали данный товар</div>
-        <InputSelect TValue="int" @bind-Value="_updateProductReview.ClientId">
+        <InputSelect TValue="int" style="width:200px; height:30px;" @bind-Value="_updateProductReview.ClientId">
             @foreach (var client in _clients)
             {
                 if (client != null)
@@ -26,7 +26,7 @@
         </InputSelect>
 
         <div style="margin-top: 7px;">Поставьте оценку клиента от 1 до 5</div>
-        <InputSelect TValue="int?" @bind-Value="_updateProductReview.Score">
+        <InputSelect TValue="int?" style="width:40px; height:30px;" @bind-Value="_updateProductReview.Score">
             <option value="">   </option>
             @foreach (var score in _scores)
             {
@@ -57,6 +57,9 @@
     [Parameter]
     public int ProductId { get; set; }
 
+    [Parameter]
+    public EventCallback OnReviewAdded { get; set; }
+
     private ProductReviewInputModel _updateProductReview;
 
     private ProductService _productService;
@@ -73,8 +76,6 @@
 
     private Timer _timer;
 
-    [Parameter]
-    public EventCallback OnReviewAdded { get; set; }
 
     protected override void OnInitialized()
     {

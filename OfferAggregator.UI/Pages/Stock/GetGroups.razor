@@ -1,0 +1,60 @@
+﻿
+@page "/groups"
+
+<div style="display:flex; flex-direction:row; width: 800px;">
+    <div style="width: 800px;">
+        <div>
+            <AddGroup OnGroupCreated="OnDataChanged"/>
+        </div>
+
+        <div>
+            <div style="padding-bottom: 7px;"><em>Список всех существующих групп:</em></div>
+            <div class="table-get-groups">
+                <table>
+                    @foreach (var group in _groups.OrderBy(g => g.Name))
+                    {
+                        if (group != null)
+                        {
+                            <tr>
+                                <td>@group.Name</td>
+                            </tr>
+                        }
+                    }
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+    <div style="padding-left:100px;">
+        <UpdateAndDeleteGroup OnDataChanged="OnDataChanged" @ref="_updateAndDeleteGroup" />
+    </div>
+</div>
+
+@code {
+    private ProductService _productService;
+
+    private List<GroupOutputModel> _groups = new();
+
+   // private AddGroup _addGroup;
+
+    private UpdateAndDeleteGroup _updateAndDeleteGroup;
+
+    protected override void OnInitialized()
+    {
+        _productService = new ProductService(
+        new ProductsRepository(),
+        new ProductsReviewsAndStocksRepository(),
+        new TagsRepository(),
+        new GroupRepository(),
+        new ClientRepository());
+
+        _groups = _productService.GetAllGroups();
+    }
+
+    private void OnDataChanged()
+    {
+        _groups = _productService.GetAllGroups();
+        _updateAndDeleteGroup.Update();
+    }
+}

@@ -158,6 +158,14 @@ namespace OfferAggregator.Dal
         
         public const string GetCommentsForClientById = "GetCommentsForClientById";
 
+        public const string AddGroup = "AddGroup";
+
+        public const string UpdateGroup = "UpdateGroup";
+
+        public const string DeleteGroup = "DeleteGroup";
+
+        public const string GetGroupsWithoutProducts = "GetGroupsWithoutProducts";
+
         public const string GetGroupTagCountProductsCountOrdersByClientId = "GetGroupTagCountProductsCountOrdersByClientId";
 
         public const string GetComboTagGroupOfLikeOrDislikeByClientId = "GetComboTagGroupOfLikeOrDislikeByClientId";

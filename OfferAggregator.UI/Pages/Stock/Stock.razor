@@ -6,21 +6,26 @@
 <div class="stock-top-btns">
     <button @onclick="SetOrUnsetAddProductContent" class="btn">Добавить новый товар</button>
     <button @onclick="SetOrUnsetRegistrateProductContent" class="btn">Оприходывать товар</button>
-    <div style="padding-left:160px;"></div>
-    <button @onclick="SetOrUnsetRegistrateProductContent" class="btn">Группы</button>
-    <button @onclick="SetOrUnsetRegistrateProductContent" class="btn">Теги</button>
+    <div style="padding-left:190px;"></div>
+    <button @onclick="SetOrUnsetGetGroupsContent" class="btn">Группы товаров</button>
 </div>
 <div style="width: 500px; padding-bottom: 100px">
     @switch (_content)
     {
+        case StockPageContent.None:
+            <GetFullProducts />
+            break;
+
         case StockPageContent.AddProduct:
             <AddProduct />
             break;
+
         case StockPageContent.RegistrateProduct:
             <RegistrateProduct />
             break;
-        case StockPageContent.None:
-            <GetFullProducts />
+
+        case StockPageContent.GetGroups:
+            <GetGroups />
             break;
     }
 </div>
@@ -38,6 +43,12 @@
         SetContent(StockPageContent.RegistrateProduct);
     }
 
+    private void SetOrUnsetGetGroupsContent()
+    {
+        SetContent(StockPageContent.GetGroups);
+    }
+
+
     private void SetContent(StockPageContent stockPageContent)
     {
         if (_content == stockPageContent)
@@ -54,6 +65,7 @@
     {
         None = 0,
         AddProduct = 1,
-        RegistrateProduct = 2
+        RegistrateProduct = 2,
+        GetGroups = 3
     }
 }

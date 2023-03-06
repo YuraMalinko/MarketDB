@@ -10,11 +10,12 @@ namespace OfferAggregator.Bll.Models
 
         public string Password { get; set; }
 
-        public CurrentManager(int id, string? login, string? password)
+        public CurrentManager(int id)
         {
             Id = id;
-            Login = login;
-            Password = password;
+        }
+        public CurrentManager()
+        {
         }
 
         public override string ToString()

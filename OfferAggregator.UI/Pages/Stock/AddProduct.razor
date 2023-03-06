@@ -1,11 +1,4 @@
-﻿@using OfferAggregator.Bll.Models; 
-@using OfferAggregator.Bll;
-@using OfferAggregator.Dal.Models;
-@using OfferAggregator.Dal.Repositories;
-@using System.ComponentModel.DataAnnotations;
-@using System.Timers
-@using System.Threading.Tasks
-
+﻿
 <div class="header-pages-stock">
     Добавить новый товар на склад
 </div>
@@ -23,7 +16,7 @@
         <div class="left-part">Группа товара:</div>
 
         <InputSelect TValue="int" @bind-Value="Product.GroupId">
-            @foreach (var group in _groups)
+            @foreach (var group in _groups.OrderBy(g => g.Name))
             {
                 if (group != null)
                 {

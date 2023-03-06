@@ -1,0 +1,211 @@
+﻿
+<div style="padding-top:10px; padding-bottom:10px; padding-left:5px; font-size:25px;">
+    Изменение группы
+</div>
+<div style="width:400px; padding-bottom: 10px;">
+    Для изменения конкретной группы выберите ее из списка ниже
+</div>
+
+<EditForm Model="@_updateGroup" OnValidSubmit="@UpdateGroup">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <InputSelect id="groupId" style="width: 260px; height:30px;" @bind-Value="_updateGroup.Id">
+        @foreach (var group in _groups.OrderBy(g => g.Name))
+        {
+            if (group != null)
+            {
+                <option value="@group.Id">@group.Name</option>
+            }
+        }
+    </InputSelect>
+
+    <div style="width:400px; padding-bottom: 10px; padding-top:10px;">
+        Укажите новое наименование группы и нажмите кнопку "Изменить"
+    </div>
+    <InputText id="updateGroup" style="width: 260px; height:30px;" @bind-Value="_updateGroup.Name" />
+
+    <br />
+    <button class="button-submit" style="margin-top: 10px; " type="submit">Изменить группу</button>
+
+    <div class="pop-up-success-message">
+        @if (_isUpdated)
+        {
+            <span>Наименование группы изменено</span>
+        }
+    </div>
+     
+</EditForm>
+
+<div style="padding-top:0px; padding-bottom:10px; padding-left:5px; font-size:25px;">
+    Удаление группы
+</div>
+<div style="width:500px; padding-bottom: 10px;">
+    Группу можно удалить только в том случае, если к ней не привязан ни один товар.
+    Выберите такую группу из списка ниже и нажмите кнопку "Удалить"
+</div>
+
+<EditForm Model="@_deleteGroupId">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <InputSelect id="groupId" style="width: 260px; height:30px;" @bind-Value="_deleteGroupId">
+        @foreach (var group in _groupsWithoutProducts.OrderBy(g => g.Name))
+        {
+            if (group != null)
+            {
+                <option value="@group.Id">@group.Name</option>
+            }
+        }
+    </InputSelect>
+
+    <br />
+    <button class="button-submit" style="margin-top: 10px; " data-bs-toggle="modal" data-bs-target="#delete-group-modal">Удалить группу</button>
+
+    <div class="pop-up-success-message">
+        @if (_isDeleted)
+        {
+            <span>Группа удалена</span>
+        }
+    </div>
+
+</EditForm>
+
+<div>
+    <ModalWindow IdModal="delete-group-modal">
+        <NameWindow>
+            Удаление тега
+        </NameWindow>
+        <Inside>
+            Вы точно хотите удалить выбранный тег у товара?
+        </Inside>
+        <ButtomBot>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+            <button type="button" class="btn btn-primary" @onclick="DeleteGroup">Удалить</button>
+        </ButtomBot>
+    </ModalWindow>
+</div>
+
+@if (!string.IsNullOrEmpty(_errorMessage))
+{
+    <div class="error-message">
+        @_errorMessage
+    </div>
+}
+
+@code {
+
+    [Parameter]
+    public EventCallback OnDataChanged { get; set; }
+
+    private ProductService _productService;
+
+    private List<GroupOutputModel> _groups;
+
+    private List<GroupOutputModel> _groupsWithoutProducts;
+
+    private GroupInputModel _updateGroup;
+
+    private int _deleteGroupId;
+
+    private string _errorMessage;
+
+    private bool _isUpdated;
+
+    private Timer _timerUpdated;
+
+    private bool _isDeleted;
+
+    private Timer _timerDeleted;
+
+    protected override void OnInitialized()
+    {
+        _productService = new ProductService(
+        new ProductsRepository(),
+        new ProductsReviewsAndStocksRepository(),
+        new TagsRepository(),
+        new GroupRepository(),
+        new ClientRepository());
+
+        Update();
+        _updateGroup = new();
+        _isUpdated = false;
+        _timerUpdated = new Timer();
+        _timerUpdated.Interval = 3000;
+        _timerUpdated.Elapsed += StopShowingUpdated;
+        _isDeleted = false;
+        _timerDeleted = new Timer();
+        _timerDeleted.Interval = 3000;
+        _timerDeleted.Elapsed += StopShowingDeleted;
+    }
+
+    public void Update()
+    {
+        _groups = _productService.GetAllGroups();
+        _groupsWithoutProducts = _productService.GetGroupsWithoutProducts();
+    }
+
+    private void UpdateGroup()
+    {
+        try
+        {
+            if (_updateGroup != null && _updateGroup.Id != 0)
+            {
+                _productService.UpdateGroup(_updateGroup);
+                _errorMessage = string.Empty;
+                _isUpdated = true;
+                _timerUpdated.Start();
+                OnDataChanged.InvokeAsync();
+            }
+        }
+        catch (ArgumentException ex)
+        {
+            switch (ex.Message)
+            {
+                case "Group is not exist":
+                    _errorMessage = "Такой группы не существует";
+                    break;
+
+                case "The same group is already exists":
+                    _errorMessage = "Группа с введенным Вами названием уже существует";
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = "Произошла ошибка";
+        }
+    }
+
+    private void DeleteGroup()
+    {
+        try
+        {
+            if (_deleteGroupId != 0)
+            {
+                _productService.DeleteGroup(_deleteGroupId);
+                _isDeleted = true;
+                _timerDeleted.Start();
+                OnDataChanged.InvokeAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = "Произошла ошибка";
+        }
+    }
+
+    private async void StopShowingUpdated(object sender, ElapsedEventArgs args)
+    {
+        _isUpdated = false;
+        await InvokeAsync(StateHasChanged);
+        _timerUpdated.Stop();
+    }
+
+    private async void StopShowingDeleted(object sender, ElapsedEventArgs args)
+    {
+        _isDeleted = false;
+        await InvokeAsync(StateHasChanged);
+        _timerDeleted.Stop();
+    }
+}

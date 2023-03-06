@@ -223,7 +223,7 @@ namespace OfferAggregator.Bll
                         _productsReviewsAndStocksRepository.UpdateScoreAndCommentOfProductsReviews(productReviewDto);
                     }
                 }
-                
+
                 else if (productReviewModel.Score != null && productReviewModel.Comment == null)
                 {
                     if (CheckProductDoesNotHaveCommentByProductIdAndClientId(getProductWithScoresAndComments))
@@ -242,7 +242,7 @@ namespace OfferAggregator.Bll
                 {
                     if (CheckProductDoesNotHaveCommentByProductIdAndClientId(getProductWithScoresAndComments))
                     {
-                         _productsReviewsAndStocksRepository.UpdateCommentOfProductReview(productReviewDto);
+                        _productsReviewsAndStocksRepository.UpdateCommentOfProductReview(productReviewDto);
 
                     }
                     else
@@ -504,11 +504,68 @@ namespace OfferAggregator.Bll
             return result;
         }
 
+        public int AddGroup(string groupName)
+        {
+            if (!CheckGroupNameIsUnique(groupName))
+            {
+                throw new ArgumentException("The same group is already exists.");
+            }
+
+            int groupId = _groupRepository.AddGroup(groupName);
+
+            return groupId;
+        }
+
+        public bool UpdateGroup(GroupInputModel groupModel)
+        {
+            if (!CheckGroupIsExist(groupModel.Id))
+            {
+                throw new ArgumentException("Group is not exist");
+            }
+
+            if (!CheckGroupNameIsUnique(groupModel.Name))
+            {
+                throw new ArgumentException("The same group is already exists");
+            }
+
+            var groupDto = _instanceMapper.MapGroupInputModelToGroupDto(groupModel);
+            var result = _groupRepository.UpdateGroup(groupDto);
+
+            return result;
+        }
+
+        public bool DeleteGroup(int groupId)
+        {
+            if (!CheckGroupIsExist(groupId))
+            {
+                throw new ArgumentException("Group is not exist");
+            }
+
+            var result = _groupRepository.DeleteGroup(groupId);
+
+            return result;
+        }
+
+        public List<GroupOutputModel> GetGroupsWithoutProducts()
+        {
+            var groups = _groupRepository.GetGroupsWithoutProducts();
+            var result = _instanceMapper.MapGroupDtosToGroupModels(groups);
+
+            return result;
+        }
+
         private bool CheckTagNameIsUnique(string tagName)
         {
             var getAllTags = _tagsRepository.GetAllTags();
 
             return !getAllTags.Any(t => t.Name == tagName);
+        }
+
+        private bool CheckGroupNameIsUnique(string groupName)
+        {
+            var getAllGroups = _groupRepository.GetAllGroups();
+
+            return !getAllGroups.Any(g => g.Name == groupName);
         }
 
         private bool CheckClientOrderedProduct(int productId, int clientId)

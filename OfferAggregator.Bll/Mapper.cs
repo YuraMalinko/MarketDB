@@ -201,5 +201,9 @@ namespace OfferAggregator.Bll
         {
             return _mapper.Map<List<SelectProductForClientOutputModel>>(products);
         }
+        public GroupDto MapGroupInputModelToGroupDto(GroupInputModel groupModel)
+        {
+            return _mapper.Map<GroupDto>(groupModel);
+        }
     }
 }

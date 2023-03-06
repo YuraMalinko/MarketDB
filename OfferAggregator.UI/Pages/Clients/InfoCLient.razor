@@ -62,6 +62,7 @@
     private void AddComment()
     {
         _clientServis.AddComment(CommentInput, Id);
+        InvokeAsync(StateHasChanged);
     }
 
     private void DeleteComment(int a)
