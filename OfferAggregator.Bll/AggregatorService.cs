@@ -97,22 +97,31 @@ namespace OfferAggregator.Bll
         {
             foreach (ComboTagGroupDto w in wishes)
             {
-                if (actualCombo.Exists(c => w.GroupId == c.GroupId && w.TagId == c.TagId))
+                if (actualCombo.Exists(c => w.GroupId == c.GroupId || w.TagId == c.TagId))
                 {
+                    bool addIsLiked=false;
+
                     foreach (ComboTagGroupDto combo in actualCombo)
                     {
                         if (w.TagId == null && w.GroupId == combo.GroupId)
                         {
                             combo.IsLiked = w.IsLiked;
+                            addIsLiked = true;
                         }
                         else if (w.GroupId == null && w.TagId == combo.TagId)
                         {
                             combo.IsLiked = w.IsLiked;
+                            addIsLiked = true;
                         }
                         else if (w.GroupId == combo.GroupId && w.TagId == combo.TagId)
                         {
                             combo.IsLiked = w.IsLiked;
+                            addIsLiked = true;
                         }
+                    }
+                    if (!addIsLiked)
+                    {
+                        actualCombo.Add(w);
                     }
                 }
                 else

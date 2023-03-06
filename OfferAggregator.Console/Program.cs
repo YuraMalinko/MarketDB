@@ -6,9 +6,12 @@ using OfferAggregator.Bll;
 using OfferAggregator.Bll.Models;
 using System.Net.Http.Headers;
 
-AggregatorRepository AR = new AggregatorRepository();
+AggregatorService AS = new AggregatorService();
 
-var tmp = AR.GetComboTagGroupOfLikeOrDislikeByClientId(18);
+
+
+//var tmp = AR.GetComboTagGroupOfLikeOrDislikeByClientId(18);
+var t = AS.SelectOfPotentialProductsForClient(7);
 
 
 //var t = AR.GetAvgScoreGroupeAndTagOnProductsReviewsByClientId(18);
