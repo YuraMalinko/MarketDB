@@ -135,7 +135,7 @@ namespace OfferAggregator.Dal.Repositories
                         return scoresAndComments;
                     },
                     new { clientId },
-                    splitOn: "Score",
+                    splitOn: "ClientId",
                     commandType: CommandType.StoredProcedure
                     ).ToList();
 
