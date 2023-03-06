@@ -62,7 +62,7 @@
     private void AddComment()
     {
         _clientServis.AddComment(CommentInput, Id);
-        _navigationManager.NavigateTo($"/clients/{Id}", true);
+        InvokeAsync(StateHasChanged);
     }
 
     private void DeleteComment(int a)

@@ -3,4 +3,4 @@
 	@Password nvarchar(20)
 as
 	select [Id],[Login],[Password] from Managers
-	Where (([Login] = @Login) and ([Password]=@Password) and ([IsDeleted]!=1))
+	Where (([Login] = @Login) and ([Password]=@Password) and ([IsDeleted]<>1))
