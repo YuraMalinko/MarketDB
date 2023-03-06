@@ -1,13 +1,4 @@
-﻿@using OfferAggregator.Bll.Models;
-@using OfferAggregator.Bll;
-@using OfferAggregator.Dal.Models;
-@using OfferAggregator.Dal.Repositories;
-@using System.ComponentModel.DataAnnotations;
-@using System.Timers
-@using System.Threading.Tasks
-
-<h3>UpdateAndDeleteGroup</h3>
-
+﻿
 <div style="padding-top:10px; padding-bottom:10px; padding-left:5px; font-size:25px;">
     Изменение группы
 </div>
@@ -19,7 +10,7 @@
     <DataAnnotationsValidator />
     <ValidationSummary />
 
-    <InputSelect id="groupId" @bind-Value="_updateGroup.Id">
+    <InputSelect id="groupId" style="width: 260px; height:30px;" @bind-Value="_updateGroup.Id">
         @foreach (var group in _groups.OrderBy(g => g.Name))
         {
             if (group != null)
@@ -29,11 +20,12 @@
         }
     </InputSelect>
 
-    <div style="width:400px; padding-bottom: 10px;">
+    <div style="width:400px; padding-bottom: 10px; padding-top:10px;">
         Укажите новое наименование группы и нажмите кнопку "Изменить"
     </div>
-    <InputText id="updateGroup" @bind-Value="_updateGroup.Name" />
+    <InputText id="updateGroup" style="width: 260px; height:30px;" @bind-Value="_updateGroup.Name" />
 
+    <br />
     <button class="button-submit" style="margin-top: 10px; " type="submit">Изменить группу</button>
 
     <div class="pop-up-success-message">
@@ -45,20 +37,19 @@
      
 </EditForm>
 
-<br />
-<div style="padding-top:10px; padding-bottom:10px; padding-left:5px; font-size:25px;">
+<div style="padding-top:0px; padding-bottom:10px; padding-left:5px; font-size:25px;">
     Удаление группы
 </div>
-<div style="width:400px; padding-bottom: 10px;">
+<div style="width:500px; padding-bottom: 10px;">
     Группу можно удалить только в том случае, если к ней не привязан ни один товар.
     Выберите такую группу из списка ниже и нажмите кнопку "Удалить"
 </div>
 
-<EditForm Model="@_deleteGroupId" OnValidSubmit="@DeleteGroup">
+@*<EditForm Model="@_deleteGroupId" OnValidSubmit="@DeleteGroup">
     <DataAnnotationsValidator />
     <ValidationSummary />
 
-    <InputSelect id="groupId" @bind-Value="_deleteGroupId">
+    <InputSelect id="groupId" style="width: 260px; height:30px;" @bind-Value="_deleteGroupId">
         @foreach (var group in _groupsWithoutProducts.OrderBy(g => g.Name))
         {
             if (group != null)
@@ -68,6 +59,7 @@
         }
     </InputSelect>
 
+    <br/>
     <button class="button-submit" style="margin-top: 10px; " type="submit">Удалить группу</button>
 
     <div class="pop-up-success-message">
@@ -77,7 +69,48 @@
         }
     </div>
 
+</EditForm>*@
+
+<EditForm Model="@_deleteGroupId">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
+
+    <InputSelect id="groupId" style="width: 260px; height:30px;" @bind-Value="_deleteGroupId">
+        @foreach (var group in _groupsWithoutProducts.OrderBy(g => g.Name))
+        {
+            if (group != null)
+            {
+                <option value="@group.Id">@group.Name</option>
+            }
+        }
+    </InputSelect>
+
+    <br />
+    <button class="button-submit" style="margin-top: 10px; " data-bs-toggle="modal" data-bs-target="#delete-group-modal">Удалить группу</button>
+
+    <div class="pop-up-success-message">
+        @if (_isDeleted)
+        {
+            <span>Группа удалена</span>
+        }
+    </div>
+
 </EditForm>
+
+<div>
+    <ModalWindow Id="delete-group-modal">
+        <NameWindow>
+            Удаление тега
+        </NameWindow>
+        <Inside>
+            Вы точно хотите удалить выбранный тег у товара?
+        </Inside>
+        <ButtomBot>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+            <button type="button" class="btn btn-primary" @onclick="DeleteGroup">Удалить</button>
+        </ButtomBot>
+    </ModalWindow>
+</div>
 
 @if (!string.IsNullOrEmpty(_errorMessage))
 {

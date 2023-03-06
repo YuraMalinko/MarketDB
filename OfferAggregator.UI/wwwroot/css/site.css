@@ -224,6 +224,12 @@ a, .btn-link {
     width: 595px;
 }
 
+/*.table-get-scores-comments-on-product {
+    overflow: auto;
+    height: 200px;
+    border-bottom: 1px solid #1d334a;
+}*/
+
     .table-get-scores-comments-on-product th {
         text-align: center;
         border-bottom: 1px solid black;
@@ -331,13 +337,13 @@ a, .btn-link {
 .table-get-groups {
     overflow: auto;
     height: 300px;
-    width: 220px;
+    width: 260px;
     border: 1px solid #1d334a;
 }
 
     .table-get-groups td {
         border-bottom: 1px solid #b0b7c6;
-        width: 200px;
+        width: 240px;
         background-color: #F5F5F5;
         padding: 2px;
     }
@@ -384,6 +390,12 @@ a, .btn-link {
         z-index: 1;
     }
 
+.table-add-products-to-order {
+    overflow: auto;
+    height: 180px;
+    width: 380px;
+}
+
 .table-add-products-to-order th {
     font-weight: bold;
     text-align: left;
@@ -401,6 +413,18 @@ a, .btn-link {
     font-size: 13px;
     vertical-align: top;
     background-color: #F5F5F5;
+}
+
+.table-add-products-to-order tr:hover td {
+    background-color: #A9A9A9;
+    color: #FFFFF0;
+    border: 1px solid #1d334a;
+}
+
+.table-add-products-to-order tr th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
 }
 
 .button-submit-create-order {
@@ -421,14 +445,45 @@ a, .btn-link {
     background-color: #efb9b6;
     opacity: 0.8;
     font-size: 11px;
-    color: black;
+    color: black;    
 }
+
+    .button-minus:hover {
+        border-radius: 8px;
+        border-bottom-color: black;
+        background-color: #e8928e;
+        font-size: 11px;
+        color: black;
+    }
 
 .button-plus {
     border-radius: 8px;
-    border-bottom-color: black;
+    border-color: black;
     background-color: #c9fdc9;
     opacity: 0.8;
     font-size: 11px;
     color: black;
+}
+
+    .button-plus:hover {
+        border-radius: 8px;
+        border-color: black;
+        background-color: #46ab46;
+        font-size: 11px;
+        color: black;
+    }
+
+    .button-plus:disabled {
+        border-radius: 8px;
+        background-color: #B5B8B1;
+        opacity: 0.4;
+        font-size: 11px;
+        color: black;
+    }
+
+.pop-up-success-message-about-creating-order {
+width:500px;
+padding-top: 10px;
+padding-left: 5px;
+color:saddlebrown;
 }

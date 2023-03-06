@@ -1,11 +1,4 @@
-﻿@using OfferAggregator.Bll.Models;
-@using OfferAggregator.Bll;
-@using OfferAggregator.Dal.Models;
-@using OfferAggregator.Dal.Repositories;
-@using System.ComponentModel.DataAnnotations;
-@using System.Timers
-@using System.Threading.Tasks
-
+﻿
 <div class="header-pages-stock">Оприходывать товар на складе</div>
 
 <table>
@@ -14,8 +7,7 @@
         <div style=" width: 530px;">
             <EditForm Model="@StockProduct" OnValidSubmit="@RegistrateProductInStock">
                 <DataAnnotationsValidator />
-                <ValidationSummary />
-
+                
                 <div class="edit-form-row">
                     <div class="left-part">Название товара:</div>
 
@@ -32,9 +24,12 @@
                     </InputSelect>
                 </div>
 
+                <div style="display:flex; flex-direction:row; width:900px;">
                 <div class="edit-form-row">
                     <div class="left-part">Количество товара:</div>
                     <InputNumber class="input-number" id="amount" @bind-Value="StockProduct.Amount" />
+                </div>
+                <ValidationSummary />
                 </div>
 
                     @if (!string.IsNullOrEmpty(_errorMessage))

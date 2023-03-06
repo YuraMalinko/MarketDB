@@ -1,11 +1,4 @@
-﻿@using OfferAggregator.Bll.Models;
-@using OfferAggregator.Bll;
-@using OfferAggregator.Dal.Models;
-@using OfferAggregator.Dal.Repositories;
-@using System.ComponentModel.DataAnnotations;
-@using System.Timers
-@using System.Threading.Tasks
-
+﻿
 <div style="padding-top:20px; padding-bottom:10px; padding-left:5px; font-size:25px;">
     Добавление тега
     </div>
@@ -18,7 +11,7 @@
     <DataAnnotationsValidator />
     <ValidationSummary />
 
-    <InputSelect id="tagId"  style="height:30px;" @bind-Value="_tagProductInputModel.TagId">
+    <InputSelect id="tagId" style="height:30px; width: 200px;" @bind-Value="_tagProductInputModel.TagId">
         <option> </option>
         @foreach (var tag in _tags.OrderBy(t => t.Name))
         {
@@ -62,7 +55,7 @@
 
 @if (!string.IsNullOrEmpty(_errorMessage))
 {
-    <div class="error-message">
+    <div class="error-message" style="width:600px;">
         @_errorMessage
     </div>
 }

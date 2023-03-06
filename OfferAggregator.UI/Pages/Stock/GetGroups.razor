@@ -1,12 +1,5 @@
-﻿@using OfferAggregator.Bll.Models;
-@using OfferAggregator.Bll;
-@using OfferAggregator.Dal.Models;
-@using OfferAggregator.Dal.Repositories;
-@using System.ComponentModel.DataAnnotations;
-
+﻿
 @page "/groups"
-
-<h3>GetGroups</h3>
 
 <div style="display:flex; flex-direction:row; width: 800px;">
     <div style="width: 800px;">
@@ -15,7 +8,7 @@
         </div>
 
         <div>
-            <div>Список всех существующих групп</div>
+            <div style="padding-bottom: 7px;"><em>Список всех существующих групп:</em></div>
             <div class="table-get-groups">
                 <table>
                     @foreach (var group in _groups.OrderBy(g => g.Name))
@@ -33,7 +26,7 @@
 
     </div>
 
-    <div style="padding-left:50px;">
+    <div style="padding-left:100px;">
         <UpdateAndDeleteGroup OnDataChanged="OnDataChanged" @ref="_updateAndDeleteGroup" />
     </div>
 </div>

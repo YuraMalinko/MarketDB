@@ -208,7 +208,7 @@
         }
     </InputSelect><br />
 
-    <button class="button-submit" style="margin-top: 10px;" data-bs-toggle="modal" data-bs-target="#Modal">Удалить тег у товара</button>
+    <button class="button-submit" style="margin-top: 10px;" data-bs-toggle="modal" data-bs-target="#delete-tag-modal">Удалить тег у товара</button>
 
 </EditForm>
 
@@ -224,7 +224,8 @@
     Для удаления всех тегов нажмите кнопку "Удалить все теги товара"
 </div>
 
-<button onclick="@DeleteAllTagsByProduct" class="button-submit" type="submit">Удалить все теги товара</button>
+@*<button onclick="@DeleteAllTagsByProduct" class="button-submit" type="submit">Удалить все теги товара</button>*@
+<button class="button-submit" data-bs-toggle="modal" data-bs-target="#delete-all-tags-modal">Удалить все теги товара</button>
 
 @if (!string.IsNullOrEmpty(_errorMessage))
 {
@@ -241,16 +242,31 @@
 </div>
 
 <div>
-    <ModalWindow>
+    <ModalWindow Id="delete-tag-modal">
         <NameWindow>
-            Удаление клиента
+            Удаление тега
         </NameWindow>
         <Inside>
-            Вы точно хотите удалить выбранный тег?
+            Вы точно хотите удалить выбранный тег у товара?
         </Inside>
         <ButtomBot>
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
-            <button type="button" class="btn btn-primary" @onclick="ClickDelete">Удалить</button>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+            <button type="button" class="btn btn-primary" @onclick="ClickDeleteTag">Удалить</button>
+        </ButtomBot>
+    </ModalWindow>
+</div>
+
+<div>
+    <ModalWindow Id="delete-all-tags-modal">
+        <NameWindow>
+            Удаление тегов
+        </NameWindow>
+        <Inside>
+            Вы точно хотите удалить все теги товара?
+        </Inside>
+        <ButtomBot>
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Отменить</button>
+            <button type="button" class="btn btn-primary" @onclick="ClickDeleteAllTag">Удалить</button>
         </ButtomBot>
     </ModalWindow>
 </div>
@@ -375,9 +391,15 @@
         _timerAll.Stop();
     }
 
-    private void ClickDelete()
+    private void ClickDeleteTag()
     {
         DeleteTagByProduct();
-        _navigationManager.NavigateTo("/product/ProductId", true);
+        _navigationManager.NavigateTo($"/product/{ProductId}", true);
+    }
+
+    private void ClickDeleteAllTag()
+    {
+        DeleteAllTagsByProduct();
+        _navigationManager.NavigateTo($"/product/{ProductId}", true);
     }
 }
