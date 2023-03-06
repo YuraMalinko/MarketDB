@@ -15,8 +15,8 @@
             return obj is ProductsDto dto &&
                    Id == dto.Id &&
                    Name == dto.Name &&
-                   IsDeleted == dto.IsDeleted &&
-                   GroupId == dto.GroupId;
+                   GroupId == dto.GroupId &&
+                   IsDeleted == dto.IsDeleted;
         }
     }
 }

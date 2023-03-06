@@ -19,15 +19,12 @@ namespace OfferAggregator.Bll
             _configuration = new MapperConfiguration(
                 cfg =>
                 {
-                    cfg.CreateMap<ProductsDto, ProductOutputModel>();
                     cfg.CreateMap<ProductInputModel, ProductsDto>();
                     cfg.CreateMap<StocksWithProductInputModel, StocksDtoWithProductName>();
                     cfg.CreateMap<StocksDtoWithProductName, StocksWithProductOutputModel>();
                     cfg.CreateMap<ProductsDto, ProductOutputModel>();
-                    cfg.CreateMap<ProductInputModel, ProductsDto>();
                     cfg.CreateMap<CommentForClientDto, CommentForClientOutputModel>();
                     cfg.CreateMap<CommentForClientInputModel, CommentForClientDto>();
-                    cfg.CreateMap<StocksWithProductInputModel, StocksDtoWithProductName>();
                     cfg.CreateMap<FullProductDto, FullProductOutputModel>();
                     cfg.CreateMap<TagDto, TagOutputModel>();
                     cfg.CreateMap<ManagerAuthInputModel, ManagerDto>();
