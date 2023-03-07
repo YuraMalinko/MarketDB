@@ -50,6 +50,7 @@ namespace OfferAggregator.Bll
                     cfg.CreateMap<ClientOutputModel, ClientsDto>();
                     cfg.CreateMap<ComboTagGroupDto, ComboTagGroupOutputModel>();
                     cfg.CreateMap<FullProductDto, SelectProductForClientOutputModel>();
+                    cfg.CreateMap<GroupInputModel, GroupDto>().ReverseMap();
                 });
 
             _mapper = _configuration.CreateMapper();

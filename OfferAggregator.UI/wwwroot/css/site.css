@@ -346,7 +346,7 @@ a, .btn-link {
 
 .table-get-products-for-create-order {
     overflow: auto;
-    height: 400px;
+    height: 390px;
     border: 1px solid #1d334a;
 }
 
@@ -478,3 +478,49 @@ a, .btn-link {
     padding-left: 5px;
     color: saddlebrown;
 }
+
+.table-get-recomended-products {
+    overflow: auto;
+    height:304px;
+    border: 1px solid #1d334a;
+}
+
+    .table-get-recomended-products thead th {
+        font-weight: bold;
+        text-align: left;
+        font-size: 13px;
+        background: #D3D3D3;
+        padding: 5px;
+        border-right: 1px solid #1d334a;
+        border-bottom: 1px solid #1d334a;
+    }
+
+    .table-get-recomended-products tbody td {
+        text-align: left;
+        border-right: 1px solid #1d334a;
+        border-bottom: 1px solid #b0b7c6;
+        padding: 3px;
+        font-size: 13px;
+        vertical-align: top;
+        background-color: #F5F5F5;
+    }
+
+    .table-get-recomended-products tr:hover td{
+        background-color: #A9A9A9;
+        color: #FFFFF0;
+    }
+
+    .table-get-recomended-products tr th {
+        position: sticky;
+        top: 0;
+        z-index: 1;
+    }
+
+.table-get-recomended-products tr .pp {
+    background-color: #eae6ed;
+}
+
+    .table-get-recomended-products tr .pp:hover {
+        background-color: #b9adc4;
+        color: #FFFAFA;
+    }

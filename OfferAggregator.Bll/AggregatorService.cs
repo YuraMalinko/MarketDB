@@ -17,7 +17,7 @@ namespace OfferAggregator.Bll
 
             if (_clientRepository.GetClientById(clientId) == null)
             {
-                throw new ArgumentNullException("Такого пользователя нет");
+                throw new ArgumentNullException("Этого клиента нет");
             }
 
             List<ComboTagGroupOutputModel> combinations = CalcPointsForComboTagGroupByIdClient(clientId);

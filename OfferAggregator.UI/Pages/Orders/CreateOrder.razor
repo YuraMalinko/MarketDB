@@ -1,8 +1,6 @@
 ﻿@page "/CreateOrder"
 
-<div style="padding-top:5px; padding-bottom:13px; padding-left:3px; font-size:25px;">
-    Форма создания заказа
-</div>
+
 
 <div style="display:flex; flex-direction: row; width:1100px;">
     <div style="width:550px;">
@@ -11,18 +9,25 @@
 
             <div style="display:flex; flex-direction: row;">
                 <div>
-                    <div style="padding-bottom:7px;"><em>Список клиентов:</em></div>
-                    <InputSelect TValue="int" style="height:30px; width: 363px;" @bind-Value="_creatingOrder.Order.ClientId">
-                        @foreach (var client in _clients.OrderBy(c => c.Name).Where(FilterForClients))
-                        {
-                            if (client != null)
+                    <div>
+                        <div style="padding-top:5px; padding-bottom:13px; padding-left:3px; font-size:25px; width: 370px;">
+                            Форма создания заказа
+                        </div>
+                        <div style="padding-bottom:7px;"><em>Список клиентов:</em></div>
+                        <InputSelect TValue="int" style="height:30px; width: 363px;" ValueExpression="@(()=>_creatingOrder.Order.ClientId)"
+                                     Value="@_creatingOrder.Order.ClientId"
+                                     ValueChanged="@OnClientValueChange">
+                            @foreach (var client in _clients.OrderBy(c => c.Name).Where(FilterForClients))
                             {
-                                <option value="@client.Id">@client.Name<span> Телефон: </span>@client.PhoneNumber</option>
+                                if (client != null)
+                                {
+                                    <option value="@client.Id">@client.Name<span> Телефон: </span>@client.PhoneNumber</option>
+                                }
                             }
-                        }
-                    </InputSelect>
+                        </InputSelect>
+                    </div>
                 </div>
-                <div class="filters" style="padding-top:0px; margin-top:0px; padding-left:40px; margin-left:auto; width: 270px; float: right">
+                <div class="filters" style="padding-top:5px; margin-left:auto; width: 270px; float: right">
                     <div class="filters-row">Фильтр по имени клиента</div>
                     <InputText id="ClientName" placeholder="Имя клиента" @bind-Value="_filter.ClientNameFilter" /><br />
                     <div class="filters-row">Фильтр по телефону клиента</div>
@@ -87,9 +92,9 @@
                 <InputTextArea id="commentForOrder" style="width:364px; height:100px;" @bind-Value="_commentForOrder.Text " />
             </div>
 
-            <div style="display:flex; flex-direction:row; width: 800px;">
+            <div style="display:flex; flex-direction:row; width:350px;">
                 <div>
-                    <button class="button-submit-create-order" type="submit"><b>Создать заказ</b></button>
+                    <button class="button-submit-create-order" style="width: 150px;" type="submit"><b>Создать заказ</b></button>
                 </div>
                 <div style="padding-left:20px;">
                     @if (_isAdded)
@@ -118,71 +123,175 @@
 
         </EditForm>
     </div>
-    <div style="width:550px; padding-left:100px;">
-        <div style="padding-bottom:7px;"><em>Список товаров на складе:</em></div>
-        @if (_fullProducts.Count > 0)
-        {
-            <div class="table-get-products-for-create-order">
-                <table>
-                    <thead>
-                    <th style="width:70px">№ товара</th>
-                    <th style="width:165px">Наименование товара</th>
-                    <th style="width:130px">Наименование группы</th>
-                    <th style="width:120px">Кол-во на складе</th>
-                    <th style="width:80px"> </th>
-                    </thead>
+    <div>
+        <div style="width:510px; padding-left:60px;">
+            <div style="padding-bottom:7px;"><em><u>Список рекомендуемых товаров для клиента:</u></em></div>
+            @if (_creatingOrder.Order != null && _creatingOrder.Order.ClientId != 0)
+            {
+                @if (_recomendedProducts != null && _recomendedProducts.Count > 0)
+                {
+                    <div class="table-get-recomended-products">
+                        <table>
+                            <thead>
+                                <th style="width:70px">№ товара</th>
+                                <th style="width:165px">Наименование товара</th>
+                                <th style="width:130px; background-color:#dcdcdc;">Вероятность приобретения,%</th>
+                                <th style="width:120px">Кол-во на складе</th>
+                                <th style="width:80px"> </th>
+                            </thead>
 
-                    <tbody>
-                        @foreach (var fullProduct in _fullProducts.OrderBy(p => p.Name).Where(FilterForProducts))
-                        {
-                            <tr>
-                                <td style="width:70px">@fullProduct.Id</td>
-                                <td style="width:165px">@fullProduct.Name</td>
-                                <td style="width:130px">@fullProduct.GroupName</td>
-                                <td style="width:120px; text-align:center">@fullProduct.Amount</td>
-                                <td style=" text-align:center">
-                                    <button class="button-plus" type="button" @onclick="() => AddProductToOrder(fullProduct)"
-                                    disabled="@(fullProduct.Amount==0)">
-                                        <b>+</b>
-                                    </button>
-                                </td>
+                            <tbody>
+                                @foreach (var product in _recomendedProducts)
+                                {
+                                    <tr>
+                                        <td style="width:70px">@product.Id</td>
+                                        <td style="width:165px">@product.Name</td>
+                                        <td class="pp" style="width:130px; text-align:center;">@product.PurchaseProbability</td>
+                                        <td style="width:120px; text-align:center">@product.Amount</td>
+                                        <td style=" text-align:center">
+                                            <button class="button-plus" type="button" @onclick="() => AddRecomendedProductToOrder(product)"
+                                        disabled="@(product.Amount==0)">
+                                                <b>+</b>
+                                            </button>
+                                        </td>
 
-                            </tr>
-                        }
-                    </tbody>
-                </table>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else if (_recomendedProducts == null)
+                {
+                    <div class="table-get-recomended-products">
+                        <table>
+                            <thead>
+                            <th style="width:70px">№ товара</th>
+                            <th style="width:165px">Наименование товара</th>
+                            <th style="width:130px">Вероятность приобретения,%</th>
+                            <th style="width:120px">Кол-во на складе</th>
+                            <th style="width:80px"> </th>
+                            </thead>
+
+                            <tbody>
+                                @for (int i = 0; i < 9; i++)
+                                {
+                                    <tr style="height:30px;">
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+            }
+            else if (_creatingOrder.Order != null && _creatingOrder.Order.ClientId == 0)
+            {
+                <div class="table-get-recomended-products">
+                    <table>
+                        <thead>
+                        <th style="width:70px">№ товара</th>
+                        <th style="width:165px">Наименование товара</th>
+                        <th style="width:130px">Вероятность приобретения,%</th>
+                        <th style="width:120px">Кол-во на складе</th>
+                        <th style="width:80px"> </th>
+                        </thead>
+
+                        <tbody>
+                            @for (int i = 0; i < 9; i++)
+                            {
+                                <tr style="height:30px;">
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                    <td></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+            else
+            {
+                <div><b>В настоящий момент у клиента отсутствуют рекомендуемые к покупке товары</b></div>
+            }
+
+        </div>
+
+        <div style="display:flex; flex-direction: row;">
+            <div style="width:510px; padding-left:60px;">
+                <div style="padding-bottom:7px; padding-top:15px;"><em>Список всех товаров на складе:</em></div>
+                @if (_fullProducts.Count > 0)
+                {
+                    <div class="table-get-products-for-create-order">
+                        <table>
+                            <thead>
+                            <th style="width:70px">№ товара</th>
+                            <th style="width:165px">Наименование товара</th>
+                            <th style="width:130px">Наименование группы</th>
+                            <th style="width:120px">Кол-во на складе</th>
+                            <th style="width:80px"> </th>
+                            </thead>
+
+                            <tbody>
+                                @foreach (var fullProduct in _fullProducts.OrderBy(p => p.Name).Where(FilterForProducts))
+                                {
+                                    <tr>
+                                        <td style="width:70px">@fullProduct.Id</td>
+                                        <td style="width:165px">@fullProduct.Name</td>
+                                        <td style="width:130px">@fullProduct.GroupName</td>
+                                        <td style="width:120px; text-align:center">@fullProduct.Amount</td>
+                                        <td style=" text-align:center">
+                                            <button class="button-plus" type="button" @onclick="() => AddProductToOrder(fullProduct)"
+                                            disabled="@(fullProduct.Amount==0)">
+                                                <b>+</b>
+                                            </button>
+                                        </td>
+
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                }
+                else
+                {
+                    <h3>В настоящий момент товары на складе отсутствуют</h3>
+                }
             </div>
-        }
-        else
-        {
-            <h3>В настоящий момент товары на складе отсутствуют</h3>
-        }
+            <div class="filters" style="margin-top:0px;  padding-top:25px; padding-left:5px;">
+                <EditForm Model="@_filterForProducts">
+                    <div class="filters-row">Фильтр по<br /> наименованию товара</div>
+                    <InputText id="productName" style="height: 30px; width: 180px;" placeholder="Название товара" @bind-Value="_filterForProducts.ProductNameFilter" /><br />
 
-        <div class="filters" style="margin-top:0px;  padding-top:10px; padding-left:0px;">
-            <EditForm Model="@_filterForProducts">
-                <div class="filters-row">Фильтр по наименованию товара</div>
-                <InputText id="productName" placeholder="Название товара" @bind-Value="_filterForProducts.ProductNameFilter" /><br />
+                    <div class="filters-row">Фильтр по<br /> количеству товара на складе</div>
+                    <InputNumber id="countOver" style="height: 30px; width: 180px;" placeholder="Количество От" @bind-Value="_filterForProducts.CountOverFilter" /><br />
+                    <div style="padding-top:5px;"></div>
+                    <InputNumber id="countUnder" style="height: 30px; width: 180px;" placeholder="Количество До" @bind-Value="_filterForProducts.CountUnderFilter" />
 
-                <div class="filters-row">Фильтр по количеству товара на складе</div>
-                <InputNumber id="countOver" placeholder="Количество От" @bind-Value="_filterForProducts.CountOverFilter" />
-                <InputNumber id="countUnder" placeholder="Количество До" @bind-Value="_filterForProducts.CountUnderFilter" />
-
-                <div class="filters-row">Фильтр по группе товара</div>
-                <InputSelect id="groupId" style="height: 30px; width: 200px; " @bind-Value="_filterForProducts.GroupFilter">
-                    <option></option>
-                    @foreach (var group in _groups.OrderBy(g => g.Name))
-                    {
-                        if (group != null)
+                    <div class="filters-row">Фильтр по<br /> группе товара</div>
+                    <InputSelect id="groupId" style="height: 30px; width: 180px; " @bind-Value="_filterForProducts.GroupFilter">
+                        <option></option>
+                        @foreach (var group in _groups.OrderBy(g => g.Name))
                         {
-                            <option value="@group.Id">@group.Name</option>
+                            if (group != null)
+                            {
+                                <option value="@group.Id">@group.Name</option>
+                            }
                         }
-                    }
-                </InputSelect>
+                    </InputSelect><br />
 
-                <button type="button" @onclick="NullProductFilters" class="button-submit">Сбросить фильтры по продукту</button>
-
-                <button type="button" @onclick="NullAllFilters" class="button-submit">Сбросить все фильтры</button>
-            </EditForm>
+                    <button type="button" @onclick="NullProductFilters" class="button-submit">
+                        <span style="font-size:12px;">Сбросить фильтры по продукту</span>
+                    </button><br />
+                    <button type="button" @onclick="NullAllFilters" class="button-submit">Сбросить все фильтры</button>
+                </EditForm>
+            </div>
         </div>
     </div>
 </div>
@@ -199,11 +308,15 @@
 
     private ProductService _productService;
 
+    private AggregatorService _aggregatorService;
+
     private string _errorMessage;
 
     private List<ClientOutputModel> _clients;
 
     private List<FullProductOutputModel> _fullProducts = new();
+
+    private List<SelectProductForClientOutputModel> _recomendedProducts = new();
 
     private List<GroupOutputModel> _groups = new List<GroupOutputModel>();
 
@@ -228,17 +341,19 @@
         new ProductsReviewsAndStocksRepository());
 
         _productService = new ProductService(
-       new ProductsRepository(),
-       new ProductsReviewsAndStocksRepository(),
-       new TagsRepository(),
-       new GroupRepository(),
-       new ClientRepository());
+        new ProductsRepository(),
+        new ProductsReviewsAndStocksRepository(),
+        new TagsRepository(),
+        new GroupRepository(),
+        new ClientRepository());
 
         _clientService = new ClientService();
+        _aggregatorService = new AggregatorService();
 
         ResetOrder();
         _clients = _clientService.GetAllClients();
         _fullProducts = _productService.GetFullProducts();
+        //_recomendedProducts = _aggregatorService.SelectOfPotentialProductsForClient(_creatingOrder.Order.ClientId);
         _groups = _productService.GetAllGroups();
         _commentForOrder = new();
 
@@ -417,5 +532,79 @@
                 CommentsForOrder = new(),
             };
         _commentForOrder = new();
+    }
+
+    private void GetPotentialProductsForClient()
+    {
+        try
+        {
+            _recomendedProducts = _aggregatorService.SelectOfPotentialProductsForClient(_creatingOrder.Order.ClientId);
+            //            _aggregatorService.SelectOfPotentialProductsForClient(clientId);
+            _errorMessage = string.Empty;
+        }
+        catch (ArgumentNullException ex)
+        {
+            switch (ex.Message)
+            {
+                case "Такого пользователя нет":
+                    _errorMessage = "Такого клиента не существует";
+                    break;
+
+                case "Нет данных о рейтингах комбинаций":
+                    _errorMessage = "У клиента отсутствует список рекомендуемых товаров к покупке";
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            _errorMessage = "Произошла ошибка";
+        }
+    }
+
+    private void AddRecomendedProductToOrder(SelectProductForClientOutputModel product)
+    {
+        if (product != null)
+        {
+            ProductCountInputModel productCount = new ProductCountInputModel
+                {
+                    Id = product.Id,
+                    Name = product.Name
+                };
+            if (!_creatingOrder.Products.Any(p => p.Id == product.Id))
+            {
+                _creatingOrder.Products.Add(productCount);
+                _errorMessage = string.Empty;
+            }
+            else
+            {
+                _errorMessage = "Вы уже добавили данный товар в список";
+            }
+        }
+    }
+
+    private void OnClientValueChange(int value)
+    {
+
+        _creatingOrder.Order.ClientId = value;
+        ActualizeRecomendedProducts();
+    }
+
+    private void ActualizeRecomendedProducts()
+    {
+        try
+        {
+            if (_creatingOrder.Order != null && _creatingOrder.Order.ClientId != 0)
+            {
+                _recomendedProducts = _aggregatorService.SelectOfPotentialProductsForClient(_creatingOrder.Order.ClientId);
+            }
+            else
+            {
+                _recomendedProducts = null;
+            }
+        }
+        catch (Exception ex)
+        {
+            _recomendedProducts = null;
+        }
     }
 }

@@ -11,7 +11,7 @@ AggregatorService AS = new AggregatorService();
 
 
 //var tmp = AR.GetComboTagGroupOfLikeOrDislikeByClientId(18);
-var t = AS.SelectOfPotentialProductsForClient(7);
+//var t = AS.SelectOfPotentialProductsForClient(7);
 
 
 //var t = AR.GetAvgScoreGroupeAndTagOnProductsReviewsByClientId(18);
@@ -25,5 +25,9 @@ var t = AS.SelectOfPotentialProductsForClient(7);
 //var getMap = service.
 
 //var getMap = service.GetGroupTagCountProductsCountOrdersByClientId(2);
+
+
+
+var big = AS.SelectOfPotentialProductsForClient(39);
 
 Console.WriteLine();
