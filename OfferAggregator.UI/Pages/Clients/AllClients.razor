@@ -3,16 +3,10 @@
 @attribute [Authorize]
 
 <div class="blokVerx">
-    <EditForm Model=@Client>
-        <DataAnnotationsValidator/>
-        <ValidationSummary />
     <h2>Добавить нового клиента</h2>
         <input class="forma_input" type="text" placeholder="Имя" @bind="Client.Name" />
-            <ValidationMessage For="() => Client.Name" />
-            <input class="forma_input" type="text" placeholder="Телефон" @bind-value="Client.PhoneNumber" ShowValidationIcon="true" />
-            <ValidationMessage For="() => Client.PhoneNumber" />
+        <input class="forma_input" type="text" placeholder="Телефон" @bind-value="Client.PhoneNumber" ShowValidationIcon="true" />
     <button type="submit" class="btn btn-outline-success" @onclick="AddNewClient"> Добавить </button>
-    </EditForm>
 </div>
 <div>
     @foreach (var i in _clients)
