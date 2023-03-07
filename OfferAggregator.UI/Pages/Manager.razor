@@ -3,7 +3,7 @@
 <AuthorizeView>
     <Authorized>
         <p>Hello, @context.User.Identity.Name!</p>
-        <p>Hello, @context.User.Claims.Where(c => c.Type == "Id").FirstOrDefault()!</p>
+        <p>Hello, @context.User.Claims.Where(c => c.Type == "ID").FirstOrDefault()!</p>
     </Authorized>
     <NotAuthorized>
         <p>You're not authorized.</p>

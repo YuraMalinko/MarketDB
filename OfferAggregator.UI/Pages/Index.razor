@@ -7,26 +7,10 @@
 <AuthorizeView>
     <Authorized>
         <p>Hello  @context.User.Identity.Name
-            <button type="submit" class="btn btn-primary" @onclick="perehod">clic</button>
         </p>
     </Authorized>
     <NotAuthorized>
-        <p>You're not authorized.</p>
-        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#LoginModal">
-            LogIn
-        </button>
-    </NotAuthorized>
-</AuthorizeView>
-
-
-<div class="modal fade" id="LoginModal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel"> Авторизация </h5>
-            </div>
-            <div class="modal-body">
-                <form>
+        <form>
                     <div class="mb-3">
                         <label for="exampleInputEmail1" class="form-label">Логин</label>
                         <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" @bind="newManager.Login">
@@ -36,24 +20,18 @@
                         <input type="password" class="form-control" id="exampleInputPassword1" @bind="newManager.Password">
                     </div>
                 </form>
-            </div>
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary" @onclick="LogIn">LogIn</button>
             </div>
-        </div>
-    </div>
-</div>
+    </NotAuthorized>
+</AuthorizeView>
+
 
 @code{
     ManagerAuth _manager = new ManagerAuth();
     public ManagerAuthInputModel newManager = new ManagerAuthInputModel();
     public CurrentManager NowManager;
     public string userIdentifier = string.Empty;
-
-    private void perehod()
-    {
-        _navigationManager.NavigateTo("/Manager");
-    }
 
     private void LogIn()
     {
