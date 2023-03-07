@@ -1,5 +1,6 @@
 ﻿@page "/CreateOrder"
 
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 
 <div style="display:flex; flex-direction: row; width:1100px;">
@@ -126,18 +127,18 @@
     <div>
         <div style="width:510px; padding-left:60px;">
             <div style="padding-bottom:7px;"><em><u>Список рекомендуемых товаров для клиента:</u></em></div>
-            @if (_creatingOrder.Order != null && _creatingOrder.Order.ClientId != 0)
+            @if (_creatingOrder != null && _creatingOrder.Order != null && _creatingOrder.Order.ClientId != 0)
             {
                 @if (_recomendedProducts != null && _recomendedProducts.Count > 0)
                 {
                     <div class="table-get-recomended-products">
                         <table>
                             <thead>
-                                <th style="width:70px">№ товара</th>
-                                <th style="width:165px">Наименование товара</th>
-                                <th style="width:130px; background-color:#dcdcdc;">Вероятность приобретения,%</th>
-                                <th style="width:120px">Кол-во на складе</th>
-                                <th style="width:80px"> </th>
+                            <th style="width:70px">№ товара</th>
+                            <th style="width:165px">Наименование товара</th>
+                            <th style="width:130px; background-color:#dcdcdc;">Вероятность приобретения,%</th>
+                            <th style="width:120px">Кол-во на складе</th>
+                            <th style="width:80px"> </th>
                             </thead>
 
                             <tbody>
@@ -189,7 +190,7 @@
                     </div>
                 }
             }
-            else if (_creatingOrder.Order != null && _creatingOrder.Order.ClientId == 0)
+            else if (_creatingOrder != null && _creatingOrder.Order != null && _creatingOrder.Order.ClientId == 0)
             {
                 <div class="table-get-recomended-products">
                     <table>
@@ -296,7 +297,6 @@
     </div>
 </div>
 
-
 @code {
     private CreatingOrderInputModel _creatingOrder;
 
@@ -353,17 +353,22 @@
         ResetOrder();
         _clients = _clientService.GetAllClients();
         _fullProducts = _productService.GetFullProducts();
-        //_recomendedProducts = _aggregatorService.SelectOfPotentialProductsForClient(_creatingOrder.Order.ClientId);
         _groups = _productService.GetAllGroups();
         _commentForOrder = new();
-
         _isAdded = false;
     }
 
-    private void CreateNewOrder()
+    private async Task<int> GetManagerId()
+    {
+        var state = await ((Authentication)AuthenticationStateProvider).GetAuthenticationStateAsync();
+        return Convert.ToInt32(state.User.Claims.First(c => c.Type == "ID").Value);
+    }
+
+    private async void CreateNewOrder()
     {
         try
         {
+            _creatingOrder.Order.ManagerId = await GetManagerId();
             if (_creatingOrder.Order.ClientId == 0)
             {
                 _errorMessage = "Необходимо выбрать клиента";
@@ -399,6 +404,7 @@
                 ResetOrder();
                 _fullProducts = _productService.GetFullProducts();
                 _errorMessage = string.Empty;
+                StateHasChanged();
             }
         }
         catch (ArgumentException ex)
@@ -522,11 +528,7 @@
     {
         _creatingOrder = new CreatingOrderInputModel
             {
-                Order = new OrderInputModel
-                {
-                    ManagerId = 1009,
-                    Manager = new CurrentManager(1009)
-                },
+                Order = new OrderInputModel(),
                 Products = new(),
                 CommentsForClient = new(),
                 CommentsForOrder = new(),
@@ -539,7 +541,6 @@
         try
         {
             _recomendedProducts = _aggregatorService.SelectOfPotentialProductsForClient(_creatingOrder.Order.ClientId);
-            //            _aggregatorService.SelectOfPotentialProductsForClient(clientId);
             _errorMessage = string.Empty;
         }
         catch (ArgumentNullException ex)

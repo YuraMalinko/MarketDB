@@ -34,7 +34,7 @@ namespace OfferAggregator.UI
 
             var user = new ClaimsPrincipal(identity);
 
-            return await Task.FromResult(new AuthenticationState(user));
+            return new AuthenticationState(user);
         }
 
         public void AuthenticateUser(string name, int id)
