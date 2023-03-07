@@ -1,0 +1,41 @@
+﻿@page "/Login"
+@inject NavigationManager _navigationManager
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject Blazored.SessionStorage.ISessionStorageService sessionStorage
+
+
+        <form>
+            <div class="mb-3">
+                <label for="exampleInputEmail1" class="form-label">Логин</label>
+                <input type="text" class="form-control" aria-label="Username" aria-describedby="basic-addon1" @bind="newManager.Login">
+            </div>
+            <div class="mb-3">
+                <label for="exampleInputPassword1" class="form-label">Пароль</label>
+                <input type="password" class="form-control" id="exampleInputPassword1" @bind="newManager.Password">
+            </div>
+        </form>
+        <div class="modal-footer">
+            <button type="submit" class="btn btn-primary" @onclick="LogIn">LogIn</button>
+        </div>
+
+
+@code {
+    ManagerAuth _manager = new ManagerAuth();
+    public ManagerAuthInputModel newManager = new ManagerAuthInputModel();
+    public CurrentManager NowManager;
+    public string userIdentifier = string.Empty;
+
+    private async void LogIn()
+    {
+        NowManager = _manager.ManagerAuthentication(newManager);
+        if (NowManager != null)
+        {
+            ((Authentication)AuthenticationStateProvider)
+            .AuthenticateUser(NowManager.Login, NowManager.Id);
+            _navigationManager.NavigateTo("/");
+
+            await sessionStorage.SetItemAsync("Login", NowManager.Login);
+            await sessionStorage.SetItemAsync("Id", NowManager.Id.ToString());
+        }
+    }
+}

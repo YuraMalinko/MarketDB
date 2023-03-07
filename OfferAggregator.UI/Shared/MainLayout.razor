@@ -1,4 +1,5 @@
 ﻿@inherits LayoutComponentBase
+@inject AuthenticationStateProvider AuthenticationStateProvider
 
 <PageTitle>OfferAggregator</PageTitle>
 
@@ -6,12 +7,17 @@
     <div class="sidebar" style=" background: linear-gradient(to top, #20155E, 60%, #9DB1CC)">
         <NavMenu />
     </div>
-
     <main>
         <div class="top-row px-4">
-         <a href="/CreateOrder">
-                <button class="btn-create-order"><b>Создать заказ</b></button>
-            </a>
+            <AuthorizeView>
+                <Authorized>
+                    <a href="/CreateOrder"> <button class="btn-create-order"><b> Создать заказ </b></button></a>
+                    <a href="/Logout" @onclick="Logout"> <button class=" btn-create-order"><b> Выйти из системы </b></button></a>
+                </Authorized>
+                <NotAuthorized>
+                    <a href="/Login"> <button class="btn-create-order"><b> Войти в систему </b></button></a>
+                </NotAuthorized>
+            </AuthorizeView>
         </div>
         <article class="content px-4">
             @Body
@@ -19,3 +25,10 @@
     </main>
 </div>
 
+@code{
+    public void Logout()
+    {
+        ((Authentication)AuthenticationStateProvider).LogoutUser();
+
+    }
+}
