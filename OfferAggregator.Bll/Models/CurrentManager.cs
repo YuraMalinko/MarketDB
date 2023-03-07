@@ -16,12 +16,6 @@ namespace OfferAggregator.Bll.Models
             Login = login;
             Password = password;
         }
-
-        public CurrentManager(int id)
-        {
-            Id = id;
-        }
-
         public CurrentManager()
         {
         }

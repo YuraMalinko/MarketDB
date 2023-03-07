@@ -1,10 +1,9 @@
-﻿
-@page "/groups"
+﻿@page "/groups"
 
 <div style="display:flex; flex-direction:row; width: 800px;">
     <div style="width: 800px;">
         <div>
-            <AddGroup OnGroupCreated="OnDataChanged"/>
+            <AddGroup OnGroupCreated="OnDataChanged" />
         </div>
 
         <div>
@@ -23,7 +22,6 @@
                 </table>
             </div>
         </div>
-
     </div>
 
     <div style="padding-left:100px;">
@@ -35,8 +33,6 @@
     private ProductService _productService;
 
     private List<GroupOutputModel> _groups = new();
-
-   // private AddGroup _addGroup;
 
     private UpdateAndDeleteGroup _updateAndDeleteGroup;
 

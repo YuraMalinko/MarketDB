@@ -35,19 +35,18 @@
     }
 </EditForm>
 
-
-    <div class="pop-up-success-message" >
-@if (_isAdded)
-{
+<div class="pop-up-success-message">
+    @if (_isAdded)
+    {
         <span>Товар успешно добавлен на склад!</span>
-}
-    </div>
+    }
+</div>
 
 @if (_addedProductId > 0)
 {
     <a href="/product/@_addedProductId" style="padding-top: 10px; font-family: Georgia, serif; color: navy">
         Вы можете перейти на страницу созданного товара
-        </a>
+    </a>
 }
 
 @code {

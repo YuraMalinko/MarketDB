@@ -1,7 +1,7 @@
 ﻿
 <div style="padding-top:20px; padding-bottom:10px; padding-left:5px; font-size:25px;">
     Добавление тега
-    </div>
+</div>
 
 <div style="width:400px; padding-bottom: 10px;">
     Для присвоения тега товару Вы можете выбрать существующий тег из выпадающего списка ниже.
@@ -20,7 +20,7 @@
                 <option value="@tag.Id">@tag.Name</option>
             }
         }
-    </InputSelect> <br/>
+    </InputSelect> <br />
 
     <button class="button-submit" style="margin-top: 10px;" type="submit">Добавить тег товару</button>
 </EditForm>
@@ -42,7 +42,6 @@
     <InputText id="addTag" @bind-Value="_addTag.Name" /><br />
 
     <button class="button-submit" style="margin-top: 10px;" type="submit">Создать и добавить тег товару</button>
-
 </EditForm>
 
 <div class="pop-up-success-message">
@@ -186,5 +185,4 @@
         await InvokeAsync(StateHasChanged);
         _timerAdded.Stop();
     }
-
 }

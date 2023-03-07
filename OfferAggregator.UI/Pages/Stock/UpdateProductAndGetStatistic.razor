@@ -62,11 +62,11 @@
 
                 <EditForm Model="@_updateStockProduct" OnValidSubmit="@UpdateAmountProductInStock">
                     <DataAnnotationsValidator />
-                    
+
                     <div style="width: 390px; padding-bottom: 10px; color:#161a1e; font-size: 18px;">
                         <ins>Для изменения количества товара на складе заполните форму ниже.</ins>
                     </div>
-                        <div>Введите количество, на которое хотите изменить</div>
+                    <div>Введите количество, на которое хотите изменить</div>
                     <div style="display:flex; flex-direction:row; width:900px;">
                         <InputNumber id="amount" style="width:90px" @bind-Value="_updateStockProduct.Amount" />
                         <ValidationSummary />
@@ -186,7 +186,6 @@
         _timerAmount = new Timer();
         _timerAmount.Interval = 3000;
         _timerAmount.Elapsed += StopShowingAmount;
-
         GetProductStatisticById();
     }
 
