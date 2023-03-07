@@ -59,5 +59,13 @@ namespace OfferAggregator.Bll
         {
             return ManagerRep.DeleteManager(id);
         }
+
+        public List<OrderOutputModel> GetAllOrdersByIdManager(int managId)
+        {
+            List<OrderDto> allOrder = OrderRepository.GetAllOrdersByIdManager(managId);
+            var result = _instanceMapper.MapOrdersDtoToOrderOutputModel(allOrder);
+
+            return result;
+        }
     }
 }

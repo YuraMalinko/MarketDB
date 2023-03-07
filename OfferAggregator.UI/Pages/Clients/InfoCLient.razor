@@ -21,42 +21,38 @@
     </div>
 </div>
 <div class="blokInfo">
-    <table>
-        <caption>Все заказы клиента @ClientOutput.Id</caption>
-        <thead>
+    <h2>Предложи клиенту!</h2>
+    <table id="table">
             <tr>
-                <th>Модель</th>
-                <th>Цена</th>
+                <td><b>Имя товара</b></td>
+                <td><b>Вероятность покупки</b></td>
+                <td><b>Количество на складе</b></td>
             </tr>
-        </thead>
-        <tbody>
-            <!--  Данные по iPhone  -->
-        </tbody>
-        <tbody>
-            <!-- Данные по Xiaomi -->
-        </tbody>
-        <tfoot>
-            <tr>
-                <td>Средняя цена:</td>
-                <td>$758.8</td>
-            </tr>
-        </tfoot>
-    </table>
+            @for (int i = 0; i < _allOffer.Count; i++)
+            {
+                <tr>
+                <td>@_allOffer[i].Name</td>
+                <td>@_allOffer[i].PurchaseProbability</td>
+                <td>@_allOffer[i].Amount</td>
+                </tr>
+            }
+        </table>
 </div>
 
 @code {
     [Parameter] public int Id { get; set; }
-    private ClientService _clientServis;
-    private ClientOutputModel ClientOutput;
+    ClientService _clientServis = new ClientService();
+    AggregatorService _aggregatorService = new AggregatorService();
+    private ClientOutputModel _clientOutput;
     CommentForClientInputModel CommentInput = new CommentForClientInputModel();
     List<CommentForClientOutputModel> _allComments;
-    List<OrderOutputModel> _allOrders;
+    List<SelectProductForClientOutputModel> _allOffer;
 
     protected override void OnInitialized()
     {
-        _clientServis = new ClientService();
-        ClientOutput = _clientServis.GetClientById(Id);
+        _clientOutput = _clientServis.GetClientById(Id);
         _allComments = _clientServis.GetAllCommentsForClientById(Id);
+        _allOffer = _aggregatorService.SelectOfPotentialProductsForClient(Id);
     }
 
     private void AddComment()

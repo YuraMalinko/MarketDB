@@ -190,6 +190,11 @@ namespace OfferAggregator.Bll
             return _mapper.Map<List<OrderOutputModel>>(order);
         }
 
+        public List<OrderOutputModel> MapOrdersDtoToOrderOutputModel(List<OrderDto> orders)
+        {
+            return _mapper.Map<List<OrderOutputModel>>(orders);
+        }
+
         public List<ComboTagGroupOutputModel> MapComboTagGroupDtoToComboTagGroupOutputModel(List<ComboTagGroupDto> combinations)
         {
             return _mapper.Map<List<ComboTagGroupOutputModel>>(combinations);

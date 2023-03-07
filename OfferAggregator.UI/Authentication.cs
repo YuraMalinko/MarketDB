@@ -6,6 +6,7 @@ namespace OfferAggregator.UI
 {
     public class Authentication : AuthenticationStateProvider
     {
+        public int IdUser;
         private ISessionStorageService _sessionStorageService;
 
         public Authentication(ISessionStorageService sessionStorageService) 
@@ -46,6 +47,7 @@ namespace OfferAggregator.UI
             }, "Custom Authentication");
 
             var user = new ClaimsPrincipal(identity);
+            IdUser = id;
 
             NotifyAuthenticationStateChanged(
                 Task.FromResult(new AuthenticationState(user)));
