@@ -1,5 +1,6 @@
 ﻿@page "/clients"
 @inject NavigationManager _navigationManager
+@attribute [Authorize]
 
 <div class="blokVerx">
     <EditForm Model=@Client>
@@ -34,6 +35,6 @@
     private void AddNewClient()
     {
         _clientServis.AddClient(Client);
-        _navigationManager.NavigateTo("/clients", true);
+        InvokeAsync(StateHasChanged);
     }
 }

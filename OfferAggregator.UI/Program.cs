@@ -1,11 +1,18 @@
 using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Components.Web;
+using Microsoft.AspNetCore.Components.Authorization;
+using OfferAggregator.UI;
+using Blazored.SessionStorage;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddServerSideBlazor();
+builder.Services.AddScoped<AuthenticationStateProvider, Authentication>();
+
+builder.Services.AddBlazoredSessionStorage();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -24,5 +31,8 @@ app.UseRouting();
 
 app.MapBlazorHub();
 app.MapFallbackToPage("/_Host");
+
+app.UseAuthorization();
+app.UseAuthentication();
 
 app.Run();

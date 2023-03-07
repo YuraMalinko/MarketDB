@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Blazored.SessionStorage" Version="2.3.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\OfferAggregator.Bll\OfferAggregator.Bll.csproj" />
     <ProjectReference Include="..\OfferAggregator.Dal\OfferAggregator.Dal.csproj" />
   </ItemGroup>
