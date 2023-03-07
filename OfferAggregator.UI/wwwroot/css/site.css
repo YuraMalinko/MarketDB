@@ -516,11 +516,11 @@ a, .btn-link {
         z-index: 1;
     }
 
-.table-get-recomended-products tr .pp {
-    background-color: #eae6ed;
-}
-
-    .table-get-recomended-products tr .pp:hover {
-        background-color: #b9adc4;
-        color: #FFFAFA;
+    .table-get-recomended-products tr .probability {
+        background-color: #eae6ed;
     }
+
+        .table-get-recomended-products tr .probability:hover {
+            background-color: #b9adc4;
+            color: #FFFAFA;
+        }
